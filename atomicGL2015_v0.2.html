@@ -1,0 +1,780 @@
+<html>
+<head>
+	<title>atomicGL DEBUG </title>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+	<script type="text/javascript" src="gltp1_fichiers/glMatrix-0.js"></script>
+	<script type="text/javascript" src="gltp1_fichiers/webgl-utils.js"></script>
+
+	<!-- ATOMICGL ENGINE -->
+	<!-- load "modules" -->
+	<script type="text/javascript" src="atomicGLContext.js"></script>
+	<script type="text/javascript" src="atomicGLMatrixStack.js"></script>
+	<script type="text/javascript" src="atomicGLTexture.js"></script>
+	
+	<script type="text/javascript" src="atomicGLClock.js"></script>
+
+	<script type="text/javascript" src="atomicGLShader.js"></script>
+	<script type="text/javascript" src="atomicGLwaveShader.js"></script>
+
+	<script type="text/javascript" src="atomicGLCube.js"></script>
+	<script type="text/javascript" src="atomicGLxyPlane.js"></script>
+	<script type="text/javascript" src="atomicGLxzPlane.js"></script>
+	<script type="text/javascript" src="atomicGLSphere.js"></script>
+	<script type="text/javascript" src="atomicGLCylinder.js"></script>
+
+	<!-- SHADER: vertex color -->
+	<!-- display the color of the  object -->
+	<script id="vertex_vertex-color" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// vertex color
+	// ------------------------------------------------------
+
+	// attributes inputs 
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexNormal;
+	attribute vec3 aVertexColor;
+
+	// uniform matrices
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+	uniform mat3 uNMatrix;
+
+	// uniform ambiant color
+	uniform vec3 uAmbientColor;
+
+	// output (to fragment shader)
+	varying vec3 vcolor;
+
+	void main(void) {
+		// model -> view 
+		vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+		gl_Position = uPMatrix * mvPosition;
+		
+		// vcolor
+		vcolor = uAmbientColor+aVertexColor;
+	}
+</script>
+	<script id="frag_vertex-color" type="x-shader/x-fragment">
+	#ifdef GL_ES
+		precision highp float;
+	#endif
+
+	// fragment shader
+	// ------------------------------------------------------
+	// vertex color
+	// ------------------------------------------------------
+
+	// varying input
+	varying vec3 vcolor;
+
+	// main
+	void main(void) { gl_FragColor = vec4(vcolor, 1.0);}
+
+</script>
+
+	<!-- SHADER: diffus per fragment -->
+	<!-- diffuse shader -->
+	<script id="vertex_diffuse" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// diffuse shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+		attribute vec3 aVertexPosition;
+		attribute vec3 aVertexNormal;
+		attribute vec3 aVertexColor;
+
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+	// output (to fragment shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+
+	void main(void) {
+		// model -> view 
+		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+		gl_Position = uPMatrix * vPosition;
+		// vNormal
+		vNormal = uNMatrix * aVertexNormal;	
+		// vcolor
+		vcolor = aVertexColor;
+	}
+</script>
+	<script id="frag_diffuse" type="x-shader/x-fragment">
+	#ifdef GL_ES
+		precision highp float;
+	#endif
+
+	// fragment shader
+	// ------------------------------------------------------
+	// diffuse shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// varying input (output of the vertex shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+		
+	// lights
+		// ambient
+		uniform vec3 uAmbientColor;
+
+		//point light ie omni dir:  location, color
+		uniform vec3 uPointLightPosition0;
+		uniform vec3 uPointLightColor0;
+
+	// local constant
+		// Kd: diffuse coeff
+		float Kd = 1.0 ;
+	
+	// main
+    void main(void) {	
+		// light direction
+		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+		// eye direction
+		vec3 eyeDirection = normalize(-vPosition.xyz);
+
+		// normalize normal
+		vec3 normal = normalize(vNormal);
+		//  diffuse term
+		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+			
+		// light color
+         vec3 lightColor = uAmbientColor + Kd*diffuseLightWeight*uPointLightColor0 *vcolor  ;
+
+        gl_FragColor = vec4(lightColor,1.0);
+    }
+</script>
+
+	<!-- SHADER: phong per fragment -->
+	<!-- phong shader -->
+	<script id="vertex_phong" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// phong shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+		attribute vec3 aVertexPosition;
+		attribute vec3 aVertexNormal;
+		attribute vec3 aVertexColor;
+
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+	// output (to fragment shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+
+	void main(void) {
+		// model -> view 
+		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+		gl_Position = uPMatrix * vPosition;
+		// vNormal
+		vNormal = uNMatrix * aVertexNormal;	
+		// vcolor
+		vcolor = aVertexColor;
+	}
+	</script>
+	<script id="frag_phong" type="x-shader/x-fragment">
+	#ifdef GL_ES
+		precision highp float;
+	#endif
+
+	// fragment shader
+	// ------------------------------------------------------
+	// phong shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// varying input (output of the vertex shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+		
+	// lights
+		// ambient
+		uniform vec3 uAmbientColor;
+
+		//point light ie omni dir:  location, color
+		uniform vec3 uPointLightPosition0;
+		uniform vec3 uPointLightColor0;
+
+	// local constant
+		// Kd: diffuse coeff
+		float Kd = 0.5 ;
+		float Ks = 0.5 ;
+		float sh = 8.0 ;
+		// specular color
+		vec3 specColor = vec3(1.0,1.0,1.0);
+	
+	// main
+    void main(void) {	
+		// light direction
+		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+		
+		// eye direction
+		vec3 eyeDirection = normalize(-vPosition.xyz);
+
+		// normalize normal
+		vec3 normal = normalize(vNormal);
+		
+		// reflection direction
+		vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+		
+		//  diffuse term
+		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+			
+		// specular term
+		float specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+			
+		// light color
+         vec3 lightColor = uAmbientColor + Kd*diffuseLightWeight*uPointLightColor0 *vcolor + Ks*specularLightWeight*uPointLightColor0*specColor ;
+
+        gl_FragColor = vec4(lightColor,1.0);
+    }
+	</script>	
+	
+	<!-- SHADER: cartoon per fragment -->
+	<!-- cartoon shader -->
+	<script id="vertex_cartoon" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// cartoon shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+		attribute vec3 aVertexPosition;
+		attribute vec3 aVertexNormal;
+		attribute vec3 aVertexColor;
+
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+	// output (to fragment shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+
+	void main(void) {
+		// model -> view 
+		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+		gl_Position = uPMatrix * vPosition;
+		// vNormal
+		vNormal = uNMatrix * aVertexNormal;	
+		// vcolor
+		vcolor = aVertexColor;
+	}
+	</script>
+	<script id="frag_cartoon" type="x-shader/x-fragment">
+	#ifdef GL_ES
+		precision highp float;
+	#endif
+
+	// fragment shader
+	// ------------------------------------------------------
+	// cartoon shader
+	// per fragment 
+	// lights nb: 1
+	// ------------------------------------------------------
+
+	// varying input (output of the vertex shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+		
+	// lights
+		// ambient
+		uniform vec3 uAmbientColor;
+
+		//point light ie omni dir:  location, color
+		uniform vec3 uPointLightPosition0;
+		uniform vec3 uPointLightColor0;
+
+	// local constant - could be uniform
+		// edge color
+		vec3 edgeColor = vec3(0.0,0.0,0.0);
+		// shadow color
+		vec3 shadowColor = vec3(0.0, 0.0, 0.5);
+		// midtoneColor
+		vec3 midtoneColor = vec3(0.0,0.0,1.0);
+		// highlight color
+		vec3 highLightColor = vec3(1.0,1.0, 1.0);
+		// diffuse scpecular shininess
+		float Kd = 0.5 ;
+		float Ks = 0.5 ;
+		float sh = 8.0 ;
+		// thresholds
+		float shadowMidtone = 0.0;
+		float midToneHighLight = 0.75 ;
+		float edgeThreshold = 0.95 ; 
+	
+	// main
+    void main(void) {	
+		// light direction
+		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+		
+		// eye direction
+		vec3 eyeDirection = normalize(-vPosition.xyz);
+
+		// normalize normal
+		vec3 normal = normalize(vNormal);
+		
+		// reflection direction
+		vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+		
+		//  diffuse term
+		float diffuse = max(dot(normal, lightDirection), 0.0);
+			
+		// specular term
+		float specular = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+		
+		// light
+		float light = Kd*diffuse + Ks*specular;
+		
+		// edge term
+		float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
+			
+		// color
+         vec3 final = vec3(1.0,0.0,0.0);
+         if (edge > edgeThreshold)			
+         	{ final = edgeColor;}
+         else if (light <= shadowMidtone) 	
+         	{ final = shadowColor;}
+         else if (light <= midToneHighLight)
+         	{ final = midtoneColor;}
+         else 								
+         	{ final = highLightColor;}
+
+        gl_FragColor = vec4(final,1.0);
+    }
+	</script>	
+
+
+	<!-- SHADER: texture per fragment -->
+	<!-- texture shader -->
+	<script id="vertex_texture" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// texture shader per fragment 
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+		attribute vec3 aVertexPosition;
+		attribute vec2 aVertexTexCoord;
+
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+	// output
+    varying vec2 vTextureCoord;
+
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aVertexTexCoord;
+    }
+	</script>
+	<script id="frag_texture" type="x-shader/x-fragment">
+	#ifdef GL_ES
+		precision highp float;
+	#endif
+	// fragment shader
+	// ------------------------------------------------------
+	// texture shader per fragment 
+	// ------------------------------------------------------
+
+    varying vec2 vTextureCoord;
+    uniform sampler2D uSampler0;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+    }
+	</script>
+
+	
+	<!-- SHADER: wave vertex -->
+	<!-- wave shader -->
+	<script id="vertex_wave" type="x-shader/x-vertex">
+	// vertex shader
+	// ------------------------------------------------------
+	// wave vertex shader
+	// sum of 4 sin waves
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+		attribute vec3 aVertexPosition;
+		attribute vec3 aVertexNormal;
+		attribute vec3 aVertexColor;
+
+	// uniform waves
+	// A sin(w*u + p*t)
+	// [0]: A amplitude
+	// [1]: w omega
+	// [2]: p phi
+		uniform vec3 uA0 ;
+		uniform vec3 uA1 ;
+		uniform vec3 uA2 ;
+		uniform vec3 uA3 ;
+
+	// uniform
+		uniform vec2 uXrange;
+		
+	// uniform time
+		uniform float utime ;
+
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+
+	// output (to fragment shader)
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+		varying vec3 vcolor;
+
+	void main(void) {
+		float u = (aVertexPosition.x - uXrange.x)/(uXrange.y -uXrange.x)*6.28 ;
+		float wupt0 = uA0.y*u+uA0.z*utime ;
+		float wupt1 = uA1.y*u+uA1.z*utime ;
+		float wupt2 = uA2.y*u+uA2.z*utime ;
+		float wupt3 = uA3.y*u+uA3.z*utime ;
+		// Asin
+		float Asin0 = uA0.x*sin(wupt0);
+		float Asin1 = uA1.x*sin(wupt1);
+		float Asin2 = uA2.x*sin(wupt2);
+		float Asin3 = uA3.x*sin(wupt3);
+		
+		float dy = Asin0 +Asin1 +Asin2 +Asin3 ;
+		// tangent
+		float tx =1.0;
+		float ty0 = uA0.x*6.28*uA0.y*cos(wupt0)/(uXrange.y -uXrange.x);
+		float ty1 = uA1.x*6.28*uA1.y*cos(wupt1)/(uXrange.y -uXrange.x);
+		float ty2 = uA2.x*6.28*uA2.y*cos(wupt2)/(uXrange.y -uXrange.x);
+		float ty3 = uA3.x*6.28*uA3.y*cos(wupt3)/(uXrange.y -uXrange.x);
+		float ty = ty0 + ty1 + ty2+ ty3;
+		float tz =0.0 ;
+		// normal
+		vec3 dnormal= normalize(vec3(-ty,tx,tz));
+		// model -> view 
+		vPosition = uMVMatrix * vec4(aVertexPosition+vec3(0.0,dy,0.0), 1.0);
+		gl_Position = uPMatrix * vPosition;
+		// vNormal
+		vNormal = uNMatrix * (vec3(vNormal.x,0.0,vNormal.z)+dnormal);	
+		// vcolor
+		vcolor = aVertexColor;
+	}
+</script>
+
+	<!-- ATOMICGL ENGINE -->
+	<!-- create objects -->
+	<!-- wegGLStart function (required) -->
+	<script type="text/javascript">
+	//------------------------------------------------------------------------------
+
+	// OpenGL context
+	var agl = new atomicGLContext();
+	
+	// clock
+	var sceneClock =new atomicGLClock() ;
+
+	// matrix stack
+	var ams =new atomicGLMatrixStack();
+	
+		// texture
+	var crateTexture ; 
+	var crate1Texture ; 
+	var crate2Texture ; 
+	var crate3Texture ; 
+
+	// shader and id
+	// vertex color
+	var vertexColorProg ;
+	var vertexColorProgId ;
+	// diffus
+	var diffusProg ;
+	var diffusProgId ;
+	// phong
+	var phongProg ;
+	var phongProgId ;
+	// wave
+	var waveProg ;
+	var waveProgId ;
+	// cartoon
+	var cartoonProg ;
+	var cartoonProgId ;
+
+
+	// cube
+	var cube 		= new atomicGLCube("texcube",5, 2,2,1,2) ;
+	var colorcube 	= new atomicGLCube("colorcube",1, 1,1,1,1) ;
+	var floor		= new atomicGLxzPlane("floor",50,50,200,2,10.0,10.0); 
+	var sphere0 	= new atomicGLSphere("sphere0",2.0,64,64,4.0,2.0);
+	var sphere1 	= new atomicGLSphere("sphere1",2.0,64,64,1,1);
+	var sphere2 	= new atomicGLSphere("sphere2",2.0,64,64,1,1);
+	var cyl 		= new atomicGLCylinder("cylinder",1.0,4.0,1,12,3.0,1.0);
+	var back		= new atomicGLxyPlane("back",10,20,2,2,4.0,2.0);
+	
+	// animation
+	var colorCubeYangle = 0.0 ;
+	var waveTime = 0.0 ;
+	
+
+	//webGLStart
+	function webGLStart() {
+	// init
+	// -----------------------------
+		// recover penGL canvas 
+		var canvas = document.getElementById("oglcanvas");
+
+		// init OpenGL context
+		agl.initGL(canvas,[1.0,1.0,1.0]);
+		
+		// light
+		agl.pushLight([50.0,50.0,-10.0],[1.0,1.0,1.0]); // position, color
+		agl.ambientLightColor = [0.01,0.01,0.2];	// color
+
+		// init Matrix Stack
+		ams.initMatrix(agl,45); // fov = 45 degrees
+		
+		// texture
+		test 		  =  new atomicGLTexture("texture/test.png","color",agl);
+		crateTexture  =  new atomicGLTexture("texture/crate.png","color",agl);
+		crate1Texture =  new atomicGLTexture("texture/crate1.png","color",agl);
+		crate2Texture =  new atomicGLTexture("texture/crate2.png","color",agl);
+		crate3Texture =  new atomicGLTexture("texture/crate3.png","color",agl);
+
+		// load shaders
+		vertexColorProg = new atomicGLShader("color", agl,"frag_vertex-color", "vertex_vertex-color" ,0,0);
+		diffusProg 		= new atomicGLShader("diffus", agl,"frag_diffuse", "vertex_diffuse" ,0,1);		
+		phongProg 		= new atomicGLShader("phong", agl,"frag_phong", "vertex_phong" ,0,1);
+		cartoonProg 	= new atomicGLShader("cartoon", agl,"frag_cartoon", "vertex_cartoon" ,0,1);
+		textProg 		= new atomicGLShader("texture", agl,"frag_texture", "vertex_texture" ,1,0);
+		
+		waveProg 		= new atomicGLwaveShader("wave", agl,"frag_cartoon", "vertex_wave" ,0,1);
+
+		waveProg.A0 = [0.50,1.0,1.0];
+		waveProg.A1 = [0.50,2.0,1.0]; 
+		waveProg.A2 = [0.20,3.0,1.0]; 
+		waveProg.A3 = [0.20,4.0,1.0]; 
+		waveProg.xRange = [-5.0,5.0]; 
+		// wave animation 
+		waveProg.wTime = 0.0 ;	
+
+		// push shader in context
+		vertexColorProgId 	= agl.pushProgram(vertexColorProg);
+		diffusProgId 		= agl.pushProgram(diffusProg);
+		waveProgId 			= agl.pushProgram(waveProg);
+		phongProgId			= agl.pushProgram(phongProg);
+		cartoonProgId		= agl.pushProgram(cartoonProg);		
+		textProgId			= agl.pushProgram(textProg);
+
+		// cube color & init
+		colorcube.setFaceColor("Front",[1.0,1.0,0.0]) ;
+		colorcube.setFaceColor("Back", [1.0,1.0,0.0]) ;
+		colorcube.setFaceColor("Left", [0.0,1.0,1.0]) ;
+		colorcube.setFaceColor("Right",[0.0,1.0,1.0]) ;
+		colorcube.setFaceColor("Top",  [1.0,0.0,1.0]) ;
+		colorcube.setFaceColor("Bottom",[1.0,0.0,1.0]) ;
+		colorcube.initGLBuffers(agl);
+
+		// cube texture & init
+		cube.pushTexture(crate2Texture);
+		cube.initGLBuffers(agl);
+		
+		// floor color & init
+		// floor.setFaceColor("All",[0.4,0.5,0.8]) ;
+		floor.pushTexture(test);
+		floor.initGLBuffers(agl);
+
+		// back color & init
+		// back.setFaceColor("All",[0.4,0.5,0.8]) ;
+		back.pushTexture(crate1Texture);
+		back.initGLBuffers(agl);
+		
+		// sphere 0 1 2 
+		//sphere.setFaceColor("All",[1.0,0.1,0.1]);
+		sphere0.pushTexture(crate3Texture);
+		sphere0.initGLBuffers(agl);
+		
+		sphere1.setFaceColor("All",[1.0,0.1,0.1]);
+		sphere1.initGLBuffers(agl);
+		
+		sphere2.setFaceColor("All",[1.0,0.1,0.1]);
+		sphere2.initGLBuffers(agl);
+		
+		// cylinder
+		// cyl.setFaceColor("All",[1.0,1.0,0.2]);
+		cyl.pushTexture(crateTexture);
+		cyl.initGLBuffers(agl);	
+		// start the animation
+		nextFrame();
+	}
+		
+	// draw
+	// -----------------------------
+	function sceneDraw(){
+		agl.initDraw();
+
+		// global transform
+		// ------------------------------
+		// push matrix
+		ams.mvPushMatrix();
+		// position & orientation	
+
+			ams.mvTranslate(0,-2,-20);
+			ams.mvRotate(20,[1,0,0]);
+			//ams.mvTranslate(0,-15,-30);
+			
+			// back
+			// ---------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+			// position & orientation
+				ams.mvTranslate(0.0,0.0,-20.0);
+				// draw
+				back.draw(agl,ams,textProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+					
+			// floor 
+			// ---------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+			// position & orientation
+				ams.mvTranslate(0.0,0.0,0.0);
+				ams.mvRotate(-45.0,[0,1,0]);
+				// draw
+				floor.draw(agl,ams,textProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+			
+			// colorcube
+			// ---------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+			// position & orientation
+				ams.mvTranslate(-8.0,0,0);
+				ams.mvRotate(colorCubeYangle,[0,1,0]);
+				// draw
+				colorcube.draw(agl,ams,vertexColorProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+
+			// cube
+			// ---------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+			// position & orientation
+				ams.mvTranslate(2.0,3.0,0);
+				ams.mvRotate(-30,[0,1,0]);
+				// draw
+				cube.draw(agl,ams,textProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+		
+			// sphere 2
+			// ---------------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+				// position & orientation
+				ams.mvTranslate(0.0,0.5,0);
+				// draw
+				sphere2.draw(agl,ams,phongProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+			
+			// sphere 1
+			// ---------------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+				// position & orientation
+				ams.mvTranslate(-5.0,0.5,0);
+				// draw
+				sphere1.draw(agl,ams,cartoonProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+			
+			// sphere 0
+			// ---------------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+				// position & orientation
+				ams.mvTranslate(8.0,3.0,0);
+				ams.mvRotate(colorCubeYangle,[1,0,0]);
+				ams.mvRotate(colorCubeYangle,[0,1,0]);				
+				// draw
+				sphere0.draw(agl,ams,textProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+
+			// cylinder
+			// ---------------------------------------
+			// push matrix
+			ams.mvPushMatrix();
+				// position & orientation
+				ams.mvTranslate(4.0,0.5,0.0);
+				ams.mvRotate(colorCubeYangle,[1,0,0]);
+				ams.mvRotate(colorCubeYangle,[0,1,0]);
+
+				// draw
+				cyl.draw(agl,ams,textProgId);
+			// pop matrix
+			ams.mvPopMatrix();
+
+
+
+		// ---------------------------------------	
+		// pop matrix
+		ams.mvPopMatrix();
+	}
+	
+	// nextFrame
+	// -----------------------------
+    function nextFrame() {
+        requestAnimFrame(nextFrame);
+        sceneDraw();
+        animate();
+    }
+    
+    // animate
+    // ------------------------------
+    function animate(){
+    	// increase time
+    	sceneClock.tick() ;
+    	colorCubeYangle = colorCubeYangle + 0.1*sceneClock.get();
+    	waveTime = waveTime + 0.005*sceneClock.get();
+    	waveProg.wTime = waveTime ;
+    }
+
+</script>
+</head>
+
+<body onload="webGLStart();">
+	<br>
+    <canvas id="oglcanvas" style="border: none;" width="800" height="600"></canvas>
+	<br>
+</body></html>
