@@ -38,6 +38,17 @@ atomicGLShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnb
 	// program shader
 	this.program ;
 	// attributes
+	
+
+	//1° Création des Maps Uniform & attribute
+	//2° voir texture array
+	//3° Effectuer for sur les maps et getAttribLocation ou getuniform
+	//4° Créer Program et setUniform
+
+
+
+
+
 	// --------------------------
 		this.vertexPositionAttribute ;
 		this.vertexNormalAttribute ;
@@ -106,7 +117,7 @@ atomicGLShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnb
             return null;
         }
 
-        return shader;
+        return shader;vertexPositionAttribute
 		}
 	}
 	
@@ -154,8 +165,7 @@ atomicGLShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnb
         agl.gl.enableVertexAttribArray(this.vertexColorAttribute);
 		
 		if(this.nbTex>0){
-			this.texCoordAttribute = agl.gl.getAttribLocation(program, "aVertexTexCoord");
-			agl.gl.enableVertexAttribArray(this.texCoordAttribute);
+			agl.gl.enableVertexAttribArray(agl.gl.getAttribLocation(program, "aVertexColor");
 		}
 		
 		// uniforms
