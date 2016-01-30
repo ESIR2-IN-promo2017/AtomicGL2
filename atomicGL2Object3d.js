@@ -125,16 +125,23 @@ class atomicGLObject3d{
 		// setUniforms: matrices and lights
 		aGL.shaderPrograms[idProg].setUniforms(aGL,aMS);
 		
-		// link buffer to attributes
+	// link buffer to attributes
 		//positions
-		aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexPositionAttribute, this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+     		aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexPositionAttribute, this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		}
 		//normals
-        aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexNormalAttribute, this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+        	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);
+   		    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexNormalAttribute, this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		}
 		// colors
-        aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexColorAttribute, this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+	       	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);
+	       	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexColorAttribute, this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+    	}
+
 		// textures
 		if(this.textures.length>0){
 			// debug

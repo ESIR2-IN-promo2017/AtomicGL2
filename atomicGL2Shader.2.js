@@ -15,9 +15,16 @@ class atomicGL2ShaderLoader{
 	constructor(){
 		this.vertexShaderSRC = "";
 		this.fragmentShaderSRC = "" ;
+		this.attributesShaderSRC = [];
+		this.uniformsShaderSRC = [];
+
 	}
 	getVertex(){return this.vertexShaderSRC;}
 	getFragment(){return this.fragmentShaderSRC;}
+	getAttributes(){return this.attributesShaderSRC;}
+	getUniforms(){return this.uniformsShaderSRC;}
+
+
 }
 
 class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
@@ -25,7 +32,10 @@ class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 		super();
 		this.vertexShaderSRC = this.getShaderSRC(vertexShaderID) ; 
 		this.fragmentShaderSRC = this.getShaderSRC(fragmentShaderID) ; 
+
 	}
+
+
 	// getShaderSRC
 	// -------------------------
 	// get shader source 
@@ -58,7 +68,26 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		super();
 		this.vertexShaderSRC = this.getShaderSRC(xmlfile,"vertex") ; 
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ; 
+		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"));
+		this.uniformssShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"));
+
 	}
+
+
+	Xplode(str){
+			let array = [];
+			var line= str.split("\n");
+			for (var i = 0; i < line.length; i++) {
+				var res = line[i].split(" ",3);
+				if(res[2] != null){
+					if(res[2].indexOf(';') > -1)
+						res[2]= res[2].slice(0, -1);
+					array.push(res[2]);
+				}
+			};
+			return array;
+		}
+
 	// getShaderSRC
 	// -------------------------
 	// get shader source 
@@ -73,11 +102,24 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		switch (type){
 			case "vertex" : 
 				var xvertex = xmlDoc.getElementsByTagName("VERTEX");
-				str = xvertex[0].childNodes[0].data ;
+				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
+				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
+				var xoutput = xmlDoc.getElementsByTagName("OUTPUT");
+
+				str = xvertex[0].childNodes[0].data + xattributes[0].childNodes[0].data 
+					 +xuniforms[0].childNodes[0].data + xoutput[0].childNodes[0].data ;
 			break ;
 			case "fragment" :
 				var xfragment = xmlDoc.getElementsByTagName("FRAGMENT");
 				str = xfragment[0].childNodes[0].data ;
+			break ;
+			case "attributes" :
+				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
+				str = xattributes[0].childNodes[0].data ;
+			break ;			
+				case "uniforms" :
+				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
+				str = xuniforms[0].childNodes[0].data ;
 			break ;			
 		}
 		// debug
@@ -115,6 +157,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		this.nbLight = nnbLights ;
 		// program shader
 		this.program ;
+
+		this.shaderloader =shaderloader;
 		
 		// attributes
 		// --------------------------
@@ -135,7 +179,17 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			// texture -sampler
 			this.samplerUniform = [] ;
 
-	this.build(agl,shaderloader);		
+			this.mapAttributes = new Map();
+			this.mapUniforms = new Map();
+		
+			for (var i =0; i <  shaderloader.getAttributes().length; i++) {
+				this.mapAttributes.set(shaderloader.getAttributes()[i],null);
+			};
+			for (var i =0; i <  shaderloader.getUniforms().length; i++) {
+				this.mapUniforms.set(shaderloader.getUniforms()[i],null);
+			};
+
+	this.build(agl,this.shaderloader);		
 	}
 		
 	// methods
@@ -195,15 +249,20 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// aVertexColor
 		// aVertexTexCoord
 		
-        this.vertexPositionAttribute = agl.gl.getAttribLocation(program, "aVertexPosition");
-        agl.gl.enableVertexAttribArray(this.vertexPositionAttribute);
+		for (var key of this.mapAttributes.keys()) {
+			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
+	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+		}
+	
+	 	for (var key of this.mapUniforms.keys()) {
+	        this.mapUniforms.set(key,agl.gl.getAttribLocation(program, key));
+	    	agl.gl.enableVertexAttribArray(this.mapUniforms.get(key));
+	    }
 
+		this.vertexPositionAttribute = agl.gl.getAttribLocation(program, "aVertexPosition");
         this.vertexNormalAttribute = agl.gl.getAttribLocation(program, "aVertexNormal");
-        agl.gl.enableVertexAttribArray(this.vertexNormalAttribute);
-
         this.vertexColorAttribute = agl.gl.getAttribLocation(program, "aVertexColor");
-        agl.gl.enableVertexAttribArray(this.vertexColorAttribute);
-		
+
 		if(this.nbTex>0){
 			this.texCoordAttribute = agl.gl.getAttribLocation(program, "aVertexTexCoord");
 			agl.gl.enableVertexAttribArray(this.texCoordAttribute);
@@ -287,5 +346,37 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	
 	// build
 	//-----------------------------
-	build(agl,shaderloader){ this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment()) ;}
+	build(agl,shaderloader){ 
+		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
+		
+
+	}
+
+
+	hasVertexPositionAttribute(src){
+		for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('position') > -1) || (src[i].indexOf('Position') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+	
+	hasVertexNormalAttribute(src){
+	for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('normal') > -1) || (src[i].indexOf('Normal') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+	hasVertexColorAttribute(src){
+		for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('color') > -1) || (src[i].indexOf('Color') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+			
 }

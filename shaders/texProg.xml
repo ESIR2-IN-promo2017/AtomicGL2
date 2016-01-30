@@ -8,29 +8,34 @@
 	// ------------------------------------------------------
 
 	// attributes inputs  (vertex arrays)
-		attribute vec3 aVertexPosition;
-		attribute vec3 aVertexNormal ;
-		attribute vec2 aVertexTexCoord;
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec2 aVertexTexCoord;
+		</ATTRIBUTES>
+		// uniform matrices
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
 
-	// uniform matrices
-		uniform mat4 uMVMatrix;
-		uniform mat4 uPMatrix;
-		uniform mat3 uNMatrix;
+		// output
+		<OUTPUT>
+	    	varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
 
-	// output
-    	varying vec2 vTextureCoord;
-		varying vec4 vPosition;
-		varying vec3 vNormal;
-
-    void main(void) {
-		// model -> view 
-		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-		gl_Position = uPMatrix * vPosition;
-		// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
-		// texCoord
-        vTextureCoord = aVertexTexCoord;
-    }
+	    void main(void) {
+			// model -> view 
+			vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+			gl_Position = uPMatrix * vPosition;
+			// vNormal
+			vNormal = uNMatrix * aVertexNormal;	
+			// texCoord
+	        vTextureCoord = aVertexTexCoord;
+	    }
+		</OUTPUT>
 	</VERTEX>
 	<FRAGMENT>
 	#ifdef GL_ES

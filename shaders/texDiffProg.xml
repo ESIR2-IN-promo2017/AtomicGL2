@@ -10,16 +10,23 @@
 	// ------------------------------------------------------
 	
 	// attributes inputs  (vertex arrays)
+	<ATTRIBUTES>
+		
 		attribute vec3 aVertexPosition;
 		attribute vec2 aVertexTexCoord;
 		attribute vec3 aVertexNormal;
+	</ATTRIBUTES>
+
 
 	// uniform matrices
+	<UNIFORMS>
 		uniform mat4 uMVMatrix;
 		uniform mat4 uPMatrix;
 		uniform mat3 uNMatrix;
+	</UNIFORMS>
 
 	// output
+	<OUTPUT>
     	varying vec2 vTextureCoord;
 		varying vec4 vPosition;
 		varying vec3 vNormal;
@@ -31,6 +38,7 @@
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         vTextureCoord = aVertexTexCoord;
     }
+   	</OUTPUT>
 	</VERTEX>
 	<FRAGMENT>
 	#ifdef GL_ES
