@@ -1,6 +1,6 @@
-<html>
+<html >
 <head>
-	<title>atomicGL DEBUG </title>
+	<title >atomicGL DEBUG </title>
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 	<script type="text/javascript" src="gltp1_fichiers/glMatrix-0.js"></script>
@@ -54,8 +54,18 @@
 	
 	<!-- load "modules" -->
 	
-	<script data-main="script/js/main" src="script/js/require.js"></script>
 
+
+	
+</head>
+
+<body>
+	<br>
+    <canvas id="oglcanvas" style="border: none;" width="1600" height="900"></canvas>
+	<br>
+</body>
+	<script data-main="script/js/main" src="script/js/require.js"></script>
+	
 	<!-- SHADER: vertex color -->
 	<!-- display the color of the  object -->
 	<script id="vertex_vertex-color" type="x-shader/x-vertex">
@@ -731,11 +741,4 @@
 	}
 </script>
 
-	
-</head>
-
-<body>
-	<br>
-    <canvas id="oglcanvas" style="border: none;" width="1600" height="900"></canvas>
-	<br>
-</body></html>
+	</html>
