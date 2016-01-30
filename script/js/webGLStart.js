@@ -8,7 +8,7 @@
 	//------------------------------------------------------------------------------	
 	//------------------------------------------------------------------------------	
 	
-	
+
 	// for mouse
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
@@ -30,31 +30,8 @@
 	// clock
 	var sceneClock =new atomicGL2Clock() ;
 	// -------------------------------------------------
-	//webGLStart
-	function webGLStart() {
-	// init
-	// -----------------------------
-		// recover OpenGL canvas 
-		var canvas = document.getElementById("oglcanvas");
+	
 
-		// init OpenGL context
-		// canvas, background color
-		agl.initGL(canvas,[0.15,0.1,0.5]);
-		
-		// scenegraph creation from xml file
-		var sgxml = new atomicGL2xml(agl,'scene1.xml');
-		
-		// light
-		agl.pushLight([+1000.0, 500.0, +500.0],[1.0,0.8,0.8]); // position, color
-		agl.ambientLightColor = [0.1,0.05,0.0];	// color
-
-		// init Matrix Stack
-		ams.initMatrix(agl,45); // fov = 45 degrees
-
-		// start the animation
-		nextFrame();
-	}
-		
 	// draw
 	// -----------------------------
 	function sceneDraw(){
@@ -121,3 +98,29 @@
 		mouseX = ( event.clientX - windowHalfX ) / windowHalfX;
 		mouseY = ( event.clientY - windowHalfY ) / windowHalfY;
 	}
+
+		//webGLStart
+	function webGLStart() {
+		// init
+		// -----------------------------
+		// recover OpenGL canvas 
+		var canvas = document.getElementById("oglcanvas");
+
+		// init OpenGL context
+		// canvas, background color
+		agl.initGL(canvas,[0.15,0.1,0.5]);
+			
+		// scenegraph creation from xml file
+		var sgxml = new atomicGL2xml(agl,'scene1.xml');
+			
+		// light
+		agl.pushLight([+1000.0, 500.0, +500.0],[1.0,0.8,0.8]); // position, color
+		agl.ambientLightColor = [0.1,0.05,0.0];	// color
+
+		// init Matrix Stack
+		ams.initMatrix(agl,45); // fov = 45 degrees
+
+		// start the animation
+		nextFrame();
+	}
+
