@@ -346,17 +346,17 @@ atomicGLSkyBox = function(nname,ssize){
 		//positions
 		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexPositionBuffer);
-    	    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexPositionAttribute, this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+    	    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexPosition(), this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		//normals
         if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexNormalBuffer);
-        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexNormalAttribute, this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexNormal(), this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		// colors
 		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexColorBuffer);
-        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexColorAttribute, this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexColor(), this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
     	}
 		// textures
 		if(this.textures.length>0){

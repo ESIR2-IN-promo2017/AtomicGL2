@@ -259,9 +259,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	    	agl.gl.enableVertexAttribArray(this.mapUniforms.get(key));
 	    }
 
-		this.vertexPositionAttribute = agl.gl.getAttribLocation(program, "aVertexPosition");
-        this.vertexNormalAttribute = agl.gl.getAttribLocation(program, "aVertexNormal");
-        this.vertexColorAttribute = agl.gl.getAttribLocation(program, "aVertexColor");
 
 		if(this.nbTex>0){
 			this.texCoordAttribute = agl.gl.getAttribLocation(program, "aVertexTexCoord");
@@ -377,6 +374,33 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 				return true;
 		}
 		return false;
+	}
+
+
+	getVertexPosition(){
+		for (var key of this.mapAttributes.keys()) {
+			var res = (key.indexOf('position') > -1) || (key.indexOf('position') > -1) ;
+			if(res)
+				return this.mapAttributes.get(key);
+		}
+	
+	}
+
+	getVertexNormal(){
+		for (var key of this.mapAttributes.keys()) {
+			var res = (key.indexOf('normal') > -1) || (key.indexOf('Normal') > -1) ;
+			if(res)
+				return this.mapAttributes.get(key);
+		}
+	
+	}
+	getVertexColor(){
+		for (var key of this.mapAttributes.keys()) {
+			var res = (key.indexOf('color') > -1) || (key.indexOf('Color') > -1) ;
+			if(res)
+				return this.mapAttributes.get(key);
+		}
+	
 	}
 			
 }

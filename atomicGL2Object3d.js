@@ -129,17 +129,17 @@ class atomicGLObject3d{
 		//positions
 		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-     		aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexPositionAttribute, this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+     		aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexPosition(), this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		//normals
         if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);
-   		    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexNormalAttribute, this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+   		    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexNormal(), this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		// colors
 		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
 	       	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);
-	       	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexColorAttribute, this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+	       	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexColor(), this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
     	}
 
 		// textures
