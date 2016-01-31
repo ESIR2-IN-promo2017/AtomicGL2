@@ -363,7 +363,7 @@ atomicGLSkyBox = function(nname,ssize){
 			// debug
 			// console.log("atomicGLskyBox("+this.name+")::vertexAttribPointer: "+aGL.shaderPrograms[idProg].texCoordAttribute);
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexTexCoordBuffer);
-			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].mapAttributes.get("aVertexTexCoord"), this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
+			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getTextureCoord(), this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
 		}
 		for (var i=0; i<this.textures.length; i++ ){
 			// activate texture

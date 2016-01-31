@@ -72,7 +72,6 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		this.uniformsFragmentShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniformsFragment"),"uniform");
 	}
 
-
 	/*------------------------------------------
 	
 	param type : the type request it would be "attribute" or "uniform" 
@@ -114,7 +113,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				for (var y = 0; y < res[0].length; y++) {
 					if(res[0][y] == type){
 						res[0]=res[0][y];
-					//	break;
+						break;
 					}
 				}
 				for (var y = 0; y < res[0].length; y++) {
@@ -402,6 +401,15 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	build(agl,shaderloader){ 
 		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
 	}
+
+
+
+
+//----------------Getter----------------------------------------//
+
+
+
+
 
 	/**
 	//param src : the vertex shader
