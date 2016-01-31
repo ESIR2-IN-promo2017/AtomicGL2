@@ -61,6 +61,8 @@
 		varying vec3 vNormal;
     	
     // Uniform
+    	<UNIFORMS>
+
     	uniform sampler2D uSampler0;
     	
 		// lights
@@ -70,8 +72,9 @@
 		//point light ie omni dir:  location, color
 		uniform vec3 uPointLightPosition0;
 		uniform vec3 uPointLightColor0;
+	</UNIFORMS>
 
-
+	<OUTPUT>
     void main(void) {
     	// light direction
 		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
@@ -94,5 +97,7 @@
 
         gl_FragColor = vec4(lightColor,1.0);
     }
+   	</OUTPUT>
+
 	</FRAGMENT>
 </SHADER>

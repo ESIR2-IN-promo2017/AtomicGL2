@@ -48,10 +48,10 @@ class atomicGL2xml {
 			var SHAD = listXMSHAD[i] ;
 			var shader_name = SHAD.childNodes[0].data ;
 			var file = SHAD.getAttribute("file");
-			var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
+		//	var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
 			var nblight = parseFloat(SHAD.getAttribute("nblight"));
 			// create shader and add it to context
-			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptXML(file),nbtex,nblight));
+			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
 			// debug
 		//	console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);	
 		}
@@ -62,10 +62,10 @@ class atomicGL2xml {
 			var shader_name = SHAD.childNodes[0].data ;
 			var vertex = SHAD.getAttribute("vertex");
 			var fragment = SHAD.getAttribute("fragment");
-			var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
+			//var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
 			var nblight = parseFloat(SHAD.getAttribute("nblight"));
 			// create shader and add it to context
-			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nbtex,nblight));
+			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
 			// debug
 		//	console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);	
 		}

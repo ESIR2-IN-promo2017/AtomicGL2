@@ -16,15 +16,17 @@ class atomicGL2ShaderLoader{
 		this.vertexShaderSRC = "";
 		this.fragmentShaderSRC = "" ;
 		this.attributesShaderSRC = [];
-		this.uniformsShaderSRC = [];
-
+		this.uniformsVertexShaderSRC = [];
+		this.uniformsFragmentShaderSRC = [];
+		this.sampler = [];
 	}
 	getVertex(){return this.vertexShaderSRC;}
 	getFragment(){return this.fragmentShaderSRC;}
 	getAttributes(){return this.attributesShaderSRC;}
-	getUniforms(){return this.uniformsShaderSRC;}
-
-
+	getVertexUniforms(){return this.uniformsVertexShaderSRC;}
+	getFragmentUniforms(){return this.uniformsFragmentShaderSRC;}
+	getNbTexture(){return this.sampler.length;}
+	getSampler2D(){return this.sampler;}
 }
 
 class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
@@ -32,10 +34,7 @@ class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 		super();
 		this.vertexShaderSRC = this.getShaderSRC(vertexShaderID) ; 
 		this.fragmentShaderSRC = this.getShaderSRC(fragmentShaderID) ; 
-
 	}
-
-
 	// getShaderSRC
 	// -------------------------
 	// get shader source 
@@ -68,25 +67,78 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		super();
 		this.vertexShaderSRC = this.getShaderSRC(xmlfile,"vertex") ; 
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ; 
-		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"));
-		this.uniformssShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"));
-
+		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
+		this.uniformsVertexShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniformsVertex"),"uniform");
+		this.uniformsFragmentShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniformsFragment"),"uniform");
 	}
 
 
-	Xplode(str){
-			let array = [];
-			var line= str.split("\n");
-			for (var i = 0; i < line.length; i++) {
-				var res = line[i].split(" ",3);
-				if(res[2] != null){
-					if(res[2].indexOf(';') > -1)
-						res[2]= res[2].slice(0, -1);
+	/*------------------------------------------
+	
+	param type : the type request it would be "attribute" or "uniform" 
+
+	return : an array with all the identifiers of the type 
+	
+	this funciton instanciate also the number of texture and light
+	------------------------------------------------*/
+	Xplode(str,type){
+		let array = [];
+		var line= str.split("\n");
+		for (var i = 0; i < line.length; i++) {
+			var res = line[i].split(" ");
+			if (typeof res !== 'undefined' && res.length > 0) {
+				if(res[0].indexOf('//') > -1 )
+					continue;
+				if(res[0].indexOf('\t')>-1){
+					res[0]= res[0].split('\t');
+					for (var y = 0; y < res[0].length; y++) {
+						if(res[0][y] == type){
+							res[0]=res[0][y];
+							break;
+						}
+					};
+				}
+			}		
+			//deleting the empty element in the array 
+			for(var j = res.length - 1; j >= 0; j--) {
+			    for (var k = res[j].length- 1; k >= 0; k--) {
+			    	if(res[j][k] == '') {
+			       		res[j].splice(j, 1);
+			    	}
+			    }
+   			    if(res[j] == '') {
+			       res.splice(j, 1);
+			    }
+			}
+			if (typeof res !== 'undefined' && res.length > 0) {
+				for (var y = 0; y < res[0].length; y++) {
+					if(res[0][y] == type){
+						res[0]=res[0][y];
+					//	break;
+					}
+				}
+				for (var y = 0; y < res[0].length; y++) {
+					if(res[0].charAt(y) == '\t' || res[0].charAt(y) == ' '){
+  						res[0]= res[0].substr(1);
+  					}
+				};
+			}
+
+			//retrieving the name of the variable
+			if(res[2] != null && res[0]==type){
+				if(res[2].indexOf(';') > -1)
+					res[2]= res[2].slice(0, -1);
+
+				//if it is a texture we save the sampler2D in sampler Array
+				if (res[1] == "sampler2D"){
+					this.sampler.push(res[2]);
+				}else {
 					array.push(res[2]);
 				}
-			};
-			return array;
-		}
+			}
+		};
+	return array;
+	}
 
 	// getShaderSRC
 	// -------------------------
@@ -111,15 +163,24 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 			break ;
 			case "fragment" :
 				var xfragment = xmlDoc.getElementsByTagName("FRAGMENT");
-				str = xfragment[0].childNodes[0].data ;
+				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
+				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
+				var xoutput = xmlDoc.getElementsByTagName("OUTPUT");
+
+				str = xfragment[0].childNodes[0].data + xuniforms[1].childNodes[0].data 
+													  + xoutput[1].childNodes[0].data ;
 			break ;
 			case "attributes" :
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
 				str = xattributes[0].childNodes[0].data ;
 			break ;			
-				case "uniforms" :
+				case "uniformsVertex" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str = xuniforms[0].childNodes[0].data ;
+			break ;			
+				case "uniformsFragment" :
+				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
+				str = xuniforms[1].childNodes[0].data ;
 			break ;			
 		}
 		// debug
@@ -147,31 +208,31 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(nname, agl,shaderloader,nnbTex,nnbLights){
+	constructor(nname, agl,shaderloader,nnbLights){
 		// attributes
 		// -------------------------------------------------
 		super(nname);
+
+		this.shaderloader =shaderloader;
+
+
 		// nbTex
-		this.nbTex = nnbTex ;
+		this.nbTex = this.shaderloader.getNbTexture();
+
 		// nbLights
 		this.nbLight = nnbLights ;
 		// program shader
 		this.program ;
 
-		this.shaderloader =shaderloader;
 		
 		// attributes
 		// --------------------------
-			this.vertexPositionAttribute ;
-			this.vertexNormalAttribute ;
-			this.vertexColorAttribute ;
-			this.texCoordAttribute ;
+			this.mapAttributes = new Map();
+		
 		// uniforms
 		// --------------------------
-			// uniform Matrices
-			this.pMatrixUniform ;
-			this.mvMatrixUniform ;
-			this.nMatrixUniform ;
+			this.mapUniforms = new Map();
+
 			// light
 			this.ambientColorUniform ;
 			this.pointLightLocationUniform = [] ;
@@ -179,17 +240,22 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			// texture -sampler
 			this.samplerUniform = [] ;
 
-			this.mapAttributes = new Map();
-			this.mapUniforms = new Map();
-		
-			for (var i =0; i <  shaderloader.getAttributes().length; i++) {
-				this.mapAttributes.set(shaderloader.getAttributes()[i],null);
-			};
-			for (var i =0; i <  shaderloader.getUniforms().length; i++) {
-				this.mapUniforms.set(shaderloader.getUniforms()[i],null);
-			};
+			//Initialisation of the key of the mapUniforms and mapAttributes  
+			this.initMap();
 
-	this.build(agl,this.shaderloader);		
+
+
+			this.build(agl,this.shaderloader);		
+	}
+
+	initMap(){
+		for (var i =0; i <  this.shaderloader.getAttributes().length; i++) {
+			this.mapAttributes.set(this.shaderloader.getAttributes()[i],null);
+
+		};
+		for (var i =0; i <  this.shaderloader.getVertexUniforms().length; i++) {
+			this.mapUniforms.set(this.shaderloader.getVertexUniforms()[i],null);
+		};
 	}
 		
 	// methods
@@ -210,7 +276,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(vertexShader);
 		// debug
-		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(vertexShader));
@@ -223,12 +289,15 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(fragmentShader);
 		// debug
-		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(fragmentShader));
             return null;
         }
+
+    	//console.log(this.shaderloader.getFragmentUniforms());
+
 		
 		// creation program et link
         var program = agl.gl.createProgram();
@@ -244,39 +313,22 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		// attributes
 		//------------------------
-		// aVertexPosition
-		// aVertexNormal
-		// aVertexColor
-		// aVertexTexCoord
-		
-		for (var key of this.mapAttributes.keys()) {
+       	for (var key of this.mapAttributes.keys()) {
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
 	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 		}
-	
-	 	for (var key of this.mapUniforms.keys()) {
-	        this.mapUniforms.set(key,agl.gl.getAttribLocation(program, key));
-	    	agl.gl.enableVertexAttribArray(this.mapUniforms.get(key));
-	    }
 
-
-		if(this.nbTex>0){
-			this.texCoordAttribute = agl.gl.getAttribLocation(program, "aVertexTexCoord");
-			agl.gl.enableVertexAttribArray(this.texCoordAttribute);
-		}
-		
 		// uniforms
 		//------------------------
-		// uPMatrix: 	Projection matrix
-		// uMVMatrix: 	ModelView matrix
-		// uNMatrix:	Normal matrix
-		//------------------------
-		// debug
-		//console.log("atomicGLShader::createProgram - uniforms ");
-		// matrix
-        this.pMatrixUniform = agl.gl.getUniformLocation(program, "uPMatrix");
-        this.mvMatrixUniform = agl.gl.getUniformLocation(program, "uMVMatrix");
-        this.nMatrixUniform = agl.gl.getUniformLocation(program, "uNMatrix");
+	 	for (var key of this.mapUniforms.keys()) {
+	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+
+	    }
+
+		if(this.nbTex>0){
+			agl.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
+		}
+
 		
 		// lights
 		// uAmbientColor
@@ -296,8 +348,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		
 		// textures
 		for (var i = 0; i < this.nbTex; i++) { 
-			//console.log("atomicGLShader::createProgram - getUniformLocation ->"+"uSampler"+i);
-			this.samplerUniform[i] = agl.gl.getUniformLocation(program, "uSampler"+i);
+			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
 		}
 		
         return program;
@@ -312,17 +363,22 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//console.log("atomicGLShader::setUniforms ");
     	// set this shader as active shader
     	aGL.gl.useProgram(this.program);
+
+		
     	// matrix
     	//		Projection
     	// 		Model->view
     	//		Normal built from Model->view
-    	aGL.gl.uniformMatrix4fv(this.pMatrixUniform, false, aMS.pMatrix);
-        aGL.gl.uniformMatrix4fv(this.mvMatrixUniform, false, aMS.mvMatrix);
+    	if(this.hasProjectionMatrix(this.shaderloader.getVertexUniforms()))
+   			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+    	if(this.hasModelViewMatrix(this.shaderloader.getVertexUniforms()))
+	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
 
         var normalMatrix = mat3.create();
         mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
         mat3.transpose(normalMatrix);
-        aGL.gl.uniformMatrix3fv(this.nMatrixUniform, false, normalMatrix);
+        if(this.hasNormalMatrix(this.shaderloader.getVertexUniforms()))
+        	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
         
         // Lights
         //		ambient
@@ -345,11 +401,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//-----------------------------
 	build(agl,shaderloader){ 
 		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
-		
-
 	}
 
-
+	/**
+	//param src : the vertex shader
+	//return if there is a position attribute in the vertex shader
+	*/
 	hasVertexPositionAttribute(src){
 		for(var i = 0 ;  i < src.length; ++i){
 			var res = (src[i].indexOf('position') > -1) || (src[i].indexOf('Position') > -1) ;
@@ -359,6 +416,11 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		return false;
 	}
 	
+
+	/**
+	//param src : the vertex shader
+	//return if there is a Normal attribute in the vertex shader
+	*/
 	hasVertexNormalAttribute(src){
 	for(var i = 0 ;  i < src.length; ++i){
 			var res = (src[i].indexOf('normal') > -1) || (src[i].indexOf('Normal') > -1) ;
@@ -367,6 +429,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		}
 		return false;
 	}
+
+
+	/**
+	//param src : the vertex shader
+	//return if there is a color attribute in the vertex shader
+	*/
 	hasVertexColorAttribute(src){
 		for(var i = 0 ;  i < src.length; ++i){
 			var res = (src[i].indexOf('color') > -1) || (src[i].indexOf('Color') > -1) ;
@@ -377,6 +445,50 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	}
 
 
+	/**
+	//param src : the vertex shader
+	//return if there is a projection matrix in the vertex shader
+	*/
+	hasProjectionMatrix(src){
+		for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('uPMatrix') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the vertex shader
+	//return if there is a model viex matrix in the vertex shader
+	*/
+	hasModelViewMatrix(src){
+		for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('uMVMatrix') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the vertex shader
+	//return if there is a normal Matrix in the vertex shader
+	*/
+	hasNormalMatrix(src){
+		for(var i = 0 ;  i < src.length; ++i){
+			var res = (src[i].indexOf('uNMatrix') > -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	//return the Vertex Position attribute in the vertex shader
+	*/
 	getVertexPosition(){
 		for (var key of this.mapAttributes.keys()) {
 			var res = (key.indexOf('position') > -1) || (key.indexOf('position') > -1) ;
@@ -386,6 +498,9 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	
 	}
 
+	/**
+	//return the Vertex Normal attribute in the vertex shader
+	*/
 	getVertexNormal(){
 		for (var key of this.mapAttributes.keys()) {
 			var res = (key.indexOf('normal') > -1) || (key.indexOf('Normal') > -1) ;
@@ -394,13 +509,49 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		}
 	
 	}
+
+	/**
+	//return the Vertex Color attribute in the vertex shader
+	*/
 	getVertexColor(){
 		for (var key of this.mapAttributes.keys()) {
 			var res = (key.indexOf('color') > -1) || (key.indexOf('Color') > -1) ;
 			if(res)
 				return this.mapAttributes.get(key);
 		}
-	
 	}
-			
+
+	/**
+	//return the Projection Matrix uniform in the vertex shader
+	*/
+	getProjectionMatrix(){
+		return this.mapUniforms.get("uPMatrix");
+	}
+
+	/**
+	//return the Model View Matrix uniform in the vertex shader
+	*/
+	getModelViewMatrix(){
+		return this.mapUniforms.get("uMVMatrix");
+	}
+
+	/**
+	//return the Normal Matrix uniform in the vertex shader
+	*/
+	getNormalMatrix(){
+		return this.mapUniforms.get("uNMatrix");
+	}
+
+
+	getTextureCoord(){
+		return this.mapAttributes.get("aVertexTexCoord");
+	}
+
+	getTextureID(id){
+		return this.shaderloader.getSampler2D()[id];
+	}
+
+	getAllTexture(){
+		return this.shaderloader.getSampler2D();
+	}
 }

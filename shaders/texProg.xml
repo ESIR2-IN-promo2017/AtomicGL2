@@ -8,49 +8,56 @@
 	// ------------------------------------------------------
 
 	// attributes inputs  (vertex arrays)
-		<ATTRIBUTES>
-			attribute vec3 aVertexPosition;
-			attribute vec3 aVertexNormal;
-			attribute vec2 aVertexTexCoord;
+			<ATTRIBUTES>
+		attribute vec3 aVertexPosition;
+		attribute vec2 aVertexTexCoord;
+		attribute vec3 aVertexNormal;
 		</ATTRIBUTES>
-		// uniform matrices
+
+
 		<UNIFORMS>
-			uniform mat4 uMVMatrix;
-			uniform mat4 uPMatrix;
-			uniform mat3 uNMatrix;
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
 		</UNIFORMS>
 
-		// output
-		<OUTPUT>
-	    	varying vec2 vTextureCoord;
-			varying vec4 vPosition;
-			varying vec3 vNormal;
+	// output
+	<OUTPUT>
 
-	    void main(void) {
-			// model -> view 
-			vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-			gl_Position = uPMatrix * vPosition;
-			// vNormal
-			vNormal = uNMatrix * aVertexNormal;	
-			// texCoord
-	        vTextureCoord = aVertexTexCoord;
-	    }
+    	varying vec2 vTextureCoord;
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+
+    void main(void) {
+    	// vNormal
+		vNormal = uNMatrix * aVertexNormal;	
+    
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aVertexTexCoord;
+    }
 		</OUTPUT>
 	</VERTEX>
 	<FRAGMENT>
-	#ifdef GL_ES
-	precision highp float;
-	#endif
-	// fragment shader
-	// ------------------------------------------------------
-	// texture shader per fragment 
-	// ------------------------------------------------------
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+		// fragment shader
+		// ------------------------------------------------------
+		// texture shader per fragment 
+		// ------------------------------------------------------
 
-    varying vec2 vTextureCoord;
-    uniform sampler2D uSampler0;
+	    varying vec2 vTextureCoord;
 
-    void main(void) {
-        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
-    }
+		<UNIFORMS>
+	    	uniform sampler2D uSampler0;
+		</UNIFORMS>
+
+
+		<OUTPUT>
+		    void main(void) {
+		        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+		    }
+		</OUTPUT>
 	</FRAGMENT>
 </SHADER>
