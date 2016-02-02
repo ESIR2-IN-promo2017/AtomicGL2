@@ -14,11 +14,27 @@ class atomicGL2Light {
 	// inputs
 	//------------------------
 	// ccolor	   : Light color
-	
+
 	constructor(ccolor){
 		// attributes
 		// -------------------------------------------------
 		// GL lights
 		this.color = ccolor;
+	}
+
+	getColor(){
+		return this.color;
+	}
+
+	getPosition(){
+		return null;
+	}
+
+	getDirection(){
+		return null;
+	}
+
+	getRadius(){
+		return null;
 	}
 }

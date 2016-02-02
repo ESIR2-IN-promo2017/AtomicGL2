@@ -23,4 +23,8 @@ class atomicGL2PointLight extends atomicGL2Light {
 		super(ccolor);
 		this.position = pposition;
 	}
+
+	getPosition(){
+		return this.position;
+	}
 }
