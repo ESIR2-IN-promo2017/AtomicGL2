@@ -100,7 +100,7 @@
 			
 		// scenegraph creation from xml file
 		var sgxml = new atomicGL2xml(agl,'scene1.xml');
-			
+		
 		// light
 		agl.pushLight([+1000.0, 500.0, +500.0],[1.0,0.8,0.8]); // position, color
 		agl.ambientLightColor = [0.1,0.05,0.0];	// color

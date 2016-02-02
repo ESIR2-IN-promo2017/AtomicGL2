@@ -23,7 +23,7 @@ class atomicGL2ShaderLoader{
 	getVertex(){return this.vertexShaderSRC;}
 	getFragment(){return this.fragmentShaderSRC;}
 	getAttributes(){return this.attributesShaderSRC;}
-	getVertexUniforms(){return this.uniformsVertexShaderSRC;}
+	getVertexUniforms(){ return this.uniformsVertexShaderSRC;}
 	getFragmentUniforms(){return this.uniformsFragmentShaderSRC;}
 	getNbTexture(){return this.sampler.length;}
 	getSampler2D(){return this.sampler;}
@@ -84,6 +84,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		let array = [];
 		var line= str.split("\n");
 		for (var i = 0; i < line.length; i++) {
+			let elem =[];
 			var res = line[i].split(" ");
 			if (typeof res !== 'undefined' && res.length > 0) {
 				if(res[0].indexOf('//') > -1 )
@@ -132,7 +133,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				if (res[1] == "sampler2D"){
 					this.sampler.push(res[2]);
 				}else {
-					array.push(res[2]);
+					elem.push(res[1], res[2]);
+					array.push(elem);
 				}
 			}
 		};
@@ -223,7 +225,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// program shader
 		this.program ;
 
-		
+		this.i;
 		// attributes
 		// --------------------------
 			this.mapAttributes = new Map();
@@ -249,11 +251,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	initMap(){
 		for (var i =0; i <  this.shaderloader.getAttributes().length; i++) {
-			this.mapAttributes.set(this.shaderloader.getAttributes()[i],null);
-
+			this.mapAttributes.set(this.shaderloader.getAttributes()[i][1],null);
 		};
 		for (var i =0; i <  this.shaderloader.getVertexUniforms().length; i++) {
-			this.mapUniforms.set(this.shaderloader.getVertexUniforms()[i],null);
+			this.mapUniforms.set(this.shaderloader.getVertexUniforms()[i][1],null);
 		};
 	}
 		
@@ -315,6 +316,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
        	for (var key of this.mapAttributes.keys()) {
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
 	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+
 		}
 
 		// uniforms
@@ -392,8 +394,29 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.omniLightLocation[i*3+0], aGL.omniLightLocation[i*3+1], aGL.omniLightLocation[i*3+2]);
 			aGL.gl.uniform3f(this.pointLightColorUniform[i],aGL.omniLightColor[i*3+0],aGL.omniLightColor[i*3+1],aGL.omniLightColor[i*3+2]);
 		}
-		
-		// textures
+
+		/*for (var i = 0; i <this.shaderloader.getVertexUniforms().length ;i++) {
+			for (var key of this.mapUniforms.keys()) {
+				if((this.shaderloader.getVertexUniforms()[i])[1] == key){
+					switch ((this.shaderloader.getVertexUniforms()[i])[0]) {
+						case "vec4":
+							
+							console.log('vec3');
+							break;
+						case "vec3":
+							aGL.gl.uniform3f(this.mapUniforms.get(key),);
+
+							console.log('vec2');
+							break;	
+						default:
+							// statements_def
+							break;
+					}
+				}
+
+		  	}
+		}*/
+
     }
 	
 	// build
@@ -412,12 +435,15 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 	/**
-	//param src : the vertex shader
+	//param src : the attributes of the vertex shader 
+		src[0] : one attribute
+		src[0][0] : type (vec3 | vec 2 ...)
+		src[0][1] : the identifier of the attribute 
 	//return if there is a position attribute in the vertex shader
 	*/
 	hasVertexPositionAttribute(src){
 		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('position') > -1) || (src[i].indexOf('Position') > -1) ;
+			var res = (src[i][1].indexOf('position') > -1) || (src[i][1].indexOf('Position') > -1) ;
 			if(res)
 				return true;
 		}
@@ -426,12 +452,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	
 
 	/**
-	//param src : the vertex shader
+	//param src : the attributes of the vertex shader 
 	//return if there is a Normal attribute in the vertex shader
 	*/
 	hasVertexNormalAttribute(src){
 	for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('normal') > -1) || (src[i].indexOf('Normal') > -1) ;
+			var res = (src[i][1].indexOf('normal') > -1) || (src[i][1].indexOf('Normal') > -1) ;
 			if(res)
 				return true;
 		}
@@ -440,7 +466,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 	/**
-	//param src : the vertex shader
+	//param src : the attributes of the vertex shader
 	//return if there is a color attribute in the vertex shader
 	*/
 	hasVertexColorAttribute(src){
@@ -454,12 +480,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 	/**
-	//param src : the vertex shader
+	//param src : the uniforms of the vertex shader
 	//return if there is a projection matrix in the vertex shader
 	*/
 	hasProjectionMatrix(src){
 		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('uPMatrix') > -1) ;
+			var res = (src[i][1].indexOf('uPMatrix') > -1) ;
 			if(res)
 				return true;
 		}
@@ -468,12 +494,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 	/**
-	//param src : the vertex shader
+	//param src : the uniforms of the vertex shader
 	//return if there is a model viex matrix in the vertex shader
 	*/
 	hasModelViewMatrix(src){
 		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('uMVMatrix') > -1) ;
+			var res = (src[i][1].indexOf('uMVMatrix') > -1) ;
 			if(res)
 				return true;
 		}
@@ -482,12 +508,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 	/**
-	//param src : the vertex shader
+	//param src : the uniforms of the vertex shader
 	//return if there is a normal Matrix in the vertex shader
 	*/
 	hasNormalMatrix(src){
 		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('uNMatrix') > -1) ;
+			var res = (src[i][1].indexOf('uNMatrix') > -1) ;
 			if(res)
 				return true;
 		}
@@ -499,9 +525,11 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	getVertexPosition(){
 		for (var key of this.mapAttributes.keys()) {
+
 			var res = (key.indexOf('position') > -1) || (key.indexOf('position') > -1) ;
-			if(res)
+			if(res){
 				return this.mapAttributes.get(key);
+			}
 		}
 	
 	}
