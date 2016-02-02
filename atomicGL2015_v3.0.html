@@ -5,7 +5,7 @@
 
 	<script type="text/javascript" src="gltp1_fichiers/glMatrix-0.js"></script>
 	<script type="text/javascript" src="gltp1_fichiers/webgl-utils.js"></script>
-	
+
 	<!-- ATOMICGL ENGINE -->
 	<!-- load "objects" -->
 	<script type="text/javascript" src="objs/palais_v01_bois_parquet.js"></script>
@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="objs/palais_v01_mur.js"></script>
 	<script type="text/javascript" src="objs/palais_v01_terrase.js"></script>
 	<script type="text/javascript" src="objs/palais_v01_toiture.js"></script>
-	
+
 	<script type="text/javascript" src="objs/donjonBase.js"></script>
 	<script type="text/javascript" src="objs/donjonBois.js"></script>
 	<script type="text/javascript" src="objs/donjonFenetre.js"></script>
@@ -32,7 +32,7 @@
 	<script type="text/javascript" src="objs/maison3.js"></script>
 	<script type="text/javascript" src="objs/maison3roof.js"></script>
 	<script type="text/javascript" src="objs/maison3wood.js"></script>
-	
+
 	<script type="text/javascript" src="objs/sol_herbe.js"></script>
 	<script type="text/javascript" src="objs/sol_route.js"></script>
 	<script type="text/javascript" src="objs/sol_muret.js"></script>
@@ -40,7 +40,7 @@
 
 	<script type="text/javascript" src="objs/pont_dessus.js"></script>
 	<script type="text/javascript" src="objs/pont_pierre.js"></script>
-	
+
 	<script type="text/javascript" src="objs/tour1base.js"></script>
 	<script type="text/javascript" src="objs/tour1mur.js"></script>
 	<script type="text/javascript" src="objs/tour1parape.js"></script>
@@ -51,12 +51,12 @@
 	<script type="text/javascript" src="objs/mur2pierre.js"></script>
 	<script type="text/javascript" src="objs/mur2bois.js"></script>
 	<script type="text/javascript" src="objs/mur2toit.js"></script>
-	
+
 	<!-- load "modules" -->
-	
 
 
-	
+
+
 </head>
 
 <body>
@@ -65,7 +65,7 @@
 	<br>
 </body>
 	<script data-main="script/js/main" src="script/js/require.js"></script>
-	
+
 	<!-- SHADER: vertex color -->
 	<!-- display the color of the  object -->
 	<script id="vertex_vertex-color" type="x-shader/x-vertex">
@@ -74,7 +74,7 @@
 	// vertex color
 	// ------------------------------------------------------
 
-	// attributes inputs 
+	// attributes inputs
 	attribute vec3 aVertexPosition;
 	attribute vec3 aVertexNormal;
 	attribute vec3 aVertexColor;
@@ -91,10 +91,10 @@
 	varying vec3 vcolor;
 
 	void main(void) {
-		// model -> view 
+		// model -> view
 		vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 		gl_Position = uPMatrix * mvPosition;
-		
+
 		// vcolor
 		vcolor = uAmbientColor+aVertexColor;
 	}
@@ -123,7 +123,7 @@
 	// vertex shader
 	// ------------------------------------------------------
 	// diffuse shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -143,11 +143,11 @@
 		varying vec3 vcolor;
 
 	void main(void) {
-		// model -> view 
+		// model -> view
 		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 		gl_Position = uPMatrix * vPosition;
 		// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
+		vNormal = uNMatrix * aVertexNormal;
 		// vcolor
 		vcolor = aVertexColor;
 	}
@@ -160,7 +160,7 @@
 	// fragment shader
 	// ------------------------------------------------------
 	// diffuse shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -168,7 +168,7 @@
 		varying vec4 vPosition;
 		varying vec3 vNormal;
 		varying vec3 vcolor;
-		
+
 	// lights
 		// ambient
 		uniform vec3 uAmbientColor;
@@ -180,9 +180,9 @@
 	// local constant
 		// Kd: diffuse coeff
 		float Kd = 1.0 ;
-	
+
 	// main
-    void main(void) {	
+    void main(void) {
 		// light direction
 		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
 		// eye direction
@@ -192,7 +192,7 @@
 		vec3 normal = normalize(vNormal);
 		//  diffuse term
 		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
-			
+
 		// light color
          vec3 lightColor = uAmbientColor + Kd*diffuseLightWeight*uPointLightColor0 *vcolor  ;
 
@@ -206,7 +206,7 @@
 	// vertex shader
 	// ------------------------------------------------------
 	// phong shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -226,11 +226,11 @@
 		varying vec3 vcolor;
 
 	void main(void) {
-		// model -> view 
+		// model -> view
 		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 		gl_Position = uPMatrix * vPosition;
 		// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
+		vNormal = uNMatrix * aVertexNormal;
 		// vcolor
 		vcolor = aVertexColor;
 	}
@@ -243,7 +243,7 @@
 	// fragment shader
 	// ------------------------------------------------------
 	// phong shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -251,7 +251,7 @@
 		varying vec4 vPosition;
 		varying vec3 vNormal;
 		varying vec3 vcolor;
-		
+
 	// lights
 		// ambient
 		uniform vec3 uAmbientColor;
@@ -267,41 +267,41 @@
 		float sh = 8.0 ;
 		// specular color
 		vec3 specColor = vec3(1.0,1.0,1.0);
-	
+
 	// main
-    void main(void) {	
+    void main(void) {
 		// light direction
 		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
-		
+
 		// eye direction
 		vec3 eyeDirection = normalize(-vPosition.xyz);
 
 		// normalize normal
 		vec3 normal = normalize(vNormal);
-		
+
 		// reflection direction
 		vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
-		
+
 		//  diffuse term
 		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
-			
+
 		// specular term
 		float specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
-			
+
 		// light color
          vec3 lightColor = uAmbientColor + Kd*diffuseLightWeight*uPointLightColor0 *vcolor + Ks*specularLightWeight*uPointLightColor0*specColor ;
 
         gl_FragColor = vec4(lightColor,1.0);
     }
-	</script>	
-	
+	</script>
+
 	<!-- SHADER: cartoon per fragment -->
 	<!-- cartoon shader -->
 	<script id="vertex_cartoon" type="x-shader/x-vertex">
 	// vertex shader
 	// ------------------------------------------------------
 	// cartoon shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -321,11 +321,11 @@
 		varying vec3 vcolor;
 
 	void main(void) {
-		// model -> view 
+		// model -> view
 		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 		gl_Position = uPMatrix * vPosition;
 		// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
+		vNormal = uNMatrix * aVertexNormal;
 		// vcolor
 		vcolor = aVertexColor;
 	}
@@ -338,7 +338,7 @@
 	// fragment shader
 	// ------------------------------------------------------
 	// cartoon shader
-	// per fragment 
+	// per fragment
 	// lights nb: 1
 	// ------------------------------------------------------
 
@@ -346,7 +346,7 @@
 		varying vec4 vPosition;
 		varying vec3 vNormal;
 		varying vec3 vcolor;
-		
+
 	// lights
 		// ambient
 		uniform vec3 uAmbientColor;
@@ -371,55 +371,55 @@
 		// thresholds
 		float shadowMidtone = 0.0;
 		float midToneHighLight = 0.75 ;
-		float edgeThreshold = 0.95 ; 
-	
+		float edgeThreshold = 0.95 ;
+
 	// main
-    void main(void) {	
+    void main(void) {
 		// light direction
 		vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
-		
+
 		// eye direction
 		vec3 eyeDirection = normalize(-vPosition.xyz);
 
 		// normalize normal
 		vec3 normal = normalize(vNormal);
-		
+
 		// reflection direction
 		vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
-		
+
 		//  diffuse term
 		float diffuse = max(dot(normal, lightDirection), 0.0);
-			
+
 		// specular term
 		float specular = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
-		
+
 		// light
 		float light = Kd*diffuse + Ks*specular;
-		
+
 		// edge term
 		float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
-			
+
 		// color
          vec3 final = vec3(1.0,0.0,0.0);
-         if (edge > edgeThreshold)			
+         if (edge > edgeThreshold)
          	{ final = edgeColor;}
-         else if (light <= shadowMidtone) 	
+         else if (light <= shadowMidtone)
          	{ final = shadowColor;}
          else if (light <= midToneHighLight)
          	{ final = midtoneColor;}
-         else 								
+         else
          	{ final = highLightColor;}
 
         gl_FragColor = vec4(final,1.0);
     }
-	</script>	
+	</script>
 
 	<!-- SHADER: texture per fragment -->
 	<!-- texture shader -->
 	<script id="vertex_texture" type="x-shader/x-vertex">
 	// vertex shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 
 	// attributes inputs  (vertex arrays)
@@ -438,11 +438,11 @@
 		varying vec3 vNormal;
 
     void main(void) {
-		// model -> view 
+		// model -> view
 		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 		gl_Position = uPMatrix * vPosition;
 		// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
+		vNormal = uNMatrix * aVertexNormal;
 		// texCoord
         vTextureCoord = aVertexTexCoord;
     }
@@ -453,7 +453,7 @@
 	#endif
 	// fragment shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 
     varying vec2 vTextureCoord;
@@ -464,17 +464,17 @@
     }
 	</script>
 
-	
+
 	<!-- SHADER: textureDiff -->
 	<!-- texture diffus shader -->
 	<script id="vertex_texDiff" type="x-shader/x-vertex">
 	// vertex shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 	// lights nb: 1
 	// ------------------------------------------------------
-	
+
 	// attributes inputs  (vertex arrays)
 		attribute vec3 aVertexPosition;
 		attribute vec2 aVertexTexCoord;
@@ -492,8 +492,8 @@
 
     void main(void) {
     	// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
-    
+		vNormal = uNMatrix * aVertexNormal;
+
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         vTextureCoord = aVertexTexCoord;
     }
@@ -504,23 +504,23 @@
 	#endif
 	// fragment shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 	// lights nb: 1
 	// ------------------------------------------------------
-	
+
 	// local constant
 		// Kd: diffuse coeff
-		float Kd = 1.0 ;	
-		
+		float Kd = 1.0 ;
+
 	// inputs
     	varying vec2 vTextureCoord;
 		varying vec4 vPosition;
 		varying vec3 vNormal;
-    	
+
     // Uniform
     	uniform sampler2D uSampler0;
-    	
+
 		// lights
 		// ambient
 		uniform vec3 uAmbientColor;
@@ -541,10 +541,10 @@
 
 		//  diffuse term
 		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
-		
+
 		// texture color
 		vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
-			
+
 		// light color
 		vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*uPointLightColor0 *texColor.rgb ;
 
@@ -553,17 +553,17 @@
         gl_FragColor = vec4(lightColor,1.0);
     }
 	</script>
-	
+
 	<!-- SHADER: texture Diffus & normal map -->
 	<!-- texture diffus and normal mapshader -->
 	<script id="vertex_texDiffNormalMap" type="x-shader/x-vertex">
 	// vertex shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 	// lights nb: 1
 	// ------------------------------------------------------
-	
+
 	// attributes inputs  (vertex arrays)
 		attribute vec3 aVertexPosition;
 		attribute vec2 aVertexTexCoord;
@@ -581,8 +581,8 @@
 
     void main(void) {
     	// vNormal
-		vNormal = uNMatrix * aVertexNormal;	
-    
+		vNormal = uNMatrix * aVertexNormal;
+
         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         vTextureCoord = aVertexTexCoord;
     }
@@ -593,24 +593,24 @@
 	#endif
 	// fragment shader
 	// ------------------------------------------------------
-	// texture shader per fragment 
+	// texture shader per fragment
 	// ------------------------------------------------------
 	// lights nb: 1
 	// ------------------------------------------------------
-	
+
 	// local constant
 		// Kd: diffuse coeff
-		float Kd = 1.0 ;	
-		
+		float Kd = 1.0 ;
+
 	// inputs
     	varying vec2 vTextureCoord;
 		varying vec4 vPosition;
 		varying vec3 vNormal;
-    	
+
     // Uniform
     	uniform sampler2D uSampler0;
     	uniform sampler2D uSampler1;
-    	
+
 		// lights
 		// ambient
 		uniform vec3 uAmbientColor;
@@ -640,17 +640,17 @@
 		// no transpose
 		vec3 u1 = tangent ;
 		vec3 u2 = biTangent;
-		vec3 u3 = oldNormal;		
+		vec3 u3 = oldNormal;
 		// TS to view matrix
 		mat3 TBN = mat3(u1,u2,u3);
 		// transform normal
 		vec3 normal = TBN*newNormalTS ;
 		//  diffuse term
 		float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
-		
+
 		// texture color
 		vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
-			
+
 		// light color
 		vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*uPointLightColor0 *texColor.rgb ;
 
@@ -660,7 +660,7 @@
     }
 	</script>
 
-	
+
 	<!-- SHADER: wave vertex -->
 	<!-- wave shader -->
 	<script id="vertex_wave" type="x-shader/x-vertex">
@@ -674,7 +674,7 @@
 		attribute vec3 aVertexPosition;
 		attribute vec3 aVertexNormal;
 		attribute vec2 aVertexTexCoord;
-		
+
 	// uniform waves
 	// A sin(w*u + p*t)
 	// [0]: A amplitude
@@ -687,7 +687,7 @@
 
 	// uniform
 		uniform vec2 uXrange;
-		
+
 	// uniform time
 		uniform float utime ;
 
@@ -708,15 +708,15 @@
 		float wupt1 = uA1.y*u+uA1.z*utime ;
 		float wupt2 = uA2.y*u+uA2.z*utime ;
 		float wupt3 = uA3.y*u+uA3.z*utime ;
-		
+
 		// Asin
 		float Asin0 = uA0.x*sin(wupt0);
 		float Asin1 = uA1.x*sin(wupt1);
 		float Asin2 = uA2.x*sin(wupt2);
 		float Asin3 = uA3.x*sin(wupt3);
-		
+
 		float dy = Asin0 +Asin1 +Asin2 +Asin3 ;
-		
+
 		// tangent
 		float tx =1.0;
 		float ty0 = uA0.x*6.28*uA0.y*cos(wupt0)/(uXrange.y -uXrange.x);
@@ -725,20 +725,21 @@
 		float ty3 = uA3.x*6.28*uA3.y*cos(wupt3)/(uXrange.y -uXrange.x);
 		float ty = ty0 + ty1 + ty2+ ty3;
 		float tz =0.0 ;
-		
+
 		// normal
 		vec3 dnormal= normalize(vec3(-ty,tx,tz));
-		
-		// model -> view 
+
+		// model -> view
 		vPosition = uMVMatrix * vec4(aVertexPosition+vec3(0.0,dy,0.0), 1.0);
 		gl_Position = uPMatrix * vPosition;
-		
+
 		// vNormal
-		vNormal = uNMatrix * (vec3(vNormal.x,0.0,vNormal.z)+dnormal);	
-		
+		vNormal = uNMatrix * (vec3(vNormal.x,0.0,vNormal.z)+dnormal);
+
 		// vTextureCoord
 		vTextureCoord = aVertexTexCoord;
 	}
 </script>
 <!-- TEST -->
-	</html>
+<!-- TEST2 -->
+</html>
