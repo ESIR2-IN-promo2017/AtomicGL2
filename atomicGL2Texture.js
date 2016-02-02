@@ -1,6 +1,6 @@
 // atomicGL
 //----------------------------------------------------------------------------------------
-// author: RC				
+// author: RC
 // contact: cozot@irisa.fr
 // version: 0.1
 // current version date: 2016/01/26
@@ -16,7 +16,7 @@ class atomicGL2Texture{
 //------------------------
 // inputs
 //------------------------
-// ffile: 		texture filename - string
+// ffile: 	texture filename - string
 // ttype:		texture type : color | normal | displacement | specular | opacity - string
 // aagl:		atomicGL context
 
@@ -37,11 +37,11 @@ class atomicGL2Texture{
 		// texture image
 		this.textureImage = new Image();
 		// ogl texture
-    	this.texture = aagl.gl.createTexture();
-    	this.texture.image =   this.textureImage ;
-    	
-    	// build
-    	this.build(); 
+    this.texture = aagl.gl.createTexture();
+    this.texture.image =   this.textureImage ;
+
+    // build
+    this.build();
 	}
 	// --------------------------------------------------
 	// methods
@@ -56,7 +56,7 @@ class atomicGL2Texture{
 		var o = this ;
 		// debug
 		//console.log("atomicGLTexture::onload("+o.file+")");
-		
+
         o.agl.gl.pixelStorei(o.agl.gl.UNPACK_FLIP_Y_WEBGL, true);
 		// bindTexture
         o.agl.gl.bindTexture(o.agl.gl.TEXTURE_2D, o.texture);
@@ -66,7 +66,7 @@ class atomicGL2Texture{
         o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MIN_FILTER, o.agl.gl.LINEAR_MIPMAP_NEAREST);
         o.agl.gl.generateMipmap(o.agl.gl.TEXTURE_2D);
 		// unbind
-        o.agl.gl.bindTexture(agl.gl.TEXTURE_2D, null);	
+        o.agl.gl.bindTexture(agl.gl.TEXTURE_2D, null);
 		// loaded !
 		o.loaded = true ;
 	}

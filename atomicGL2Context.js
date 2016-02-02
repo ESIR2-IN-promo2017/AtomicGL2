@@ -1,6 +1,6 @@
 // atomicGL
 //----------------------------------------------------------------------------------------
-// author: RC				
+// author: RC
 // contact: cozot@irisa.fr
 // version: 2.3
 // current version date: 2016/01/26
@@ -10,7 +10,7 @@
 
 class atomicGL2Context {
 	// constructor
-	
+
 	//------------------------
 	constructor(){
 		// attributes
@@ -21,30 +21,34 @@ class atomicGL2Context {
 		this.viewportWidth ;
 		this.viewportHeight ;
 
-		// lights
-		// ambient
-		this.ambientLightColor = [0.01,0.01,0.1];
-		// omniDirLight
-		this.omniLightColor = [] ;
-		this.omniLightLocation = [] ;
-		this.omniLightNumber = 0;
-	 
+		// // lights
+		// // ambient
+		this.ambientLightColor = [0.0,0.0,0.0];
+		//this.ambientLightColor;
+
+		// // omniDirLight
+		// this.omniLightColor = [];
+		// this.omniLightLocation = [];
+		// this.omniLightNumber = 0;
+
 		// GLtexture
-		this.GLtexture = [] ;
-	
+		this.GLtexture = [];
+
 		// -------------------------------------------------
 		// scene assets
 		// -------------------------------------------------
 		// shaders
 		this.shaderPrograms = [];
 		// textures
-		this.textures = [] ;
+		this.textures = [];
 		// shapes
-		this.shapes = [] ;
+		this.shapes = [];
+		// lights
+		this.lights = [];
 		// scene graph
-		this.scenegraph = null ;
+		this.scenegraph = null;
 	}
-	
+
 	// methods
 	// --------------------------------------------------
 	// initGL(canvas)
@@ -86,38 +90,40 @@ class atomicGL2Context {
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
-	
+
 	// pushLight(lightPos,lightColor)
 	// ---------------------------
 	// inputs: 	lightPos : float3 - light position
 	// 			lightColor: float3 - light color
-	pushLight(lightPos,lightColor){
+	pushLight(light){
 		// debug
-		//console.log("atomicGLContext::pushLight");		
+		//console.log("atomicGLContext::pushLight");
 		// increase Light number
-		this.omniLightNumber = this.omniLightNumber + 1;
-		// set data
-		this.omniLightLocation.push(lightPos[0]) ;
-		this.omniLightLocation.push(lightPos[1]) ;
-		this.omniLightLocation.push(lightPos[2]) ;
-		this.omniLightColor.push(lightColor[0]) ;
-		this.omniLightColor.push(lightColor[1]) ;
-		this.omniLightColor.push(lightColor[2]) ;
+		// this.omniLightNumber = this.omniLightNumber + 1;
+		// // set data
+		// this.omniLightLocation.push(lightPos[0]) ;
+		// this.omniLightLocation.push(lightPos[1]) ;
+		// this.omniLightLocation.push(lightPos[2]) ;
+		// this.omniLightColor.push(lightColor[0]) ;
+		// this.omniLightColor.push(lightColor[1]) ;
+		// this.omniLightColor.push(lightColor[2]) ;
+
+			this.lights.push(light);
 		}
-	
+
 	// pushProgram(prog)
 	// ---------------------------
 	// inputs: prog - atomicGLShader
-	pushProgram(prog){ 
+	pushProgram(prog){
 		// debug
 		//console.log("atomicGLContext::pushProgram");
-		this.shaderPrograms.push(prog); 
+		this.shaderPrograms.push(prog);
 		var id =  this.shaderPrograms.length -1
 		// debug
 		//console.log("-- atomicGLContext::pushProgram("+prog.name+")-> index:"+id);
 		return  id ;
 	}
-	
+
 	// indexOfTexture
 	// ---------------------------------------
 	// input: 	id - string: id name of texture
@@ -143,7 +149,7 @@ class atomicGL2Context {
 		}
 		return res;
 	}
-	
+
 	// indexOfShape
 	// ---------------------------------------
 	// input: 	id - string: id name of shape
