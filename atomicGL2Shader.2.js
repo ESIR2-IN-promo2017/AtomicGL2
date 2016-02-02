@@ -152,30 +152,36 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 
 		switch (type){
 			case "vertex" :
-				var xvertex = xmlDoc.getElementsByTagName("VERTEX");
+				var xvertex     = xmlDoc.getElementsByTagName("VERTEX");
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
-				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
-				var xoutput = xmlDoc.getElementsByTagName("OUTPUT");
+				var xuniforms   = xmlDoc.getElementsByTagName("UNIFORMS");
+				var xvarying    = xmlDoc.getElementsByTagName("VARYING");
+				var xoutput     = xmlDoc.getElementsByTagName("OUTPUT");
 
-				str = xvertex[0].childNodes[0].data + xattributes[0].childNodes[0].data
-					 +xuniforms[0].childNodes[0].data + xoutput[0].childNodes[0].data ;
+				str = xvertex[0].childNodes[0].data   + xattributes[0].childNodes[0].data
+					+ xuniforms[0].childNodes[0].data + xvarying[0].childNodes[0].data
+					+ xoutput[0].childNodes[0].data ;
 			break ;
+
 			case "fragment" :
-				var xfragment = xmlDoc.getElementsByTagName("FRAGMENT");
+				var xfragment   = xmlDoc.getElementsByTagName("FRAGMENT");
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
-				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
-				var xoutput = xmlDoc.getElementsByTagName("OUTPUT");
+				var xuniforms   = xmlDoc.getElementsByTagName("UNIFORMS");
+				var xoutput     = xmlDoc.getElementsByTagName("OUTPUT");
 
 				str = xfragment[0].childNodes[0].data + xuniforms[1].childNodes[0].data
-													  + xoutput[1].childNodes[0].data ;
+					+ xvarying[1].childNodes[0].data  + xoutput[1].childNodes[0].data ;
 			break ;
+
 			case "attributes" :
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
 				str = xattributes[0].childNodes[0].data ;
 			break ;
-				case "uniforms" :
+
+			case "uniforms" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str = xuniforms[0].childNodes[0].data ;
+				
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str += xuniforms[1].childNodes[0].data ;
 			break ;
@@ -233,7 +239,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// light
 		this.ambientColorUniform ;
 		this.pointLightLocationUniform = [] ;
-		this.pointLightColorUniform = [] ;
+		this.pointLightColorUniform    = [] ;
 		// texture -sampler
 		this.samplerUniform = [] ;
 

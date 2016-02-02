@@ -13,9 +13,11 @@
 			uniform mat4 uPMatrix;
 		</UNIFORMS>
 
-		<OUTPUT>
+		<VARYING>
 	    	varying vec2 vTextureCoord;
+		</VARYING>
 
+		<OUTPUT>
 		    void main(void) {
 		        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 		        vTextureCoord = aVertexTexCoord;
@@ -24,17 +26,18 @@
 	</VERTEX>
 
 	<FRAGMENT>
-			#ifdef GL_ES
-				precision highp float;
-			#endif
-
 		<UNIFORMS>
 	    	uniform sampler2D uSampler0;
 		</UNIFORMS>
 
-		<OUTPUT>
-
+		<VARYING>
 	    	varying vec2 vTextureCoord;
+	    </VARYING>
+
+		<OUTPUT>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
 		    
 		    void main(void) {
 		        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
