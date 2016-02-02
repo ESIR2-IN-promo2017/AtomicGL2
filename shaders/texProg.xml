@@ -30,6 +30,12 @@
 	</VERTEX>
 
 	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+
 		<UNIFORMS>
 	    	uniform sampler2D uSampler0;
 		</UNIFORMS>
@@ -39,10 +45,6 @@
 	    </VARYING>
 
 		<OUTPUT>
-			#ifdef GL_ES
-				precision highp float;
-			#endif
-		    
 		    void main(void) {
 		        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 		    }

@@ -45,6 +45,12 @@
 	// lights nb: 1
 	// ------------------------------------------------------
 	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+		
    		<UNIFORMS>
 	    	uniform sampler2D uSampler0;
 	    	uniform sampler2D uSampler1;
@@ -65,9 +71,6 @@
     	</VARYING>
 
 		<OUTPUT>
-			#ifdef GL_ES
-				precision highp float;
-			#endif
 			
 			// local constant
 			// Kd: diffuse coeff
