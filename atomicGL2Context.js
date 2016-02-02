@@ -23,7 +23,7 @@ class atomicGL2Context {
 
 		// // lights
 		// // ambient
-		this.ambientLightColor = [0.0,0.0,0.0];
+		//this.ambientLightColor = [0.0,0.0,0.0];
 		//this.ambientLightColor;
 
 		// // omniDirLight

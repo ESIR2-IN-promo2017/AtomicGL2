@@ -230,24 +230,22 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		this.timeUniform ;
 
-		this.wTime = 0.0 ;	
+		this.wTime = 0.0 ;
 		// map of attributes
 		// --------------------------
-			this.mapAttributes = new Map();
+		this.mapAttributes = new Map();
 
-			// light
-			this.ambientColorUniform ;
-			this.pointLightLocationUniform = [] ;
-			this.pointLightColorUniform = [] ;
-			// texture -sampler
-			this.samplerUniform = [] ;
+		// light
+		this.ambientColorUniform ;
+		this.pointLightLocationUniform = [] ;
+		this.pointLightColorUniform = [] ;
+		// texture -sampler
+		this.samplerUniform = [] ;
 
-			//Initialisation of the key of the mapUniforms and mapAttributes
-			this.initMap();
+		//Initialisation of the key of the mapUniforms and mapAttributes
+		this.initMap();
 
-
-
-			this.build(agl,this.shaderloader);
+		this.build(agl,this.shaderloader);
 	}
 
 	initMap(){
@@ -257,7 +255,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i =0; i <  this.shaderloader.getUniforms().length; i++) {
 			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
-		
+
 		console.log(this.mapUniforms);
 	}
 
@@ -320,7 +318,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		// attributes
 		//------------------------
-       	for (var key of this.mapAttributes.keys()) 
+       	for (var key of this.mapAttributes.keys())
        	{
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
 	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
@@ -329,7 +327,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		// uniforms
 		//------------------------
-	 	for (var key of this.mapUniforms.keys()) 
+	 	for (var key of this.mapUniforms.keys())
 	 	{
 	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
 	    }

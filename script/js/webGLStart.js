@@ -103,7 +103,7 @@
 		var sgxml = new atomicGL2xml(agl,'scene1.xml');
 
 		// light
-		agl.pushLight(new atomicGL2PointLight([1, 1, 1], [0, 10, 0]));
+		agl.pushLight(new atomicGL2PointLight([0.2, 0.2, 0.2], [0, 4, 0]));
 		//agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 		// init Matrix Stack
