@@ -27,4 +27,16 @@ class atomicGL2SpotLight extends atomicGL2Light {
 		this.direction = ddirection;
 		this.radius = rradius;
 	}
+
+	getPosition(){
+		return this.position;
+	}
+
+	getDirection(){
+		return this.direction;
+	}
+
+	getRadius(){
+		return this.radius;
+	}
 }
