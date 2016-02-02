@@ -9,6 +9,7 @@ class AtomicGL2DirectionnalLigth extends AtomicGL2Light{
 	// ffile: 		texture filename - string
 	// ttype:		texture type : color | normal | displacement | specular | opacity - string
 	// aagl:		atomicGL context
+	//lala
 	constructor(ccolor, ddirection){
 		super(ccolor);
 		this.direction = ddirection;
