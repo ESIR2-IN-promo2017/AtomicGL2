@@ -22,10 +22,6 @@ class atomicGL2Light {
 		this.color = ccolor;
 	}
 
-	getType(){
-		return null;
-	}
-
 	getColor(){
 		return this.color;
 	}
@@ -39,6 +35,10 @@ class atomicGL2Light {
 	}
 
 	getRadius(){
+		return null;
+	}
+
+	getType(){
 		return null;
 	}
 }

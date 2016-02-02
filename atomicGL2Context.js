@@ -21,13 +21,15 @@ class atomicGL2Context {
 		this.viewportWidth ;
 		this.viewportHeight ;
 
-		// lights
-		// ambient
-		this.ambientLightColor = [0.01,0.01,0.1];
-		// omniDirLight
-		this.omniLightColor = [];
-		this.omniLightLocation = [];
-		this.omniLightNumber = 0;
+		// // lights
+		// // ambient
+		this.ambientLightColor = [0.0,0.0,0.0];
+		//this.ambientLightColor;
+
+		// // omniDirLight
+		// this.omniLightColor = [];
+		// this.omniLightLocation = [];
+		// this.omniLightNumber = 0;
 
 		// GLtexture
 		this.GLtexture = [];
@@ -93,18 +95,20 @@ class atomicGL2Context {
 	// ---------------------------
 	// inputs: 	lightPos : float3 - light position
 	// 			lightColor: float3 - light color
-	pushLight(lightPos,lightColor){
+	pushLight(light){
 		// debug
 		//console.log("atomicGLContext::pushLight");
 		// increase Light number
-		this.omniLightNumber = this.omniLightNumber + 1;
-		// set data
-		this.omniLightLocation.push(lightPos[0]) ;
-		this.omniLightLocation.push(lightPos[1]) ;
-		this.omniLightLocation.push(lightPos[2]) ;
-		this.omniLightColor.push(lightColor[0]) ;
-		this.omniLightColor.push(lightColor[1]) ;
-		this.omniLightColor.push(lightColor[2]) ;
+		// this.omniLightNumber = this.omniLightNumber + 1;
+		// // set data
+		// this.omniLightLocation.push(lightPos[0]) ;
+		// this.omniLightLocation.push(lightPos[1]) ;
+		// this.omniLightLocation.push(lightPos[2]) ;
+		// this.omniLightColor.push(lightColor[0]) ;
+		// this.omniLightColor.push(lightColor[1]) ;
+		// this.omniLightColor.push(lightColor[2]) ;
+
+			this.lights.push(light);
 		}
 
 	// pushProgram(prog)

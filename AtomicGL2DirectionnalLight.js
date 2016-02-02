@@ -28,6 +28,6 @@ class atomicGL2DirectionnalLigth extends atomicGL2Light{
 	}
 
 	getType(){
-		return null;
+		return "DirectionnalLight";
 	}
 }

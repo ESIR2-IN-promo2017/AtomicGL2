@@ -39,4 +39,8 @@ class atomicGL2SpotLight extends atomicGL2Light {
 	getRadius(){
 		return this.radius;
 	}
+
+	getType(){
+		return "SpotLight";
+	}
 }
