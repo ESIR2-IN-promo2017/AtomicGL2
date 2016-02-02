@@ -17,6 +17,7 @@ class atomicGL2ShaderLoader{
 		this.fragmentShaderSRC = "" ;
 		this.attributesShaderSRC = [];
 		this.uniformsShaderSRC = [];
+		this.uniformsFragmentShaderSRC = [];
 		this.sampler = [];
 	}
 	getVertex(){return this.vertexShaderSRC;}
@@ -63,11 +64,18 @@ class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		constructor(xmlfile){
 		super();
+
 		this.vertexShaderSRC = this.getShaderSRC(xmlfile,"vertex") ; 
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ; 
+
+
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
 		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniformsVertex"),"uniform");
-										+ this.Xplode(this.getShaderSRC(xmlfile,"uniformsFragment"),"uniform");
+		this.uniformsFragmentShaderSRC= this.Xplode(this.getShaderSRC(xmlfile,"uniformsFragment"),"uniform");
+
+		for (var i =0; i <this.uniformsFragmentShaderSRC.length ; i++) {
+			this.uniformsShaderSRC.push(this.uniformsFragmentShaderSRC[i]);
+		};
 	}
 
 	/*------------------------------------------
@@ -223,12 +231,14 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// program shader
 		this.program ;
 
-		this.i;
-		// attributes
+		this.timeUniform ;
+
+		this.wTime = 0.0 ;	
+		// map of attributes
 		// --------------------------
 			this.mapAttributes = new Map();
 		
-		// uniforms
+		// map of uniforms
 		// --------------------------
 			this.mapUniforms = new Map();
 
@@ -251,9 +261,11 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i =0; i <  this.shaderloader.getAttributes().length; i++) {
 			this.mapAttributes.set(this.shaderloader.getAttributes()[i][1],null);
 		};
-		for (var i =0; i <  this.shaderloader.getVertexUniforms().length; i++) {
-			this.mapUniforms.set(this.shaderloader.getVertexUniforms()[i][1],null);
+		for (var i =0; i <  this.shaderloader.getUniforms().length; i++) {
+			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
+		
+		console.log(this.mapUniforms);
 	}
 		
 	// methods
@@ -274,7 +286,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(vertexShader);
 		// debug
-		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(vertexShader));
@@ -287,16 +299,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(fragmentShader);
 		// debug
-		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(fragmentShader));
             return null;
         }
 
-    	//console.log(this.shaderloader.getFragmentUniforms());
-
-		
 		// creation program et link
         var program = agl.gl.createProgram();
         agl.gl.attachShader(program, vertexShader);
@@ -304,14 +313,22 @@ class  atomicGL2MatShader extends atomicGL2Shader{
         agl.gl.linkProgram(program);
 
 		// debug
-		//console.log("atomicGLShader::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
+		console.log("atomicGLShader::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
         if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
             alert("atomicGLShader::Could not initialise shaders");
         }
 
+
+
+
+
+
+
+
 		// attributes
 		//------------------------
-       	for (var key of this.mapAttributes.keys()) {
+       	for (var key of this.mapAttributes.keys()) 
+       	{
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
 	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 
@@ -319,10 +336,17 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		// uniforms
 		//------------------------
-	 	for (var key of this.mapUniforms.keys()) {
+	 	for (var key of this.mapUniforms.keys()) 
+	 	{
 	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
-
 	    }
+
+		this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+
+
+
+
+
 
 		if(this.nbTex>0){
 			agl.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
@@ -349,7 +373,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i = 0; i < this.nbTex; i++) { 
 			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
 		}
+
+		this.timeUniform = agl.gl.getUniformLocation(program, "uNMatrix");;
 		
+        console.log(this.mapUniforms);
         return program;
     }	
     
@@ -363,25 +390,26 @@ class  atomicGL2MatShader extends atomicGL2Shader{
     	// set this shader as active shader
     	aGL.gl.useProgram(this.program);
 
-		
+
     	// matrix
     	//		Projection
     	// 		Model->view
     	//		Normal built from Model->view
-    	if(this.hasProjectionMatrix(this.shaderloader.getVertexUniforms()))
+    	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
    			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
-    	if(this.hasModelViewMatrix(this.shaderloader.getVertexUniforms()))
+    	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
 	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
 
         var normalMatrix = mat3.create();
         mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
         mat3.transpose(normalMatrix);
-        if(this.hasNormalMatrix(this.shaderloader.getVertexUniforms()))
+        if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
         	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
         
         // Lights
         //		ambient
         aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+
 		//		Omni
 		for (var i=0; i < this.nbLight ; i++){
 			// debug
@@ -392,28 +420,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.omniLightLocation[i*3+0], aGL.omniLightLocation[i*3+1], aGL.omniLightLocation[i*3+2]);
 			aGL.gl.uniform3f(this.pointLightColorUniform[i],aGL.omniLightColor[i*3+0],aGL.omniLightColor[i*3+1],aGL.omniLightColor[i*3+2]);
 		}
+		aGL.gl.uniform1f(this.timeUniform,this.wTime) ;
+		//console.log("time UNIFORM : " + this.timeUniform);
 
-		/*for (var i = 0; i <this.shaderloader.getVertexUniforms().length ;i++) {
-			for (var key of this.mapUniforms.keys()) {
-				if((this.shaderloader.getVertexUniforms()[i])[1] == key){
-					switch ((this.shaderloader.getVertexUniforms()[i])[0]) {
-						case "vec4":
-							
-							console.log('vec3');
-							break;
-						case "vec3":
-							aGL.gl.uniform3f(this.mapUniforms.get(key),);
 
-							console.log('vec2');
-							break;	
-						default:
-							// statements_def
-							break;
-					}
-				}
-
-		  	}
-		}*/
 
     }
 	
@@ -423,15 +433,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
 	}
 
-
-
-
-//----------------Getter----------------------------------------//
-
-
-
-
-
+	//----------------Getter----------------------------------------//
 	/**
 	//param src : the attributes of the vertex shader 
 		src[0] : one attribute
@@ -587,5 +589,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	getAllTexture(){
 		return this.shaderloader.getSampler2D();
+	}
+
+
+	getUniformById(id){
+		return this.mapUniforms.get(id);
+	}
+	setUniformById(agl,id,value){
+
 	}
 }
