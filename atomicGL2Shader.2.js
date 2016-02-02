@@ -67,12 +67,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		this.vertexShaderSRC = this.getShaderSRC(xmlfile,"vertex") ;
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ;
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
-		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniformsVertex"),"uniform");
-		this.uniformsFragmentShaderSRC= this.Xplode(this.getShaderSRC(xmlfile,"uniformsFragment"),"uniform");
-
-		for (var i =0; i <this.uniformsFragmentShaderSRC.length ; i++) {
-			this.uniformsShaderSRC.push(this.uniformsFragmentShaderSRC[i]);
-		};
+		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"),"uniform");
 	}
 
 	/*------------------------------------------
@@ -178,13 +173,11 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
 				str = xattributes[0].childNodes[0].data ;
 			break ;
-				case "uniformsVertex" :
+				case "uniforms" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str = xuniforms[0].childNodes[0].data ;
-			break ;
-				case "uniformsFragment" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
-				str = xuniforms[1].childNodes[0].data ;
+				str += xuniforms[1].childNodes[0].data ;
 			break ;
 		}
 		// debug
