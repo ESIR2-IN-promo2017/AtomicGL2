@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="texDiffProg">
+	<VERTEX>
+	// vertex shader
+	// ------------------------------------------------------
+	// texture shader per fragment 
+	// ------------------------------------------------------
+
+	// attributes inputs  (vertex arrays)
+			<ATTRIBUTES>
+		attribute vec3 aVertexPosition;
+		attribute vec2 aVertexTexCoord;
+		attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+
+
+		<UNIFORMS>
+	// uniform matrices
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+		uniform mat3 uNMatrix;
+		uniform vec3 test;
+
+		</UNIFORMS>
+
+	// output
+	<OUTPUT>
+
+    	varying vec2 vTextureCoord;
+		varying vec4 vPosition;
+		varying vec3 vNormal;
+
+    void main(void) {
+    	// vNormal
+		vNormal = uNMatrix * aVertexNormal;	
+    
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aVertexTexCoord;
+    }
+		</OUTPUT>
+	</VERTEX>
+	<FRAGMENT>
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+		// fragment shader
+		// ------------------------------------------------------
+		// texture shader per fragment 
+		// ------------------------------------------------------
+
+	    varying vec2 vTextureCoord;
+
+		<UNIFORMS>
+	    	uniform sampler2D uSampler0;
+		</UNIFORMS>
+
+
+		<OUTPUT>
+		    void main(void) {
+		        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+		    }
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>

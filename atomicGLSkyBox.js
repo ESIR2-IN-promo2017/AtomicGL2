@@ -344,20 +344,26 @@ atomicGLSkyBox = function(nname,ssize){
 		
 		// link buffer to attributes
 		//positions
-		aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexPositionBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexPositionAttribute, this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexPositionBuffer);
+    	    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexPosition(), this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		}
 		//normals
-        aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexNormalBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexNormalAttribute, this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+        	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexNormalBuffer);
+        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexNormal(), this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		}
 		// colors
-        aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexColorBuffer);
-        aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].vertexColorAttribute, this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+        	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexColorBuffer);
+        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexColor(), this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+    	}
 		// textures
 		if(this.textures.length>0){
 			// debug
 			// console.log("atomicGLskyBox("+this.name+")::vertexAttribPointer: "+aGL.shaderPrograms[idProg].texCoordAttribute);
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexTexCoordBuffer);
-			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].texCoordAttribute, this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
+			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getTextureCoord(), this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
 		}
 		for (var i=0; i<this.textures.length; i++ ){
 			// activate texture
