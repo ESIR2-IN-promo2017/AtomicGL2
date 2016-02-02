@@ -11,16 +11,20 @@
 		<UNIFORMS>
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
 		</UNIFORMS>
 
 		<VARYING>
-	    	varying vec2 vTextureCoord;
+			varying vec2 vTextureCoord;
 		</VARYING>
 
 		<OUTPUT>
 		    void main(void) {
-		        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-		        vTextureCoord = aVertexTexCoord;
+				// texCoord
+       			vTextureCoord = aVertexTexCoord;
+		     
+		        // model -> view 
+				gl_Position = uPMatrix * (uMVMatrix * vec4(aVertexPosition, 1.0));	
 		    }
 		</OUTPUT>
 	</VERTEX>
