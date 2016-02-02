@@ -5,21 +5,20 @@
 // version: 2.3
 // current version date: 2016/01/26
 //----------------------------------------------------------------------------------------
-// AtomicGL2DirectionnalLigth
+// atomicGL2Light
 //----------------------------------------------------------------------------------------
 
-
-class AtomicGL2DirectionnalLigth extends AtomicGL2Light{
-
+class atomicGL2Light {
 	// constructor
 	//------------------------
 	// inputs
 	//------------------------
-	// ccolor	   	: Light color
-	// ddirection	: Light direction
-
-	constructor(ccolor, ddirection){
-		super(ccolor);
-		this.direction = ddirection;
+	// ccolor	   : Light color
+	
+	constructor(ccolor){
+		// attributes
+		// -------------------------------------------------
+		// GL lights
+		this.color = ccolor;
 	}
 }
