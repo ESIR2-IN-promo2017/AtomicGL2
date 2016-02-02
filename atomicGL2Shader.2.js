@@ -251,8 +251,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i =0; i <  this.shaderloader.getAttributes().length; i++) {
 			this.mapAttributes.set(this.shaderloader.getAttributes()[i][1],null);
 		};
-		for (var i =0; i <  this.shaderloader.getVertexUniforms().length; i++) {
-			this.mapUniforms.set(this.shaderloader.getVertexUniforms()[i][1],null);
+		for (var i =0; i <  this.shaderloader.getUniforms().length; i++) {
+			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
 	}
 		
@@ -368,15 +368,15 @@ class  atomicGL2MatShader extends atomicGL2Shader{
     	//		Projection
     	// 		Model->view
     	//		Normal built from Model->view
-    	if(this.hasProjectionMatrix(this.shaderloader.getVertexUniforms()))
+    	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
    			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
-    	if(this.hasModelViewMatrix(this.shaderloader.getVertexUniforms()))
+    	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
 	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
 
         var normalMatrix = mat3.create();
         mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
         mat3.transpose(normalMatrix);
-        if(this.hasNormalMatrix(this.shaderloader.getVertexUniforms()))
+        if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
         	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
         
         // Lights
@@ -393,10 +393,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			aGL.gl.uniform3f(this.pointLightColorUniform[i],aGL.omniLightColor[i*3+0],aGL.omniLightColor[i*3+1],aGL.omniLightColor[i*3+2]);
 		}
 
-		/*for (var i = 0; i <this.shaderloader.getVertexUniforms().length ;i++) {
+		/*for (var i = 0; i <this.shaderloader.getUniforms().length ;i++) {
 			for (var key of this.mapUniforms.keys()) {
-				if((this.shaderloader.getVertexUniforms()[i])[1] == key){
-					switch ((this.shaderloader.getVertexUniforms()[i])[0]) {
+				if((this.shaderloader.getUniforms()[i])[1] == key){
+					switch ((this.shaderloader.getUniforms()[i])[0]) {
 						case "vec4":
 							
 							console.log('vec3');
