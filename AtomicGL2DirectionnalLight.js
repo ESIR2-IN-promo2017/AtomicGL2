@@ -22,4 +22,12 @@ class atomicGL2DirectionnalLigth extends atomicGL2Light{
 		super(ccolor);
 		this.direction = ddirection;
 	}
+
+	getDirection(){
+		return this.direction;
+	}
+
+	getType(){
+		return null;
+	}
 }
