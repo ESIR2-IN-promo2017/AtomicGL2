@@ -1,7 +1,7 @@
 /*RequireJs Module, to start webGlStart function thoses js files are required */
 
 
-require([	
+require([
 				'JsFilesloaded',
 				'gltp1_fichiers/glMatrix-0.js',
 				'gltp1_fichiers/webgl-utils.js',
@@ -56,8 +56,11 @@ require([
 				'atomicGLSkyBox.js',
 				'atomicGL2xml.2.js',
 				'atomicGLxyPlane.js',
-				'script/js/webGLStart.js'
+				'script/js/webGLStart.js',
+				'atomicGL2Light.js',
+				'atomicGL2PointLight.js',
+				'atomicGL2DirectionnalLight.js',
+				'atomicGL2SpotLight.js'
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
 });
-

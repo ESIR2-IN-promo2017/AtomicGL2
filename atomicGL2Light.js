@@ -22,6 +22,10 @@ class atomicGL2Light {
 		this.color = ccolor;
 	}
 
+	getType(){
+		return null;
+	}
+
 	getColor(){
 		return this.color;
 	}

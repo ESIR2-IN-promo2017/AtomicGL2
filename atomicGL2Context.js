@@ -41,6 +41,8 @@ class atomicGL2Context {
 		this.textures = [];
 		// shapes
 		this.shapes = [];
+		// lights
+		this.lights = [];
 		// scene graph
 		this.scenegraph = null;
 	}

@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------------------------
 // atomicGL2PointLight
 //----------------------------------------------------------------------------------------
+import atomicGL2Light from "AtomicGL2";
 
 class atomicGL2PointLight extends atomicGL2Light {
 	// constructor
@@ -22,6 +23,10 @@ class atomicGL2PointLight extends atomicGL2Light {
 		// GL lights
 		super(ccolor);
 		this.position = pposition;
+	}
+
+	getType(){
+		return "PointLight";
 	}
 
 	getPosition(){
