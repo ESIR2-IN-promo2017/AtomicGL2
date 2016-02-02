@@ -228,12 +228,14 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// program shader
 		this.program ;
 
-		this.timeUniform ;
 
-		this.wTime = 0.0 ;
 		// map of attributes
 		// --------------------------
 		this.mapAttributes = new Map();
+		
+		// map of uniforms
+		// --------------------------
+		this.mapUniforms = new Map();
 
 		// light
 		this.ambientColorUniform ;
@@ -256,7 +258,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
 
-		console.log(this.mapUniforms);
+
 	}
 
 	// methods
@@ -309,13 +311,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
             alert("atomicGLShader::Could not initialise shaders");
         }
 
-
-
-
-
-
-
-
 		// attributes
 		//------------------------
        	for (var key of this.mapAttributes.keys())
@@ -332,13 +327,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
 	    }
 
-		this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
-
-
-
-
-
-
 		if(this.nbTex>0){
 			agl.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
 		}
@@ -350,6 +338,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// uPointLightingColor0|1|2 required per light in the shader
 
 		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
+
 
         for (var i = 0; i < this.nbLight; i++) {
 			// lights  	position
@@ -396,7 +385,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
         // Lights
         //		ambient
-        aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+        //aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
 
 		//		Omni
 		for (var i=0; i < this.nbLight ; i++){
@@ -408,10 +397,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
 			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
 		}
-		aGL.gl.uniform1f(this.timeUniform,this.wTime) ;
-		//console.log("time UNIFORM : " + this.timeUniform);
-
-
 
     }
 

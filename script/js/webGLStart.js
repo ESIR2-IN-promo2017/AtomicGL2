@@ -40,7 +40,6 @@
     // ------------------------------
     function animate(){
     	// increase time
-    	agl.shaderPrograms[0].wTime = 1.7;
     	sceneClock.tick() ;
     }
 
@@ -109,9 +108,7 @@
 		// init Matrix Stack
 		ams.initMatrix(agl,45); // fov = 45 degrees
 
-		agl.shaderPrograms[0].setUniformById(agl,"test",0.2);
-		//console.log(agl.shaderPrograms[0].getUniformById("test"));
-
+		
 		// start the animation
 		nextFrame();
 	}
