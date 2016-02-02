@@ -167,6 +167,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				var xfragment   = xmlDoc.getElementsByTagName("FRAGMENT");
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
 				var xuniforms   = xmlDoc.getElementsByTagName("UNIFORMS");
+				var xvarying    = xmlDoc.getElementsByTagName("VARYING");
 				var xoutput     = xmlDoc.getElementsByTagName("OUTPUT");
 
 				str = xfragment[0].childNodes[0].data + xuniforms[1].childNodes[0].data
