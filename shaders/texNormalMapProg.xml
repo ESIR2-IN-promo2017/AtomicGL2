@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <SHADER name="texDiffProg">
-<<<<<<< HEAD
 	<VERTEX>
 		// vertex shader
 		// ------------------------------------------------------
@@ -11,16 +10,6 @@
 		// ------------------------------------------------------
 
 		// attributes inputs  (vertex arrays)
-=======
-	
-	// vertex shader
-	// ------------------------------------------------------
-	// texture shader per fragment 
-	// ------------------------------------------------------
-	// lights nb: 1
-	// ------------------------------------------------------
-	<VERTEX>
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec2 aVertexTexCoord;
@@ -28,16 +17,12 @@
 		</ATTRIBUTES>
 
 		<UNIFORMS>
-<<<<<<< HEAD
 			// uniform matrices
-=======
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 			uniform mat3 uNMatrix;
 		</UNIFORMS>
 
-<<<<<<< HEAD
 		// output
 		<OUTPUT>
   		varying vec2 vTextureCoord;
@@ -74,68 +59,17 @@
 			// lights
 			// ambient
 			uniform vec3 uAmbientColor;
-=======
-		<VARYING>
-	    	varying vec2 vTextureCoord;
-			varying vec4 vPosition;
-			varying vec3 vNormal;
-		</VARYING>
 
-		<OUTPUT>
-	    	void main(void) {
-	    		// vNormal
-				vNormal = uNMatrix * aVertexNormal;	
-	    
-	        	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-	        	vTextureCoord = aVertexTexCoord;
-	    	}
-		</OUTPUT>
-	</VERTEX>
-	
-	// fragment shader
-	// ------------------------------------------------------
-	// texture shader per fragment 
-	// ------------------------------------------------------
-	// lights nb: 1
-	// ------------------------------------------------------
-	<FRAGMENT>
-		<PRECISION>
-			#ifdef GL_ES
-				precision highp float;
-			#endif
-		</PRECISION>
-		
-   		<UNIFORMS>
-	    	uniform sampler2D uSampler0;
-	    	uniform sampler2D uSampler1;
-	    	
-			// lights
-				// ambient
-				uniform vec3 uAmbientColor;
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
-
-				//point light ie omni dir:  location, color
-				uniform vec3 uPointLightPosition0;
-				uniform vec3 uPointLightColor0;
+			//point light ie omni dir:  location, color
+			uniform vec3 uPointLightPosition0;
+			uniform vec3 uPointLightColor0;
 		</UNIFORMS>
 
-<<<<<<< HEAD
 		<OUTPUT>
-=======
-		<VARYING>
-    		varying vec2 vTextureCoord;
-			varying vec4 vPosition;
-			varying vec3 vNormal;
-    	</VARYING>
-
-		<OUTPUT>
-			
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 			// local constant
 			// Kd: diffuse coeff
 			float Kd = 1.0 ;
 
-<<<<<<< HEAD
 			// inputs
 			varying vec2 vTextureCoord;
 			varying vec4 vPosition;
@@ -145,18 +79,11 @@
 		  	// light direction
 				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
 
-=======
-			void main(void) {
-				// light direction
-				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
-				
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
 
 				// normalize normal
 				vec3 oldNormal = normalize(vNormal);
-<<<<<<< HEAD
 
 				// new normal in tangent space
 				vec3 newNormalTS = normalize(2.0*texture2D(uSampler1, vTextureCoord).xyz -1.0) ;
@@ -182,33 +109,6 @@
 				// transform normal
 				vec3 normal = TBN*newNormalTS ;
 
-=======
-				
-				// new normal in tangent space
-				vec3 newNormalTS = normalize(2.0*texture2D(uSampler1, vTextureCoord).xyz -1.0) ;
-				
-				// newNormalTS.z = newNormalTS.z*1000.0;
-				// newNormalTS = normalize(newNormalTS);
-				
-				// TS to View
-				vec3 biTangent = cross(oldNormal,vec3(0.0,0.0,1.0));
-				
-				// test tangent
-				if (dot(biTangent,biTangent) == 0.0){biTangent = cross(oldNormal,vec3(0.0,1.0,0.0));}
-				vec3 tangent =  cross(biTangent,oldNormal);
-				
-				// no transpose
-				vec3 u1 = tangent ;
-				vec3 u2 = biTangent;
-				vec3 u3 = oldNormal;		
-				
-				// TS to view matrix
-				mat3 TBN = mat3(u1,u2,u3);
-				
-				// transform normal
-				vec3 normal = TBN*newNormalTS ;
-				
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 				//  diffuse term
 				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
 
@@ -218,13 +118,8 @@
 				// light color
 				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*uPointLightColor0 *texColor.rgb ;
 
-<<<<<<< HEAD
 	      gl_FragColor = vec4(lightColor,1.0);
 	    }
-=======
-				gl_FragColor = vec4(lightColor,1.0);
-			}
->>>>>>> a69747fdb02610423d32cb59eb5ad63b9b77f0b0
 		</OUTPUT>
 	</FRAGMENT>
 </SHADER>
