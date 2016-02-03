@@ -19,12 +19,10 @@
 			uniform vec3 uAmbientColor;
 		</UNIFORMS>
 
-		<VARYING>
-		  varying vec3 vcolor;
-		</VARYING>
-
 		// output (to fragment shader)
 		<OUTPUT>
+			varying vec3 vcolor;
+
 			void main(void) {
 				// model -> view
 				vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
@@ -37,19 +35,16 @@
 	</VERTEX>
 
 	<FRAGMENT>
-		<PRECISION>
 			#ifdef GL_ES
- 				precision highp float;
- 			#endif
-		</PRECISION>
+				precision highp float;
+			#endif
 
 		<UNIFORMS/>
 
-		<VARYING>
-			varying vec3 vcolor;
-		</VARYING>
-
 		<OUTPUT>
+			// varying input
+			varying vec3 vcolor;
+
 			// main
 			void main(void) {
 				gl_FragColor = vec4(vcolor, 1.0);
