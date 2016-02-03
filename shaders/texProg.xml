@@ -16,13 +16,17 @@
 
 		<VARYING>
 		  varying vec2 vTextureCoord;
+		  varying vec3 vNormal;
+		  varying vec4 vPosition;  //Stp Alexis laisse ces varyings :)
 		</VARYING>
 
 		<OUTPUT>
-		  void main(void) {
-		    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-		    vTextureCoord = aVertexTexCoord;
-		  }
+		    void main(void) {
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * vPosition;
+				vNormal = uNMatrix * aVertexNormal;	
+		        vTextureCoord = aVertexTexCoord;
+    		}
 		</OUTPUT>
 	</VERTEX>
 
