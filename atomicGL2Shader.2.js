@@ -68,6 +68,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ;
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
 		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"),"uniform");
+
+		console.log(this.getUniforms());
 	}
 
 	/*------------------------------------------
