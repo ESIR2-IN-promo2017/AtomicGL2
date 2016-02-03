@@ -5,7 +5,6 @@
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec2 aVertexTexCoord;
-			attribute vec3 aVertexNormal;
 		</ATTRIBUTES>
 
 		<UNIFORMS>
