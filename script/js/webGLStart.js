@@ -99,7 +99,7 @@
 		agl.initGL(canvas,[0.15,0.1,0.5]);
 
 		// scenegraph creation from xml file
-		var sgxml = new atomicGL2xml(agl,'scene1.xml');
+		var sgxml = new atomicGL2xml(agl,'sceneTest.xml');
 
 		// light
 		agl.pushLight(new atomicGL2PointLight([1.0, 1.0, 1.0], [0, 0, -10]));
