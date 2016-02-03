@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="colorProg">
+	<VERTEX>
+		// attributes inputs
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
+		</ATTRIBUTES>
+
+		// uniform matrices
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+
+			// uniform ambiant color
+			uniform vec3 uAmbientColor;
+		</UNIFORMS>
+
+		<VARYING>
+		  varying vec3 vcolor;
+		</VARYING>
+
+		// output (to fragment shader)
+		<OUTPUT>
+			void main(void) {
+				// model -> view
+				vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * mvPosition;
+
+				// vcolor
+				vcolor = uAmbientColor+aVertexColor;
+			}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
+
+		<UNIFORMS/>
+
+		<VARYING>
+			varying vec3 vcolor;
+		</VARYING>
+
+		<OUTPUT>
+			// main
+			void main(void) {
+				gl_FragColor = vec4(vcolor, 1.0);
+			}
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>

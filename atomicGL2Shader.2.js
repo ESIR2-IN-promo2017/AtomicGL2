@@ -40,9 +40,9 @@ class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 	getShaderSRC(id) {
 		var shader;
 		var str = "";
-        // shader source
+    // shader source
 		var shaderScript = document.getElementById(id);
-        if (!shaderScript) {
+    if (!shaderScript) {
 			alert("Could not find shader source:"+id);
 			return null;
 		}
@@ -101,11 +101,11 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 			for(var j = res.length - 1; j >= 0; j--) {
 			    for (var k = res[j].length- 1; k >= 0; k--) {
 			    	if(res[j][k] == '') {
-			       		res[j].splice(j, 1);
+			     		res[j].splice(j, 1);
 			    	}
 			    }
-   			    if(res[j] == '') {
-			       res.splice(j, 1);
+   		    if(res[j] == '') {
+			     res.splice(j, 1);
 			    }
 			}
 			if (typeof res !== 'undefined' && res.length > 0) {
@@ -117,8 +117,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				}
 				for (var y = 0; y < res[0].length; y++) {
 					if(res[0].charAt(y) == '\t' || res[0].charAt(y) == ' '){
-  						res[0]= res[0].substr(1);
-  					}
+  					res[0]= res[0].substr(1);
+  				}
 				};
 			}
 
@@ -136,7 +136,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				}
 			}
 		};
-	return array;
+		return array;
 	}
 
 	// getShaderSRC
@@ -183,7 +183,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 			case "uniforms" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str = xuniforms[0].childNodes[0].data ;
-				
+
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
 				str += xuniforms[1].childNodes[0].data ;
 			break ;
@@ -233,7 +233,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// map of attributes
 		// --------------------------
 		this.mapAttributes = new Map();
-		
+
 		// map of uniforms
 		// --------------------------
 		this.mapUniforms = new Map();
@@ -309,7 +309,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// debug
 		//console.log("atomicGLShader::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
         if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
-            alert("atomicGLShader::Could not initialise shaders");
+            alert("atomicGLShader2::Could not initialise shaders");
         }
 
 		// attributes

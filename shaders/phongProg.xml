@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="phongProg">
+	<VERTEX>
+		// attributes inputs
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
+		</ATTRIBUTES>
+
+		// uniform matrices
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+
+			// uniform ambiant color
+			uniform vec3 uAmbientColor;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vcolor;
+		</VARYING>
+
+		// output (to fragment shader)
+		<OUTPUT>
+			void main(void) {
+				// model -> view
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * vPosition;
+
+				// vNormal
+				vNormal = uNMatrix * aVertexNormal;
+
+				// vcolor
+				vcolor = aVertexColor;
+			}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
+
+		<UNIFORMS>
+			// ambient lights
+			uniform vec3 uAmbientColor;
+
+			//point light ie omni dir:  location, color
+			uniform vec3 uPointLightPosition0;
+			uniform vec3 uPointLightColor0;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vcolor;
+		</VARYING>
+
+		<OUTPUT>
+			// local constant
+			// Kd: diffuse coeff, Ks: specular coeff, sh: specular exponent
+			float Kd = 0.5 ;
+			float Ks = 0.5 ;
+			float sh = 8.0 ;
+
+			// specular color
+			vec3 specColor = vec3(1.0,1.0,1.0);
+
+			// main
+			void main(void) {
+				// light direction
+				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+
+				// eye direction
+				vec3 eyeDirection = normalize(-vPosition.xyz);
+
+				// normalize normal
+				vec3 normal = normalize(vNormal);
+
+				// reflection direction
+				vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+
+				//  diffuse term
+				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+
+				// specular term
+				float specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+				// light color
+				vec3 lightColor = uAmbientColor + Kd*diffuseLightWeight*uPointLightColor0 *vcolor + Ks*specularLightWeight*uPointLightColor0*specColor ;
+
+				gl_FragColor = vec4(lightColor,1.0);
+			}
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
