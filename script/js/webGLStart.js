@@ -17,7 +17,7 @@
 	// matrix stack
 	var ams = new atomicGL2MatrixStack();
 	// clock
-	var sceneClock =new atomicGL2Clock() ;
+	var sceneClock = new atomicGL2Clock() ;
 	// -------------------------------------------------
 
 	// draw
@@ -102,13 +102,13 @@
 		var sgxml = new atomicGL2xml(agl,'scene1.xml');
 
 		// light
-		agl.pushLight(new atomicGL2PointLight([0.2, 0.2, 0.2], [0, 4, 0]));
+		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
 		//agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 		// init Matrix Stack
 		ams.initMatrix(agl,45); // fov = 45 degrees
 
-		
+
 		// start the animation
 		nextFrame();
 	}

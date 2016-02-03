@@ -57,10 +57,10 @@ require([
 				'atomicGL2xml.2.js',
 				'atomicGLxyPlane.js',
 				'script/js/webGLStart.js',
-				'atomicGL2Light.js',
-				'atomicGL2PointLight.js',
-				'atomicGL2DirectionnalLight.js',
-				'atomicGL2SpotLight.js'
+				'lights/atomicGL2Light.js',
+				'lights/atomicGL2PointLight.js',
+				'lights/atomicGL2DirectionnalLight.js',
+				'lights/atomicGL2SpotLight.js'
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
 });

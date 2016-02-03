@@ -21,15 +21,8 @@ class atomicGL2Context {
 		this.viewportWidth ;
 		this.viewportHeight ;
 
-		// // lights
-		// // ambient
-		//this.ambientLightColor = [0.0,0.0,0.0];
-		//this.ambientLightColor;
-
-		// // omniDirLight
-		// this.omniLightColor = [];
-		// this.omniLightLocation = [];
-		// this.omniLightNumber = 0;
+		// Ambient lights
+		this.ambientLightColor;
 
 		// GLtexture
 		this.GLtexture = [];
@@ -59,14 +52,14 @@ class atomicGL2Context {
 		// debug
 		//console.log("atomicGLContext::initGL");
 		// recover canvas openGL
-        try {
-            this.gl = canvas.getContext("webgl");
-            this.viewportWidth = canvas.width;
-            this.viewportHeight = canvas.height;
-        } catch (e) {}
-        if (!this.gl) { // error in the initialisation of GL context
-            alert("atomicGLContext::Could not initialise WebGL");
-        }
+    try {
+      this.gl = canvas.getContext("webgl");
+      this.viewportWidth = canvas.width;
+      this.viewportHeight = canvas.height;
+    } catch (e) {}
+    if (!this.gl) { // error in the initialisation of GL context
+      alert("atomicGLContext::Could not initialise WebGL");
+    }
 		else { // GL context initialised -> first init (background color, DEPTH_TEST)
 			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
 			this.gl.enable(this.gl.DEPTH_TEST);
@@ -81,34 +74,24 @@ class atomicGL2Context {
 		this.GLtexture.push(this.gl.TEXTURE5);
 		this.GLtexture.push(this.gl.TEXTURE6);
 		this.GLtexture.push(this.gl.TEXTURE7);
-    }
+  }
+
 	// initDraw()
 	//---------------------------
 	initDraw() {
 		// debug
-		//console.log("atomicGLContext::initDraw");
+		// console.log("atomicGLContext::initDraw");
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
 
-	// pushLight(lightPos,lightColor)
+	// pushLight(light)
 	// ---------------------------
-	// inputs: 	lightPos : float3 - light position
-	// 			lightColor: float3 - light color
+	// inputs: 	light - atomicGLLight
 	pushLight(light){
 		// debug
-		//console.log("atomicGLContext::pushLight");
-		// increase Light number
-		// this.omniLightNumber = this.omniLightNumber + 1;
-		// // set data
-		// this.omniLightLocation.push(lightPos[0]) ;
-		// this.omniLightLocation.push(lightPos[1]) ;
-		// this.omniLightLocation.push(lightPos[2]) ;
-		// this.omniLightColor.push(lightColor[0]) ;
-		// this.omniLightColor.push(lightColor[1]) ;
-		// this.omniLightColor.push(lightColor[2]) ;
-
-			this.lights.push(light);
+		// console.log("atomicGLContext::pushLight");
+		this.lights.push(light);
 		}
 
 	// pushProgram(prog)

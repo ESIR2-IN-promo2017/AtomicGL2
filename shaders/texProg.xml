@@ -14,12 +14,12 @@
 		</UNIFORMS>
 
 		<OUTPUT>
-	    	varying vec2 vTextureCoord;
+	    varying vec2 vTextureCoord;
 
-		    void main(void) {
-		        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-		        vTextureCoord = aVertexTexCoord;
-		    }
+		  void main(void) {
+		    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+		    vTextureCoord = aVertexTexCoord;
+		  }
 		</OUTPUT>
 	</VERTEX>
 
@@ -29,16 +29,15 @@
 			#endif
 
 		<UNIFORMS>
-	    	uniform sampler2D uSampler0;
+	    uniform sampler2D uSampler0;
 		</UNIFORMS>
 
 		<OUTPUT>
+    	varying vec2 vTextureCoord;
 
-	    	varying vec2 vTextureCoord;
-		    
-		    void main(void) {
-		        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
-		    }
+	    void main(void) {
+        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+	    }
 		</OUTPUT>
 	</FRAGMENT>
 </SHADER>

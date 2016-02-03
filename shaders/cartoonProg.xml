@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="cartoonProg">
+	<VERTEX>
+		// attributes inputs
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
+		</ATTRIBUTES>
+
+		// uniform matrices
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+
+			// uniform ambiant color
+			uniform vec3 uAmbientColor;
+		</UNIFORMS>
+
+		// output (to fragment shader)
+		<OUTPUT>
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vcolor;
+
+			void main(void) {
+				// model -> view
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * vPosition;
+
+				// vNormal
+				vNormal = uNMatrix * aVertexNormal;
+
+				// vcolor
+				vcolor = aVertexColor;
+			}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+
+		<UNIFORMS>
+			// ambient lights
+			uniform vec3 uAmbientColor;
+
+			//point light ie omni dir:  location, color
+			uniform vec3 uPointLightPosition0;
+			uniform vec3 uPointLightColor0;
+		</UNIFORMS>
+
+		<OUTPUT>
+			// local constant
+
+			// edge color
+			vec3 edgeColor = vec3(0.0,0.0,0.0);
+			// shadow color
+			vec3 shadowColor = vec3(0.0, 0.0, 0.5);
+			// midtoneColor
+			vec3 midtoneColor = vec3(0.0,0.0,1.0);
+			// highlight color
+			vec3 highLightColor = vec3(1.0,1.0, 1.0);
+
+			// Kd: diffuse coeff, Ks: specular coeff, sh: specular exponent
+			float Kd = 0.5 ;
+			float Ks = 0.5 ;
+			float sh = 8.0 ;
+
+			// thresholds
+			float shadowMidtone = 0.0;
+			float midToneHighLight = 0.75 ;
+			float edgeThreshold = 0.95 ;
+
+			// specular color
+			vec3 specColor = vec3(1.0,1.0,1.0);
+
+			// varying input
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vcolor;
+
+			// main
+			void main(void) {
+				// light direction
+				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+
+				// eye direction
+				vec3 eyeDirection = normalize(-vPosition.xyz);
+
+				// normalize normal
+				vec3 normal = normalize(vNormal);
+
+				// reflection direction
+				vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+
+				//  diffuse term
+				float diffuse = max(dot(normal, lightDirection), 0.0);
+
+				// specular term
+				float specular = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+				// light
+				float light = Kd*diffuse + Ks*specular;
+
+				// edge term
+				float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
+
+				// color
+				vec3 final = vec3(1.0,0.0,0.0);
+				if (edge > edgeThreshold)
+					{ final = edgeColor;}
+				else if (light <= shadowMidtone)
+					{ final = shadowColor;}
+				else if (light <= midToneHighLight)
+					{ final = midtoneColor;}
+				else
+					{ final = highLightColor;}
+
+				gl_FragColor = vec4(final,1.0);
+			}
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
