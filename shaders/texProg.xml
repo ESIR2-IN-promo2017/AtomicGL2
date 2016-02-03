@@ -14,9 +14,11 @@
 			uniform mat3 uNMatrix;
 		</UNIFORMS>
 
-		<OUTPUT>
-	    varying vec2 vTextureCoord;
+		<VARYING>
+		  varying vec2 vTextureCoord;
+		</VARYING>
 
+		<OUTPUT>
 		  void main(void) {
 		    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 		    vTextureCoord = aVertexTexCoord;
@@ -35,9 +37,11 @@
 	    uniform sampler2D uSampler0;
 		</UNIFORMS>
 
-		<OUTPUT>
-    	varying vec2 vTextureCoord;
+		<VARYING>
+			varying vec2 vTextureCoord;
+		</VARYING>
 
+		<OUTPUT>
 	    void main(void) {
         gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 	    }

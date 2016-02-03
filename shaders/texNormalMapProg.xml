@@ -23,12 +23,14 @@
 			uniform mat3 uNMatrix;
 		</UNIFORMS>
 
-		// output
-		<OUTPUT>
-  		varying vec2 vTextureCoord;
+		<VARYING>
+			varying vec2 vTextureCoord;
 			varying vec4 vPosition;
 			varying vec3 vNormal;
+		</VARYING>
 
+		// output
+		<OUTPUT>
 	    void main(void) {
 	    	// vNormal
 				vNormal = uNMatrix * aVertexNormal;
@@ -65,15 +67,16 @@
 			uniform vec3 uPointLightColor0;
 		</UNIFORMS>
 
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
 		<OUTPUT>
 			// local constant
 			// Kd: diffuse coeff
 			float Kd = 1.0 ;
-
-			// inputs
-			varying vec2 vTextureCoord;
-			varying vec4 vPosition;
-			varying vec3 vNormal;
 
 			void main(void) {
 		  	// light direction
