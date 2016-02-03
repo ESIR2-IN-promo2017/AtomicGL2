@@ -42,16 +42,17 @@
 	</VERTEX>
 
 	<FRAGMENT>
-		#ifdef GL_ES
-			precision highp float;
-		#endif
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
 		// fragment shader
 		// ------------------------------------------------------
 		// texture shader per fragment
 		// ------------------------------------------------------
 		// lights nb: 1
 		// ------------------------------------------------------
-
 
     // Uniform
    	<UNIFORMS>

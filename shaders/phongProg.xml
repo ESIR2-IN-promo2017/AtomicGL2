@@ -19,12 +19,14 @@
 			uniform vec3 uAmbientColor;
 		</UNIFORMS>
 
-		// output (to fragment shader)
-		<OUTPUT>
+		<VARYING>
 			varying vec4 vPosition;
 			varying vec3 vNormal;
 			varying vec3 vcolor;
+		</VARYING>
 
+		// output (to fragment shader)
+		<OUTPUT>
 			void main(void) {
 				// model -> view
 				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
@@ -40,9 +42,11 @@
 	</VERTEX>
 
 	<FRAGMENT>
+		<PRECISION>
 			#ifdef GL_ES
-				precision highp float;
-			#endif
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
 
 		<UNIFORMS>
 			// ambient lights
@@ -53,6 +57,12 @@
 			uniform vec3 uPointLightColor0;
 		</UNIFORMS>
 
+		<VARYING>
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vcolor;
+		</VARYING>
+
 		<OUTPUT>
 			// local constant
 			// Kd: diffuse coeff, Ks: specular coeff, sh: specular exponent
@@ -62,11 +72,6 @@
 
 			// specular color
 			vec3 specColor = vec3(1.0,1.0,1.0);
-
-			// varying input
-			varying vec4 vPosition;
-			varying vec3 vNormal;
-			varying vec3 vcolor;
 
 			// main
 			void main(void) {
