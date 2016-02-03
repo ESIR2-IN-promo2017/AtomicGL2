@@ -92,7 +92,7 @@
 				// new normal in tangent space
 				vec3 newNormalTS = normalize(2.0*texture2D(uSampler1, vTextureCoord).xyz -1.0) ;
 
-				//newNormalTS.z = newNormalTS.z*1000.0;
+				// newNormalTS.z = newNormalTS.z*1000.0;
 				// newNormalTS = normalize(newNormalTS);
 
 				// TS to View

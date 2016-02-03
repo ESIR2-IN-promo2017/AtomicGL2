@@ -7,32 +7,32 @@
 		<XMATSHADER file="shaders/texNormalMapProg.xml" nblight="1">texDiffNormalMapProg</XMATSHADER>
 	</SHADERS>
 	<TEXTURES>
-		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>	
-		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>	
-		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>	
-		<TEXTURE id="mur_pierre1_normal" type="normal">texture/mur_pierre1_normal.png</TEXTURE>	
-		<TEXTURE id="mur2" type="color">texture/mur2.png</TEXTURE>	
-		<TEXTURE id="mur2_normal" type="normal">texture/mur2_normal.png</TEXTURE>	
-		<TEXTURE id="mur3" type="color">texture/mur3.png</TEXTURE>	
-		<TEXTURE id="mur3_normal" type="normal">texture/mur3_normal.png</TEXTURE>		
-		<TEXTURE id="toit1" type="color">texture/toit1.png</TEXTURE>	
-		<TEXTURE id="toit1_normal" type="normal">texture/toit1_normal.png</TEXTURE>	
-		<TEXTURE id="pave2" type="color">texture/pave2.png</TEXTURE>	
-		<TEXTURE id="pave2_normal" type="normal">texture/pave2_normal.png</TEXTURE>	
-		<TEXTURE id="pierre2" type="color">texture/pierre2.png</TEXTURE>	
-		<TEXTURE id="pierre2_normal" type="normal">texture/pierre2_normal.png</TEXTURE>	
-		<TEXTURE id="pierre3" type="color">texture/pierre3.png</TEXTURE>	
-		<TEXTURE id="pierre3_normal" type="normal">texture/pierre3_normal.png</TEXTURE>	
-		<TEXTURE id="sol3" type="color">texture/sol3.png</TEXTURE>	
-		<TEXTURE id="marbre1" type="color">texture/marbre1.png</TEXTURE>	
-		<TEXTURE id="bois2" type="color">texture/bois2.png</TEXTURE>	
-		<TEXTURE id="sol5" type="color">texture/sol5.png</TEXTURE>	
-		<TEXTURE id="sol4" type="color">texture/sol4.png</TEXTURE>	
-		<TEXTURE id="sol4_normal" type="normal">texture/sol4_normal.png</TEXTURE>	
-		<TEXTURE id="toit2" type="color">texture/toit2.png</TEXTURE>	
-		<TEXTURE id="toit2_normal" type="normal">texture/toit2_normal.png</TEXTURE>	
-		<TEXTURE id="bois1" type="color">texture/bois1.png</TEXTURE>	
-		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>	
+		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
+		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
+		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
+		<TEXTURE id="mur_pierre1_normal" type="normal">texture/mur_pierre1_normal.png</TEXTURE>
+		<TEXTURE id="mur2" type="color">texture/mur2.png</TEXTURE>
+		<TEXTURE id="mur2_normal" type="normal">texture/mur2_normal.png</TEXTURE>
+		<TEXTURE id="mur3" type="color">texture/mur3.png</TEXTURE>
+		<TEXTURE id="mur3_normal" type="normal">texture/mur3_normal.png</TEXTURE>
+		<TEXTURE id="toit1" type="color">texture/toit1.png</TEXTURE>
+		<TEXTURE id="toit1_normal" type="normal">texture/toit1_normal.png</TEXTURE>
+		<TEXTURE id="pave2" type="color">texture/pave2.png</TEXTURE>
+		<TEXTURE id="pave2_normal" type="normal">texture/pave2_normal.png</TEXTURE>
+		<TEXTURE id="pierre2" type="color">texture/pierre2.png</TEXTURE>
+		<TEXTURE id="pierre2_normal" type="normal">texture/pierre2_normal.png</TEXTURE>
+		<TEXTURE id="pierre3" type="color">texture/pierre3.png</TEXTURE>
+		<TEXTURE id="pierre3_normal" type="normal">texture/pierre3_normal.png</TEXTURE>
+		<TEXTURE id="sol3" type="color">texture/sol3.png</TEXTURE>
+		<TEXTURE id="marbre1" type="color">texture/marbre1.png</TEXTURE>
+		<TEXTURE id="bois2" type="color">texture/bois2.png</TEXTURE>
+		<TEXTURE id="sol5" type="color">texture/sol5.png</TEXTURE>
+		<TEXTURE id="sol4" type="color">texture/sol4.png</TEXTURE>
+		<TEXTURE id="sol4_normal" type="normal">texture/sol4_normal.png</TEXTURE>
+		<TEXTURE id="toit2" type="color">texture/toit2.png</TEXTURE>
+		<TEXTURE id="toit2_normal" type="normal">texture/toit2_normal.png</TEXTURE>
+		<TEXTURE id="bois1" type="color">texture/bois1.png</TEXTURE>
+		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
 	</TEXTURES>
 	<SHAPES>
 		<SHAPE id="ground_grass" type="obj">
@@ -201,16 +201,16 @@
 			<TEXTID>toit2</TEXTID>
 			<TEXTID>toit2_normal</TEXTID>
 		</SHAPE>
-	</SHAPES>	
+	</SHAPES>
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
-	
+
 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_ground_road" shader="texDiffNormalMapProg">ground_road</OBJECT3D>
 					<OBJECT3D id="obj_ground_wall" shader="texDiffNormalMapProg">ground_wall</OBJECT3D>
 					<OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D>
 					<OBJECT3D id="obj_ground_grass" shader="texDiffProg">ground_grass</OBJECT3D>
 			</TRANSFORM>
-			
+
 			<TRANSFORM id="transform_donjon1" translate="-10.0,0.05,-40.0" rotaxis="0.0,1.0,0.0" angle="90.0">
 					<OBJECT3D id="obj_donjon1Base" shader="texDiffNormalMapProg">donjon1Base</OBJECT3D>
 					<OBJECT3D id="donjon1Bois" shader="texDiffNormalMapProg">donjon1Bois</OBJECT3D>
@@ -219,7 +219,7 @@
 					<OBJECT3D id="obj_donjon1Sol" shader="texDiffProg">donjon1Sol</OBJECT3D>
 					<OBJECT3D id="donjon1Toiture" shader="texDiffNormalMapProg">donjon1Toiture</OBJECT3D>
 			</TRANSFORM>
-			
+
 			<TRANSFORM id="transform_donjon2" translate="10.0,0.05,22.0" rotaxis="0.0,1.0,0.0" angle="-180.0">
 					<OBJECT3D id="obj_donjon1Base" shader="texDiffNormalMapProg">donjon1Base</OBJECT3D>
 					<OBJECT3D id="donjon1Bois" shader="texDiffNormalMapProg">donjon1Bois</OBJECT3D>
@@ -228,7 +228,7 @@
 					<OBJECT3D id="obj_donjon1Sol" shader="texDiffProg">donjon1Sol</OBJECT3D>
 					<OBJECT3D id="donjon1Toiture" shader="texDiffNormalMapProg">donjon1Toiture</OBJECT3D>
 			</TRANSFORM>
-			
+
 			<TRANSFORM id="transform_donjon3" translate="45.0,0.05,-112.0" rotaxis="0.0,1.0,0.0" angle="-90.0">
 					<OBJECT3D id="obj_donjon1Base" shader="texDiffNormalMapProg">donjon1Base</OBJECT3D>
 					<OBJECT3D id="donjon1Bois" shader="texDiffNormalMapProg">donjon1Bois</OBJECT3D>
@@ -236,8 +236,8 @@
 					<OBJECT3D id="obj_donjon1Mur" shader="texDiffNormalMapProg">donjon1Mur</OBJECT3D>
 					<OBJECT3D id="obj_donjon1Sol" shader="texDiffProg">donjon1Sol</OBJECT3D>
 					<OBJECT3D id="donjon1Toiture" shader="texDiffNormalMapProg">donjon1Toiture</OBJECT3D>
-			</TRANSFORM>	
-			
+			</TRANSFORM>
+
 			<TRANSFORM id="transform_palais" translate="-15.0,0.05,-70.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_palais1" shader="texDiffProg">palais1</OBJECT3D>
 					<OBJECT3D id="obj_palais2" shader="texDiffProg">palais2</OBJECT3D>
@@ -245,8 +245,8 @@
 					<OBJECT3D id="obj_palais4" shader="texDiffNormalMapProg">palais4</OBJECT3D>
 					<OBJECT3D id="obj_palais5" shader="texDiffNormalMapProg">palais5</OBJECT3D>
 					<OBJECT3D id="obj_palais6" shader="texDiffNormalMapProg">palais6</OBJECT3D>
-			</TRANSFORM>	
-			
+			</TRANSFORM>
+
 			<TRANSFORM id="transform_house1" translate="4.0,0.05,-80.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_house1mur" shader="texDiffNormalMapProg">house1mur</OBJECT3D>
 					<OBJECT3D id="obj_house1sol" shader="texDiffProg">house1sol</OBJECT3D>
@@ -254,38 +254,38 @@
 					<OBJECT3D id="obj_house1stone2" shader="texDiffNormalMapProg">house1stone2</OBJECT3D>
 					<OBJECT3D id="obj_house1toit" shader="texDiffNormalMapProg">house1toit</OBJECT3D>
 					<OBJECT3D id="obj_house1wood" shader="texDiffProg">house1wood</OBJECT3D>
-			</TRANSFORM>	
-			
+			</TRANSFORM>
+
 			<TRANSFORM id="transform_house3" translate="15.0,0.05,-75" rotaxis="0.0,1.0,0.0" angle="-90.0">
 					<OBJECT3D id="obj_house3wall" shader="texDiffNormalMapProg">house3wall</OBJECT3D>
 					<OBJECT3D id="obj_house3roof" shader="texDiffNormalMapProg">house3roof</OBJECT3D>
 					<OBJECT3D id="obj_house3wood" shader="texDiffProg">house3wood</OBJECT3D>
-			</TRANSFORM>			
+			</TRANSFORM>
 			<TRANSFORM id="transform_bridge" translate="0.0,0.05,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_bridge1stone" shader="texDiffNormalMapProg">bridge1stone</OBJECT3D>
 					<OBJECT3D id="obj_bridge1top" shader="texDiffNormalMapProg">bridge1top</OBJECT3D>
-			</TRANSFORM>		
+			</TRANSFORM>
 
 			<TRANSFORM id="transform_tower" translate="-10.0,0.0,-110" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_tower1base" shader="texDiffNormalMapProg">tower1base</OBJECT3D>
 					<OBJECT3D id="obj_tower1mur" shader="texDiffNormalMapProg">tower1mur</OBJECT3D>
 					<OBJECT3D id="obj_tower1parape" shader="texDiffProg">tower1parape</OBJECT3D>
 					<OBJECT3D id="obj_tower1sol" shader="texDiffProg">tower1sol</OBJECT3D>
-					<OBJECT3D id="obj_tower1toit" shader="texDiffNormalMapProg">tower1toit</OBJECT3D>	
-					
+					<OBJECT3D id="obj_tower1toit" shader="texDiffNormalMapProg">tower1toit</OBJECT3D>
+
 					<TRANSFORM id="transform_tower2" translate="15.0,0,0" rotaxis="0.0,1.0,0.0" angle="0.0">
 						<OBJECT3D id="obj_tower1base" shader="texDiffNormalMapProg">tower1base</OBJECT3D>
 						<OBJECT3D id="obj_tower1mur" shader="texDiffNormalMapProg">tower1mur</OBJECT3D>
 						<OBJECT3D id="obj_tower1parape" shader="texDiffProg">tower1parape</OBJECT3D>
 						<OBJECT3D id="obj_tower1sol" shader="texDiffProg">tower1sol</OBJECT3D>
 						<OBJECT3D id="obj_tower1toit" shader="texDiffNormalMapProg">tower1toit</OBJECT3D>
-						
+
 						<TRANSFORM id="trans_wall1" translate="4.4,0.0,-1.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 							<OBJECT3D id="obj_wall2base" shader="texDiffNormalMapProg">wall2base</OBJECT3D>
 							<OBJECT3D id="obj_wall2stone" shader="texDiffNormalMapProg">wall2stone</OBJECT3D>
 							<OBJECT3D id="obj_wall2wood" shader="texDiffProg">wall2wood</OBJECT3D>
 							<OBJECT3D id="obj_wall2roof" shader="texDiffNormalMapProg">wall2roof</OBJECT3D>
-							
+
 							<TRANSFORM id="trans_wall2" translate="19.5,0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 								<OBJECT3D id="obj_wall2base" shader="texDiffNormalMapProg">wall2base</OBJECT3D>
 								<OBJECT3D id="obj_wall2stone" shader="texDiffNormalMapProg">wall2stone</OBJECT3D>
@@ -294,6 +294,6 @@
 							</TRANSFORM>
 						</TRANSFORM>
 					</TRANSFORM>
-			</TRANSFORM>	
+			</TRANSFORM>
 	</ROOT>
 </SCENE>
