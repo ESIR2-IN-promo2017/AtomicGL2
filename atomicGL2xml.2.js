@@ -54,9 +54,6 @@ class atomicGL2xml {
 			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
 
 
-			//Test of SetUniform method	
-			agl.shaderPrograms[0].setUniform(agl,"test",4.0);
-
 			// debug
 		//	console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);	
 		}
