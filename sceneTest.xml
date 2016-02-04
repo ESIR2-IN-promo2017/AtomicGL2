@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<SCENE>
-	<SHADER>
-		<XMATSHADER file="shaders/texProg.xml" nblight="0">textProg</XMATSHADER>
-	</SHADER>
-</SCENE>

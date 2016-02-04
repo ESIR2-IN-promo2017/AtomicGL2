@@ -68,6 +68,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		this.fragmentShaderSRC = this.getShaderSRC(xmlfile,"fragment") ;
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
 		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"),"uniform");
+
+		console.log(this.getUniforms());
 	}
 
 	/*------------------------------------------
@@ -171,7 +173,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				var xoutput     = xmlDoc.getElementsByTagName("OUTPUT");
 
 				str = xfragment[0].childNodes[0].data + xprecision[0].childNodes[0].data
-					+ xuniforms[1].childNodes[0].data + xvarying[1].childNodes[0].data  
+					+ xuniforms[1].childNodes[0].data + xvarying[1].childNodes[0].data
 					+ xoutput[1].childNodes[0].data ;
 			break ;
 
@@ -280,7 +282,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(vertexShader);
 		// debug
-		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(vertexShader));
@@ -293,7 +295,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// shader compilation
         agl.gl.compileShader(fragmentShader);
 		// debug
-		//console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
         if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
             alert(agl.gl.getShaderInfoLog(fragmentShader));
@@ -307,7 +309,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
         agl.gl.linkProgram(program);
 
 		// debug
-		//console.log("atomicGLShader::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
+		console.log("atomicGLShader2::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
         if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
             alert("atomicGLShader2::Could not initialise shaders");
         }
@@ -318,6 +320,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
        	{
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
 	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+
 		}
 
 		// uniforms
