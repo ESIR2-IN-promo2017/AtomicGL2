@@ -18,23 +18,37 @@ Shader :
 Dans  un XML :
 
 <MATSHADER>
-	<ATTRIBUTES>
-		<ATT>Vertex</ATT>
-		<ATT>Color</ATT>
-	</ATTRIBUTES>
-
-	<UNIFORM>
-
-
-	</UNIFORM>
-
-
-	<FRAG>
-
-	</FRAG>
 
 	<VERTEX>
+		<PRECISION>
+		
+		</PRECISION>
 
+		<VARYING>
+
+		</VARYING>
+
+		<UNIFORM>
+
+		</UNIFORM>
 	</VERTEX>
 
+	<FRAG>
+		<PRECISION>
+		
+		</PRECISION>
+
+		<ATTRIBUTES>
+
+		</ATTRIBUTES>
+
+		<VARYING>
+
+		</VARYING>
+
+		<UNIFORM>
+
+		</UNIFORM>
+	</FRAG>
+	
 </MATSHADER>    

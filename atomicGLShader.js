@@ -249,6 +249,4 @@ atomicGLShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnb
 	
 	// init
 	this.program  = this.createProgram(agl,fragmentShaderID, vertexShaderID) ;
-
-    
 }

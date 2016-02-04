@@ -568,7 +568,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	getUniformById(id){
 		return this.mapUniforms.get(id);
 	}
-	setUniformById(agl,id,value){
 
-	}
+	//setUniformById(agl,id,value){
+
+/*		console.log(value);
+		console.log("Test du type:" + (value instanceof float));*/
+
+		//switch(typeof(value))
+		//	aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
+	//}
 }

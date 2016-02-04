@@ -52,6 +52,11 @@ class atomicGL2xml {
 			var nblight = parseFloat(SHAD.getAttribute("nblight"));
 			// create shader and add it to context
 			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
+
+
+			//Test of SetUniform method	
+			agl.shaderPrograms[0].setUniform(agl,"test",4.0);
+
 			// debug
 		//	console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);	
 		}
@@ -67,7 +72,7 @@ class atomicGL2xml {
 			// create shader and add it to context
 			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
 			// debug
-		//	console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);	
+			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);	
 		}
 	}
 	
