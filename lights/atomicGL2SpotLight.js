@@ -25,9 +25,12 @@ class atomicGL2SpotLight extends atomicGL2Light {
    		if(typeof(ddirection)!=Array && ddirection.length != 3)
       		throw new TypeError("Please instantiate the "+this.getType()+" with the ddirection parameter");
 
-		if(typeof(rradius)!=float && ddirection.length != 1)
+		if(isNaN(parseFloat(rradius)) && isFinite(rradius))
       		throw new TypeError("Please instantiate the "+this.getType()+" with the radius parameter");
-      	
+
+		//if the position parmaters is undefined : Error exception
+   		if(typeof(pposition)!=Array && pposition.length != 3)
+      		throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
 
 		// attributes
 		// -------------------------------------------------
