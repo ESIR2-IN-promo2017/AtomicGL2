@@ -3,8 +3,6 @@
 
 require([
 				'JsFilesloaded',
-				'gltp1_fichiers/glMatrix-0.js',
-				'gltp1_fichiers/webgl-utils.js',
 				'objs/palais_v01_bois_parquet.js',
 				'objs/palais_v01_bois_poutre.js',
 				'objs/palais_v01_decors.js',
@@ -23,7 +21,6 @@ require([
 				'objs/tour1mur.js',
 				'objs/tour1parape.js',
 				'objs/tour1sol.js',
-				'objs/berge.js',
 				'objs/donjonBase.js',
 				'objs/donjonBois.js',
 				'objs/donjonFenetre.js',
@@ -46,13 +43,12 @@ require([
 				'objs/tour1toit.js',
 				'atomicGL2Context.js',
 				'atomicGLWalkCamera.js',
-				'atomicGL2Object3d.js',
+				'atomicGLObject3d.js',
 				'atomicGL2MatrixStack.js',
 				'atomicGL2SceneGraph.2.js',
 				'atomicGL2Texture.js',
 				'atomicGL2Clock.js',
 				'atomicGL2Shader.2.js',
-				'atomicGLwaveShader.js',
 				'atomicGLSkyBox.js',
 				'atomicGL2xml.2.js',
 				'atomicGLxyPlane.js',
@@ -60,7 +56,8 @@ require([
 				'lights/atomicGL2Light.js',
 				'lights/atomicGL2PointLight.js',
 				'lights/atomicGL2DirectionnalLight.js',
-				'lights/atomicGL2SpotLight.js'
+				'lights/atomicGL2SpotLight.js',
+				'atomicGL2Mesh.js'
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
 });
