@@ -103,6 +103,7 @@
 
 		// light
 		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0],"test"));
+
 		//agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 		// init Matrix Stack
