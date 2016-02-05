@@ -3,7 +3,6 @@
 
 require([
 				'JsFilesloaded',
-				'gltp1_fichiers/glMatrix-0.js',
 				'gltp1_fichiers/webgl-utils.js',
 				'objs/palais_v01_bois_parquet.js',
 				'objs/palais_v01_bois_poutre.js',
