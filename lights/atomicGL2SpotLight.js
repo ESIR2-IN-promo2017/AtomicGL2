@@ -20,7 +20,7 @@ class atomicGL2SpotLight extends atomicGL2Light {
 	// ddirection	: Light direction
 	// rradius		: Light radius
 
-	constructor(ccolor, pposition, ddirection, rradius){
+	constructor(ccolor, nname, pposition, ddirection, rradius){
 		// attributes
 		// -------------------------------------------------
 		// GL lights

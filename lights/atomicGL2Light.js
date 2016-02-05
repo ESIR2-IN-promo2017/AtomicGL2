@@ -15,11 +15,16 @@ class atomicGL2Light {
 	//------------------------
 	// ccolor	   : Light color
 
-	constructor(ccolor){
+	constructor(ccolor, nname){
 		// attributes
 		// -------------------------------------------------
 		// GL lights
 		this.color = ccolor;
+		this.name = nname;
+	}
+
+	getName(){
+		return this.name;
 	}
 
 	getColor(){
