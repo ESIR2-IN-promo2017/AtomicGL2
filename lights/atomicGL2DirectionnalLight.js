@@ -19,16 +19,9 @@ class atomicGL2DirectionnalLigth extends atomicGL2Light{
 	// ccolor	   	: Light color
 	// ddirection	: Light direction
 
-	constructor(ccolor, nname, ddirection){
-		super(ccolor);
+	constructor(ccolor, ddirection, nname){
+		super(ccolor,nname);
+		
 		this.direction = ddirection;
-	}
-
-	getDirection(){
-		return this.direction;
-	}
-
-	getType(){
-		return "DirectionnalLight";
 	}
 }

@@ -23,19 +23,11 @@ class atomicGL2PointLight extends atomicGL2Light{
 		// -------------------------------------------------
 		// GL lights
 		super(ccolor,nname);
-		if(typeof(nname)=="undefined")
-		{
-			nname = "warning : the identifier of the light was not initialized";
-		}
-		this.position = pposition;
 		
-	}
+		//if the position parmaters is undefined : Error exception
+   		if(typeof(pposition)!=Array && pposition.length != 3)
+      		throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
 
-	getPosition(){
-		return this.position;
-	}
-
-	getType(){
-		return "PointLight";
+		this.position = pposition;
 	}
 }
