@@ -18,7 +18,7 @@ class atomicGL2PointLight extends atomicGL2Light{
 	// ccolor	   : Light color
 	// pposition : Light position
 
-	constructor(ccolor, pposition){
+	constructor(ccolor, nname, pposition){
 		// attributes
 		// -------------------------------------------------
 		// GL lights
