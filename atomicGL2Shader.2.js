@@ -33,7 +33,7 @@ class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 		super();
 		this.vertexShaderSRC = this.getShaderSRC(vertexShaderID) ;
 		this.fragmentShaderSRC = this.getShaderSRC(fragmentShaderID) ;
-	}
+	} 
 	// getShaderSRC
 	// -------------------------
 	// get shader source
@@ -572,12 +572,31 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		return this.mapUniforms.get(id);
 	}
 
-	//setUniformById(agl,id,value){
+	setUniformById(agl,id,value){
 
 /*		console.log(value);
 		console.log("Test du type:" + (value instanceof float));*/
 
-		//switch(typeof(value))
+		var type = this.mapUniforms.get(id)[0];
+
+		switch(value)
+		{
+			case 'float':
+
+				break;
+
+			case 'vec3' :
+				break;
+
+			case 'mat3' :
+				break;
+
+			case 'mat4' :
+				break;
+
+			default:
+				break;
+		}
 		//	aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
-	//}
+	}
 }
