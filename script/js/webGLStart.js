@@ -104,7 +104,7 @@
 		var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
 		// light
-		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0],"test"));
+		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0],"PointLight_1"));
 
 		//agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
