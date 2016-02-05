@@ -14,16 +14,19 @@ class atomicGL2Light {
 	// inputs
 	//------------------------
 	// ccolor	   : Light color
-
-	constructor(ccolor){
-		if (new.target === Mesh) {
+	constructor(ccolor, nname){
+		if (new.target === atomicGL2Light) {
       		throw new TypeError("Cannot construct Abstract instances directly");
    		}
-
 		// attributes
 		// -------------------------------------------------
 		// GL lights
 		this.color = ccolor;
+		this.name = nname;
+	}
+
+	getName(){
+		return this.name;
 	}
 
 	getColor(){

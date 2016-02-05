@@ -3,6 +3,7 @@
 
 require([
 				'JsFilesloaded',
+				'gltp1_fichiers/webgl-utils.js',
 				'objs/palais_v01_bois_parquet.js',
 				'objs/palais_v01_bois_poutre.js',
 				'objs/palais_v01_decors.js',
@@ -51,7 +52,6 @@ require([
 				'atomicGL2Shader.2.js',
 				'atomicGLSkyBox.js',
 				'atomicGL2xml.2.js',
-				'atomicGLxyPlane.js',
 				'script/js/webGLStart.js',
 				'lights/atomicGL2Light.js',
 				'lights/atomicGL2PointLight.js',
