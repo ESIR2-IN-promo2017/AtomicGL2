@@ -18,6 +18,7 @@ class atomicGL2Light {
 		if (new.target === atomicGL2Light) {
       		throw new TypeError("Cannot construct Abstract instances directly");
    		}
+   	
 		// attributes
 		// -------------------------------------------------
 		// GL lights

@@ -18,12 +18,17 @@ class atomicGL2PointLight extends atomicGL2Light{
 	// ccolor	   : Light color
 	// pposition : Light position
 
-	constructor(ccolor, nname, pposition){
+	constructor(ccolor,pposition,nname){
 		// attributes
 		// -------------------------------------------------
 		// GL lights
-		super(ccolor);
+		super(ccolor,nname);
+		if(typeof(nname)=="undefined")
+		{
+			nname = "warning : the identifier of the light was not initialized";
+		}
 		this.position = pposition;
+		
 	}
 
 	getPosition(){

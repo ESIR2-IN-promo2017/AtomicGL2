@@ -69,12 +69,12 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
 		this.uniformsShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"),"uniform");
 
-		console.log(this.getUniforms());
+		//console.log(this.getUniforms());
 	}
 
 	/*------------------------------------------
 
-	param type : the type request it would be "attribute" or "uniform"
+	param type : the type request it should be "attribute" or "uniform"
 
 	return : an array with all the identifiers of the type
 
@@ -397,6 +397,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +aGL.omniLightLocation[i*3+0] +","+ aGL.omniLightLocation[i*3+1]+","+ aGL.omniLightLocation[i*3+2] );
 			//console.log("-- LightColor @"+this.pointLightColorUniform[i]+"::" +aGL.omniLightColor[i*3+0] +","+ aGL.omniLightColor[i*3+1]+","+ aGL.omniLightColor[i*3+2] );
 
+		//	console.log( aGL.lights[i]);
 			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
 			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
 		}
