@@ -16,9 +16,9 @@ This Class will import different type of Mesh
 	3° : we will see
 */
 
+"use strict";
 
-
-class atomicGL2Importer {
+class atomicGL2Importer extends atomicGL2Mesh {
 	constructor(file){
 
 	}

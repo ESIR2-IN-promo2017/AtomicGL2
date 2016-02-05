@@ -178,7 +178,7 @@ class atomicGLObject3d{
 
 class atomicGL2ObjMesh extends atomicGLObject3d {
 	// constructor
-	// 		obj  :	obj object
+	// 		obj  :	atomicGlImporter object
 	// 		uu,vv:	text coord scale
 	constructor(nname, obj, uu, vv){
 		// debug
@@ -231,8 +231,6 @@ class atomicGL2Cube extends atomicGLObject3d {
 		this.width 	= wwidth ;
 		this.depth 	= ddepth ;
 	
-		// textures
-		this.scaleUV = [uu,vv] ;
 
 	
 		// vertices array

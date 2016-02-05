@@ -3,8 +3,8 @@
 
 require([
 				'JsFilesloaded',
-				'webgl-utils.js',
-				'glMatrix-0.js',
+				'script/js/webgl-utils.js',
+				'script/js/glMatrix-0.js',
 				'atomicGL2Context.js',
 				'atomicGLWalkCamera.js',
 				'atomicGLObject3d.js',
@@ -19,7 +19,6 @@ require([
 				'lights/atomicGL2PointLight.js',
 				'lights/atomicGL2DirectionnalLight.js',
 				'lights/atomicGL2SpotLight.js',
-				'atomicGL2Mesh.js',
 				'objs/palais_v01_bois_parquet.js',
 				'objs/palais_v01_bois_poutre.js',
 				'objs/palais_v01_decors.js',
@@ -58,6 +57,7 @@ require([
 				'objs/mur2pierre.js',
 				'objs/mur2toit.js',
 				'objs/tour1toit.js',
+				'atomicGL2Importer.js',
 				'script/js/webGLStart.js'
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
