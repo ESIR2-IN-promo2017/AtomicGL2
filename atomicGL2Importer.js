@@ -22,8 +22,8 @@ class atomicGL2Importer  {
 	constructor(agl,path){
 
 	this.file = this.readTextFile(path);
-	this.importObj(this.file);
-
+	this.obj = this.importObj(this.file);
+	this.build(this.obj);
 
 	}
 
@@ -55,9 +55,8 @@ importObj(fileText){
 	obj.verticesArray = [];
 	// normals array
 	obj.normalsArray  = [] ;
-	
-
-
+	// indexes array
+	obj.vertexIndexArray = [];
 
 	var textSplit = fileText.split('\n');
 	for (var i = 0; i < textSplit.length; i++) {
@@ -72,30 +71,35 @@ importObj(fileText){
 			}
 			// if it is a vertex
 			else if(lineSplit[0] =="v"){
-			obj.verticesArray.push(lineSplit[1]);
-			obj.verticesArray.push(lineSplit[2]);
-			obj.verticesArray.push(lineSplit[3]);
+				obj.verticesArray.push(lineSplit[1]);
+				obj.verticesArray.push(lineSplit[2]);
+				obj.verticesArray.push(lineSplit[3]);
 			}
+			// if it is a normal
+			else if(lineSplit[0] =="vn"){
+				obj.normalsArray.push(lineSplit[1]);
+				obj.normalsArray.push(lineSplit[2]);
+				obj.normalsArray.push(lineSplit[3]);
+			}
+			// if it is a texture coord
 			else if(lineSplit[0] =="vt"){
 
 			}
-			else if(lineSplit[0] =="vn"){
-
-			}
 			else if(lineSplit[0] =="f"){
-	
+				obj.vertexIndexArray.push(lineSplit[1]);
+				obj.vertexIndexArray.push(lineSplit[2]);
+				obj.vertexIndexArray.push(lineSplit[3]);
 			}
-
-
-
-
-
 	};
 
-
+	return obj;
 
 }
 
+
+build(obj){
+	var object3D = new atomicGL2ObjMesh(obj.name,obj,1.0,1.0);
+}
 
 
 }
