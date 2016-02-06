@@ -104,14 +104,8 @@
 		var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
 		// light
-<<<<<<< HEAD
 		agl.pushLight(new atomicGL2PointLight("FirstLight",[0.5, 0.5, 0.5], [0, 1, 0]));
 		agl.ambientLightColor = [0.1,0.05,0.0];	// color
-=======
-		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0],"PointLight_1"));
-
-		//agl.ambientLightColor = [0.1,0.05,0.0];	// color
->>>>>>> 370f5833313c5fee46325b08e289a6d8458a3fe5
 
 		// init Matrix Stack
 		ams.initMatrix(agl,45); // fov = 45 degrees
