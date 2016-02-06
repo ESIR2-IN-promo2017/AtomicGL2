@@ -4,7 +4,7 @@
 // atomicGL2Cylinder  extends atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGL2Cylinder extends atomicGLObject3d {
+class atomicGL2Cylinder extends atomicGL2Object3d {
 // constructor
 //------------------------
 // inputs:	nname: 		name of the Cylinder - string

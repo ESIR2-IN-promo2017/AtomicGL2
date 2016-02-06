@@ -4,7 +4,7 @@
 // atomicGL2Sphere  extends atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGL2Sphere extends atomicGLObject3d{
+class atomicGL2Sphere extends atomicGL2Object3d{
 
 	// constructor
 	//------------------------

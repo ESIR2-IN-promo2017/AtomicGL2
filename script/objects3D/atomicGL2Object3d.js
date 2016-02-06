@@ -8,7 +8,7 @@
 // atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGLObject3d{
+class atomicGL2Object3d{
 	// constructor
 	//------------------------
 	// inputs:	nname: 	name of the 3D Obj - string

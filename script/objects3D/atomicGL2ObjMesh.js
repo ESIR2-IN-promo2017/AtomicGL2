@@ -4,7 +4,7 @@
 // atomicGL2ObjMesh extends atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGL2ObjMesh extends atomicGLObject3d {
+class atomicGL2ObjMesh extends atomicGL2Object3d {
 	// constructor
 	// 		obj  :	atomicGlImporter object
 	// 		uu,vv:	text coord scale

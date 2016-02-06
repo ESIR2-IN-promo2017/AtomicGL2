@@ -25,7 +25,7 @@
 // yyrow:		int - number of rowdivision
 
 
-class atomicGLxyPlane extends atomicGLObject3d {
+class atomicGLxyPlane extends atomicGL2Object3d {
 constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
 	// attributes
 	// -------------------------------------------------

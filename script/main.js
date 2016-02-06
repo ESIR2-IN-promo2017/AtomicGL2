@@ -3,6 +3,7 @@
 
 require([
 				'script/JsFilesloaded.js',
+				'script/shaders/atomicGL2Shader.js',
 
 				'script/includes/webgl-utils.js',
 				'script/includes/glMatrix-0.js',
@@ -51,16 +52,15 @@ require([
 				'script/lights/atomicGL2DirectionnalLight.js',
 				'script/lights/atomicGL2SpotLight.js',
 				
-/*				'script/loaders/atomicGL2ShaderLoader.js',
+				'script/loaders/atomicGL2ShaderLoader.js',
 				'script/loaders/atomicGL2ShaderLoaderScriptXML.js',
-				'script/loaders/atomicGL2ShaderLoaderScriptInLine.js',*/
+				'script/loaders/atomicGL2ShaderLoaderScriptInLine.js',
 
-				'script/objects3D/atomicGL2Object3d.js',
-/*				'script/objects3D/atomicGL2ObjMesh.js',
+				'script/objects3D/atomicGL2ObjMesh.js',
 				'script/objects3D/atomicGL2Cube.js',
 				'script/objects3D/atomicGL2Cylinder.js',
 				'script/objects3D/atomicGL2Sphere.js',
-				'script/objects3D/atomicGLxyPlane.js',*/
+				'script/objects3D/atomicGLxyPlane.js',
 
 				'script/shaders/atomicGL2Texture.js',
 				'script/shaders/atomicGLSkyBox.js',

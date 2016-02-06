@@ -4,7 +4,7 @@
 // atomicGL2Cube  extends atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGL2Cube extends atomicGLObject3d {
+class atomicGL2Cube extends atomicGL2Object3d {
 	// constructor
 	//------------------------
 	// inputs:	gl: 	openGL context
