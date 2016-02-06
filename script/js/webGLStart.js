@@ -103,8 +103,9 @@
 
 		var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
+		var ae = new atomicGL2Importer(agl,"file:///C:/Users/Billel/Desktop/projets/AtomicGL2/pyramid.obj");
 		// light
-		agl.pushLight(new atomicGL2PointLight("FirstLight",[0.5, 0.5, 0.5], [0, 1, 0]));
+		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
 		agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 		// init Matrix Stack
