@@ -25,21 +25,21 @@ class atomicGL2Context {
 		this.ambientLightColor;
 
 		// GLtexture
-		this.GLtexture = [];
-
+		this.GLtexture      = [];
+		
 		// -------------------------------------------------
 		// scene assets
 		// -------------------------------------------------
 		// shaders
 		this.shaderPrograms = [];
 		// textures
-		this.textures = [];
+		this.textures       = [];
 		// shapes
-		this.shapes = [];
+		this.shapes         = [];
 		// lights
-		this.lights = [];
+		this.lights         = [];
 		// scene graph
-		this.scenegraph = null;
+		this.scenegraph     = null;
 	}
 
 	// methods

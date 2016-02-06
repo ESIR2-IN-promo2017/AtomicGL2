@@ -50,7 +50,6 @@ require([
 				'atomicGL2SceneGraph.2.js',
 				'atomicGL2Texture.js',
 				'atomicGL2Clock.js',
-				'atomicGL2Shader.2.js',
 				'atomicGLwaveShader.js',
 				'atomicGLSkyBox.js',
 				'atomicGL2xml.2.js',
