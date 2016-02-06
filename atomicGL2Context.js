@@ -52,15 +52,22 @@ class atomicGL2Context {
 		// debug
 		//console.log("atomicGLContext::initGL");
 		// recover canvas openGL
-    try {
-      this.gl = canvas.getContext("webgl");
-      this.viewportWidth = canvas.width;
-      this.viewportHeight = canvas.height;
-    } catch (e) {}
-    if (!this.gl) { // error in the initialisation of GL context
-      alert("atomicGLContext::Could not initialise WebGL");
-    }
-		else { // GL context initialised -> first init (background color, DEPTH_TEST)
+    	try {
+      		this.gl = canvas.getContext("webgl");
+     	 	this.viewportWidth = canvas.width;
+      		this.viewportHeight = canvas.height;
+    	} 
+
+    	catch (e) 
+    	{}
+
+		// error in the initialisation of GL context
+    	if (!this.gl) 
+      		alert("atomicGLContext::Could not initialise WebGL");
+    	
+		else 
+		{ 
+			// GL context initialised -> first init (background color, DEPTH_TEST)
 			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
 			this.gl.enable(this.gl.DEPTH_TEST);
 		}
@@ -74,7 +81,7 @@ class atomicGL2Context {
 		this.GLtexture.push(this.gl.TEXTURE5);
 		this.GLtexture.push(this.gl.TEXTURE6);
 		this.GLtexture.push(this.gl.TEXTURE7);
-  }
+  	}
 
 	// initDraw()
 	//---------------------------
@@ -82,7 +89,7 @@ class atomicGL2Context {
 		// debug
 		// console.log("atomicGLContext::initDraw");
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
-    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+   	 	this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
 
 	// pushLight(light)
@@ -92,7 +99,7 @@ class atomicGL2Context {
 		// debug
 		// console.log("atomicGLContext::pushLight");
 		this.lights.push(light);
-		}
+	}
 
 	// pushProgram(prog)
 	// ---------------------------
@@ -113,10 +120,17 @@ class atomicGL2Context {
 	// output:	int - index of texture in this.textures
 	indexOfTexture(id){
 		var res = -1 ;
-		for (var i=0; i<this.textures.length;i++){
+
+		for (var i=0; i<this.textures.length;i++)
+		{
 			var idTex = this.textures[i].id ;
-			if (id==idTex){res = i;break}
+			if (id==idTex)
+			{
+				res = i;
+				break;
+			}
 		}
+
 		return res;
 	}
 
@@ -126,10 +140,17 @@ class atomicGL2Context {
 	// output:	int - index of shader in this.shaders
 	indexOfShader(id){
 		var res = -1 ;
-		for (var i=0; i<this.shaderPrograms.length;i++){
+
+		for (var i=0; i<this.shaderPrograms.length;i++)
+		{
 			var shadername = this.shaderPrograms[i].name ;
-			if (id==shadername){res = i;break}
+			if (id==shadername)
+			{
+				res = i;
+				break;
+			}
 		}
+
 		return res;
 	}
 
@@ -139,9 +160,15 @@ class atomicGL2Context {
 	// output:	int - index of shape in this.shapes
 	indexOfShape(id){
 		var res = -1 ;
-		for (var i=0; i<this.shapes.length;i++){
-			var shapename = this.shapes[i].name ;
-			if (id==shapename){res = i;break}
+
+		for (var i=0; i<this.shapes.length;i++)
+		{
+			var shapename = this.shapes[i].name;
+			if (id==shapename)
+			{
+				res = i;
+				break;
+			}
 		}
 		return res;
 	}

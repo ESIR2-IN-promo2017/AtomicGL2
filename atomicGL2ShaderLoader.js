@@ -13,17 +13,17 @@
 //----------------------------------------------------------------------------------------
 class atomicGL2ShaderLoader{
 	constructor(){
-		this.vertexShaderSRC = "";
-		this.fragmentShaderSRC = "" ;
-		this.attributesShaderSRC = [];
-		this.uniformsShaderSRC = [];
+		this.vertexShaderSRC           = "";
+		this.fragmentShaderSRC         = "";
+		this.attributesShaderSRC       = [];
+		this.uniformsShaderSRC         = [];
 		this.uniformsFragmentShaderSRC = [];
-		this.sampler = [];
+		this.sampler                   = [];
 	}
-	getVertex(){return this.vertexShaderSRC;}
-	getFragment(){return this.fragmentShaderSRC;}
-	getAttributes(){return this.attributesShaderSRC;}
-	getUniforms(){ return this.uniformsShaderSRC;}
-	getNbTexture(){return this.sampler.length;}
-	getSampler2D(){return this.sampler;}
+	getVertex()		{return this.vertexShaderSRC;}
+	getFragment()	{return this.fragmentShaderSRC;}
+	getAttributes()	{return this.attributesShaderSRC;}
+	getUniforms()	{return this.uniformsShaderSRC;}
+	getNbTexture()	{return this.sampler.length;}
+	getSampler2D()	{return this.sampler;}
 }

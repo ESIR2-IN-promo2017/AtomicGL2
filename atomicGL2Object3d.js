@@ -17,23 +17,23 @@ class atomicGLObject3d{
 		this.name = nname ;
 		
 		// textures
-		this.scaleUV = [] ;
-		this.textures = [] ;
-	
+		this.scaleUV            = [];
+		this.textures           = [];
+		
 		// vertices array
-		this.verticesArray 	= [] ;
-	
+		this.verticesArray      = [];
+		
 		// normals array
-		this.normalsArray  = [] ;
-	
+		this.normalsArray       = [];
+		
 		// color array
-    	this.colorsArray = [];
-    	
+		this.colorsArray        = [];
+		
 		// texture coordinates array
-    	this.textureCoordsArray = [] ;
-	
+		this.textureCoordsArray = [];
+		
 		// indexes
-    	this.vertexIndices = [] ;	
+		this.vertexIndices      = [];	
     
     	// OGL buffers
  		// buffers
@@ -149,7 +149,9 @@ class atomicGLObject3d{
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);
 			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
 		}
-		for (var i=0; i<this.textures.length; i++ ){
+
+		for (var i=0; i<this.textures.length; i++ )
+		{
 			// activate texture
 			// debug
 			// console.log("atomicGLObject3d("+this.name+")::activateTexture: "+agl.GLtexture[i]+"/"+agl.gl.TEXTURE0);
@@ -162,6 +164,7 @@ class atomicGLObject3d{
 			agl.gl.uniform1i(aGL.shaderPrograms[idProg].samplerUniform[i], i);
 
 		}
+		
 		// indexes
         aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
 		

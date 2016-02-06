@@ -14,8 +14,10 @@ class atomicGL2Clock{
 	constructor(){
 		// attributes
 		// -------------------------------------------------
+		
 		// time of last tick
     	this.lastTime = 0.0 ;
+		
 		// elapsed time
 		this.elapsed = 0.0 ;	
 	}
@@ -26,7 +28,10 @@ class atomicGL2Clock{
 		// debug
 		// console.log("atomicGLClock::tick");	
         var timeNow = new Date().getTime();
-        if (this.lastTime != 0) {this.elapsed = timeNow - this.lastTime;}
+
+        if (this.lastTime != 0)
+        	this.elapsed = timeNow - this.lastTime;
+
         this.lastTime = timeNow;
     }
 	// get()
