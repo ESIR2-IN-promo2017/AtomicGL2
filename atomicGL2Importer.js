@@ -5,23 +5,22 @@
 // version: 2.3
 // current version date: 2016/01/26
 //----------------------------------------------------------------------------------------
-// atomicGL2DirectionnalLigth
+// atomicGL2Importer
 //----------------------------------------------------------------------------------------
+
+
+/*
+This Class will import different type of Mesh
+	1° : .Obj
+	2° : .fbx (I hope)
+	3° : we will see
+*/
 
 "use strict";
 
-class atomicGL2DirectionnalLigth extends atomicGL2Light{
+class atomicGL2Importer extends atomicGL2Mesh {
+	constructor(file){
 
-	// constructor
-	//------------------------
-	// inputs
-	//------------------------
-	// ccolor	   	: Light color
-	// ddirection	: Light direction
-
-	constructor(ccolor, ddirection, nname){
-		super(ccolor,nname);
-		
-		this.direction = ddirection;
 	}
+
 }

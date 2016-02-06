@@ -1,5 +1,16 @@
-"use strict;"
-
+// atomicGL2
+//----------------------------------------------------------------------------------------
+// author: RC
+// contact: cozot@irisa.fr
+// version: 2.2
+// current version date: 2016/01/28
+//----------------------------------------------------------------------------------------
+// atomicGL2Shader
+// atomicGL2MatShader exetnds  atomicGL2Shader
+// atomicGL2ShaderLoader
+// atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader
+// atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader
+//----------------------------------------------------------------------------------------
 class atomicGL2Shader{
 	constructor(nname){this.name=nname;}
 }
@@ -200,6 +211,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +aGL.omniLightLocation[i*3+0] +","+ aGL.omniLightLocation[i*3+1]+","+ aGL.omniLightLocation[i*3+2] );
 			//console.log("-- LightColor @"+this.pointLightColorUniform[i]+"::" +aGL.omniLightColor[i*3+0] +","+ aGL.omniLightColor[i*3+1]+","+ aGL.omniLightColor[i*3+2] );
 
+		//	console.log( aGL.lights[i]);
 			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
 			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
 		}
