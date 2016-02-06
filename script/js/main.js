@@ -57,7 +57,6 @@ require([
 				'objs/mur2pierre.js',
 				'objs/mur2toit.js',
 				'objs/tour1toit.js',
-<<<<<<< HEAD
 				'atomicGL2Context.js',
 				'atomicGLWalkCamera.js',
 				'atomicGL2Object3d.js',
@@ -69,15 +68,12 @@ require([
 				'atomicGLSkyBox.js',
 				'atomicGL2xml.2.js',
 				'atomicGLxyPlane.js',
-				'script/js/webGLStart.js',
 				'lights/atomicGL2Light.js',
 				'lights/atomicGL2PointLight.js',
 				'lights/atomicGL2DirectionnalLight.js',
-				'lights/atomicGL2SpotLight.js'
-=======
+				'lights/atomicGL2SpotLight.js',
 				'atomicGL2Importer.js',
 				'script/js/webGLStart.js'
->>>>>>> 370f5833313c5fee46325b08e289a6d8458a3fe5
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
 });
