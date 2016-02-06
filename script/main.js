@@ -2,22 +2,11 @@
 
 
 require([
-				'JsFilesloaded',
-				'webgl-utils.js',
-				'glMatrix-0.js',
-				'atomicGL2Context.js',
-				'atomicGLWalkCamera.js',
-				'atomicGL2MatrixStack.js',
-				'atomicGL2SceneGraph.2.js',
-				'atomicGL2Texture.js',
-				'atomicGL2Clock.js',
-				'atomicGL2Shader.js',
-				'atomicGLSkyBox.js',
-				'atomicGL2xml.2.js',
-				'lights/atomicGL2Light.js',
-				'lights/atomicGL2PointLight.js',
-				'lights/atomicGL2DirectionnalLight.js',
-				'lights/atomicGL2SpotLight.js',
+				'script/JsFilesloaded.js',
+
+				'script/includes/webgl-utils.js',
+				'script/includes/glMatrix-0.js',
+				
 				'objs/palais_v01_bois_parquet.js',
 				'objs/palais_v01_bois_poutre.js',
 				'objs/palais_v01_decors.js',
@@ -56,20 +45,36 @@ require([
 				'objs/mur2pierre.js',
 				'objs/mur2toit.js',
 				'objs/tour1toit.js',
-				'atomicGL2Context.js',
-				'atomicGLWalkCamera.js',
-				'atomicGL2Object3d.js',
-				'atomicGL2MatrixStack.js',
-				'atomicGL2Texture.js',
-				'atomicGL2Clock.js',
-				'atomicGLSkyBox.js',
-				'atomicGL2xml.2.js',
-				'lights/atomicGL2Light.js',
-				'lights/atomicGL2PointLight.js',
-				'lights/atomicGL2DirectionnalLight.js',
-				'lights/atomicGL2SpotLight.js',
-				'atomicGL2Importer.js',
-				'script/js/webGLStart.js'
+
+				'script/lights/atomicGL2Light.js',
+				'script/lights/atomicGL2PointLight.js',
+				'script/lights/atomicGL2DirectionnalLight.js',
+				'script/lights/atomicGL2SpotLight.js',
+				
+/*				'script/loaders/atomicGL2ShaderLoader.js',
+				'script/loaders/atomicGL2ShaderLoaderScriptXML.js',
+				'script/loaders/atomicGL2ShaderLoaderScriptInLine.js',*/
+
+				'script/objects3D/atomicGL2Object3d.js',
+/*				'script/objects3D/atomicGL2ObjMesh.js',
+				'script/objects3D/atomicGL2Cube.js',
+				'script/objects3D/atomicGL2Cylinder.js',
+				'script/objects3D/atomicGL2Sphere.js',
+				'script/objects3D/atomicGLxyPlane.js',*/
+
+				'script/shaders/atomicGL2Texture.js',
+				'script/shaders/atomicGLSkyBox.js',
+
+				'script/webgl/atomicGL2Clock.js',
+				'script/webgl/atomicGL2Context.js',
+				'script/webgl/atomicGL2Importer.js',
+				'script/webgl/atomicGL2MatrixStack.js',
+				'script/webgl/atomicGL2SceneGraph.2.js',
+				'script/webgl/atomicGL2xml.2.js',
+				'script/webgl/atomicGLWalkCamera.js',
+				
+				'script/webGLStart.js'
+				
 		],function(JsFilesloaded){
 			JsFilesloaded.webGLStart();
 });
