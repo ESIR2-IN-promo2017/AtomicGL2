@@ -21,100 +21,99 @@
 	// -------------------------------------------------
 	//var tester = new atomicGL2Importer(agl,"./objs/pyramid.obj");
 
-	// draw
+
+// draw
+// -----------------------------
+function sceneDraw(){
+	agl.initDraw();
+	agl.scenegraph.draw(agl,ams);
+}
+
+// nextFrame
+// -----------------------------
+function nextFrame() {
+	handleKeys();
+    requestAnimFrame(nextFrame);
+    sceneDraw();
+    animate();
+}
+
+// animate
+// ------------------------------
+function animate(){
+	// increase time
+	sceneClock.tick() ;
+}
+
+// keyboard
+// --------------------------------
+function handleKeyDown(event) 	{ currentlyPressedKeys[event.keyCode] = true;}
+function handleKeyUp(event) 	{currentlyPressedKeys[event.keyCode] = false;}
+
+function handleKeys() {
+	if (Math.abs(mouseX)>0.1){
+		agl.scenegraph.camera.turnright(1.0*(mouseX*mouseX*mouseX));
+	}
+	agl.scenegraph.camera.turnup(45*mouseY);
+	if (currentlyPressedKeys[67]) // (C) debug
+	{
+		// debug
+		console.log('atomicGL - Rémi COZOT - 2015');
+	}
+	if (currentlyPressedKeys[68]) // (D) Right
+	{
+		// debug
+		agl.scenegraph.camera.right();		}
+	if (currentlyPressedKeys[81]) // (Q) Left
+	{
+		// debug
+		agl.scenegraph.camera.left();			//
+	}
+	if (currentlyPressedKeys[90]) // (Z) Up
+	{
+		// debug
+		agl.scenegraph.camera.up();			//
+	}
+	if (currentlyPressedKeys[83]) // (S) Down
+	{
+		// debug
+		agl.scenegraph.camera.down();			//
+	}
+}
+
+// mouse
+// ------------------------------
+function onDocumentMouseMove( event ) {
+	omouseX = mouseX ;
+	mouseX  = ( event.clientX - windowHalfX ) / windowHalfX;
+	mouseY  = ( event.clientY - windowHalfY ) / windowHalfY;
+}
+
+	//webGLStart
+function webGLStart() {
+	// init
 	// -----------------------------
-	function sceneDraw(){
-		agl.initDraw();
-		agl.scenegraph.draw(agl,ams);
+	// recover OpenGL canvas
+	var canvas = document.getElementById("oglcanvas");
 
-	}
+	// init OpenGL context
+	// canvas, background color
+	agl.initGL(canvas,[0.15,0.1,0.5]);
 
-	// nextFrame
-	// -----------------------------
-    function nextFrame() {
-		handleKeys();
-        requestAnimFrame(nextFrame);
-        sceneDraw();
-        animate();
-    }
+	// scenegraph creation from xml file
+	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
 
-    // animate
-    // ------------------------------
-    function animate(){
-    	// increase time
-    	sceneClock.tick() ;
-    }
+	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
-	// keyboard
-	// --------------------------------
-	function handleKeyDown(event) 	{ currentlyPressedKeys[event.keyCode] = true;}
-	function handleKeyUp(event) 	{currentlyPressedKeys[event.keyCode] = false;}
+	//var ae = new atomicGL2Importer(agl,"./objs/pyramid.obj");
+	// light
+	agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
+	agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
-	function handleKeys() {
-		if (Math.abs(mouseX)>0.1){
-			agl.scenegraph.camera.turnright(1.0*(mouseX*mouseX*mouseX));
-		}
-		agl.scenegraph.camera.turnup(45*mouseY);
-		if (currentlyPressedKeys[67]) // (C) debug
-		{
-			// debug
-			console.log('atomicGL - Rémi COZOT - 2015');
-		}
-		if (currentlyPressedKeys[68]) // (D) Right
-		{
-			// debug
-			agl.scenegraph.camera.right();		}
-		if (currentlyPressedKeys[81]) // (Q) Left
-		{
-			// debug
-			agl.scenegraph.camera.left();			//
-		}
-		if (currentlyPressedKeys[90]) // (Z) Up
-		{
-			// debug
-			agl.scenegraph.camera.up();			//
-		}
-		if (currentlyPressedKeys[83]) // (S) Down
-		{
-			// debug
-			agl.scenegraph.camera.down();			//
-		}
-	}
-
-	// mouse
-	// ------------------------------
-	function onDocumentMouseMove( event ) {
-		omouseX = mouseX ;
-		mouseX = ( event.clientX - windowHalfX ) / windowHalfX;
-		mouseY = ( event.clientY - windowHalfY ) / windowHalfY;
-	}
-
-		//webGLStart
-	function webGLStart() {
-		// init
-		// -----------------------------
-		// recover OpenGL canvas
-		var canvas = document.getElementById("oglcanvas");
-
-		// init OpenGL context
-		// canvas, background color
-		agl.initGL(canvas,[0.15,0.1,0.5]);
-
-		// scenegraph creation from xml file
-		var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
-
-		var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
-
-		
-
-		// light
-		agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
-		agl.ambientLightColor = [0.1,0.05,0.0];	// color
-
-		// init Matrix Stack
-		ams.initMatrix(agl,45); // fov = 45 degrees
+	// init Matrix Stack
+	ams.initMatrix(agl,45); // fov = 45 degrees
 
 
-		// start the animation
-		nextFrame();
-	}
+	// start the animation
+	nextFrame();
+}
