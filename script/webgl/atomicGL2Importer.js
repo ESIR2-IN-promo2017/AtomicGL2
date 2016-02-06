@@ -23,8 +23,10 @@ class atomicGL2Importer  {
 
 	this.file = this.readTextFile(path);
 	this.obj = this.importObj(this.file);
-	this.build(this.obj);
+	this.obj3d = this.build(this.obj);
 
+	this.obj3d.initGLBuffers(agl);
+	agl.shapes.push(this.obj3d);
 	}
 
  readTextFile(file){
@@ -52,11 +54,15 @@ importObj(fileText){
 
 	obj.name ='';
 	// vertices array
-	obj.verticesArray = [];
+	obj.vertices = [];
 	// normals array
-	obj.normalsArray  = [] ;
+	obj.normals  = [] ;
 	// indexes array
-	obj.vertexIndexArray = [];
+	obj.vertexIndices = [];
+
+	obj.uv = [];
+
+	obj.index = 3 ;
 
 	var textSplit = fileText.split('\n');
 	for (var i = 0; i < textSplit.length; i++) {
@@ -71,24 +77,24 @@ importObj(fileText){
 			}
 			// if it is a vertex
 			else if(lineSplit[0] =="v"){
-				obj.verticesArray.push(lineSplit[1]);
-				obj.verticesArray.push(lineSplit[2]);
-				obj.verticesArray.push(lineSplit[3]);
+				obj.vertices.push(lineSplit[1]);
+				obj.vertices.push(lineSplit[2]);
+				obj.vertices.push(lineSplit[3]);
 			}
 			// if it is a normal
 			else if(lineSplit[0] =="vn"){
-				obj.normalsArray.push(lineSplit[1]);
-				obj.normalsArray.push(lineSplit[2]);
-				obj.normalsArray.push(lineSplit[3]);
+				obj.normals.push(lineSplit[1]);
+				obj.normals.push(lineSplit[2]);
+				obj.normals.push(lineSplit[3]);
 			}
 			// if it is a texture coord
 			else if(lineSplit[0] =="vt"){
 
 			}
 			else if(lineSplit[0] =="f"){
-				obj.vertexIndexArray.push(lineSplit[1]);
-				obj.vertexIndexArray.push(lineSplit[2]);
-				obj.vertexIndexArray.push(lineSplit[3]);
+				obj.vertexIndices.push(lineSplit[1]);
+				obj.vertexIndices.push(lineSplit[2]);
+				obj.vertexIndices.push(lineSplit[3]);
 			}
 	};
 
@@ -98,7 +104,7 @@ importObj(fileText){
 
 
 build(obj){
-	var object3D = new atomicGL2ObjMesh(obj.name,obj,1.0,1.0);
+	return new atomicGL2ObjMesh(obj.name,obj,1.0,1.0);
 }
 
 
