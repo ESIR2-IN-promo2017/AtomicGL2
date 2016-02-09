@@ -80,6 +80,9 @@ importObj(fileText){
       var elements = line.split(WHITESPACE_RE);
       var firstChar = elements.shift();
 
+
+      //Vérifier que le group vertex est inéxistant avant de créer les élements
+
       if(firstChar == '#'){
         continue;
       } else if (firstChar == 'g' ||firstChar == 'o') {
@@ -116,6 +119,11 @@ importObj(fileText){
                
                 quad = true;
             }
+
+            if(elements[j] in objTmp.hashindices){
+                objTmp.indices.push(objTmp.hashindices[elements[j]]);
+            }
+            else{
                 /*
             Each element of the face line array is a vertex which has its
             attributes delimited by a forward slash. This will separate
@@ -150,17 +158,25 @@ importObj(fileText){
             // increment the counter
             obj.index += 1;
 
+            objTmp.hashindices[elements[j]] = obj.index;
+            objTmp.indices.push(obj.index);
+
             if(j === 3 && quad) {
                 // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
                 // in order to split the quad onto two triangle : 
                 // f 1 2 3 4 => 1 2 3  1 3 4 
-              obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
-               obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
+
+                objTmp.indices.push( objTmp.hashindices[elements[0]]);
+                obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
+                obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
                                       vertex[0]);
+
+
             }
         }
       }
     }
+  }
   return obj;
 
 }
