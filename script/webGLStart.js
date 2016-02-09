@@ -19,7 +19,7 @@
 	// clock
 	var sceneClock = new atomicGL2Clock() ;
 	// -------------------------------------------------
-	//var tester = new atomicGL2Importer(agl,"./objs/pyramid.obj");
+	var tester ;
 
 
 // draw
@@ -27,6 +27,8 @@
 function sceneDraw(){
 	agl.initDraw();
 	agl.scenegraph.draw(agl,ams);
+	tester.draw(agl,ams,0)
+
 }
 
 // nextFrame
@@ -101,7 +103,15 @@ function webGLStart() {
 	agl.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
+
 	var sgxml = new atomicGL2xml(agl,'./scenes/sceneTest.xml');
+
+//	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
+
+//	var at = new atomicGL2SGobject3d("test");
+//	tester= new atomicGL2Importer(agl,"./objs/u.obj").obj3d;
+
+//	at.setObject3D(tester,"texProg");
 
 	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 	var shaderTest = agl.getShaderProgram("textProg");
