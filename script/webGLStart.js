@@ -19,7 +19,6 @@
 	// clock
 	var sceneClock = new atomicGL2Clock() ;
 	// -------------------------------------------------
-	var tester ;
 
 
 // draw
@@ -27,7 +26,6 @@
 function sceneDraw(){
 	agl.initDraw();
 	agl.scenegraph.draw(agl,ams);
-	tester.draw(agl,ams,0)
 
 }
 
@@ -110,10 +108,6 @@ function webGLStart() {
 
 
 	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
-//	var at = new atomicGL2SGobject3d("test");
-//	tester= new atomicGL2Importer(agl,"./objs/u.obj").obj3d;
-
-//	at.setObject3D(tester,"texProg");
 
 	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 	var shaderTest = agl.getShaderProgram("textProg");
@@ -126,7 +120,7 @@ function webGLStart() {
 
 
 	//Todo (Billel)
-	agl.shaderPrograms[0].setUniformById(agl,"test",2.2);
+	shaderTest.setUniformById(agl,"test",2.2);
 
 
 	// start the animation

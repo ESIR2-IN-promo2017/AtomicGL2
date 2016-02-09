@@ -336,7 +336,7 @@ atomicGLSkyBox = function(nname,ssize){
 	this.draw = function(aGL,aMS,idProg){
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::draw(progId: "+idProg+")");
-		console.log(aGL.shaderPrograms);
+		//console.log(aGL.shaderPrograms);
 		// activate shader
 		aGL.gl.useProgram(aGL.getShaderProgram(idProg).program);
 		// setUniforms: matrices and lights
