@@ -12,7 +12,8 @@
 // atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader
 //----------------------------------------------------------------------------------------
 class atomicGL2Shader{
-	constructor(nname){this.name=nname;}
+	//constructor(nname){this.name=nname;}
+	constructor(){}
 }
 
 class  atomicGL2MatShader extends atomicGL2Shader{
@@ -29,10 +30,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(nname, agl,shaderloader,nnbLights){
+	constructor(agl,shaderloader,nnbLights){
 		// attributes
 		// -------------------------------------------------
-		super(nname);
+		super();
 
 		this.shaderloader =shaderloader;
 

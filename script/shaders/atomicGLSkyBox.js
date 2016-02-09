@@ -336,34 +336,34 @@ atomicGLSkyBox = function(nname,ssize){
 	this.draw = function(aGL,aMS,idProg){
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::draw(progId: "+idProg+")");
-
+		console.log(aGL.shaderPrograms);
 		// activate shader
-		aGL.gl.useProgram(aGL.shaderPrograms[idProg].program);
+		aGL.gl.useProgram(aGL.getShaderProgram(idProg).program);
 		// setUniforms: matrices and lights
-		aGL.shaderPrograms[idProg].setUniforms(aGL,aMS);
+		aGL.getShaderProgram(idProg).setUniforms(aGL,aMS);
 		
 		// link buffer to attributes
 		//positions
-		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+		if(aGL.getShaderProgram(idProg).hasVertexPositionAttribute(aGL.getShaderProgram(idProg).shaderloader.getAttributes())){
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexPositionBuffer);
-    	    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexPosition(), this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+    	    aGL.gl.vertexAttribPointer(aGL.getShaderProgram(idProg).getVertexPosition(), this.skyBoxVertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		//normals
-        if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+        if(aGL.getShaderProgram(idProg).hasVertexNormalAttribute(aGL.getShaderProgram(idProg).shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexNormalBuffer);
-        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexNormal(), this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        	aGL.gl.vertexAttribPointer(aGL.getShaderProgram(idProg).getVertexNormal(), this.skyBoxVertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		// colors
-		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+		if(aGL.getShaderProgram(idProg).hasVertexColorAttribute(aGL.getShaderProgram(idProg).shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexColorBuffer);
-        	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexColor(), this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+        	aGL.gl.vertexAttribPointer(aGL.getShaderProgram(idProg).getVertexColor(), this.skyBoxVertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
     	}
 		// textures
 		if(this.textures.length>0){
 			// debug
-			// console.log("atomicGLskyBox("+this.name+")::vertexAttribPointer: "+aGL.shaderPrograms[idProg].texCoordAttribute);
+			// console.log("atomicGLskyBox("+this.name+")::vertexAttribPointer: "+aGL.getShaderProgram(idProg).texCoordAttribute);
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.skyBoxVertexTexCoordBuffer);
-			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getTextureCoord(), this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
+			aGL.gl.vertexAttribPointer(aGL.getShaderProgram(idProg).getTextureCoord(), this.skyBoxVertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
 		}
 		for (var i=0; i<this.textures.length; i++ ){
 			// activate texture
@@ -374,8 +374,8 @@ atomicGLSkyBox = function(nname,ssize){
 			// console.log("atomicGLskyBox("+this.name+")::bindTexture: "+this.textures[i].texture);
 			agl.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);
 			// debug
-			// console.log("atomicGLskyBox("+this.name+")::uniform: "+aGL.shaderPrograms[idProg].samplerUniform[i]+"->"+i);			
-			agl.gl.uniform1i(aGL.shaderPrograms[idProg].samplerUniform[i], i);
+			// console.log("atomicGLskyBox("+this.name+")::uniform: "+aGL.getShaderProgram(idProg).samplerUniform[i]+"->"+i);			
+			agl.gl.uniform1i(aGL.getShaderProgram(idProg).samplerUniform[i], i);
 		}
 		// indexes
         aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.skyBoxVertexIndexBuffer);

@@ -64,12 +64,17 @@ require([
 
 				'script/shaders/atomicGL2Texture.js',
 				'script/shaders/atomicGLSkyBox.js',
+				
+				'script/scenegraph/atomicGL2SceneGraph.2.js',
+				'script/scenegraph/atomicGL2SGroot.js',
+				'script/scenegraph/atomicGL2SGtransform.js',
+				'script/scenegraph/atomicGL2SGobject3d.js',
+
 
 				'script/webgl/atomicGL2Clock.js',
 				'script/webgl/atomicGL2Context.js',
 				'script/webgl/atomicGL2Importer.js',
 				'script/webgl/atomicGL2MatrixStack.js',
-				'script/webgl/atomicGL2SceneGraph.2.js',
 				'script/webgl/atomicGL2xml.2.js',
 				'script/webgl/atomicGLWalkCamera.js',
 				
