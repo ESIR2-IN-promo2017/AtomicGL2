@@ -2,6 +2,23 @@
 
 <SCENE>
 	<SHADERS>
-		<XMATSHADER file="shaders/texProg.xml" nblight="0">textProg</XMATSHADER>	
+		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>	
 	</SHADERS>
+
+	<TEXTURES>
+		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>	
+	</TEXTURES>
+
+	<SHAPES>
+		<SHAPE id="ground_sand" type="obj">
+			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_sable()</GEOMETRY>
+			<TEXTID>sable1</TEXTID>
+		</SHAPE>
+	</SHAPES>
+
+	<ROOT id="root" skybox="sable1" skysize="800.0" skyshader="textProg" camera="walk">
+			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+					<OBJECT3D id="obj_ground_sand" shader="textProg">ground_sand</OBJECT3D>
+			</TRANSFORM>
+	</ROOT>
 </SCENE>

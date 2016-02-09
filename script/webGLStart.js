@@ -103,24 +103,29 @@ function webGLStart() {
 	agl.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
-	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
 
-	var at = new atomicGL2SGobject3d("test");
-	tester= new atomicGL2Importer(agl,"./objs/u.obj").obj3d;
+	var sgxml = new atomicGL2xml(agl,'./scenes/sceneTest.xml');
 
-	at.setObject3D(tester,"texProg");
+//	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
 
-	console.log(agl.shaderPrograms[0].getUniformById("test"));
 
 	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
+//	var at = new atomicGL2SGobject3d("test");
+//	tester= new atomicGL2Importer(agl,"./objs/u.obj").obj3d;
 
-	//var ae = new atomicGL2Importer(agl,"./objs/pyramid.obj");
+//	at.setObject3D(tester,"texProg");
+
+	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
+	var shaderTest = agl.getShaderProgram("textProg");
 	// light
-	agl.pushLight(new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
+	agl.pushLight("Sun",new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
 	agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees
+
+
+	//Todo (Billel)
 	agl.shaderPrograms[0].setUniformById(agl,"test",2.2);
 
 

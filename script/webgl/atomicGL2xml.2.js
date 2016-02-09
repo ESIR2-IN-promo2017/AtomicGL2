@@ -1,3 +1,5 @@
+"use strict;"
+
 // atomicGL
 //----------------------------------------------------------------------------------------
 // author: RC				
@@ -56,7 +58,7 @@ class atomicGL2xml {
 			var nblight = parseFloat(SHAD.getAttribute("nblight"));
 
 			// create shader and add it to context
-			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
+			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);	
@@ -74,7 +76,7 @@ class atomicGL2xml {
 			var nblight = parseFloat(SHAD.getAttribute("nblight"));
 			
 			// create shader and add it to context
-			agl.pushProgram(new atomicGL2MatShader(shader_name, agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
+			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
 			
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);	
@@ -190,7 +192,7 @@ class atomicGL2xml {
 
 				// JS6
 				node = new atomicGL2SGroot("root",e.getAttribute("id"));
-				node.setRootElt(camera,skyBox,agl.indexOfShader(e.getAttribute("skyshader")));
+				node.setRootElt(camera,skyBox,e.getAttribute("skyshader"));
 				agl.scenegraph = node ;
 				
 				//  debug
@@ -243,7 +245,7 @@ class atomicGL2xml {
 				// node
 				// JS6
 				node = new atomicGL2SGobject3d('object3D',id);
-				node.setObject3D(agl.shapes[agl.indexOfShape(shapeId)],agl.indexOfShader(shaderId));
+				node.setObject3D(agl.shapes[agl.indexOfShape(shapeId)],shaderId);
 				s.addChild(node);				
 				
 				// debug

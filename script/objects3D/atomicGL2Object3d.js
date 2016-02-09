@@ -116,38 +116,39 @@ class atomicGL2Object3d{
 	// inputs: 	aGL: GL context 		- atomicGLContext
 	// 			aMS: Matrix Stacks 	- atomicMatrixStack
 	// 			idProg: Shader index - integer
-	draw(aGL,aMS,idProg){
+	//			shaderProgramName : Shader Name - string
+	draw(aGL,aMS,shaderProgramName){
 		// debug
 		//console.log("atomicGLObject3d("+this.name+")::draw(progId: "+idProg+")");
 
 		// activate shader
-		aGL.gl.useProgram(aGL.shaderPrograms[idProg].program);
+		aGL.gl.useProgram(aGL.getShaderProgram(shaderProgramName).program);
 		// setUniforms: matrices and lights
-		aGL.shaderPrograms[idProg].setUniforms(aGL,aMS);
+		aGL.getShaderProgram(shaderProgramName).setUniforms(aGL,aMS);
 		
 	// link buffer to attributes
 		//positions
-		if(aGL.shaderPrograms[idProg].hasVertexPositionAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+		if(aGL.getShaderProgram(shaderProgramName).hasVertexPositionAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-     		aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexPosition(), this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+     		aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexPosition(), this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		//normals
-        if(aGL.shaderPrograms[idProg].hasVertexNormalAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+        if(aGL.getShaderProgram(shaderProgramName).hasVertexNormalAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){
         	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);
-   		    aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexNormal(), this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+   		    aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexNormal(), this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
 		}
 		// colors
-		if(aGL.shaderPrograms[idProg].hasVertexColorAttribute(aGL.shaderPrograms[idProg].shaderloader.getAttributes())){
+		if(aGL.getShaderProgram(shaderProgramName).hasVertexColorAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){
 	       	aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);
-	       	aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getVertexColor(), this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
+	       	aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexColor(), this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);
     	}
 
 		// textures
 		if(this.textures.length>0){
 			// debug
-			// console.log("atomicGLObject3d("+this.name+")::vertexAttribPointer: "+aGL.shaderPrograms[idProg].texCoordAttribute);
+			// console.log("atomicGLObject3d("+this.name+")::vertexAttribPointer: "+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);
-			aGL.gl.vertexAttribPointer(aGL.shaderPrograms[idProg].getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
+			aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
 		}
 
 		for (var i=0; i<this.textures.length; i++ )
@@ -160,8 +161,8 @@ class atomicGL2Object3d{
 			// console.log("atomicGLObject3d("+this.name+")::bindTexture: "+this.textures[i].texture);
 			agl.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);
 			// debug
-			// console.log("atomicGLObject3d("+this.name+")::uniform: "+aGL.shaderPrograms[idProg].samplerUniform[i]+"->"+i);			
-			agl.gl.uniform1i(aGL.shaderPrograms[idProg].samplerUniform[i], i);
+			// console.log("atomicGLObject3d("+this.name+")::uniform: "+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+"->"+i);			
+			agl.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
 
 		}
 

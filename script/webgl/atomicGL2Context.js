@@ -31,13 +31,13 @@ class atomicGL2Context {
 		// scene assets
 		// -------------------------------------------------
 		// shaders
-		this.shaderPrograms = [];
+		this.shaderPrograms = new Map();
 		// textures
 		this.textures       = [];
 		// shapes
 		this.shapes         = [];
 		// lights
-		this.lights         = [];
+		this.lights         = new Map();
 		// scene graph
 		this.scenegraph     = null;
 	}
@@ -95,19 +95,20 @@ class atomicGL2Context {
 	// pushLight(light)
 	// ---------------------------
 	// inputs: 	light - atomicGLLight
-	pushLight(light){
+	pushLight(id,light){
 		// debug
 		// console.log("atomicGLContext::pushLight");
-		this.lights.push(light);
+		this.lights.set(id,light);
+		console.log("New ligth added: " + id);
 	}
 
 	// pushProgram(prog)
 	// ---------------------------
 	// inputs: prog - atomicGLShader
-	pushProgram(prog){
+	pushProgram(name,prog){
 		// debug
 		//console.log("atomicGLContext::pushProgram");
-		this.shaderPrograms.push(prog);
+		this.shaderPrograms.set(name,prog);
 		var id =  this.shaderPrograms.length -1
 		// debug
 		//console.log("-- atomicGLContext::pushProgram("+prog.name+")-> index:"+id);
@@ -171,5 +172,9 @@ class atomicGL2Context {
 			}
 		}
 		return res;
+	}
+
+	getShaderProgram(id){
+		return this.shaderPrograms.get(id);
 	}
 }
