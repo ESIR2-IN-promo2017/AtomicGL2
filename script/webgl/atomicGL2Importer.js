@@ -19,14 +19,11 @@ This Class will import different type of Mesh
 "use strict";
 
 class atomicGL2Importer  {
-  constructor(agl,path){
+  constructor(path){
 
   this.file = this.readTextFile(path);
   this.obj = this.importObj(this.file);
-  this.obj3d = this.build(this.obj);
 
-  this.obj3d.initGLBuffers(agl);
-  agl.shapes.push(this.obj3d);
   }
 
  readTextFile(file){
@@ -170,20 +167,15 @@ importObj(fileText){
                 obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
                 obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
                                       vertex[0]);
-
-
             }
         }
       }
     }
   }
+  console.log(obj.index);
+  console.log(obj.vertexIndices);
   return obj;
-
 }
 
-
-  build(obj){
-    return new atomicGL2ObjMesh(obj.name,obj,1.0,1.0);
-  }
 
 }
