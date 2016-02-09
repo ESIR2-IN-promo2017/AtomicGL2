@@ -104,12 +104,10 @@ function webGLStart() {
 
 	var sgxml = new atomicGL2xml(agl,'./scenes/sceneTest.xml');
 
-//	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
-
+	// var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
 
 	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
-	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 	var shaderTest = agl.getShaderProgram("textProg");
 	// light
 	agl.pushLight("Sun",new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
