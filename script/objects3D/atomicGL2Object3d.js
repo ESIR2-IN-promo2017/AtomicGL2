@@ -27,7 +27,7 @@ class atomicGL2Object3d{
 		this.normalsArray       = [];
 		
 		// color array
-		this.colorsArray        = [];
+		this.colorsArray        = [0.0,0.0,0.0];
 		
 		// texture coordinates array
 		this.textureCoordsArray = [];

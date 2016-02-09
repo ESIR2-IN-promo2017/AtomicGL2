@@ -40,8 +40,104 @@ class atomicGL2xml {
 		var xmlDoc = xmlhttp.responseXML;
 		
 		return xmlDoc;
-	} 
-	
+	}
+
+	// lights
+	lights(agl){
+		// <POINTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0"> </POINTLIGHT>
+		var listPOINT = this.dom.getElementsByTagName("POINTLIGHT");
+
+		for (var i=0; i<listPOINT.length; i++){
+			
+			var POINT     	= listPOINT[i];
+			var id 			= POINT.getAttribute("id");
+			// color
+			var color 		= POINT.getAttribute("color");
+			var r 			= parseFloat(color.split(",")[0]);
+			var g			= parseFloat(color.split(",")[1]);
+			var b			= parseFloat(color.split(",")[2]);
+			// position
+			var position 	= POINT.getAttribute("position");
+			var px 			= parseFloat(position.split(",")[0]);
+			var py 			= parseFloat(position.split(",")[1]);
+			var pz 			= parseFloat(position.split(",")[2]);
+			
+			// cast color and position to Array
+			color = [r,g,b];
+			position = [px,py,pz];
+
+			// create pointlight and add it to context
+			agl.lights.set(id, new atomicGL2PointLight(color,position));
+			// debug
+			//console.log("atomicGLxml::pointlights >> find light("+i+"): "+listPOINT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+		}
+
+		// <DIRECTIONNALLIGHT id="test" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"> </DIRECTIONNALLIGHT>
+		var listDIR = this.dom.getElementsByTagName("DIRECTIONNALLIGHT");
+
+		for (var i=0; i<listDIR.length; i++){
+			
+			var DIR 		= listDIR[i];
+			var id 			= DIR.getAttribute("id");
+			// color
+			var color 		= DIR.getAttribute("color");
+			var r 			= parseFloat(color.split(",")[0]);
+			var g			= parseFloat(color.split(",")[1]);
+			var b			= parseFloat(color.split(",")[2]);
+			// direction
+			var direction 	= DIR.getAttribute("direction");
+			var dx 			= parseFloat(direction.split(",")[0]);
+			var dy 			= parseFloat(direction.split(",")[1]);
+			var dz 			= parseFloat(direction.split(",")[2]);
+			
+			// cast color and direction to Array
+			color = [r,g,b];
+			direction = [dx,dy,dz];
+
+			// create directionnallight and add it to context
+			agl.lights.set(id, new atomicGL2DirectionnalLight(color,direction));
+			// debug
+			//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+		}
+
+		// <SPOTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"> </SPOTLIGHT>
+		var listSPOT = this.dom.getElementsByTagName("SPOTLIGHT");
+
+		for (var i=0; i<listSPOT.length; i++){
+			
+			var SPOT 		= listSPOT[i];
+			var id 			= SPOT.getAttribute("id");
+			// color
+			var color 		= SPOT.getAttribute("color");
+			var r 			= parseFloat(color.split(",")[0]);
+			var g			= parseFloat(color.split(",")[1]);
+			var b			= parseFloat(color.split(",")[2]);
+			// position
+			var position 	= SPOT.getAttribute("position");
+			var px 			= parseFloat(position.split(",")[0]);
+			var py 			= parseFloat(position.split(",")[1]);
+			var pz 			= parseFloat(position.split(",")[2]);
+			// direction
+			var direction 	= SPOT.getAttribute("direction");
+			var dx 			= parseFloat(direction.split(",")[0]);
+			var dy 			= parseFloat(direction.split(",")[1]);
+			var dz 			= parseFloat(direction.split(",")[2]);
+
+			// radius
+			var radius	 	= SPOT.getAttribute("radius");
+
+			// cast color, position and direction to Array
+			color = [r,g,b];
+			position = [px,py,pz]
+			direction = [dx,dy,dz];
+
+			// create spotlight and add it to context
+			agl.lights.set(id, new atomicGL2SpotLight(color,position,direction,radius));
+			// debug
+			//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+		}
+	}
+
 	// shaders
 	shaders(agl){
 		// examples
@@ -124,8 +220,10 @@ class atomicGL2xml {
 			var v         = parseFloat(GEOuv.split(",")[1]);
 	
 			// create shape 
-			var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
+			//var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
 			
+			var ss = new atomicGL2ObjMesh(SHAPEId,new atomicGL2Importer('objs/pyramid.obj').obj,u,v);
+
 			// debug
 			//console.log("atomicGLxml::shapes >> find shape("+i+"): "+SHAPEId+"-GEOMETRY:" + GEOId+ "-mesh:"+GEOmesh+"-uv:"+u+","+v);
 			
@@ -271,6 +369,8 @@ class atomicGL2xml {
 		// --------------------------------------------------
 		// load XML file
 		this.dom = this.loadXML(agl,name)  ;
+		// find lights
+		this.lights(agl);
 		// find shaders
 		this.shaders(agl);
 		// find textures
