@@ -16,20 +16,20 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 	// lthis.latitudeBands: init
 	// lthis.longitudeBands: int
 	constructor(nname,rradius, llatitudeBands,llongitudeBands,uu,vv){
-		super();
-		
+		super(nname);
+
 		// size
 		this.radius	= rradius ;
 		this.latitudeBands 	= llatitudeBands ;
-		this.longitudeBands	= llongitudeBands ;	
+		this.longitudeBands	= llongitudeBands ;
 
 		// textures
 		this.scaleUV = [uu,vv] ;
 
-	    // build the vertices
-	    this.build();
+	  // build the vertices
+		this.build();
 	}
-	
+
 	// methods
 	// --------------------------------------------------
 
@@ -46,7 +46,7 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 		var r = RGB[0];
 		var g = RGB[1];
 		var b = RGB[2];
-		
+
 		// switch face
 		switch(face){
 			case "All":
@@ -56,14 +56,14 @@ class atomicGL2Sphere extends atomicGL2Object3d{
                 		// color
                 		this.colorsArray.push(r);
                 		this.colorsArray.push(g);
-                		this.colorsArray.push(b);            
+                		this.colorsArray.push(b);
             		}
         		}
-			break;		
+			break;
 		}
 	}
 	//-----------------------------------------------------
-	
+
 	build(){
 		// build
 		//-----------------------------
@@ -95,11 +95,11 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 					this.colorsArray.push(0.8);
 					// uv
 					this.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);
-					this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);              
+					this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);
 				}
 			}
 
-		// index 
+		// index
 		for (var latNumber = 0; latNumber < this.latitudeBands; latNumber++) {
 				for (var longNumber = 0; longNumber < this.longitudeBands; longNumber++) {
 					var first = (latNumber * (this.longitudeBands + 1)) + longNumber;
@@ -113,17 +113,17 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 					this.vertexIndices.push(first + 1);
 				}
 			}
-	
-		this.vertexPositionBufferItemSize 	= 3	;
+
+		this.vertexPositionBufferItemSize = 3	;
 		this.vertexNormalBufferItemSize		= 3	;
 		this.vertexTexCoordBufferItemSize	= 2 ;
 		this.vertexColorBufferItemSize		= 3 ;
 		this.vertexIndexBufferItemSize 		= 1 ;
-	
+
 		this.vertexPositionBufferNumItems	= this.verticesArray.length / 3 ;
-	   	this.vertexNormalBufferNumItems		= this.normalsArray.length / 3 ;
-		this.vertexTexCoordBufferNumItems 	= this.textureCoordsArray.length/2 ;
-		this.vertexColorBufferNumItems 		= this.colorsArray.length /3 ;
-	    this.vertexIndexBufferNumItems 		= this.SphereVertexIndices.length; ;
+	  this.vertexNormalBufferNumItems		= this.normalsArray.length / 3 ;
+		this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;
+		this.vertexColorBufferNumItems 		= this.colorsArray.length / 3 ;
+	  this.vertexIndexBufferNumItems 		= this.vertexIndices.length;
 	}
 }

@@ -2,12 +2,13 @@
 
 <SCENE>
 	<SHADERS>
-		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>	
+		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
 		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
-		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>	
+		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
+		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
@@ -15,11 +16,18 @@
 			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_sable()</GEOMETRY>
 			<TEXTID>sable1</TEXTID>
 		</SHAPE>
+		<SPHERE id="toto" type="sphere">
+			<GEOMETRY id="sphereToto" rad="4" lat="60" long="60" uv="3,3"></GEOMETRY>
+			<TEXTID>crate1</TEXTID>
+		</SPHERE>
 	</SHAPES>
 
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
-			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_ground_sand" shader="textProg">ground_sand</OBJECT3D>
+			</TRANSFORM>
+			<TRANSFORM id="transform_sphere" translate="0.0,0.0,-2.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+					<OBJECT3D id="obj_toto" shader="textProg">toto</OBJECT3D>
 			</TRANSFORM>
 	</ROOT>
 </SCENE>
