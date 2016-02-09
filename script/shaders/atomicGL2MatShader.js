@@ -140,13 +140,10 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// lights
 		// uAmbientColor
 		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
-
-			console.log("test");		
+		
 		for(var lightId of agl.lights.keys())
 		{
-			console.log(lightId);		
-
-			if(hasLight(lightId))
+			if(this.hasLight(lightId))
 			{
 				switch(agl.getLight(lightId).getType())
 				{
@@ -173,23 +170,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 				}
 			}
 		}
-
-
-
-  //       for (var i = 0; i < this.nbLight; i++) {
-		// 	// lights  	position
-		// 	//			color
-		// 	//console.log("atomicGLShader::createProgram - getUniformLocation ->"+"uPointLightPosition"+i);
-		// 	//console.log("atomicGLShader::createProgram - getUniformLocation ->"+"uPointLightColor"+i);
-		// 	this.pointLightLocationUniform[i] = agl.gl.getUniformLocation(program, "uPointLightPosition"+i);
-		// 	this.pointLightColorUniform[i] = agl.gl.getUniformLocation(program, "uPointLightColor"+i);
-
-
-		// }
-
-
-
-
 
 		// textures
 		for (var i = 0; i < this.nbTex; i++) {
@@ -339,8 +319,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	hasLight(lightId){
 		for(var uniformId of this.mapUniforms.keys())
 		{
-			console.log(uniformId);
-
 			if(uniformId.indexOf(lightId) > -1)
 				return true;
 		}
