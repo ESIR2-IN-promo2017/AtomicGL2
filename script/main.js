@@ -4,6 +4,7 @@
 require([
 				'script/JsFilesloaded.js',
 				'script/shaders/atomicGL2Shader.js',
+				'script/shaders/atomicGL2MatShader.js',
 
 				'script/includes/webgl-utils.js',
 				'script/includes/glMatrix-0.js',

@@ -177,4 +177,8 @@ class atomicGL2Context {
 	getShaderProgram(id){
 		return this.shaderPrograms.get(id);
 	}
+
+	getLight(id){
+		return this.lights.get(id);
+	}
 }
