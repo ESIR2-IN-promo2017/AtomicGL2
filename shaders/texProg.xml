@@ -17,7 +17,7 @@
 		<VARYING>
 		  varying vec2 vTextureCoord;
 		  varying vec3 vNormal;
-		  varying vec4 vPosition;  //Stp Alexis laisse ces varyings :)
+		  varying vec4 vPosition; 
 		</VARYING>
 
 		<OUTPUT>
@@ -39,6 +39,7 @@
 
 		<UNIFORMS>
 	    uniform sampler2D uSampler0;
+	    uniform float test;
 		</UNIFORMS>
 
 		<VARYING>
@@ -47,6 +48,7 @@
 
 		<OUTPUT>
 	    void main(void) {
+	    test;
         gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 	    }
 		</OUTPUT>

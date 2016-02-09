@@ -110,6 +110,8 @@ function webGLStart() {
 
 	at.setObject3D(tester,"texProg");
 
+	console.log(agl.shaderPrograms[0].getUniformById("test"));
+
 	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
 	//var ae = new atomicGL2Importer(agl,"./objs/pyramid.obj");
@@ -119,6 +121,7 @@ function webGLStart() {
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees
+	agl.shaderPrograms[0].setUniformById(agl,"test",2.2);
 
 
 	// start the animation
