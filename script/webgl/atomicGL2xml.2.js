@@ -94,7 +94,7 @@ class atomicGL2xml {
 			color = [r,g,b];
 			direction = [dx,dy,dz];
 
-			// create pointlight and add it to context
+			// create directionnallight and add it to context
 			agl.lights.set(id, new atomicGL2DirectionnalLight(color,direction));
 			// debug
 			//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
@@ -131,7 +131,7 @@ class atomicGL2xml {
 			position = [px,py,pz]
 			direction = [dx,dy,dz];
 
-			// create pointlight and add it to context
+			// create spotlight and add it to context
 			agl.lights.set(id, new atomicGL2SpotLight(color,position,direction,radius));
 			// debug
 			//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
