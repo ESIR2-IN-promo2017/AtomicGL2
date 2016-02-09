@@ -20,7 +20,7 @@ class atomicGL2SpotLight extends atomicGL2Light {
 	// ddirection	: Light direction
 	// rradius		: Light radius
 
-	constructor(ccolor, pposition, ddirection, rradius, nname){
+	constructor(ccolor, pposition, ddirection, rradius){
 		//if the direction parmaters is an  incorrect parameter : Error exception
    		if(typeof(ddirection)!=Array && ddirection.length != 3)
       		throw new TypeError("Please instantiate the "+this.getType()+" with the ddirection parameter");
@@ -36,7 +36,7 @@ class atomicGL2SpotLight extends atomicGL2Light {
 		// attributes
 		// -------------------------------------------------
 		// GL lights
-		super(ccolor,nname);
+		super(ccolor);
 		this.position = pposition;
 		this.direction = ddirection;
 		this.radius = rradius;
