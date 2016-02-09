@@ -86,8 +86,11 @@ importObj(fileText){
         obj.name = elements;
       }else if (firstChar == 'v') {
         // if this is a vertex
+        for (var ii = 0; ii < elements.length; ii++) {
+        obj.vertices.push(parseFloat(elements[ii]));
 
-        obj.vertices.push.apply(obj.vertices, elements);
+        };
+
       } else if (firstChar == 'vn') {
         // if this is a vertex normal
         objTmp.normals.push.apply(objTmp.normals, elements);
@@ -147,11 +150,11 @@ importObj(fileText){
               obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 1]);
             }
             // vertex normals
-            obj.normals.push(+objTmp.normals[(vertex[2] - 1) * 3 + 0]);
-            obj.normals.push(+objTmp.normals[(vertex[2] - 1) * 3 + 1]);
-            obj.normals.push(+objTmp.normals[(vertex[2] - 1) * 3 + 2]);
+            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 0]));
+            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 1]));
+            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 2]));
             // add the newly created vertex to the list of indices
-            obj.vertexIndices.push(vertex[0]);
+            obj.vertexIndices.push(parseInt(vertex[0]));
             // increment the counter
             obj.index += 1;
 
@@ -172,8 +175,9 @@ importObj(fileText){
       }
     }
   }
-  console.log(obj.index);
-  console.log(obj.vertexIndices);
+
+  obj.index = obj.vertexIndices;
+
   return obj;
 }
 

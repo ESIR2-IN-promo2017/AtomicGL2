@@ -19,12 +19,13 @@ class atomicGL2ObjMesh extends atomicGL2Object3d {
 		// vertices array
 		this.verticesArray = obj.vertices;
 		
+
 		// normals array
 		this.normalsArray  = obj.normals ;
 		
 		// colors Array - set default color
 		for (var i=0; i<this.normalsArray.length;i++)
-			this.verticesArray.push(0.8) ;
+			this.colorsArray.push(0.8) ;
 
 		// texture coordinates array
     	this.textureCoordsArray = obj.uv ;
