@@ -370,7 +370,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		return this.mapUniforms.get("uNMatrix");
 	}
 
-
 	getTextureCoord(){
 		return this.mapAttributes.get("aVertexTexCoord");
 	}
@@ -384,7 +383,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	}
 
 	getUniformType(id){
-
 		var arr = this.shaderloader.getUniforms();
 		for (var i = 0; i <arr.length ; i++) {
 			if(arr[i][1] == id){
@@ -400,23 +398,31 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	setUniformById(agl,id,value){
 		var type = this.getUniformType(id) ;
 		var uniform = this.getUniformById(id);
+		
 		switch(type)
 		{
 			case 'float':
-			agl.gl.uniform1f(uniform,value);
+				agl.gl.uniform1f(uniform,value);
 				break;
+
 			case 'int' :
 				break;
+
 			case 'vec4' :
 				break;
+
 			case 'vec3' :
 				break;
+
 			case 'vec2' :
 				break;
+
 			case 'mat3' :
 				break;
+
 			case 'mat4' :
 				break;
+
 			default:
 				break;
 		}

@@ -25,6 +25,9 @@
 // -----------------------------
 function sceneDraw(){
 	agl.initDraw();
+
+	
+
 	agl.scenegraph.draw(agl,ams);
 
 }
@@ -42,6 +45,8 @@ function nextFrame() {
 // ------------------------------
 function animate(){
 	// increase time
+	var textProg = agl.getShaderProgram("textProg");
+	textProg.setUniformById(agl,"test",2.2);
 	sceneClock.tick() ;
 }
 
@@ -107,10 +112,9 @@ function webGLStart() {
 //	var sgxml = new atomicGL2xml(agl,'./scenes/scene1.xml');
 
 
-	var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
+	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
 	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
-	var shaderTest = agl.getShaderProgram("textProg");
 	// light
 	agl.pushLight("Sun",new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
 	agl.ambientLightColor = [0.1,0.05,0.0];	// color
@@ -118,9 +122,7 @@ function webGLStart() {
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees
 
-
 	//Todo (Billel)
-	shaderTest.setUniformById(agl,"test",2.2);
 
 
 	// start the animation
