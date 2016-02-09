@@ -67,7 +67,7 @@ class atomicGL2xml {
 			position = [px,py,pz];
 
 			// create pointlight and add it to context
-			agl.lights.set(id, new atomicGL2PointLight(color,position));
+			agl.pushLight(id, new atomicGL2PointLight(color,position));
 			// debug
 			//console.log("atomicGLxml::pointlights >> find light("+i+"): "+listPOINT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
 		}
@@ -95,7 +95,7 @@ class atomicGL2xml {
 			direction = [dx,dy,dz];
 
 			// create directionnallight and add it to context
-			agl.lights.set(id, new atomicGL2DirectionnalLight(color,direction));
+			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction));
 			// debug
 			//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
 		}
@@ -132,7 +132,7 @@ class atomicGL2xml {
 			direction = [dx,dy,dz];
 
 			// create spotlight and add it to context
-			agl.lights.set(id, new atomicGL2SpotLight(color,position,direction,radius));
+			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
 			// debug
 			//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
 		}
