@@ -39,8 +39,7 @@
 		</PRECISION>
 
 		<UNIFORMS>
-	    uniform sampler2D uSampler0;
-	    uniform float test;
+		    uniform sampler2D uSampler0;
 		</UNIFORMS>
 
 		<VARYING>
@@ -48,10 +47,9 @@
 		</VARYING>
 
 		<OUTPUT>
-	    void main(void) {
-	    test;
-        gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
-	    }
+		    void main(void) {
+	        	gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+		    }
 		</OUTPUT>
 	</FRAGMENT>
 </SHADER>
