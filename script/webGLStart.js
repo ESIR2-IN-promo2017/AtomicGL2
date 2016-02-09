@@ -123,7 +123,7 @@ function webGLStart() {
 	ams.initMatrix(agl,45); // fov = 45 degrees
 
 	//Todo (Billel)
-
+	console.log(agl.lights);
 
 	// start the animation
 	nextFrame();

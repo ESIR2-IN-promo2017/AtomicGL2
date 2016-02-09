@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <SCENE>
+	<LIGHTS>
+		<POINTLIGHT id="PointLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0">
+		</POINTLIGHT>
+		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
+		</DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0">
+		</SPOTLIGHT>
+	</LIGHTS>
+
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>	
 	</SHADERS>
