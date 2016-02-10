@@ -13,7 +13,8 @@
 
 // constructor
 //------------------------
-atomicGLWalkCamera = function(){
+class atomicGLWalkCamera {
+ constructor(){ }
 	// attributes
 	// -------------------------------------------------
 	// camera position

@@ -24,7 +24,8 @@
 //					uPointLightPosition0|1|2 required per light in the shader
 //					uPointLightColor0|1|2 required per light in the shader
 
-atomicGLwaveShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnbLights){
+class atomicGLwaveShader {
+	constructor(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnbLights){
 	// attributes
 	// -------------------------------------------------
 	// name
@@ -33,6 +34,7 @@ atomicGLwaveShader = function(nname, agl,fragmentShaderID, vertexShaderID,nnbTex
 	this.nbTex = nnbTex ;
 	// nbLights
 	this.nbLight = nnbLights ;
+}
 	// program shader
 	this.program ;
 	// attributes

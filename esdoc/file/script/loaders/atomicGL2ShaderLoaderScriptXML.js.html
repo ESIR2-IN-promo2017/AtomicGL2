@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/loaders/atomicGL2ShaderLoaderScriptXML.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  </ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/loaders/atomicGL2ShaderLoaderScriptXML.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict;&quot;
+
+class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
+	constructor(xmlfile){
+		super();
+		this.vertexShaderSRC     = this.getShaderSRC(xmlfile,&quot;vertex&quot;) ;
+		this.fragmentShaderSRC   = this.getShaderSRC(xmlfile,&quot;fragment&quot;) ;
+		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,&quot;attributes&quot;),&quot;attribute&quot;);
+		this.uniformsShaderSRC   = this.Xplode(this.getShaderSRC(xmlfile,&quot;uniforms&quot;),&quot;uniform&quot;);
+
+	}
+
+	/*------------------------------------------
+
+	param type : the type request it would be &quot;attribute&quot; or &quot;uniform&quot;
+
+	return : an array with all the identifiers of the type
+
+	this funciton instanciate also the number of texture and light
+	------------------------------------------------*/
+	Xplode(str,type){
+		let array = [];
+		var line  = str.split(&quot;\n&quot;);
+		
+		for (var i = 0; i &lt; line.length; i++) 
+		{
+			let elem = [];
+			var res  = line[i].split(&quot; &quot;);
+			
+			if (typeof res !== &apos;undefined&apos; &amp;&amp; res.length &gt; 0) 
+			{
+				if(res[0].indexOf(&apos;//&apos;) &gt; -1 )
+					continue;
+
+				if(res[0].indexOf(&apos;\t&apos;)&gt;-1)
+				{
+					res[0] = res[0].split(&apos;\t&apos;);
+					for (var y = 0; y &lt; res[0].length; y++) 
+					{
+						if(res[0][y] == type){
+							res[0] = res[0][y];
+							break;
+						}
+					};
+				}
+			}
+			//deleting the empty element in the array
+			for(var j = res.length - 1; j &gt;= 0; j--) 
+			{
+			    for (var k = res[j].length- 1; k &gt;= 0; k--) 
+			    	if(res[j][k] == &apos;&apos;) 
+			     		res[j].splice(j, 1);
+			    
+   		    	if(res[j] == &apos;&apos;)
+			    	 res.splice(j, 1);
+			}
+
+			if (typeof res !== &apos;undefined&apos; &amp;&amp; res.length &gt; 0) 
+			{
+				for (var y = 0; y &lt; res[0].length; y++)
+				{
+					if(res[0][y] == type)
+					{
+						res[0]=res[0][y];
+						break;
+					}
+				}
+
+				for (var y = 0; y &lt; res[0].length; y++) 
+				{
+					if(res[0].charAt(y) == &apos;\t&apos; || res[0].charAt(y) == &apos; &apos;)
+  						res[0]= res[0].substr(1);
+				}
+			}
+
+			//retrieving the name of the variable
+			if(res[2] != null &amp;&amp; res[0]==type)
+			{
+				if(res[2].indexOf(&apos;;&apos;) &gt; -1)
+					res[2]= res[2].slice(0, -1);
+
+				//if it is a texture we save the sampler2D in sampler Array
+				if (res[1] == &quot;sampler2D&quot;)
+					this.sampler.push(res[2]);
+
+				else 
+				{
+					elem.push(res[1], res[2]);
+					array.push(elem);
+				}
+			}
+		}
+
+		return array;
+	}
+
+	// getShaderSRC
+	// -------------------------
+	// get shader source
+	getShaderSRC(xmlfile,type) {
+		// loadXMLfile
+		var xmlhttp=new XMLHttpRequest();
+		xmlhttp.open(&quot;GET&quot;,xmlfile,false);
+		xmlhttp.send();
+		var xmlDoc=xmlhttp.responseXML;
+		var str = &quot;&quot; ;
+
+		switch (type){
+			case &quot;vertex&quot; :
+				var xvertex     = xmlDoc.getElementsByTagName(&quot;VERTEX&quot;);
+				var xattributes = xmlDoc.getElementsByTagName(&quot;ATTRIBUTES&quot;);
+				var xuniforms   = xmlDoc.getElementsByTagName(&quot;UNIFORMS&quot;);
+				var xvarying    = xmlDoc.getElementsByTagName(&quot;VARYING&quot;);
+				var xoutput     = xmlDoc.getElementsByTagName(&quot;OUTPUT&quot;);
+
+				str = xvertex[0].childNodes[0].data   + xattributes[0].childNodes[0].data
+					+ xuniforms[0].childNodes[0].data + xvarying[0].childNodes[0].data
+					+ xoutput[0].childNodes[0].data ;
+			break ;
+
+			case &quot;fragment&quot; :
+				var xfragment   = xmlDoc.getElementsByTagName(&quot;FRAGMENT&quot;);
+				var xprecision  = xmlDoc.getElementsByTagName(&quot;PRECISION&quot;);
+				var xuniforms   = xmlDoc.getElementsByTagName(&quot;UNIFORMS&quot;);
+				var xvarying    = xmlDoc.getElementsByTagName(&quot;VARYING&quot;);
+				var xoutput     = xmlDoc.getElementsByTagName(&quot;OUTPUT&quot;);
+
+				str = xfragment[0].childNodes[0].data + xprecision[0].childNodes[0].data
+					+ xuniforms[1].childNodes[0].data + xvarying[1].childNodes[0].data
+					+ xoutput[1].childNodes[0].data ;
+			break ;
+
+			case &quot;attributes&quot; :
+				var xattributes = xmlDoc.getElementsByTagName(&quot;ATTRIBUTES&quot;);
+				str = xattributes[0].childNodes[0].data ;
+			break ;
+
+			case &quot;uniforms&quot; :
+				var xuniforms = xmlDoc.getElementsByTagName(&quot;UNIFORMS&quot;);
+				str = xuniforms[0].childNodes[0].data ;
+
+				var xuniforms = xmlDoc.getElementsByTagName(&quot;UNIFORMS&quot;);
+				str += xuniforms[1].childNodes[0].data ;
+			break ;
+		}
+		// debug
+		// ----------------------
+		//console.log(&quot;atomicGL2::&quot;+&quot;atomicGL2ShaderLoaderScriptXML::&quot;+&quot;getShaderSRC&quot;+&quot;shader source-&gt;&quot;+ str);
+		return str;
+	}
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

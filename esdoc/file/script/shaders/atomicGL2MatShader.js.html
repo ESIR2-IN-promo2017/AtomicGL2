@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/shaders/atomicGL2MatShader.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  </ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/shaders/atomicGL2MatShader.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict;&quot;
+
+class  atomicGL2MatShader extends atomicGL2Shader{
+	// constructor
+	//------------------------
+	// inputs:	nname: 		shader name - string
+	//			 agl:				atomicGL context
+	// 			shaderloader: 		shader loader
+	//			nbTex: 				integer
+	//									0: shader doesn&apos;t use texture
+	//									1..: 	use texture aVertexTexCoord 	required in the shader
+	//									uSampler0 | uSampler[nbTex-1]	required in the shader
+	// 			nnbLight:			int - number of Lights in the shader
+	//									uPointLightPosition0|1|2 required per light in the shader
+	//									uPointLightColor0|1|2 required per light in the shader
+
+	constructor(agl,shaderloader,nnbLights){
+		// attributes
+		// -------------------------------------------------
+		super();
+
+		this.shaderloader =shaderloader;
+
+
+		// nbTex
+		this.nbTex = this.shaderloader.getNbTexture();
+
+		// nbLights
+		this.nbLight = nnbLights ;
+		// program shader
+		this.program ;
+
+
+		// map of attributes
+		// --------------------------
+		this.mapAttributes = new Map();
+
+		// map of uniforms
+		// --------------------------
+		this.mapUniforms = new Map();
+
+		// light
+		this.ambientColorUniform ;
+		this.pointLightLocationUniform = [] ;
+		this.pointLightColorUniform    = [] ;
+
+		// texture -sampler
+		this.samplerUniform = [] ;
+
+		//Initialisation of the key of the mapUniforms and mapAttributes
+		this.initMap();
+
+		this.build(agl,this.shaderloader);
+	}
+
+	initMap(){
+		for (var i =0; i &lt;  this.shaderloader.getAttributes().length; i++) {
+			this.mapAttributes.set(this.shaderloader.getAttributes()[i][1],null);
+		};
+		for (var i =0; i &lt;  this.shaderloader.getUniforms().length; i++) {
+			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
+		};
+
+
+	}
+
+	// methods
+	// --------------------------------------------------
+	// createProgram
+	//---------------------------
+	// inputs:	agl: GL context
+	// 			vstr: vertex shader  - string
+	// 			fstr: fragment shader - string
+    createProgram(agl,vstr,fstr) {
+		// debug
+		//console.log(&quot;atomicGLShader::createProgram (&quot;+fragmentShaderID+&quot;,&quot;+vertexShaderID+&quot;)&quot;);
+		
+		// creation des shaders
+		// vertex
+        var vertexShader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
+		// set source
+        agl.gl.shaderSource(vertexShader, vstr);
+		// shader compilation
+        agl.gl.compileShader(vertexShader);
+		// debug
+		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		// check erreur de compilation
+        if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
+            alert(agl.gl.getShaderInfoLog(vertexShader));
+            return null;
+        }
+
+		// fragment
+		var fragmentShader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
+		// set source
+        agl.gl.shaderSource(fragmentShader, fstr);
+		// shader compilation
+        agl.gl.compileShader(fragmentShader);
+		// debug
+		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		// check erreur de compilation
+        if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
+            alert(agl.gl.getShaderInfoLog(fragmentShader));
+            return null;
+        }
+
+		// creation program et link
+        var program = agl.gl.createProgram();
+        agl.gl.attachShader(program, vertexShader);
+        agl.gl.attachShader(program, fragmentShader);
+        agl.gl.linkProgram(program);
+
+		// debug
+		console.log(&quot;atomicGLShader2::createProgram-&gt; link result: &quot;+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
+        if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
+            alert(&quot;atomicGLShader2::Could not initialise shaders&quot;);
+        }
+
+		// attributes
+		//------------------------
+       	for (var key of this.mapAttributes.keys())
+       	{
+			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
+	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+
+		}
+
+		// uniforms
+		//------------------------
+	 	for (var key of this.mapUniforms.keys())
+	 	{
+	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+	    }
+
+		if(this.nbTex&gt;0){
+			agl.gl.enableVertexAttribArray(this.mapAttributes.get(&quot;aVertexTexCoord&quot;));
+		}
+
+
+		// lights
+		// uAmbientColor
+		this.ambientColorUniform = agl.gl.getUniformLocation(program, &quot;uAmbientColor&quot;);
+		
+		for(var lightId of agl.lights.keys())
+		{
+			if(this.hasLight(lightId))
+			{
+				switch(agl.getLight(lightId).getType())
+				{
+					case atomicGL2PointLight:
+						setUniformById(agl,lightId + &quot;Postition&quot;,agl.getLight(lightId).getPosition());
+						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+					break;
+
+					case atomicGL2DirectionnalLight:
+						setUniformById(agl,lightId + &quot;Direction&quot;,agl.getLight(lightId).getDirection());
+						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+					break;
+
+					case atomicGL2SpotLight:
+						setUniformById(agl,lightId + &quot;Postition&quot;,agl.getLight(lightId).getPosition());
+						setUniformById(agl,lightId + &quot;Direction&quot;,agl.getLight(lightId).getDirection());
+						setUniformById(agl,lightId + &quot;Radius&quot;,agl.getLight(lightId).getRadius());
+						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+					break;
+
+					default:
+						alert(&quot;Error with the Type of the Light: still not implemented&quot;);
+					break;
+				}
+			}
+		}
+
+		// textures
+		for (var i = 0; i &lt; this.nbTex; i++) {
+			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
+		}
+
+        return program;
+    }
+
+    // setUniforms
+    //----------------------------------------
+    // inputs: 	aGL: atomicGLContext
+	// 			aMS: atomicGLMatrixStack
+    setUniforms(aGL,aMS){
+		// debug
+		//console.log(&quot;atomicGLShader::setUniforms &quot;);
+    	// set this shader as active shader
+    	aGL.gl.useProgram(this.program);
+
+
+    	// matrix
+    	//		Projection
+    	// 		Model-&gt;view
+    	//		Normal built from Model-&gt;view
+    	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
+   			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+    	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
+	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
+
+        var normalMatrix = mat3.create();
+        mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+        mat3.transpose(normalMatrix);
+        if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
+        	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
+
+        // Lights
+        //		ambient
+        //aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+
+		//		Omni
+		for (var i=0; i &lt; this.nbLight ; i++){
+			// debug
+			//console.log(&quot;-- atomicGLShader::setUniforms - Light number (&quot;+i+&quot;)&quot;);
+			//console.log(&quot;-- LightLocation @&quot;+this.pointLightLocationUniform[i]+&quot;::&quot; +aGL.omniLightLocation[i*3+0] +&quot;,&quot;+ aGL.omniLightLocation[i*3+1]+&quot;,&quot;+ aGL.omniLightLocation[i*3+2] );
+			//console.log(&quot;-- LightColor @&quot;+this.pointLightColorUniform[i]+&quot;::&quot; +aGL.omniLightColor[i*3+0] +&quot;,&quot;+ aGL.omniLightColor[i*3+1]+&quot;,&quot;+ aGL.omniLightColor[i*3+2] );
+
+		//	console.log( aGL.lights[i]);
+			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
+			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
+		}
+
+    }
+
+	// build
+	//-----------------------------
+	build(agl,shaderloader){
+		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
+	}
+
+	//----------------Getter----------------------------------------//
+	/**
+	//param src : the attributes of the vertex shader
+		src[0] : one attribute
+		src[0][0] : type (vec3 | vec 2 ...)
+		src[0][1] : the identifier of the attribute
+	//return if there is a position attribute in the vertex shader
+	*/
+	hasVertexPositionAttribute(src){
+		for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i][1].indexOf(&apos;position&apos;) &gt; -1) || (src[i][1].indexOf(&apos;Position&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the attributes of the vertex shader
+	//return if there is a Normal attribute in the vertex shader
+	*/
+	hasVertexNormalAttribute(src){
+	for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i][1].indexOf(&apos;normal&apos;) &gt; -1) || (src[i][1].indexOf(&apos;Normal&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the attributes of the vertex shader
+	//return if there is a color attribute in the vertex shader
+	*/
+	hasVertexColorAttribute(src){
+		for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i].indexOf(&apos;color&apos;) &gt; -1) || (src[i].indexOf(&apos;Color&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the uniforms of the vertex shader
+	//return if there is a projection matrix in the vertex shader
+	*/
+	hasProjectionMatrix(src){
+		for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i][1].indexOf(&apos;uPMatrix&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the uniforms of the vertex shader
+	//return if there is a model viex matrix in the vertex shader
+	*/
+	hasModelViewMatrix(src){
+		for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i][1].indexOf(&apos;uMVMatrix&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	//param src : the uniforms of the vertex shader
+	//return if there is a normal Matrix in the vertex shader
+	*/
+	hasNormalMatrix(src){
+		for(var i = 0 ;  i &lt; src.length; ++i){
+			var res = (src[i][1].indexOf(&apos;uNMatrix&apos;) &gt; -1) ;
+			if(res)
+				return true;
+		}
+		return false;
+	}
+
+	hasLight(lightId){
+		for(var uniformId of this.mapUniforms.keys())
+		{
+			if(uniformId.indexOf(lightId) &gt; -1)
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	//return the Vertex Position attribute in the vertex shader
+	*/
+	getVertexPosition(){
+		for (var key of this.mapAttributes.keys()) {
+
+			var res = (key.indexOf(&apos;position&apos;) &gt; -1) || (key.indexOf(&apos;Position&apos;) &gt; -1) ;
+			if(res){
+				return this.mapAttributes.get(key);
+			}
+		}
+
+	}
+
+	/**
+	//return the Vertex Normal attribute in the vertex shader
+	*/
+	getVertexNormal(){
+		for (var key of this.mapAttributes.keys()) {
+			var res = (key.indexOf(&apos;normal&apos;) &gt; -1) || (key.indexOf(&apos;Normal&apos;) &gt; -1) ;
+			if(res)
+				return this.mapAttributes.get(key);
+		}
+
+	}
+
+	/**
+	//return the Vertex Color attribute in the vertex shader
+	*/
+	getVertexColor(){
+		for (var key of this.mapAttributes.keys()) {
+			var res = (key.indexOf(&apos;color&apos;) &gt; -1) || (key.indexOf(&apos;Color&apos;) &gt; -1) ;
+			if(res)
+				return this.mapAttributes.get(key);
+		}
+	}
+
+	/**
+	//return the Projection Matrix uniform in the vertex shader
+	*/
+	getProjectionMatrix(){
+		return this.mapUniforms.get(&quot;uPMatrix&quot;);
+	}
+
+	/**
+	//return the Model View Matrix uniform in the vertex shader
+	*/
+	getModelViewMatrix(){
+		return this.mapUniforms.get(&quot;uMVMatrix&quot;);
+	}
+
+	/**
+	//return the Normal Matrix uniform in the vertex shader
+	*/
+	getNormalMatrix(){
+		return this.mapUniforms.get(&quot;uNMatrix&quot;);
+	}
+
+	getTextureCoord(){
+		return this.mapAttributes.get(&quot;aVertexTexCoord&quot;);
+	}
+
+	getTextureID(id){
+		return this.shaderloader.getSampler2D()[id];
+	}
+
+	getAllTexture(){
+		return this.shaderloader.getSampler2D();
+	}
+
+	getUniformType(id){
+		var arr = this.shaderloader.getUniforms();
+		for (var i = 0; i &lt;arr.length ; i++)
+			if(arr[i][1] == id)
+				return arr[i][0];
+	}
+
+	getUniformById(id){
+		return this.mapUniforms.get(id);
+	}
+
+	setUniformById(agl,id,value){
+		var type = this.getUniformType(id) ;
+		var uniform = this.getUniformById(id);
+		
+		switch(type)
+		{
+			case &apos;float&apos;:
+				agl.gl.uniform1f(uniform,value);
+			break;
+
+			case &apos;int&apos; :
+		
+			break;
+
+			case &apos;vec4&apos; :
+	
+			break;
+
+			case &apos;vec3&apos; :
+
+			break;
+
+			case &apos;vec2&apos; :
+
+			break;
+
+			case &apos;mat3&apos; :
+			
+			break;
+
+			case &apos;mat4&apos; :
+			
+			break;
+
+			default:
+				
+			break;
+		}
+	}
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

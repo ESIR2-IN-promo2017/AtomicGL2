@@ -1,0 +1,662 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ClassDeclaration",
+      "id": {
+        "type": "Identifier",
+        "name": "atomicGL2Shader",
+        "range": [
+          620,
+          635
+        ],
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 6
+          },
+          "end": {
+            "line": 14,
+            "column": 21
+          }
+        }
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "key": {
+              "type": "Identifier",
+              "name": "constructor",
+              "range": [
+                680,
+                691
+              ],
+              "loc": {
+                "start": {
+                  "line": 16,
+                  "column": 1
+                },
+                "end": {
+                  "line": 16,
+                  "column": 12
+                }
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "id": null,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "body": [],
+                "range": [
+                  693,
+                  695
+                ],
+                "loc": {
+                  "start": {
+                    "line": 16,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 16
+                  }
+                }
+              },
+              "generator": false,
+              "expression": false,
+              "range": [
+                691,
+                695
+              ],
+              "loc": {
+                "start": {
+                  "line": 16,
+                  "column": 12
+                },
+                "end": {
+                  "line": 16,
+                  "column": 16
+                }
+              }
+            },
+            "kind": "constructor",
+            "computed": false,
+            "range": [
+              680,
+              695
+            ],
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 1
+              },
+              "end": {
+                "line": 16,
+                "column": 16
+              }
+            },
+            "leadingComments": [
+              {
+                "type": "Line",
+                "value": "constructor(nname){this.name=nname;}",
+                "range": [
+                  639,
+                  677
+                ],
+                "loc": {
+                  "start": {
+                    "line": 15,
+                    "column": 1
+                  },
+                  "end": {
+                    "line": 15,
+                    "column": 39
+                  }
+                }
+              }
+            ],
+            "static": false
+          }
+        ],
+        "range": [
+          635,
+          698
+        ],
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 21
+          },
+          "end": {
+            "line": 17,
+            "column": 1
+          }
+        }
+      },
+      "range": [
+        614,
+        698
+      ],
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 1
+        }
+      },
+      "leadingComments": [
+        {
+          "type": "Line",
+          "value": " atomicGL2",
+          "range": [
+            0,
+            12
+          ],
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 12
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": "----------------------------------------------------------------------------------------",
+          "range": [
+            14,
+            104
+          ],
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 0
+            },
+            "end": {
+              "line": 2,
+              "column": 90
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " author: RC",
+          "range": [
+            106,
+            119
+          ],
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 13
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " contact: cozot@irisa.fr",
+          "range": [
+            121,
+            147
+          ],
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 0
+            },
+            "end": {
+              "line": 4,
+              "column": 26
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " version: 2.2",
+          "range": [
+            149,
+            164
+          ],
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 0
+            },
+            "end": {
+              "line": 5,
+              "column": 15
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " current version date: 2016/01/28",
+          "range": [
+            166,
+            201
+          ],
+          "loc": {
+            "start": {
+              "line": 6,
+              "column": 0
+            },
+            "end": {
+              "line": 6,
+              "column": 35
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": "----------------------------------------------------------------------------------------",
+          "range": [
+            203,
+            293
+          ],
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 0
+            },
+            "end": {
+              "line": 7,
+              "column": 90
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2Shader",
+          "range": [
+            295,
+            313
+          ],
+          "loc": {
+            "start": {
+              "line": 8,
+              "column": 0
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2MatShader exetnds  atomicGL2Shader",
+          "range": [
+            315,
+            361
+          ],
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 0
+            },
+            "end": {
+              "line": 9,
+              "column": 46
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2ShaderLoader",
+          "range": [
+            363,
+            387
+          ],
+          "loc": {
+            "start": {
+              "line": 10,
+              "column": 0
+            },
+            "end": {
+              "line": 10,
+              "column": 24
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader",
+          "range": [
+            389,
+            455
+          ],
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 0
+            },
+            "end": {
+              "line": 11,
+              "column": 66
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader",
+          "range": [
+            457,
+            520
+          ],
+          "loc": {
+            "start": {
+              "line": 12,
+              "column": 0
+            },
+            "end": {
+              "line": 12,
+              "column": 63
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": "----------------------------------------------------------------------------------------",
+          "range": [
+            522,
+            612
+          ],
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 0
+            },
+            "end": {
+              "line": 13,
+              "column": 90
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sourceType": "module",
+  "range": [
+    614,
+    698
+  ],
+  "loc": {
+    "start": {
+      "line": 14,
+      "column": 0
+    },
+    "end": {
+      "line": 17,
+      "column": 1
+    }
+  },
+  "comments": [
+    {
+      "type": "Line",
+      "value": " atomicGL2",
+      "range": [
+        0,
+        12
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": "----------------------------------------------------------------------------------------",
+      "range": [
+        14,
+        104
+      ],
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 90
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " author: RC",
+      "range": [
+        106,
+        119
+      ],
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 13
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " contact: cozot@irisa.fr",
+      "range": [
+        121,
+        147
+      ],
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 26
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " version: 2.2",
+      "range": [
+        149,
+        164
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " current version date: 2016/01/28",
+      "range": [
+        166,
+        201
+      ],
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 35
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": "----------------------------------------------------------------------------------------",
+      "range": [
+        203,
+        293
+      ],
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 90
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " atomicGL2Shader",
+      "range": [
+        295,
+        313
+      ],
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 18
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " atomicGL2MatShader exetnds  atomicGL2Shader",
+      "range": [
+        315,
+        361
+      ],
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 46
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " atomicGL2ShaderLoader",
+      "range": [
+        363,
+        387
+      ],
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader",
+      "range": [
+        389,
+        455
+      ],
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 66
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader",
+      "range": [
+        457,
+        520
+      ],
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 63
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": "----------------------------------------------------------------------------------------",
+      "range": [
+        522,
+        612
+      ],
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 0
+        },
+        "end": {
+          "line": 13,
+          "column": 90
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": "constructor(nname){this.name=nname;}",
+      "range": [
+        639,
+        677
+      ],
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 39
+        }
+      }
+    }
+  ]
+}

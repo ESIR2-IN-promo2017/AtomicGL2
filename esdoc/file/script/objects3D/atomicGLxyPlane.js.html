@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/objects3D/atomicGLxyPlane.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  </ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/objects3D/atomicGLxyPlane.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict;&quot;
+
+// atomicGL
+//----------------------------------------------------------------------------------------
+// author: RC				
+// contact: cozot@irisa.fr
+// version: 0.1
+// current version date: 2015/09/05
+//----------------------------------------------------------------------------------------
+// atomicGL
+//----------------------------------------------------------------------------------------
+// TODO list
+//----------------------------------------------------------------------------------------
+
+
+// constructor
+//------------------------
+// inputs
+//------------------------
+// nname: 		name of the  - string
+// plane size
+// hheight:		float
+// wwidth:		float
+// xxrow:		int - number of rowdivision
+// yyrow:		int - number of rowdivision
+
+
+class atomicGLxyPlane extends atomicGL2Object3d {
+constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
+	// attributes
+	// -------------------------------------------------
+	// name
+	super(nname);
+
+	// size
+	this.height	= hheight ;
+	this.width 	= wwidth ;
+	this.xrow 	= xxrow ;
+	this.yrow	= yyrow ;
+
+	// textures
+	this.scaleUV = [uu,vv] ;
+
+
+	// init
+	// build
+		this.build();
+	}
+
+
+//-----------------------------------------------------
+	
+	build(){
+		
+
+	//-----------------------------
+	// vertices, normals, colors
+	
+	for(var j=0 ; j&lt;= this.yrow ;j++){
+	
+		for(var i=0;i&lt;=this.xrow;i++){
+			// vertices
+			var x = - 0.5*this.width + i*this.width/this.xrow;
+			var y = j*this.height/this.yrow
+			var z = 0.0;
+			// normals
+			var nx = 0.0 ;
+			var ny = 0.0 ;
+			var nz = 1.0 ;
+			// color
+			var r = 0.8 ;
+			var g = 0.8 ;
+			var b = 0.8 ;
+			// texture coordinates
+			var tu = this.scaleUV[0]*i/this.xrow ; 
+			var tv = this.scaleUV[1]*j/this.yrow ;
+			// push vertices, normals, colors and textures coordinates
+			this.verticesArray.push(x) ;
+			this.verticesArray.push(y) ;
+			this.verticesArray.push(z) ;
+			this.normalsArray.push(nx);
+			this.normalsArray.push(ny);
+			this.normalsArray.push(nz);
+    		this.textureCoordsArray.push(tu);
+    		this.textureCoordsArray.push(tv);
+			this.colorsArray.push(r);
+			this.colorsArray.push(g);
+			this.colorsArray.push(b);	
+		}
+	}
+	for(var jj=0;jj&lt;this.yrow;jj++){
+		for(var ii=0;ii&lt;this.xrow;ii++){
+			// triangles indexes
+			// first
+			this.VertexIndices.push(jj*(this.xrow+1)+ii);
+			this.VertexIndices.push(jj*(this.xrow+1)+ii+1);
+			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii);
+			// se
+			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii);
+			this.VertexIndices.push(jj*(this.xrow+1)+ii+1);
+			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii+1);	
+			// debug 	
+		}
+	}
+
+	
+	this.VertexPositionBufferItemSize 	= 3	;
+    this.VertexNormalBufferItemSize		= 3	;
+    this.VertexTexCoordBufferItemSize	= 2 ;
+    this.VertexColorBufferItemSize		= 3 ;
+    this.VertexIndexBufferItemSize 		= 1 ;
+	
+	this.VertexPositionBufferNumItems	= (this.xrow+1)*(this.yrow+1) ;
+    this.VertexNormalBufferNumItems		= (this.xrow+1)*(this.yrow+1) ;
+    this.VertexTexCoordBufferNumItems 	= (this.xrow+1)*(this.yrow+1) ;
+    this.VertexColorBufferNumItems 		= (this.xrow+1)*(this.yrow+1) ;
+    this.VertexIndexBufferNumItems 		= (this.xrow)*(this.yrow)*2*3 ;
+
+
+	}
+
+	// methods
+	// --------------------------------------------------
+
+
+	// setFaceColor(face, RGB)
+	//---------------------------
+	// inputs
+	//---------------------------
+	// face: 	&quot;All&quot; (String)
+	// RBG: 	[float, float, float]
+	//---------------------------
+	setFaceColor ( face, RGB) {
+		// debug
+		//console.log(&quot;atomicGL(&quot;+this.name+&quot;)::setFaceColor&quot;);
+		var r = RGB[0];
+		var g = RGB[1];
+		var b = RGB[2];
+		
+		// switch face
+		switch(face){
+			case &quot;All&quot;:
+				this.colorsArray = [] ;
+				for(var j=0;j&lt;= this.yrow;j++){
+					for(var i=0;i&lt;=this.xrow;i++){
+						this.colorsArray.push(r);
+						this.colorsArray.push(g);
+						this.colorsArray.push(b);
+					}
+				}
+			break;		
+		}
+	};	
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

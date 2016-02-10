@@ -19,13 +19,15 @@
 // nname: 		name of the skyBox - string
 // skyBox size
 // ssize:		float
-atomicGLSkyBox = function(nname,ssize){
+class atomicGLSkyBox {
+	constructor(nname,ssize){
 	// attributes
 	// -------------------------------------------------
 	// name
 	this.name = nname ;
 	// size
 	this.size = ssize ;
+}
 	
 	// textures
 	this.textures = [] ;
