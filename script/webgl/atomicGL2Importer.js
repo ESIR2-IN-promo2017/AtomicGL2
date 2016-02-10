@@ -61,6 +61,10 @@ importObj(fileText){
   //obj index
   obj.index = 0;
 
+  var hasNormal=false;
+  var hasTexture = false;
+
+
 
  var  objTmp = {};
     objTmp.normals = [];
@@ -94,9 +98,11 @@ importObj(fileText){
       } else if (firstChar == 'vn') {
         // if this is a vertex normal
         objTmp.normals.push.apply(objTmp.normals, elements);
+        hasNormal = true;
       } else if (firstChar == 'vt') {
         // if this is a texture
         objTmp.textures.push.apply(objTmp.textures, elements);
+        hasTexture= true;
       } else if (firstChar == 'f') {
         // if this is a face
         /*
@@ -116,12 +122,14 @@ importObj(fileText){
             //      'f v2/t2/vn2 v3/t3/vn3 v0/t0/vn0'
             if(j === 3 && !quad) {
                 // add v2/t2/vn2 in again before continuing to 3
-               
+               j=2;
                 quad = true;
             }
 
+            console.log('element[j] : ' + elements[j]  );
             if(elements[j] in objTmp.hashindices){
-                objTmp.indices.push(objTmp.hashindices[elements[j]]);
+              var vertex = elements[ j ].split( '/' );
+               obj.vertexIndices.push(parseInt(vertex[0])-1);
             }
             else{
                 /*
@@ -145,38 +153,41 @@ importObj(fileText){
             objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 0]);
             */
             // vertex textures
-            if (objTmp.textures.length) {
+            if (objTmp.textures.length && hasTexture) {
               obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 0]);
               obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 1]);
             }
             // vertex normals
-            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 0]));
-            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 1]));
-            obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 2]));
+            if(hasNormal){
+              obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 0]));
+              obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 1]));
+              obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 2]));
+            }
             // add the newly created vertex to the list of indices
-            obj.vertexIndices.push(parseInt(vertex[0]));
-            // increment the counter
-            obj.index += 1;
+            obj.vertexIndices.push(parseInt(vertex[0])-1);
 
-            objTmp.hashindices[elements[j]] = obj.index;
-            objTmp.indices.push(obj.index);
+            // increment the counter
+
+             objTmp.indices.push(obj.index);
+             objTmp.hashindices[elements[j]] =obj.index ;
+                // increment the counter
+             obj.index += 1;
 
             if(j === 3 && quad) {
                 // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
                 // in order to split the quad onto two triangle : 
                 // f 1 2 3 4 => 1 2 3  1 3 4 
-
-                objTmp.indices.push( objTmp.hashindices[elements[0]]);
+                //objTmp.indices.push( objTmp.hashindices[elements[0]]);
                 obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
                 obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
-                                      vertex[0]);
+                                      parseInt(vertex[0])-1);
             }
         }
       }
     }
   }
 
-  obj.index = obj.vertexIndices;
+  obj.index =obj.vertexIndices;
 
   return obj;
 }

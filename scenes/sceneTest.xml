@@ -22,7 +22,7 @@
 
 	<SHAPES>
 		<SHAPE id="ground_sand" type="obj">
-			<GEOMETRY id="sol_sable" uv="1.0,1.0">sol_sable()</GEOMETRY>
+			<GEOMETRY id="sol_sable" uv="1.0,1.0">riviere()</GEOMETRY>
 			<TEXTID>sable1</TEXTID>
 		</SHAPE>
 		<SPHERE id="toto" type="sphere">
