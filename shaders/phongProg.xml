@@ -47,7 +47,7 @@
 			uniform vec3 uAmbientColor;
 
 			//point light ie omni dir:  location, color
-			uniform vec3 uPointLightPosition0;
+			uniform vec3 		;
 			uniform vec3 uPointLightColor0;
 		</UNIFORMS>
 
