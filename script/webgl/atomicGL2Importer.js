@@ -15,7 +15,6 @@ This Class will import different type of Mesh
   2° : .fbx (I hope)
   3° : we will see
 */
-
 "use strict";
 
 class atomicGL2Importer  {

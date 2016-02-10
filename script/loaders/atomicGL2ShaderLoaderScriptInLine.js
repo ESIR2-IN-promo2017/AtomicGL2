@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 	constructor(vertexShaderID,fragmentShaderID){

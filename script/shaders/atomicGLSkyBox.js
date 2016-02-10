@@ -19,6 +19,8 @@
 // nname: 		name of the skyBox - string
 // skyBox size
 // ssize:		float
+"use strict";
+
 class atomicGLSkyBox {
 	constructor(nname,ssize){
 	// attributes
@@ -27,7 +29,7 @@ class atomicGLSkyBox {
 	this.name = nname ;
 	// size
 	this.size = ssize ;
-}
+
 	
 	// textures
 	this.textures = [] ;
@@ -137,12 +139,12 @@ class atomicGLSkyBox {
     this.skyBoxVertexColorBufferNumItems 		;
     this.skyBoxVertexIndexBufferNumItems 		;
 	
-	
+}	
 
 	// methods
 	// --------------------------------------------------
 	
-	this.pushTexture = function(atomicTex){this.textures.push(atomicTex);}
+	pushTexture(atomicTex){this.textures.push(atomicTex);}
 	// setFaceColor(face, RGB)
 	//---------------------------
 	// inputs
@@ -150,7 +152,7 @@ class atomicGLSkyBox {
 	// face: 	"Front" | "Back" | "Top" | "Bottom" |"Left"| "Right"| "All" (String)
 	// RBG: 	[float, float, float]
 	//---------------------------
-	this.setFaceColor = function ( face, RGB) {
+	setFaceColor ( face, RGB) {
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::setFaceColor");
 		var r = RGB[0];
@@ -287,7 +289,7 @@ class atomicGLSkyBox {
 	//------------------------
 	// agl: openGL context
 	//---------------------------
-	this.initGLBuffers = function(agl){
+	initGLBuffers(agl){
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::initGLBuffers");
 		var gl = agl.gl ;
@@ -335,7 +337,7 @@ class atomicGLSkyBox {
 	// aMS: Matrix Stacks 	- atomicMatrixStack
 	// idProg: Shader index - integer
 	//---------------------------
-	this.draw = function(aGL,aMS,idProg){
+	draw(aGL,aMS,idProg){
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::draw(progId: "+idProg+")");
 		//console.log(aGL.shaderPrograms);

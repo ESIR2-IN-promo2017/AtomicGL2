@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 //----------------------------------------------------------------------------------------
 // atomicGL2Cube  extends atomicGLObject3d
@@ -14,15 +14,15 @@ class atomicGL2Cube extends atomicGL2Object3d {
 	// 			ddepth:	float
 	//			uu: textures coordinate scale
 	//			vv: textures coordinate scale
-	constructor(nname,hheight, wwidth,ddepth,uu,vv){
+	constructor(name,height, width,depth,uu,vv){
 		super();
 
 		// attributes
 		// -------------------------------------------------
 		// size
-		this.height	= hheight ;
-		this.width 	= wwidth ;
-		this.depth 	= ddepth ;
+		this.height	= height ;
+		this.width 	= width ;
+		this.depth 	= depth ;
 	
 
 	

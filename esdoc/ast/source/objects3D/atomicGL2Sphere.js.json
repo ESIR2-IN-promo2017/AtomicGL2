@@ -5,11 +5,11 @@
       "type": "ExpressionStatement",
       "expression": {
         "type": "Literal",
-        "value": "use strict;",
-        "raw": "\"use strict;\"",
+        "value": "use strict",
+        "raw": "\"use strict\"",
         "range": [
           0,
-          13
+          12
         ],
         "loc": {
           "start": {
@@ -18,69 +18,13 @@
           },
           "end": {
             "line": 1,
-            "column": 13
+            "column": 12
           }
-        },
-        "trailingComments": [
-          {
-            "type": "Line",
-            "value": "----------------------------------------------------------------------------------------",
-            "range": [
-              17,
-              107
-            ],
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 3,
-                "column": 90
-              }
-            }
-          },
-          {
-            "type": "Line",
-            "value": " atomicGL2Sphere  extends atomicGLObject3d",
-            "range": [
-              109,
-              153
-            ],
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 4,
-                "column": 44
-              }
-            }
-          },
-          {
-            "type": "Line",
-            "value": "----------------------------------------------------------------------------------------",
-            "range": [
-              155,
-              245
-            ],
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 5,
-                "column": 90
-              }
-            }
-          }
-        ]
+        }
       },
       "range": [
         0,
-        249
+        13
       ],
       "loc": {
         "start": {
@@ -88,10 +32,66 @@
           "column": 0
         },
         "end": {
-          "line": 7,
-          "column": 0
+          "line": 1,
+          "column": 13
         }
-      }
+      },
+      "trailingComments": [
+        {
+          "type": "Line",
+          "value": "----------------------------------------------------------------------------------------",
+          "range": [
+            17,
+            107
+          ],
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 0
+            },
+            "end": {
+              "line": 3,
+              "column": 90
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": " atomicGL2Sphere  extends atomicGLObject3d",
+          "range": [
+            109,
+            153
+          ],
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 0
+            },
+            "end": {
+              "line": 4,
+              "column": 44
+            }
+          }
+        },
+        {
+          "type": "Line",
+          "value": "----------------------------------------------------------------------------------------",
+          "range": [
+            155,
+            245
+          ],
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 0
+            },
+            "end": {
+              "line": 5,
+              "column": 90
+            }
+          }
+        }
+      ]
     },
     {
       "type": "ClassDeclaration",

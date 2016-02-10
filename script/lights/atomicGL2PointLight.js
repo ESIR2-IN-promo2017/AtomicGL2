@@ -18,16 +18,16 @@ class atomicGL2PointLight extends atomicGL2Light{
 	// ccolor	   : Light color
 	// pposition : Light position
 
-	constructor(ccolor,pposition){
+	constructor(color,position){
 		// attributes
 		// -------------------------------------------------
 		// GL lights
-		super(ccolor);
+		super(color);
 		
 		//if the position parmaters is undefined : Error exception
-   		if(typeof(pposition)!=Array && pposition.length != 3)
+   		if(typeof(position)!=Array && position.length != 3)
       		throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
 
-		this.position = pposition;
+		this.position = position;
 	}
 }

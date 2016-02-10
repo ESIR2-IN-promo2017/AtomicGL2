@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 	constructor(xmlfile){

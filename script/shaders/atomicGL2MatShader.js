@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 class  atomicGL2MatShader extends atomicGL2Shader{
 	// constructor
