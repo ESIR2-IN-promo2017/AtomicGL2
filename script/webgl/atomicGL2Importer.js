@@ -125,11 +125,9 @@ importObj(fileText){
                j=2;
                 quad = true;
             }
-
-            console.log('element[j] : ' + elements[j]  );
             if(elements[j] in objTmp.hashindices){
-              var vertex = elements[ j ].split( '/' );
-               obj.vertexIndices.push(parseInt(vertex[0])-1);
+                var vertex = elements[ j ].split( '/' );
+                obj.vertexIndices.push(parseInt(vertex[0])-1);
             }
             else{
                 /*
@@ -166,9 +164,7 @@ importObj(fileText){
             // add the newly created vertex to the list of indices
             obj.vertexIndices.push(parseInt(vertex[0])-1);
 
-            // increment the counter
 
-             objTmp.indices.push(obj.index);
              objTmp.hashindices[elements[j]] =obj.index ;
                 // increment the counter
              obj.index += 1;
