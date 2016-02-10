@@ -1,32 +1,33 @@
 {
-  "coverage": "7.14%",
-  "expectCount": 14,
-  "actualCount": 1,
+  "coverage": "86.36%",
+  "expectCount": 22,
+  "actualCount": 19,
   "files": {
     "script/lights/atomicGL2DirectionnalLight.js": {
       "expectCount": 3,
-      "actualCount": 1,
+      "actualCount": 2,
       "undocumentLines": [
-        13,
-        22
+        13
       ]
     },
     "script/lights/atomicGL2Light.js": {
       "expectCount": 11,
-      "actualCount": 0,
+      "actualCount": 10,
       "undocumentLines": [
-        12,
-        34,
-        19,
-        38,
-        46,
-        54,
-        50,
-        58,
-        62,
-        37,
-        39
+        62
       ]
+    },
+    "script/lights/atomicGL2PointLight.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        13
+      ]
+    },
+    "script/lights/atomicGL2SpotLight.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
     }
   }
 }

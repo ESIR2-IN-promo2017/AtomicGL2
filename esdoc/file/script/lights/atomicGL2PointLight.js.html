@@ -34,6 +34,8 @@
     
   <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lights</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html">atomicGL2DirectionnalLight</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2Light.js~atomicGL2Light.html">atomicGL2Light</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2PointLight.js~atomicGL2PointLight.html">atomicGL2PointLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html">atomicGL2SpotLight</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -51,25 +53,23 @@
 
 &quot;use strict&quot;;
 
-class atomicGL2PointLight extends atomicGL2Light{
-	// constructor
-	//------------------------
-	// inputs
-	//------------------------
-	// ccolor	   : Light color
-	// pposition : Light position
-
-	constructor(ccolor,pposition){
-		// attributes
-		// -------------------------------------------------
-		// GL lights
-		super(ccolor);
+export default class atomicGL2PointLight extends atomicGL2Light{
+	
+	/**
+   * @param {Array[3]:float} color the color of the light
+   * @param {Array[3]:float} position the position of the Pointlight.
+   */
+	constructor(color,position){
+		super(color);
 		
 		//if the position parmaters is undefined : Error exception
-   		if(typeof(pposition)!=Array &amp;&amp; pposition.length != 3)
+   		if(typeof(position)!=Array &amp;&amp; position.length != 3)
       		throw new TypeError(&quot;Please instantiate the &quot;+this.getType()+&quot; with the position parameter&quot;);
 
-		this.position = pposition;
+		/**
+     	* @type {Array[3]:float} position of the light
+     	*/     	
+		this.position = position;
 	}
 }
 </code></pre>

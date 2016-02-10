@@ -270,10 +270,10 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "name": "ccolor",
+                    "name": "color",
                     "range": [
                       672,
-                      678
+                      677
                     ],
                     "loc": {
                       "start": {
@@ -282,25 +282,25 @@
                       },
                       "end": {
                         "line": 19,
-                        "column": 19
+                        "column": 18
                       }
                     }
                   },
                   {
                     "type": "Identifier",
-                    "name": "ddirection",
+                    "name": "direction",
                     "range": [
-                      680,
-                      690
+                      679,
+                      688
                     ],
                     "loc": {
                       "start": {
                         "line": 19,
-                        "column": 21
+                        "column": 20
                       },
                       "end": {
                         "line": 19,
-                        "column": 31
+                        "column": 29
                       }
                     }
                   }
@@ -315,8 +315,8 @@
                         "callee": {
                           "type": "Super",
                           "range": [
-                            696,
-                            701
+                            694,
+                            699
                           ],
                           "loc": {
                             "start": {
@@ -332,10 +332,10 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "name": "ccolor",
+                            "name": "color",
                             "range": [
-                              702,
-                              708
+                              700,
+                              705
                             ],
                             "loc": {
                               "start": {
@@ -344,14 +344,14 @@
                               },
                               "end": {
                                 "line": 20,
-                                "column": 14
+                                "column": 13
                               }
                             }
                           }
                         ],
                         "range": [
-                          696,
-                          709
+                          694,
+                          706
                         ],
                         "loc": {
                           "start": {
@@ -360,13 +360,13 @@
                           },
                           "end": {
                             "line": 20,
-                            "column": 15
+                            "column": 14
                           }
                         }
                       },
                       "range": [
-                        696,
-                        710
+                        694,
+                        707
                       ],
                       "loc": {
                         "start": {
@@ -375,9 +375,29 @@
                         },
                         "end": {
                           "line": 20,
-                          "column": 16
+                          "column": 15
                         }
-                      }
+                      },
+                      "trailingComments": [
+                        {
+                          "type": "Block",
+                          "value": "*\r\n     \t* @type {Array[3]:float} direction of the light\r\n     \t",
+                          "range": [
+                            715,
+                            783
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 22,
+                              "column": 2
+                            },
+                            "end": {
+                              "line": 24,
+                              "column": 8
+                            }
+                          }
+                        }
+                      ]
                     },
                     {
                       "type": "ExpressionStatement",
@@ -390,16 +410,16 @@
                           "object": {
                             "type": "ThisExpression",
                             "range": [
-                              718,
-                              722
+                              787,
+                              791
                             ],
                             "loc": {
                               "start": {
-                                "line": 22,
+                                "line": 25,
                                 "column": 2
                               },
                               "end": {
-                                "line": 22,
+                                "line": 25,
                                 "column": 6
                               }
                             }
@@ -408,23 +428,89 @@
                             "type": "Identifier",
                             "name": "direction",
                             "range": [
-                              723,
-                              732
+                              792,
+                              801
                             ],
                             "loc": {
                               "start": {
-                                "line": 22,
+                                "line": 25,
                                 "column": 7
                               },
                               "end": {
-                                "line": 22,
+                                "line": 25,
                                 "column": 16
                               }
                             }
                           },
                           "range": [
-                            718,
-                            732
+                            787,
+                            801
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 25,
+                              "column": 2
+                            },
+                            "end": {
+                              "line": 25,
+                              "column": 16
+                            }
+                          }
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "direction",
+                          "range": [
+                            804,
+                            813
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 25,
+                              "column": 19
+                            },
+                            "end": {
+                              "line": 25,
+                              "column": 28
+                            }
+                          }
+                        },
+                        "range": [
+                          787,
+                          813
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 25,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 25,
+                            "column": 28
+                          }
+                        }
+                      },
+                      "range": [
+                        787,
+                        814
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 25,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 25,
+                          "column": 29
+                        }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "Block",
+                          "value": "*\r\n     \t* @type {Array[3]:float} direction of the light\r\n     \t",
+                          "range": [
+                            715,
+                            783
                           ],
                           "loc": {
                             "start": {
@@ -432,71 +518,25 @@
                               "column": 2
                             },
                             "end": {
-                              "line": 22,
-                              "column": 16
+                              "line": 24,
+                              "column": 8
                             }
                           }
-                        },
-                        "right": {
-                          "type": "Identifier",
-                          "name": "ddirection",
-                          "range": [
-                            735,
-                            745
-                          ],
-                          "loc": {
-                            "start": {
-                              "line": 22,
-                              "column": 19
-                            },
-                            "end": {
-                              "line": 22,
-                              "column": 29
-                            }
-                          }
-                        },
-                        "range": [
-                          718,
-                          745
-                        ],
-                        "loc": {
-                          "start": {
-                            "line": 22,
-                            "column": 2
-                          },
-                          "end": {
-                            "line": 22,
-                            "column": 29
-                          }
                         }
-                      },
-                      "range": [
-                        718,
-                        746
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 22,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 22,
-                          "column": 30
-                        }
-                      }
+                      ]
                     }
                   ],
                   "range": [
-                    691,
-                    750
+                    689,
+                    818
                   ],
                   "loc": {
                     "start": {
                       "line": 19,
-                      "column": 32
+                      "column": 30
                     },
                     "end": {
-                      "line": 23,
+                      "line": 26,
                       "column": 2
                     }
                   }
@@ -505,7 +545,7 @@
                 "expression": false,
                 "range": [
                   671,
-                  750
+                  818
                 ],
                 "loc": {
                   "start": {
@@ -513,7 +553,7 @@
                     "column": 12
                   },
                   "end": {
-                    "line": 23,
+                    "line": 26,
                     "column": 2
                   }
                 }
@@ -522,7 +562,7 @@
               "computed": false,
               "range": [
                 660,
-                750
+                818
               ],
               "loc": {
                 "start": {
@@ -530,14 +570,14 @@
                   "column": 1
                 },
                 "end": {
-                  "line": 23,
+                  "line": 26,
                   "column": 2
                 }
               },
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*\r\n   * @param {Array[3] float} direction the direction of the ray of light.\r\n   * @param {Array[3] float} color the color of the light\r\n   ",
+                  "value": "*\r\n   * @param {Array[3]:float} direction the direction of the ray of light.\r\n   * @param {Array[3]:float} color the color of the light\r\n   ",
                   "range": [
                     513,
                     657
@@ -559,7 +599,7 @@
           ],
           "range": [
             506,
-            753
+            821
           ],
           "loc": {
             "start": {
@@ -567,14 +607,14 @@
               "column": 70
             },
             "end": {
-              "line": 24,
+              "line": 27,
               "column": 1
             }
           }
         },
         "range": [
           451,
-          753
+          821
         ],
         "loc": {
           "start": {
@@ -582,7 +622,7 @@
             "column": 15
           },
           "end": {
-            "line": 24,
+            "line": 27,
             "column": 1
           }
         },
@@ -591,7 +631,7 @@
       },
       "range": [
         436,
-        753
+        821
       ],
       "loc": {
         "start": {
@@ -599,7 +639,7 @@
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 27,
           "column": 1
         }
       }
@@ -608,7 +648,7 @@
   "sourceType": "module",
   "range": [
     419,
-    753
+    821
   ],
   "loc": {
     "start": {
@@ -616,7 +656,7 @@
       "column": 0
     },
     "end": {
-      "line": 24,
+      "line": 27,
       "column": 1
     }
   },
@@ -785,7 +825,7 @@
     },
     {
       "type": "Block",
-      "value": "*\r\n   * @param {Array[3] float} direction the direction of the ray of light.\r\n   * @param {Array[3] float} color the color of the light\r\n   ",
+      "value": "*\r\n   * @param {Array[3]:float} direction the direction of the ray of light.\r\n   * @param {Array[3]:float} color the color of the light\r\n   ",
       "range": [
         513,
         657
@@ -798,6 +838,24 @@
         "end": {
           "line": 18,
           "column": 5
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\r\n     \t* @type {Array[3]:float} direction of the light\r\n     \t",
+      "range": [
+        715,
+        783
+      ],
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 2
+        },
+        "end": {
+          "line": 24,
+          "column": 8
         }
       }
     }
