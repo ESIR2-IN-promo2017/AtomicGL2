@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/webgl/atomicGL2Importer.js | AtomicGL2 API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lights</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html">atomicGL2DirectionnalLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2Light.js~atomicGL2Light.html">atomicGL2Light</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/webgl/atomicGL2Importer.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// atomicGL
+//----------------------------------------------------------------------------------------
+// author: RC
+// contact: cozot@irisa.fr
+// version: 2.3
+// current version date: 2016/01/26
+//----------------------------------------------------------------------------------------
+// atomicGL2Importer
+//----------------------------------------------------------------------------------------
+
+
+/*
+This Class will import different type of Mesh
+  1&#xB0; : .Obj
+  2&#xB0; : .fbx (I hope)
+  3&#xB0; : we will see
+*/
+&quot;use strict&quot;;
+
+class atomicGL2Importer  {
+    constructor(path){
+        this.file = this.readTextFile(path);
+        this.obj = this.importObj(this.file);
+    }
+
+    readTextFile(file){
+        var rawFile = new XMLHttpRequest();
+        rawFile.open(&quot;GET&quot;, file, false);
+        
+        var allText = &quot;Loading failed&quot;;
+        
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+                if(rawFile.status === 200 || rawFile.status == 0)
+                    allText = rawFile.responseText;
+        }
+
+        rawFile.send(null);
+        return allText;
+    }
+
+    importObj(fileText){
+        //the object3D
+        var obj           = [];
+
+        obj.name          = &apos;&apos;;
+        // vertices array
+        obj.vertices      = [];
+        // normals array
+        obj.normals       = [] ;
+        // indexes array
+        obj.vertexIndices = [];
+        //texture coordinates
+        obj.uv            = [];
+        //obj index
+        obj.index         = 0;
+
+        var hasNormal  = false;
+        var hasTexture = false;
+
+
+
+        var  objTmp = {};
+        objTmp.normals     = [];
+        objTmp.textures    = [];
+        objTmp.hashindices = {};
+        objTmp.indices     = [];
+
+        // array of lines separated by the newline
+        var lines = fileText.split(&apos;\n&apos;);
+
+        var WHITESPACE_RE = /\s+/;
+
+        for (var i = 0; i &lt; lines.length; i++) {
+            var line = lines[i].trim();
+            var elements = line.split(WHITESPACE_RE);
+            var firstChar = elements.shift();
+            if(firstChar == &apos;#&apos;)
+                continue;
+    
+            else if (firstChar == &apos;g&apos; ||firstChar == &apos;o&apos;)
+                obj.name = elements;
+    
+            else if (firstChar == &apos;v&apos;) {
+                // if this is a vertex
+                for (var ii = 0; ii &lt; elements.length; ii++) 
+                    obj.vertices.push(parseFloat(elements[ii]));
+            }
+            else if (firstChar == &apos;vn&apos;) {
+                // if this is a vertex normal
+                objTmp.normals.push.apply(objTmp.normals, elements);
+                hasNormal = true;
+            }      
+            else if (firstChar == &apos;vt&apos;) {
+                // if this is a texture
+                objTmp.textures.push.apply(objTmp.textures, elements);
+                hasTexture= true;
+            }
+            else if (firstChar == &apos;f&apos;) {
+               var quad = false;
+               for (var j = 0, eleLen = elements.length; j &lt; eleLen; j++){
+                  // Triangulating quads
+                  // quad: &apos;f v0/t0/vn0 v1/t1/vn1 v2/t2/vn2 v3/t3/vn3/&apos;
+                  // corresponding triangles:
+                  //      &apos;f v0/t0/vn0 v1/t1/vn1 v2/t2/vn2&apos;
+                  //      &apos;f v2/t2/vn2 v3/t3/vn3 v0/t0/vn0&apos;
+                  if(j === 3 &amp;&amp; !quad) {
+                      // add v2/t2/vn2 in again before continuing to 3
+                      j=2;
+                      quad = true;
+                  }
+                  if(elements[j] in objTmp.hashindices){
+                      var vertex = elements[ j ].split( &apos;/&apos; );
+                      obj.vertexIndices.push(parseInt(vertex[0])-1);
+                  }
+                  else{
+                          /*
+                      Each element of the face line array is a vertex which has its
+                      attributes delimited by a forward slash. This will separate
+                      each attribute into another array:
+                          &apos;19/92/11&apos;
+                      becomes:
+                          vertex = [&apos;19&apos;, &apos;92&apos;, &apos;11&apos;];
+                      where
+                          vertex[0] is the vertex index
+                          vertex[1] is the texture index
+                          vertex[2] is the normal index
+                       Think of faces having Vertices which are comprised of the
+                       attributes location (v), texture (vt), and normal (vn).
+                       */
+  
+                      var vertex = elements[ j ].split( &apos;/&apos; );
+                      // vertex position sorted with in vertexIndices order
+                      /*objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 1]);
+                      objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 2]);
+                      objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 0]);
+                      */
+  
+                      // vertex textures
+                      if (objTmp.textures.length &amp;&amp; hasTexture) {
+                          obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 0]);
+                          obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 1]);
+                      }
+  
+                      // vertex normals
+                      if(hasNormal){
+                          obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 0]));
+                          obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 1]));
+                          obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 2]));
+                      }
+  
+                      // add the newly created vertex to the list of indices
+                      obj.vertexIndices.push(parseInt(vertex[0])-1);
+  
+                      // increment the counter
+                      objTmp.indices.push(obj.index);
+                      objTmp.hashindices[elements[j]] =obj.index ;
+                      
+                      // increment the counter
+                      obj.index += 1;
+  
+                      if(j === 3 &amp;&amp; quad) {
+                          // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
+                          // in order to split the quad onto two triangle : 
+                          // f 1 2 3 4 =&gt; 1 2 3  1 3 4 
+                          //objTmp.indices.push( objTmp.hashindices[elements[0]]);
+                          obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
+                          obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
+                                                parseInt(vertex[0])-1);
+                      }
+                  }
+              }
+            }
+        }
+        obj.index = obj.vertexIndices;
+        return obj;
+    }
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

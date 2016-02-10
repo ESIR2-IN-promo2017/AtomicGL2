@@ -1,17 +1,20 @@
-"use strict;"
+"use strict";
 
 //----------------------------------------------------------------------------------------
 // atomicGL2ObjMesh extends atomicGLObject3d
 //----------------------------------------------------------------------------------------
 
-class atomicGL2ObjMesh extends atomicGL2Object3d {
+
+	
+
+ class atomicGL2ObjMesh extends atomicGL2Object3d {
 	// constructor
 	// 		obj  :	atomicGlImporter object
 	// 		uu,vv:	text coord scale
-	constructor(nname, obj, uu, vv){
+	constructor(name, obj, uu, vv){
 		// debug
 		//console.log("atomicGL2ObjMesh extends atomicGLObject3d::constructor ->"+name );
-		super(nname);
+		super(name);
 		// textures
 		this.scaleUV  = [uu,vv] ;
 		this.textures = [] ;

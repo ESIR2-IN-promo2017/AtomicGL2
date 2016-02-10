@@ -10,10 +10,13 @@
 // TODO list
 //----------------------------------------------------------------------------------------
 
+"use strict";
+
 
 // constructor
 //------------------------
-atomicGLWalkCamera = function(){
+class atomicGLWalkCamera {
+ constructor(){ 
 	// attributes
 	// -------------------------------------------------
 	// camera position
@@ -27,33 +30,33 @@ atomicGLWalkCamera = function(){
 	this.step = 0.10 ;
 	// rot
 	this.rot = 0.5 ;
-	
+}	
 	// methods
 	// --------------------------------------------------
 	// up/right/left/down
 	//---------------------------
-	this.up 	= function () {
+	up() {
 		this.xc +=	+this.step*Math.sin(this.theta*3.14/180.0);
 		this.zc += 	-this.step*Math.cos(this.theta*3.14/180.0);
 	}
-	this.down 	= function () {
+	down() {
 		this.xc +=	-this.step*Math.sin(this.theta*3.14/180.0);
 		this.zc +=	+this.step*Math.cos(this.theta*3.14/180.0);
 	}
-	this.right 	= function () {
+	right() {
 		this.xc +=	+this.step*Math.cos(this.theta*3.14/180.0);
 		this.zc += 	+this.step*Math.sin(this.theta*3.14/180.0);
 	}
-	this.left 	= function () {
+	left() {
 		this.xc +=	-this.step*Math.cos(this.theta*3.14/180.0);
 		this.zc += 	-this.step*Math.sin(this.theta*3.14/180.0);
 	}
-	this.turnright 	= function (a) {
+	turnright(a) {
 		this.theta += +a ;
 	}
-	this.turnleft 	= function (a) {		
+	turnleft(a) {		
 		this.theta += +a ;
 	}
-	this.turnup = function(a){this.phi = a;}
+	turnup(a){this.phi = a;}
 
 }

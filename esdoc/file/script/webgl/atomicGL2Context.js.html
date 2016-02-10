@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/webgl/atomicGL2Context.js | AtomicGL2 API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lights</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html">atomicGL2DirectionnalLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2Light.js~atomicGL2Light.html">atomicGL2Light</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/webgl/atomicGL2Context.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// atomicGL
+//----------------------------------------------------------------------------------------
+// author: RC
+// contact: cozot@irisa.fr
+// version: 2.3
+// current version date: 2016/01/26
+//----------------------------------------------------------------------------------------
+// atomicGL2Context
+//----------------------------------------------------------------------------------------
+&quot;use strict&quot;;
+
+class atomicGL2Context {
+	// constructor
+
+	//------------------------
+	constructor(){
+		// attributes
+		// -------------------------------------------------
+		// GL context
+		this.gl ;
+		// GL context size
+		this.viewportWidth ;
+		this.viewportHeight ;
+
+		// Ambient lights
+		this.ambientLightColor;
+
+		// GLtexture
+		this.GLtexture      = [];
+		
+		// -------------------------------------------------
+		// scene assets
+		// -------------------------------------------------
+		// shaders
+		this.shaderPrograms = new Map();
+		// textures
+		this.textures       = [];
+		// shapes
+		this.shapes         = [];
+		// lights
+		this.lights         = new Map();
+		// scene graph
+		this.scenegraph     = null;
+	}
+
+	// methods
+	// --------------------------------------------------
+	// initGL(canvas)
+	//---------------------------
+	// inputs: 	canvas: html canvas
+	// 			backgroundColor: [float, float, float]
+	initGL(canvas,backgroundColor) {
+		// debug
+		//console.log(&quot;atomicGLContext::initGL&quot;);
+		// recover canvas openGL
+    	try {
+      		this.gl = canvas.getContext(&quot;webgl&quot;);
+     	 	this.viewportWidth = canvas.width;
+      		this.viewportHeight = canvas.height;
+    	} 
+
+    	catch (e) 
+    	{}
+
+		// error in the initialisation of GL context
+    	if (!this.gl) 
+      		alert(&quot;atomicGLContext::Could not initialise WebGL&quot;);
+    	
+		else 
+		{ 
+			// GL context initialised -&gt; first init (background color, DEPTH_TEST)
+			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
+			this.gl.enable(this.gl.DEPTH_TEST);
+		}
+
+		// GLtexture
+		this.GLtexture.push(this.gl.TEXTURE0);
+		this.GLtexture.push(this.gl.TEXTURE1);
+		this.GLtexture.push(this.gl.TEXTURE2);
+		this.GLtexture.push(this.gl.TEXTURE3);
+		this.GLtexture.push(this.gl.TEXTURE4);
+		this.GLtexture.push(this.gl.TEXTURE5);
+		this.GLtexture.push(this.gl.TEXTURE6);
+		this.GLtexture.push(this.gl.TEXTURE7);
+  	}
+
+	// initDraw()
+	//---------------------------
+	initDraw() {
+		// debug
+		// console.log(&quot;atomicGLContext::initDraw&quot;);
+		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
+   	 	this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+	}
+
+	// pushLight(light)
+	// ---------------------------
+	// inputs: 	light - atomicGLLight
+	pushLight(id,light){
+		// debug
+		// console.log(&quot;atomicGLContext::pushLight&quot;);
+		this.lights.set(id,light);
+		console.log(&quot;New ligth added: &quot; + id);
+	}
+
+	// pushProgram(prog)
+	// ---------------------------
+	// inputs: prog - atomicGLShader
+	pushProgram(name,prog){
+		// debug
+		//console.log(&quot;atomicGLContext::pushProgram&quot;);
+		this.shaderPrograms.set(name,prog);
+		var id =  this.shaderPrograms.length -1
+		// debug
+		//console.log(&quot;-- atomicGLContext::pushProgram(&quot;+prog.name+&quot;)-&gt; index:&quot;+id);
+		return  id ;
+	}
+
+	// indexOfTexture
+	// ---------------------------------------
+	// input: 	id - string: id name of texture
+	// output:	int - index of texture in this.textures
+	indexOfTexture(id){
+		var res = -1 ;
+
+		for (var i=0; i&lt;this.textures.length;i++)
+		{
+			var idTex = this.textures[i].id ;
+			if (id==idTex)
+			{
+				res = i;
+				break;
+			}
+		}
+
+		return res;
+	}
+
+	// indexOfShader
+	// ---------------------------------------
+	// input: 	id - string: id name of shader
+	// output:	int - index of shader in this.shaders
+	indexOfShader(id){
+		var res = -1 ;
+
+		for (var i=0; i&lt;this.shaderPrograms.length;i++)
+		{
+			var shadername = this.shaderPrograms[i].name ;
+			if (id==shadername)
+			{
+				res = i;
+				break;
+			}
+		}
+
+		return res;
+	}
+
+	// indexOfShape
+	// ---------------------------------------
+	// input: 	id - string: id name of shape
+	// output:	int - index of shape in this.shapes
+	indexOfShape(id){
+		var res = -1 ;
+
+		for (var i=0; i&lt;this.shapes.length;i++)
+		{
+			var shapename = this.shapes[i].name;
+			if (id==shapename)
+			{
+				res = i;
+				break;
+			}
+		}
+		return res;
+	}
+
+	getShaderProgram(id){
+		return this.shaderPrograms.get(id);
+	}
+
+	getLight(id){
+		return this.lights.get(id);
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

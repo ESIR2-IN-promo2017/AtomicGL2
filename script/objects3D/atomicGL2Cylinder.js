@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 //----------------------------------------------------------------------------------------
 // atomicGL2Cylinder  extends atomicGLObject3d
@@ -13,14 +13,14 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 // 			height:			float
 // 			lthis.heightBands: init
 // 			this.longitudeBands: int
-	constructor(nname,rradius, hheight, hheightBands,llongitudeBands,uu,vv){
+	constructor(nname,radius, height, heightBands,longitudeBands,uu,vv){
 		super(nname);
 	
 		// size
-        this.radius         = rradius ;
-        this.height         = hheight ;
-        this.heightBands    = hheightBands ;
-        this.longitudeBands = llongitudeBands ;
+        this.radius         = radius ;
+        this.height         = height ;
+        this.heightBands    = heightBands ;
+        this.longitudeBands = longitudeBands ;
         
         // textures
         this.scaleUV        = [uu,vv] ;

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/objects3D/atomicGL2Sphere.js | AtomicGL2 API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lights</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html">atomicGL2DirectionnalLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2Light.js~atomicGL2Light.html">atomicGL2Light</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/objects3D/atomicGL2Sphere.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
+
+//----------------------------------------------------------------------------------------
+// atomicGL2Sphere  extends atomicGLObject3d
+//----------------------------------------------------------------------------------------
+
+class atomicGL2Sphere extends atomicGL2Object3d{
+
+	// constructor
+	//------------------------
+	// inputs
+	//------------------------
+	// nname: 		name of the Sphere - string
+	// sphere size
+	// rthis.radius:			float
+	// lthis.latitudeBands: init
+	// lthis.longitudeBands: int
+	constructor(nname,rradius, llatitudeBands,llongitudeBands,uu,vv){
+		super(nname);
+
+		// size
+		this.radius	= rradius ;
+		this.latitudeBands 	= llatitudeBands ;
+		this.longitudeBands	= llongitudeBands ;
+
+		// textures
+		this.scaleUV = [uu,vv] ;
+
+	  // build the vertices
+		this.build();
+	}
+
+	// methods
+	// --------------------------------------------------
+
+	// setFaceColor(face, RGB)
+	//---------------------------
+	// inputs
+	//---------------------------
+	// face: 	&quot;All&quot; (String)
+	// RBG: 	[float, float, float]
+	//---------------------------
+	setFaceColor( face, RGB) {
+		// debug
+		//console.log(&quot;atomicGLSphere(&quot;+this.name+&quot;)::setFaceColor&quot;);
+		var r = RGB[0];
+		var g = RGB[1];
+		var b = RGB[2];
+
+		// switch face
+		switch(face){
+			case &quot;All&quot;:
+				this.colorsArray = [] ;
+				for (var latNumber=0; latNumber &lt;= this.latitudeBands; latNumber++) {
+            		for (var longNumber = 0; longNumber &lt;= this.longitudeBands; longNumber++) {
+                		// color
+                		this.colorsArray.push(r);
+                		this.colorsArray.push(g);
+                		this.colorsArray.push(b);
+            		}
+        		}
+			break;
+		}
+	}
+	//-----------------------------------------------------
+
+	build(){
+		// build
+		//-----------------------------
+		// vertices, normals, colors, texCoord
+		for (var latNumber=0; latNumber &lt;= this.latitudeBands; latNumber++) {
+				var theta = latNumber * Math.PI / this.latitudeBands;
+				var sinTheta = Math.sin(theta);
+				var cosTheta = Math.cos(theta);
+
+				for (var longNumber = 0; longNumber &lt;= this.longitudeBands; longNumber++) {
+					var phi = longNumber * 2 * Math.PI / this.longitudeBands;
+					var sinPhi = Math.sin(phi);
+					var cosPhi = Math.cos(phi);
+
+					var x = cosPhi * sinTheta;
+					var y = cosTheta;
+					var z = sinPhi * sinTheta;
+					// normals
+					this.normalsArray.push(x);
+					this.normalsArray.push(y);
+					this.normalsArray.push(z);
+					// position
+					this.verticesArray.push(this.radius * x);
+					this.verticesArray.push(this.radius * y);
+					this.verticesArray.push(this.radius * z);
+					// color
+					this.colorsArray.push(0.8);
+					this.colorsArray.push(0.8);
+					this.colorsArray.push(0.8);
+					// uv
+					this.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);
+					this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);
+				}
+			}
+
+		// index
+		for (var latNumber = 0; latNumber &lt; this.latitudeBands; latNumber++) {
+				for (var longNumber = 0; longNumber &lt; this.longitudeBands; longNumber++) {
+					var first = (latNumber * (this.longitudeBands + 1)) + longNumber;
+					var second = first + this.longitudeBands + 1;
+					this.vertexIndices.push(first);
+					this.vertexIndices.push(second);
+					this.vertexIndices.push(first + 1);
+
+					this.vertexIndices.push(second);
+					this.vertexIndices.push(second + 1);
+					this.vertexIndices.push(first + 1);
+				}
+			}
+
+		this.vertexPositionBufferItemSize = 3	;
+		this.vertexNormalBufferItemSize		= 3	;
+		this.vertexTexCoordBufferItemSize	= 2 ;
+		this.vertexColorBufferItemSize		= 3 ;
+		this.vertexIndexBufferItemSize 		= 1 ;
+
+		this.vertexPositionBufferNumItems	= this.verticesArray.length / 3 ;
+	  this.vertexNormalBufferNumItems		= this.normalsArray.length / 3 ;
+		this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;
+		this.vertexColorBufferNumItems 		= this.colorsArray.length / 3 ;
+	  this.vertexIndexBufferNumItems 		= this.vertexIndices.length;
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.4)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

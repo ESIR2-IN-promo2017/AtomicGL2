@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------------------------
 // atomicGL2Light
 //----------------------------------------------------------------------------------------
+"use strict";
 
 class atomicGL2Light {
 	// constructor
@@ -15,13 +16,13 @@ class atomicGL2Light {
 	//------------------------
 	// ccolor 		: Light color
 	// nname		: nname attribute of the ligth 
-	constructor(ccolor){
+	constructor(color){
 
 		//if this class is instantiate : Error exception Abstract Class
 		if (this.getType() == atomicGL2Light)
       		throw new TypeError("Cannot construct Abstract instances directly");
    		//if the ccolor parmaters is undefined : Error exception
-   		if(typeof(ccolor)!=Array[3] && ccolor.length!=3)
+   		if(typeof(color)!=Array[3] && color.length!=3)
       		throw new TypeError("Please instantiate with the color parameter which is an Array of 3 float");
 
 /*      	if(typeof(nname)!==String)
@@ -30,7 +31,7 @@ class atomicGL2Light {
 		// attributes
 		// -------------------------------------------------
 		// GL lights
-		this.color = ccolor;
+		this.color = color;
 /*		this.name = nname;*/
 		
 		this.position = null;

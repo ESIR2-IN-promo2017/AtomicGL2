@@ -1,54 +1,13 @@
 # AtomicGL2
 
-
-Obj3D :
-
-vertex 		: Array
-index  		: Array
-textCoord 	: Array				INIT :
-normals		: Array			==>		ArrayBuffer /IndexArrayBuffer => ShaderAttribute
-{tangent}	: Array
-{Color}		: Array
-{other}		: Array
+AtomicGL2 : 
+author: RC
+contact: cozot@irisa.fr
+version: 2.1
 
 
-
-
-Shader :
-Dans  un XML :
-
-<MATSHADER>
-
-	<VERTEX>
-		<PRECISION>
-		
-		</PRECISION>
-
-		<VARYING>
-
-		</VARYING>
-
-		<UNIFORM>
-
-		</UNIFORM>
-	</VERTEX>
-
-	<FRAG>
-		<PRECISION>
-		
-		</PRECISION>
-
-		<ATTRIBUTES>
-
-		</ATTRIBUTES>
-
-		<VARYING>
-
-		</VARYING>
-
-		<UNIFORM>
-
-		</UNIFORM>
-	</FRAG>
-	
-</MATSHADER>    
+With his beautiful and wonderful students :
+	IFIC Goudé
+	FOUCAULT Lucas
+	HELALI Billel     
+	ROCA Alexis
