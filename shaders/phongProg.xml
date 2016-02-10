@@ -2,21 +2,16 @@
 
 <SHADER name="phongProg">
 	<VERTEX>
-		// attributes inputs
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec3 aVertexNormal;
 			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
-		// uniform matrices
 		<UNIFORMS>
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 			uniform mat3 uNMatrix;
-
-			// uniform ambiant color
-			uniform vec3 uAmbientColor;
 		</UNIFORMS>
 
 		<VARYING>
@@ -25,7 +20,6 @@
 			varying vec3 vcolor;
 		</VARYING>
 
-		// output (to fragment shader)
 		<OUTPUT>
 			void main(void) {
 				// model -> view
