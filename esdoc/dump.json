@@ -2207,7 +2207,7 @@
     "access": null,
     "description": null,
     "lineNumber": 11,
-    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2DirectionnalLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\nexport default class atomicGL2DirectionnalLight extends atomicGL2Light{\r\n\r\n  /**\r\n   * @param {Array[3] float} direction the direction of the ray of light.\r\n   * @param {Array[3] float} color the color of the light\r\n   */\r\n\tconstructor(ccolor, ddirection){\r\n\t\tsuper(ccolor);\r\n\t\t\r\n\t\tthis.direction = ddirection;\r\n\t}\r\n}\r\n"
+    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2DirectionnalLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\nexport default class atomicGL2DirectionnalLight extends atomicGL2Light{\r\n\r\n  /**\r\n   * @param {Array[3]:float} direction the direction of the ray of light.\r\n   * @param {Array[3]:float} color the color of the light\r\n   */\r\n\tconstructor(color, direction){\r\n\t\tsuper(color);\r\n\t\t\r\n\t\t/**\r\n     \t* @type {Array[3]:float} direction of the light\r\n     \t*/\r\n\t\tthis.direction = direction;\r\n\t}\r\n}\r\n"
   },
   {
     "__docId__": 62,
@@ -2244,7 +2244,7 @@
       {
         "nullable": null,
         "types": [
-          "Array[3] float"
+          "Array[3]:float"
         ],
         "spread": false,
         "optional": false,
@@ -2254,7 +2254,7 @@
       {
         "nullable": null,
         "types": [
-          "Array[3] float"
+          "Array[3]:float"
         ],
         "spread": false,
         "optional": false,
@@ -2274,12 +2274,14 @@
     "longname": "script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight#direction",
     "access": null,
     "description": null,
-    "lineNumber": 22,
-    "undocument": true,
+    "lineNumber": 25,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2293,7 +2295,7 @@
     "access": null,
     "description": null,
     "lineNumber": 10,
-    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Light\r\n//----------------------------------------------------------------------------------------\r\n\"use strict\";\r\n\r\nclass atomicGL2Light {\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs\r\n\t//------------------------\r\n\t// ccolor \t\t: Light color\r\n\t// nname\t\t: nname attribute of the ligth \r\n\tconstructor(ccolor){\r\n\r\n\t\t//if this class is instantiate : Error exception Abstract Class\r\n\t\tif (this.getType() == atomicGL2Light)\r\n      \t\tthrow new TypeError(\"Cannot construct Abstract instances directly\");\r\n   \t\t//if the ccolor parmaters is undefined : Error exception\r\n   \t\tif(typeof(ccolor)!=Array[3] && ccolor.length!=3)\r\n      \t\tthrow new TypeError(\"Please instantiate with the color parameter which is an Array of 3 float\");\r\n\r\n/*      \tif(typeof(nname)!==String)\r\n\t\t\tnname = \"warning : the identifier of the light was not initialized\";*/\r\n\r\n\t\t// attributes\r\n\t\t// -------------------------------------------------\r\n\t\t// GL lights\r\n\t\tthis.color = ccolor;\r\n/*\t\tthis.name = nname;*/\r\n\t\t\r\n\t\tthis.position = null;\r\n\t\tthis.direction = null;\r\n\t\tthis.radius = null;\r\n\t}\r\n\r\n/*\tgetName(){\r\n\t\treturn this.name;\r\n\t}\r\n*/\r\n\tgetColor(){\r\n\t\treturn this.color;\r\n\t}\r\n\r\n\tgetPosition(){\r\n\t\treturn this.position;\r\n\t}\r\n\r\n\tgetDirection(){\r\n\t\treturn this.direction;\r\n\t}\r\n\r\n\tgetRadius(){\r\n\t\treturn this.radius;\r\n\t}\r\n\r\n\tgetType(){\r\n\t\treturn this.constructor ;\r\n\t}\r\n}\r\n"
+    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Light\r\n//----------------------------------------------------------------------------------------\r\n\"use strict\";\r\n\r\n  /**\r\n   * @abstract atomicGL2Light\r\n   */\r\nexport default class atomicGL2Light {\r\n\r\n\t/**\r\n   * \r\n   * @param {Array[3]:float} color the color of the light\r\n   */\r\n\tconstructor(color){\r\n\r\n\t\t//if this class is instantiate : Error exception Abstract Class\r\n\t\tif (this.getType() == atomicGL2Light)\r\n      throw new TypeError(\"Cannot construct Abstract instances directly\");\r\n   \t//if the ccolor parmaters is undefined : Error exception\r\n   \tif(typeof(color)!=Array[3] && color.length!=3)\r\n      throw new TypeError(\"Please instantiate with the color parameter which is an Array of 3 float\");\r\n\r\n    /**\r\n    * @type {Array[3]:float} color of the light\r\n    */\r\n\t\tthis.color = color;\r\n\r\n    /**\r\n    * @type {Array[3]:float} position of the light\r\n    */      \r\n    this.position = null;\r\n\r\n    /**\r\n    * @type {float} angle of the area of the SpotLight\r\n    */\r\n    this.radius = null;\r\n\r\n    /**\r\n    * @type {Array[3]:float} direction of the light\r\n    */\r\n    this.direction = null;\r\n\t\r\n\t}\r\n\r\n\t/**\r\n   * @return {Array[3]:float} return the color of the light\r\n   */\r\n\tgetColor(){\r\n\t\treturn this.color;\r\n\t}\r\n\r\n  /*\r\n  * @type {float} The angle of the area of the SpotLight \r\n  */\r\n    getRadius(){\r\n    return this.radius;\r\n  }\r\n\r\n  /**\r\n  * @type {Array[3]:float} return the position of the light\r\n  */\r\n  getPosition(){\r\n    return this.position;\r\n  }\r\n\r\n  /**\r\n    * @type {Array[3]:float} return the direction of the light\r\n    */\r\n  getDirection(){\r\n    return this.direction;\r\n  }\r\n\r\n  /**\r\n  * @type {Array[3]:float} return the Type of the light\r\n  */\r\n\tgetType(){\r\n\t\treturn this.constructor ;\r\n\t}\r\n}\r\n"
   },
   {
     "__docId__": 66,
@@ -2304,12 +2306,12 @@
     "memberof": "script/lights/atomicGL2Light.js",
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light",
     "access": null,
-    "export": false,
+    "export": true,
     "importPath": "./script/lights/atomicGL2Light.js",
-    "importStyle": null,
+    "importStyle": "atomicGL2Light",
     "description": null,
-    "lineNumber": 12,
-    "undocument": true,
+    "lineNumber": 15,
+    "abstract": true,
     "interface": false
   },
   {
@@ -2321,15 +2323,18 @@
     "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 21,
     "params": [
       {
-        "name": "ccolor",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": "the color of the light"
       }
     ],
     "generator": false
@@ -2344,12 +2349,14 @@
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#color",
     "access": null,
     "description": null,
-    "lineNumber": 34,
-    "undocument": true,
+    "lineNumber": 33,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2362,34 +2369,18 @@
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#position",
     "access": null,
     "description": null,
-    "lineNumber": 37,
-    "undocument": true,
+    "lineNumber": 38,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
     "__docId__": 70,
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "direction",
-    "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
-    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#direction",
-    "access": null,
-    "description": null,
-    "lineNumber": 38,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 71,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -2398,12 +2389,34 @@
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#radius",
     "access": null,
     "description": null,
-    "lineNumber": 39,
-    "undocument": true,
+    "lineNumber": 43,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "float"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "direction",
+    "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
+    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#direction",
+    "access": null,
+    "description": null,
+    "lineNumber": 48,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2416,13 +2429,15 @@
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getColor",
     "access": null,
     "description": null,
-    "lineNumber": 46,
-    "undocument": true,
+    "lineNumber": 55,
     "params": [],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": "return the color of the light"
     },
     "generator": false
   },
@@ -2431,12 +2446,12 @@
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "getPosition",
+    "name": "getRadius",
     "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
-    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getPosition",
+    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getRadius",
     "access": null,
     "description": null,
-    "lineNumber": 50,
+    "lineNumber": 62,
     "undocument": true,
     "params": [],
     "return": {
@@ -2451,18 +2466,25 @@
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "getDirection",
+    "name": "getPosition",
     "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
-    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getDirection",
+    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getPosition",
     "access": null,
     "description": null,
-    "lineNumber": 54,
-    "undocument": true,
+    "lineNumber": 69,
     "params": [],
     "return": {
       "types": [
         "*"
       ]
+    },
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     },
     "generator": false
   },
@@ -2471,18 +2493,25 @@
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "getRadius",
+    "name": "getDirection",
     "memberof": "script/lights/atomicGL2Light.js~atomicGL2Light",
-    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getRadius",
+    "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getDirection",
     "access": null,
     "description": null,
-    "lineNumber": 58,
-    "undocument": true,
+    "lineNumber": 76,
     "params": [],
     "return": {
       "types": [
         "*"
       ]
+    },
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     },
     "generator": false
   },
@@ -2496,13 +2525,20 @@
     "longname": "script/lights/atomicGL2Light.js~atomicGL2Light#getType",
     "access": null,
     "description": null,
-    "lineNumber": 62,
-    "undocument": true,
+    "lineNumber": 83,
     "params": [],
     "return": {
       "types": [
         "*"
       ]
+    },
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     },
     "generator": false
   },
@@ -2517,7 +2553,7 @@
     "access": null,
     "description": null,
     "lineNumber": 11,
-    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2PointLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\nclass atomicGL2PointLight extends atomicGL2Light{\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs\r\n\t//------------------------\r\n\t// ccolor\t   : Light color\r\n\t// pposition : Light position\r\n\r\n\tconstructor(ccolor,pposition){\r\n\t\t// attributes\r\n\t\t// -------------------------------------------------\r\n\t\t// GL lights\r\n\t\tsuper(ccolor);\r\n\t\t\r\n\t\t//if the position parmaters is undefined : Error exception\r\n   \t\tif(typeof(pposition)!=Array && pposition.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the position parameter\");\r\n\r\n\t\tthis.position = pposition;\r\n\t}\r\n}\r\n"
+    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2PointLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\nexport default class atomicGL2PointLight extends atomicGL2Light{\r\n\t\r\n\t/**\r\n   * @param {Array[3]:float} color the color of the light\r\n   * @param {Array[3]:float} position the position of the Pointlight.\r\n   */\r\n\tconstructor(color,position){\r\n\t\tsuper(color);\r\n\t\t\r\n\t\t//if the position parmaters is undefined : Error exception\r\n   \t\tif(typeof(position)!=Array && position.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the position parameter\");\r\n\r\n\t\t/**\r\n     \t* @type {Array[3]:float} position of the light\r\n     \t*/     \t\r\n\t\tthis.position = position;\r\n\t}\r\n}\r\n"
   },
   {
     "__docId__": 78,
@@ -2528,9 +2564,9 @@
     "memberof": "script/lights/atomicGL2PointLight.js",
     "longname": "script/lights/atomicGL2PointLight.js~atomicGL2PointLight",
     "access": null,
-    "export": false,
+    "export": true,
     "importPath": "./script/lights/atomicGL2PointLight.js",
-    "importStyle": null,
+    "importStyle": "atomicGL2PointLight",
     "description": null,
     "lineNumber": 13,
     "undocument": true,
@@ -2549,20 +2585,27 @@
     "longname": "script/lights/atomicGL2PointLight.js~atomicGL2PointLight#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "lineNumber": 19,
     "params": [
       {
-        "name": "ccolor",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": "the color of the light"
       },
       {
-        "name": "pposition",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "position",
+        "description": "the position of the Pointlight."
       }
     ],
     "generator": false
@@ -2577,12 +2620,14 @@
     "longname": "script/lights/atomicGL2PointLight.js~atomicGL2PointLight#position",
     "access": null,
     "description": null,
-    "lineNumber": 31,
-    "undocument": true,
+    "lineNumber": 29,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2596,7 +2641,7 @@
     "access": null,
     "description": null,
     "lineNumber": 11,
-    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2SpotLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\nclass atomicGL2SpotLight extends atomicGL2Light {\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs\r\n\t//------------------------\r\n\t// ccolor\t   \t: Light color\r\n\t// pposition \t: Light position\r\n\t// ddirection\t: Light direction\r\n\t// rradius\t\t: Light radius\r\n\r\n\tconstructor(ccolor, pposition, ddirection, rradius){\r\n\t\t//if the direction parmaters is an  incorrect parameter : Error exception\r\n   \t\tif(typeof(ddirection)!=Array && ddirection.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the ddirection parameter\");\r\n\r\n      \t//if radius paramater is an incorrect parameter\r\n\t\tif(isNaN(parseFloat(rradius)) && isFinite(rradius))\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the radius parameter\");\r\n\r\n\t\t//if the position parmaters is  an  incorrect parameter : Error exception\r\n   \t\tif(typeof(pposition)!=Array && pposition.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the position parameter\");\r\n\r\n\t\t// attributes\r\n\t\t// -------------------------------------------------\r\n\t\t// GL lights\r\n\t\tsuper(ccolor);\r\n\t\tthis.position = pposition;\r\n\t\tthis.direction = ddirection;\r\n\t\tthis.radius = rradius;\r\n\t}\r\n}\r\n"
+    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\r\n// contact: cozot@irisa.fr\r\n// version: 2.3\r\n// current version date: 2016/01/26\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2SpotLight\r\n//----------------------------------------------------------------------------------------\r\n\r\n\"use strict\";\r\n\r\n /**\r\n * @extends {atomicGL2Light}\r\n */\r\nexport default class atomicGL2SpotLight extends atomicGL2Light {\r\n\t/**\r\n\tThe constructor of atomicGL2SpotLight\r\n   * @param {Array[3]:float} position the position of the spotlight \r\n   * @param {Array[3]:float} color the color of the spotlight\r\n   * @param {Array[3]:float} direction the direction of the spotlight\r\n   * @param {float} radius the radius of the area of the spotlight\r\n   */\r\n\tconstructor(color, position, direction, radius){\r\n\t\t//if the direction parmaters is an  incorrect parameter : Error exception\r\n   \t\tif(typeof(direction)!=Array && direction.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the ddirection parameter\");\r\n\r\n      \t//if radius paramater is an incorrect parameter\r\n\t\tif(isNaN(parseFloat(radius)) && isFinite(radius))\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the radius parameter\");\r\n\r\n\t\t//if the position parmaters is  an  incorrect parameter : Error exception\r\n   \t\tif(typeof(position)!=Array && position.length != 3)\r\n      \t\tthrow new TypeError(\"Please instantiate the \"+this.getType()+\" with the position parameter\");\r\n\r\n\t\tsuper(color);\r\n\r\n\t\t/**\r\n     \t* @type {Array[3]:float} positionexport default  of the SpotLight\r\n     \t*/\r\n\t\tthis.position = position;\r\n\r\n\t\t/**\r\n     \t* @type {Array[3]:float} direction of the SpotLight\r\n     \t*/\r\n\t\tthis.direction = direction;\r\n\r\n\t\t/**\r\n     \t* @type {float} angle of the area of the SpotLight\r\n     \t*/\r\n\t\tthis.radius = radius;\r\n\t}\r\n}\r\n"
   },
   {
     "__docId__": 82,
@@ -2607,12 +2652,11 @@
     "memberof": "script/lights/atomicGL2SpotLight.js",
     "longname": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight",
     "access": null,
-    "export": false,
+    "export": true,
     "importPath": "./script/lights/atomicGL2SpotLight.js",
-    "importStyle": null,
+    "importStyle": "atomicGL2SpotLight",
     "description": null,
-    "lineNumber": 13,
-    "undocument": true,
+    "lineNumber": 16,
     "interface": false,
     "extends": [
       "atomicGL2Light"
@@ -2627,33 +2671,48 @@
     "memberof": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight",
     "longname": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
+    "description": "The constructor of atomicGL2SpotLight",
+    "lineNumber": 24,
     "params": [
       {
-        "name": "ccolor",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "position",
+        "description": "the position of the spotlight"
       },
       {
-        "name": "pposition",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "color",
+        "description": "the color of the spotlight"
       },
       {
-        "name": "ddirection",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array[3]:float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "direction",
+        "description": "the direction of the spotlight"
       },
       {
-        "name": "rradius",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "float"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "radius",
+        "description": "the radius of the area of the spotlight"
       }
     ],
     "generator": false
@@ -2668,12 +2727,14 @@
     "longname": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#position",
     "access": null,
     "description": null,
-    "lineNumber": 40,
-    "undocument": true,
+    "lineNumber": 42,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2686,12 +2747,14 @@
     "longname": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#direction",
     "access": null,
     "description": null,
-    "lineNumber": 41,
-    "undocument": true,
+    "lineNumber": 47,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array[3]:float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2704,12 +2767,14 @@
     "longname": "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#radius",
     "access": null,
     "description": null,
-    "lineNumber": 42,
-    "undocument": true,
+    "lineNumber": 52,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "float"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3326,7 +3391,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Cube  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Cube extends atomicGL2Object3d {\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs:\tgl: \topenGL context\r\n\t// \t\t\tnname: \tname of the cube - string\r\n\t// \t\t\thheight:float\r\n\t// \t\t\twwidth:\tfloat\r\n\t// \t\t\tddepth:\tfloat\r\n\t//\t\t\tuu: textures coordinate scale\r\n\t//\t\t\tvv: textures coordinate scale\r\n\tconstructor(nname,hheight, wwidth,ddepth,uu,vv){\r\n\t\tsuper();\r\n\r\n\t\t// attributes\r\n\t\t// -------------------------------------------------\r\n\t\t// size\r\n\t\tthis.height\t= hheight ;\r\n\t\tthis.width \t= wwidth ;\r\n\t\tthis.depth \t= ddepth ;\r\n\t\r\n\r\n\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray \t= [\r\n        \t// Front face\r\n        \t-this.width/2.0, \t0.0,  \t\t\t+this.depth/2.0,\t\t// 0\r\n\t\t\t+this.width/2.0,\t0.0,  \t\t\t+this.depth/2.0,\t\t// 1\r\n\t\t\t+this.width/2.0,\tthis.height, \t+this.depth/2.0,\t\t// 2\r\n\t\t\t-this.width/2.0, \tthis.height,  \t+this.depth/2.0,\t\t// 3\r\n\t\t\t// Back face\r\n\t\t\t-this.width/2.0, \t0.0,  \t\t\t-this.depth/2.0,\t\t// 4\r\n\t\t\t+this.width/2.0,\t0.0,  \t\t\t-this.depth/2.0,\t\t// 5\r\n\t\t\t+this.width/2.0,\tthis.height, \t-this.depth/2.0,\t\t// 6\r\n\t\t\t-this.width/2.0, \tthis.height,  \t-this.depth/2.0,\t\t// 7\r\n\t\t\t// Top face\r\n\t\t\t-this.width/2.0,  \tthis.height, \t+this.depth/2.0,\t\t// 8\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t+this.depth/2.0,\t\t// 9\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t-this.depth/2.0,\t\t// 10\r\n\t\t\t-this.width/2.0,  \tthis.height, \t-this.depth/2.0,\t\t// 11\r\n\t\t\t// Bottom face\r\n\t\t\t-this.width/2.0,  \t0.0, \t\t\t+this.depth/2.0,\t\t// 12\r\n\t\t\t+this.width/2.0,  \t0.0,  \t\t\t+this.depth/2.0,\t\t// 13\r\n\t\t\t+this.width/2.0,  \t0.0,  \t\t\t-this.depth/2.0,\t\t// 14\r\n\t\t\t-this.width/2.0,  \t0.0, \t\t\t-this.depth/2.0,\t\t// 15\r\n\t\t\t// Left face\r\n\t\t\t+this.width/2.0, \t0.0, \t\t\t+this.depth/2.0,\t\t// 16\r\n\t\t\t+this.width/2.0,  \t0.0, \t\t\t-this.depth/2.0,\t\t// 17\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t-this.depth/2.0,\t\t// 18\r\n\t\t\t+this.width/2.0, \tthis.height,  \t+this.depth/2.0,\t\t// 19\r\n\t\t\t// Right face\r\n\t\t\t-this.width/2.0, \t0.0, \t\t\t-this.depth/2.0,\t\t// 20\r\n\t\t\t-this.width/2.0, \t0.0,  \t\t\t+this.depth/2.0,\t\t// 21\r\n\t\t\t-this.width/2.0,  \tthis.height,  \t+this.depth/2.0,\t\t// 22\r\n\t\t\t-this.width/2.0,  \tthis.height, \t-this.depth/2.0\t\t\t// 23\r\n    \t];\r\n\t\t// normals array\r\n\t\tthis.normalsArray  = [\r\n\t\t\t// Front face\r\n\t\t \t0.0,  0.0,  1.0, 0.0,  0.0,  1.0, 0.0,  0.0,  1.0, 0.0,  0.0,  1.0,\r\n\t\t\t// Back face\r\n\t\t \t0.0,  0.0, -1.0, 0.0,  0.0, -1.0, 0.0,  0.0, -1.0, 0.0,  0.0, -1.0,\r\n\t\t\t// Top face\r\n\t\t \t0.0,  1.0,  0.0, 0.0,  1.0,  0.0, 0.0,  1.0,  0.0, 0.0,  1.0,  0.0,\r\n\t\t\t// Bottom face\r\n\t\t \t0.0, -1.0,  0.0, 0.0, -1.0,  0.0, 0.0, -1.0,  0.0, 0.0, -1.0,  0.0,\r\n\t\t\t// Left face\r\n\t\t \t1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0,\r\n\t\t\t// Right face\r\n\t\t\t-1.0,  0.0,  0.0, -1.0,  0.0,  0.0, -1.0,  0.0,  0.0, -1.0,  0.0,  0.0\r\n    \t];\r\n\t\t// texture coordinates array\r\n    \tthis.textureCoordsArray = [\r\n\t\t\t// Front face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Back face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Top face \r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Bottom face : floor\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Left face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\t\t\r\n\t\t\t// Right face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0\r\n\t\t];\r\n\t\t// color array\r\n    \tthis.colorsArray = [\r\n\t\t\t// Front face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Back face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Top face \r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Bottom face : floor\r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t   \t\t// Left face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Right face\r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8\r\n\t\t];\r\n\t\t// indexes\r\n    \tthis.cubeVertexIndices = [\r\n\t\t\t0, 1, 2,      0, 2, 3,    // Front face\r\n\t\t\t4, 5, 6,      4, 6, 7,    // Back face\r\n\t\t\t8, 9, 10,     8, 10, 11,  // Top face\r\n\t\t\t12, 13, 14,   12, 14, 15, // Bottom face\r\n\t\t\t16, 17, 18,   16, 18, 19, // Right face\r\n\t\t\t20, 21, 22,   20, 22, 23  // Left face\r\n\t\t];\t\t\r\n\r\n\t}\t\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs:\tface: \t\"Front\" | \"Back\" | \"Top\" | \"Bottom\" |\"Left\"| \"Right\"| \"All\" (String)\r\n\t// \t\t\tRBG: \t[float, float, float]\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLCube(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\t\t\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"Front\":\r\n\t\t\t\tthis.colorsArray[0]  =r;\r\n\t\t\t\tthis.colorsArray[1]  =g;\r\n\t\t\t\tthis.colorsArray[2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[3]  =r;\r\n\t\t\t\tthis.colorsArray[4]  =g;\r\n\t\t\t\tthis.colorsArray[5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[6]  =r;\r\n\t\t\t\tthis.colorsArray[7]  =g;\r\n\t\t\t\tthis.colorsArray[8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[9]  =r;\r\n\t\t\t\tthis.colorsArray[10] =g;\r\n\t\t\t\tthis.colorsArray[11] =b;\t\t\t\r\n\t\t\tbreak;\r\n\r\n\t\t\tcase \"Back\":\r\n\t\t\t\tthis.colorsArray[12+0]  =r;\r\n\t\t\t\tthis.colorsArray[12+1]  =g;\r\n\t\t\t\tthis.colorsArray[12+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+3]  =r;\r\n\t\t\t\tthis.colorsArray[12+4]  =g;\r\n\t\t\t\tthis.colorsArray[12+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+6]  =r;\r\n\t\t\t\tthis.colorsArray[12+7]  =g;\r\n\t\t\t\tthis.colorsArray[12+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+9]  =r;\r\n\t\t\t\tthis.colorsArray[12+10] =g;\r\n\t\t\t\tthis.colorsArray[12+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Top\":\r\n\t\t\t\tthis.colorsArray[24+0]  =r;\r\n\t\t\t\tthis.colorsArray[24+1]  =g;\r\n\t\t\t\tthis.colorsArray[24+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+3]  =r;\r\n\t\t\t\tthis.colorsArray[24+4]  =g;\r\n\t\t\t\tthis.colorsArray[24+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+6]  =r;\r\n\t\t\t\tthis.colorsArray[24+7]  =g;\r\n\t\t\t\tthis.colorsArray[24+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+9]  =r;\r\n\t\t\t\tthis.colorsArray[24+10] =g;\r\n\t\t\t\tthis.colorsArray[24+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Bottom\":\r\n\t\t\t\tthis.colorsArray[36+0]  =r;\r\n\t\t\t\tthis.colorsArray[36+1]  =g;\r\n\t\t\t\tthis.colorsArray[36+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+3]  =r;\r\n\t\t\t\tthis.colorsArray[36+4]  =g;\r\n\t\t\t\tthis.colorsArray[36+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+6]  =r;\r\n\t\t\t\tthis.colorsArray[36+7]  =g;\r\n\t\t\t\tthis.colorsArray[36+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+9]  =r;\r\n\t\t\t\tthis.colorsArray[36+10] =g;\r\n\t\t\t\tthis.colorsArray[36+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Left\":\r\n\t\t\t\tthis.colorsArray[48+0]  =r;\r\n\t\t\t\tthis.colorsArray[48+1]  =g;\r\n\t\t\t\tthis.colorsArray[48+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+3]  =r;\r\n\t\t\t\tthis.colorsArray[48+4]  =g;\r\n\t\t\t\tthis.colorsArray[48+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+6]  =r;\r\n\t\t\t\tthis.colorsArray[48+7]  =g;\r\n\t\t\t\tthis.colorsArray[48+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+9]  =r;\r\n\t\t\t\tthis.colorsArray[48+10] =g;\r\n\t\t\t\tthis.colorsArray[48+11] =b;\r\n\t\t\tbreak;\t\t\t\t\r\n\t\t\tcase \"Right\":\r\n\t\t\t\tthis.colorsArray[60+0]  =r;\r\n\t\t\t\tthis.colorsArray[60+1]  =g;\r\n\t\t\t\tthis.colorsArray[60+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+3]  =r;\r\n\t\t\t\tthis.colorsArray[60+4]  =g;\r\n\t\t\t\tthis.colorsArray[60+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+6]  =r;\r\n\t\t\t\tthis.colorsArray[60+7]  =g;\r\n\t\t\t\tthis.colorsArray[60+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+9]  =r;\r\n\t\t\t\tthis.colorsArray[60+10] =g;\r\n\t\t\t\tthis.colorsArray[60+11] =b;\r\n\t\t\tbreak;\t\r\n\t\t\tcase \"All\":\r\n\t\t\t\tthis.colorsArray = [\r\n\t\t\t\t\t// Front face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Back face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Top face \r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Bottom face : floor\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Left face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Right face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t];\t\r\n\t\t\tbreak;\t\t\r\n\t\t}\r\n\t}\t\t\r\n}"
+    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Cube  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Cube extends atomicGL2Object3d {\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs:\tgl: \topenGL context\r\n\t// \t\t\tnname: \tname of the cube - string\r\n\t// \t\t\thheight:float\r\n\t// \t\t\twwidth:\tfloat\r\n\t// \t\t\tddepth:\tfloat\r\n\t//\t\t\tuu: textures coordinate scale\r\n\t//\t\t\tvv: textures coordinate scale\r\n\tconstructor(name,height, width,depth,uu,vv){\r\n\t\tsuper();\r\n\r\n\t\t// attributes\r\n\t\t// -------------------------------------------------\r\n\t\t// size\r\n\t\tthis.height\t= height ;\r\n\t\tthis.width \t= width ;\r\n\t\tthis.depth \t= depth ;\r\n\t\r\n\r\n\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray \t= [\r\n        \t// Front face\r\n        \t-this.width/2.0, \t0.0,  \t\t\t+this.depth/2.0,\t\t// 0\r\n\t\t\t+this.width/2.0,\t0.0,  \t\t\t+this.depth/2.0,\t\t// 1\r\n\t\t\t+this.width/2.0,\tthis.height, \t+this.depth/2.0,\t\t// 2\r\n\t\t\t-this.width/2.0, \tthis.height,  \t+this.depth/2.0,\t\t// 3\r\n\t\t\t// Back face\r\n\t\t\t-this.width/2.0, \t0.0,  \t\t\t-this.depth/2.0,\t\t// 4\r\n\t\t\t+this.width/2.0,\t0.0,  \t\t\t-this.depth/2.0,\t\t// 5\r\n\t\t\t+this.width/2.0,\tthis.height, \t-this.depth/2.0,\t\t// 6\r\n\t\t\t-this.width/2.0, \tthis.height,  \t-this.depth/2.0,\t\t// 7\r\n\t\t\t// Top face\r\n\t\t\t-this.width/2.0,  \tthis.height, \t+this.depth/2.0,\t\t// 8\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t+this.depth/2.0,\t\t// 9\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t-this.depth/2.0,\t\t// 10\r\n\t\t\t-this.width/2.0,  \tthis.height, \t-this.depth/2.0,\t\t// 11\r\n\t\t\t// Bottom face\r\n\t\t\t-this.width/2.0,  \t0.0, \t\t\t+this.depth/2.0,\t\t// 12\r\n\t\t\t+this.width/2.0,  \t0.0,  \t\t\t+this.depth/2.0,\t\t// 13\r\n\t\t\t+this.width/2.0,  \t0.0,  \t\t\t-this.depth/2.0,\t\t// 14\r\n\t\t\t-this.width/2.0,  \t0.0, \t\t\t-this.depth/2.0,\t\t// 15\r\n\t\t\t// Left face\r\n\t\t\t+this.width/2.0, \t0.0, \t\t\t+this.depth/2.0,\t\t// 16\r\n\t\t\t+this.width/2.0,  \t0.0, \t\t\t-this.depth/2.0,\t\t// 17\r\n\t\t\t+this.width/2.0,  \tthis.height,  \t-this.depth/2.0,\t\t// 18\r\n\t\t\t+this.width/2.0, \tthis.height,  \t+this.depth/2.0,\t\t// 19\r\n\t\t\t// Right face\r\n\t\t\t-this.width/2.0, \t0.0, \t\t\t-this.depth/2.0,\t\t// 20\r\n\t\t\t-this.width/2.0, \t0.0,  \t\t\t+this.depth/2.0,\t\t// 21\r\n\t\t\t-this.width/2.0,  \tthis.height,  \t+this.depth/2.0,\t\t// 22\r\n\t\t\t-this.width/2.0,  \tthis.height, \t-this.depth/2.0\t\t\t// 23\r\n    \t];\r\n\t\t// normals array\r\n\t\tthis.normalsArray  = [\r\n\t\t\t// Front face\r\n\t\t \t0.0,  0.0,  1.0, 0.0,  0.0,  1.0, 0.0,  0.0,  1.0, 0.0,  0.0,  1.0,\r\n\t\t\t// Back face\r\n\t\t \t0.0,  0.0, -1.0, 0.0,  0.0, -1.0, 0.0,  0.0, -1.0, 0.0,  0.0, -1.0,\r\n\t\t\t// Top face\r\n\t\t \t0.0,  1.0,  0.0, 0.0,  1.0,  0.0, 0.0,  1.0,  0.0, 0.0,  1.0,  0.0,\r\n\t\t\t// Bottom face\r\n\t\t \t0.0, -1.0,  0.0, 0.0, -1.0,  0.0, 0.0, -1.0,  0.0, 0.0, -1.0,  0.0,\r\n\t\t\t// Left face\r\n\t\t \t1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0,\r\n\t\t\t// Right face\r\n\t\t\t-1.0,  0.0,  0.0, -1.0,  0.0,  0.0, -1.0,  0.0,  0.0, -1.0,  0.0,  0.0\r\n    \t];\r\n\t\t// texture coordinates array\r\n    \tthis.textureCoordsArray = [\r\n\t\t\t// Front face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Back face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Top face \r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Bottom face : floor\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\r\n\t\t\t// Left face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0,\t\t\r\n\t\t\t// Right face\r\n\t\t \tuu*0.0, vv*0.0,\t\tuu*1.0, vv*0.0,\t\tuu*1.0, vv*1.0,\t\tuu*0.0, vv*1.0\r\n\t\t];\r\n\t\t// color array\r\n    \tthis.colorsArray = [\r\n\t\t\t// Front face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Back face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Top face \r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Bottom face : floor\r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t   \t\t// Left face\r\n\t\t \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8,\r\n\t\t\t// Right face\r\n\t\t  \t0.8,0.8, 0.8,\t\t0.8,0.8, 0.8,\t\t0.8,0.8,0.8,\t\t0.8,0.8, 0.8\r\n\t\t];\r\n\t\t// indexes\r\n    \tthis.cubeVertexIndices = [\r\n\t\t\t0, 1, 2,      0, 2, 3,    // Front face\r\n\t\t\t4, 5, 6,      4, 6, 7,    // Back face\r\n\t\t\t8, 9, 10,     8, 10, 11,  // Top face\r\n\t\t\t12, 13, 14,   12, 14, 15, // Bottom face\r\n\t\t\t16, 17, 18,   16, 18, 19, // Right face\r\n\t\t\t20, 21, 22,   20, 22, 23  // Left face\r\n\t\t];\t\t\r\n\r\n\t}\t\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs:\tface: \t\"Front\" | \"Back\" | \"Top\" | \"Bottom\" |\"Left\"| \"Right\"| \"All\" (String)\r\n\t// \t\t\tRBG: \t[float, float, float]\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLCube(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\t\t\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"Front\":\r\n\t\t\t\tthis.colorsArray[0]  =r;\r\n\t\t\t\tthis.colorsArray[1]  =g;\r\n\t\t\t\tthis.colorsArray[2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[3]  =r;\r\n\t\t\t\tthis.colorsArray[4]  =g;\r\n\t\t\t\tthis.colorsArray[5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[6]  =r;\r\n\t\t\t\tthis.colorsArray[7]  =g;\r\n\t\t\t\tthis.colorsArray[8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[9]  =r;\r\n\t\t\t\tthis.colorsArray[10] =g;\r\n\t\t\t\tthis.colorsArray[11] =b;\t\t\t\r\n\t\t\tbreak;\r\n\r\n\t\t\tcase \"Back\":\r\n\t\t\t\tthis.colorsArray[12+0]  =r;\r\n\t\t\t\tthis.colorsArray[12+1]  =g;\r\n\t\t\t\tthis.colorsArray[12+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+3]  =r;\r\n\t\t\t\tthis.colorsArray[12+4]  =g;\r\n\t\t\t\tthis.colorsArray[12+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+6]  =r;\r\n\t\t\t\tthis.colorsArray[12+7]  =g;\r\n\t\t\t\tthis.colorsArray[12+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[12+9]  =r;\r\n\t\t\t\tthis.colorsArray[12+10] =g;\r\n\t\t\t\tthis.colorsArray[12+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Top\":\r\n\t\t\t\tthis.colorsArray[24+0]  =r;\r\n\t\t\t\tthis.colorsArray[24+1]  =g;\r\n\t\t\t\tthis.colorsArray[24+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+3]  =r;\r\n\t\t\t\tthis.colorsArray[24+4]  =g;\r\n\t\t\t\tthis.colorsArray[24+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+6]  =r;\r\n\t\t\t\tthis.colorsArray[24+7]  =g;\r\n\t\t\t\tthis.colorsArray[24+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[24+9]  =r;\r\n\t\t\t\tthis.colorsArray[24+10] =g;\r\n\t\t\t\tthis.colorsArray[24+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Bottom\":\r\n\t\t\t\tthis.colorsArray[36+0]  =r;\r\n\t\t\t\tthis.colorsArray[36+1]  =g;\r\n\t\t\t\tthis.colorsArray[36+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+3]  =r;\r\n\t\t\t\tthis.colorsArray[36+4]  =g;\r\n\t\t\t\tthis.colorsArray[36+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+6]  =r;\r\n\t\t\t\tthis.colorsArray[36+7]  =g;\r\n\t\t\t\tthis.colorsArray[36+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[36+9]  =r;\r\n\t\t\t\tthis.colorsArray[36+10] =g;\r\n\t\t\t\tthis.colorsArray[36+11] =b;\r\n\t\t\tbreak;\t\t\t\r\n\t\t\tcase \"Left\":\r\n\t\t\t\tthis.colorsArray[48+0]  =r;\r\n\t\t\t\tthis.colorsArray[48+1]  =g;\r\n\t\t\t\tthis.colorsArray[48+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+3]  =r;\r\n\t\t\t\tthis.colorsArray[48+4]  =g;\r\n\t\t\t\tthis.colorsArray[48+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+6]  =r;\r\n\t\t\t\tthis.colorsArray[48+7]  =g;\r\n\t\t\t\tthis.colorsArray[48+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[48+9]  =r;\r\n\t\t\t\tthis.colorsArray[48+10] =g;\r\n\t\t\t\tthis.colorsArray[48+11] =b;\r\n\t\t\tbreak;\t\t\t\t\r\n\t\t\tcase \"Right\":\r\n\t\t\t\tthis.colorsArray[60+0]  =r;\r\n\t\t\t\tthis.colorsArray[60+1]  =g;\r\n\t\t\t\tthis.colorsArray[60+2]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+3]  =r;\r\n\t\t\t\tthis.colorsArray[60+4]  =g;\r\n\t\t\t\tthis.colorsArray[60+5]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+6]  =r;\r\n\t\t\t\tthis.colorsArray[60+7]  =g;\r\n\t\t\t\tthis.colorsArray[60+8]  =b;\r\n\t\t\t\t\r\n\t\t\t\tthis.colorsArray[60+9]  =r;\r\n\t\t\t\tthis.colorsArray[60+10] =g;\r\n\t\t\t\tthis.colorsArray[60+11] =b;\r\n\t\t\tbreak;\t\r\n\t\t\tcase \"All\":\r\n\t\t\t\tthis.colorsArray = [\r\n\t\t\t\t\t// Front face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Back face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Top face \r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Bottom face : floor\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Left face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t\t// Right face\r\n\t\t\t\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\t\tr, g, b,\r\n\t\t\t\t];\t\r\n\t\t\tbreak;\t\t\r\n\t\t}\r\n\t}\t\t\r\n}"
   },
   {
     "__docId__": 119,
@@ -3362,25 +3427,25 @@
     "undocument": true,
     "params": [
       {
-        "name": "nname",
+        "name": "name",
         "types": [
           "*"
         ]
       },
       {
-        "name": "hheight",
+        "name": "height",
         "types": [
           "*"
         ]
       },
       {
-        "name": "wwidth",
+        "name": "width",
         "types": [
           "*"
         ]
       },
       {
-        "name": "ddepth",
+        "name": "depth",
         "types": [
           "*"
         ]
@@ -3601,7 +3666,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Cylinder  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Cylinder extends atomicGL2Object3d {\r\n// constructor\r\n//------------------------\r\n// inputs:\tnname: \t\tname of the Cylinder - string\r\n// \t\t\tcylinder size\r\n//\t\t\tradius:\t\t\tfloat\r\n// \t\t\theight:\t\t\tfloat\r\n// \t\t\tlthis.heightBands: init\r\n// \t\t\tthis.longitudeBands: int\r\n\tconstructor(nname,rradius, hheight, hheightBands,llongitudeBands,uu,vv){\r\n\t\tsuper(nname);\r\n\t\r\n\t\t// size\r\n        this.radius         = rradius ;\r\n        this.height         = hheight ;\r\n        this.heightBands    = hheightBands ;\r\n        this.longitudeBands = llongitudeBands ;\r\n        \r\n        // textures\r\n        this.scaleUV        = [uu,vv] ;\r\n\t\r\n\t\t// build\r\n\t\tthis.build();\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\t\r\n\t\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs:  face: \t\"All\" (String)\r\n\t//\t\t\t RBG: \t[float, float, float]\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGL2Cylinder(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\t\t\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"All\":\r\n\t\t\t\tvar nbc = this.colorsArray.length / 3 ;\r\n\t\t\t\tthis.colorsArray = [] ;\r\n\t\t\t\tfor (var i=0; i <nbc; i++) {\r\n                \tthis.colorsArray.push(r);\r\n                \tthis.colorsArray.push(g);\r\n                \tthis.colorsArray.push(b);            \r\n            \t}\r\n\t\t\tbreak;\t\t\r\n\t\t}\r\n\t}\r\n\t\r\n\t// build\r\n\t//-----------------------------------------------------\r\n\tbuild(){\r\n\t\t// vertices, normals, colors, texCoord\r\n\t\tfor (var i=0; i <= this.heightBands; i++) {\r\n\t\t\tvar y = i*this.height/this.heightBands ;\r\n\t\r\n        \tfor (var j = 0; j <= this.longitudeBands; j++) {\r\n            \r\n            \tvar theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            \tvar x = Math.cos(theta);\r\n            \tvar y = i*this.height/this.heightBands;\r\n\t\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t\t// normals\r\n            \tthis.normalsArray.push(x);\r\n            \tthis.normalsArray.push(0.0);\r\n            \tthis.normalsArray.push(z);\r\n\t\t\t\t// position\r\n            \tthis.verticesArray.push(this.radius * x);\r\n            \tthis.verticesArray.push(y);\r\n            \tthis.verticesArray.push(this.radius * z);\r\n            \t// color\r\n            \tthis.colorsArray.push(0.8);\r\n            \tthis.colorsArray.push(0.8);\r\n            \tthis.colorsArray.push(0.8);\r\n            \t// uv\r\n            \tthis.textureCoordsArray.push(this.scaleUV[1]*i/this.heightBands);              \r\n            \tthis.textureCoordsArray.push(this.scaleUV[0]*j/this.longitudeBands);\r\n    \t\t}\r\n    \t}\r\n    \r\n    \t// cylinder cap\r\n    \t// ------------\r\n\t    // bottom\r\n   \t \t// ------\r\n   \t \t// center\r\n\t\t// texture coord\r\n\t\tthis.textureCoordsArray.push(0.5); this.textureCoordsArray.push(0.5);\r\n\t\t// color\r\n    \tthis.colorsArray.push(0.8);this.colorsArray.push(0.8);this.colorsArray.push(0.8);\r\n    \t// normals\r\n\t\tthis.normalsArray.push(0.0);this.normalsArray.push(-1.0);this.normalsArray.push(0.0);\r\n\t\t// position\r\n    \tthis.verticesArray.push(0.0);this.verticesArray.push(0.0);this.verticesArray.push(0.0);\r\n\t\tvar bottomcenterIndex = this.verticesArray.length/3 ;\r\n\r\n    \t// cap edge\r\n    \tfor (var j = 0; j <= this.longitudeBands; j++) { \r\n            var theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            var x = Math.cos(theta);\r\n            var y = 0.0\r\n\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t// normals\r\n            this.normalsArray.push(0.0); this.normalsArray.push(-1.0); this.normalsArray.push(0.0);\r\n\t\t\t// position\r\n            this.verticesArray.push(this.radius * x);\r\n            this.verticesArray.push(0.0);\r\n            this.verticesArray.push(this.radius * z);\r\n            // color\r\n            this.colorsArray.push(0.8); this.colorsArray.push(0.8); this.colorsArray.push(0.8);\r\n            // uv\r\n            this.textureCoordsArray.push(0.5+x*.5);              \r\n            this.textureCoordsArray.push(0.5+z*0.5);    \r\n    \t}   \r\n    \t// top cap\r\n    \t// -------\r\n    \t// center\r\n\t\t// texture coord\r\n\t\tthis.textureCoordsArray.push(0.5); this.textureCoordsArray.push(0.5);\r\n    \t// normals\r\n\t\tthis.normalsArray.push(0.0);this.normalsArray.push(1.0);this.normalsArray.push(0.0);\r\n\t\t// position\r\n    \tthis.verticesArray.push(0.0);this.verticesArray.push(this.height);this.verticesArray.push(0.0);\r\n    \tvar topcenterIndex = this.verticesArray.length/3 ;\r\n    \t// color\r\n    \tthis.colorsArray.push(0.8);\r\n    \tthis.colorsArray.push(0.8);\r\n    \tthis.colorsArray.push(0.8);\r\n    \t// cap edge\r\n    \tfor (var j = 0; j <= this.longitudeBands; j++) { \r\n            var theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            var x = Math.cos(theta);\r\n            var y = this.height ;\r\n\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t// normals\r\n            this.normalsArray.push(0.0); this.normalsArray.push(1.0); this.normalsArray.push(0.0);\r\n\t\t\t// position\r\n            this.verticesArray.push(this.radius * x);\r\n            this.verticesArray.push(this.height);\r\n            this.verticesArray.push(this.radius * z);\r\n            // color\r\n            this.colorsArray.push(0.8); this.colorsArray.push(0.8); this.colorsArray.push(0.8);\r\n            // uv\r\n            this.textureCoordsArray.push(0.5+x*0.5);              \r\n            this.textureCoordsArray.push(0.5+z*0.5);  \r\n    \t}   \r\n\r\n\t\t// indexes\r\n\t\t// --------\r\n\t\t// body index \r\n\t\tfor (var i=0; i < this.heightBands; i++) {\r\n        \tfor (var j = 0; j < this.longitudeBands; j++) {\r\n                \tvar t0 = i*(this.longitudeBands+1) \t+ j ;\r\n                \tvar t1 = i*(this.longitudeBands+1) \t+ j+1 ;\r\n                \tvar t2 = (i+1)*(this.longitudeBands+1) + j ;\r\n                \tvar t3 = (i+1)*(this.longitudeBands+1) + j+1 ;\r\n                \t// first triangle\r\n                \tthis.vertexIndices.push(t0);\r\n                \tthis.vertexIndices.push(t1);\r\n                \tthis.vertexIndices.push(t2);                \r\n                \r\n       \t         \t// second triangle\r\n        \t        this.vertexIndices.push(t2);\r\n           \t    \tthis.vertexIndices.push(t1);\r\n            \t    this.vertexIndices.push(t3);  \r\n        \t}\r\n    \t}\r\n\t\t// bottom cap index\r\n\t\tfor (var j = 0; j < this.longitudeBands; j++) {\r\n        \tthis.vertexIndices.push(bottomcenterIndex);\r\n        \tthis.vertexIndices.push(bottomcenterIndex +j);\r\n        \tthis.vertexIndices.push(bottomcenterIndex +j +1);  \r\n    \t}\r\n\t\t// top cap index\r\n\t\tfor (var j = 0; j < this.longitudeBands; j++) {\r\n        \tthis.vertexIndices.push(topcenterIndex);\r\n        \tthis.vertexIndices.push(topcenterIndex +j);\r\n        \tthis.vertexIndices.push(topcenterIndex +j +1);  \r\n    \t}\t\r\n\t\r\n\t\t// buffer item size and num items\r\n        this.vertexPositionBufferItemSize = 3 ;\r\n        this.vertexNormalBufferItemSize   = 3 ;\r\n        this.vertexTexCoordBufferItemSize = 2 ;\r\n        this.vertexColorBufferItemSize    = 3 ;\r\n        this.vertexIndexBufferItemSize    = 1 ;\r\n\t\r\n        this.vertexPositionBufferNumItems = this.verticesArray.length / 3 ;\r\n        this.vertexNormalBufferNumItems   = this.normalsArray.length / 3 ;\r\n        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2 ;\r\n        this.vertexColorBufferNumItems    = this.colorsArray.length /3 ;\r\n        this.vertexIndexBufferNumItems    = this.vertexIndices.length; ;\r\n\t}\r\n}"
+    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Cylinder  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Cylinder extends atomicGL2Object3d {\r\n// constructor\r\n//------------------------\r\n// inputs:\tnname: \t\tname of the Cylinder - string\r\n// \t\t\tcylinder size\r\n//\t\t\tradius:\t\t\tfloat\r\n// \t\t\theight:\t\t\tfloat\r\n// \t\t\tlthis.heightBands: init\r\n// \t\t\tthis.longitudeBands: int\r\n\tconstructor(nname,radius, height, heightBands,longitudeBands,uu,vv){\r\n\t\tsuper(nname);\r\n\t\r\n\t\t// size\r\n        this.radius         = radius ;\r\n        this.height         = height ;\r\n        this.heightBands    = heightBands ;\r\n        this.longitudeBands = longitudeBands ;\r\n        \r\n        // textures\r\n        this.scaleUV        = [uu,vv] ;\r\n\t\r\n\t\t// build\r\n\t\tthis.build();\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\t\r\n\t\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs:  face: \t\"All\" (String)\r\n\t//\t\t\t RBG: \t[float, float, float]\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGL2Cylinder(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\t\t\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"All\":\r\n\t\t\t\tvar nbc = this.colorsArray.length / 3 ;\r\n\t\t\t\tthis.colorsArray = [] ;\r\n\t\t\t\tfor (var i=0; i <nbc; i++) {\r\n                \tthis.colorsArray.push(r);\r\n                \tthis.colorsArray.push(g);\r\n                \tthis.colorsArray.push(b);            \r\n            \t}\r\n\t\t\tbreak;\t\t\r\n\t\t}\r\n\t}\r\n\t\r\n\t// build\r\n\t//-----------------------------------------------------\r\n\tbuild(){\r\n\t\t// vertices, normals, colors, texCoord\r\n\t\tfor (var i=0; i <= this.heightBands; i++) {\r\n\t\t\tvar y = i*this.height/this.heightBands ;\r\n\t\r\n        \tfor (var j = 0; j <= this.longitudeBands; j++) {\r\n            \r\n            \tvar theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            \tvar x = Math.cos(theta);\r\n            \tvar y = i*this.height/this.heightBands;\r\n\t\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t\t// normals\r\n            \tthis.normalsArray.push(x);\r\n            \tthis.normalsArray.push(0.0);\r\n            \tthis.normalsArray.push(z);\r\n\t\t\t\t// position\r\n            \tthis.verticesArray.push(this.radius * x);\r\n            \tthis.verticesArray.push(y);\r\n            \tthis.verticesArray.push(this.radius * z);\r\n            \t// color\r\n            \tthis.colorsArray.push(0.8);\r\n            \tthis.colorsArray.push(0.8);\r\n            \tthis.colorsArray.push(0.8);\r\n            \t// uv\r\n            \tthis.textureCoordsArray.push(this.scaleUV[1]*i/this.heightBands);              \r\n            \tthis.textureCoordsArray.push(this.scaleUV[0]*j/this.longitudeBands);\r\n    \t\t}\r\n    \t}\r\n    \r\n    \t// cylinder cap\r\n    \t// ------------\r\n\t    // bottom\r\n   \t \t// ------\r\n   \t \t// center\r\n\t\t// texture coord\r\n\t\tthis.textureCoordsArray.push(0.5); this.textureCoordsArray.push(0.5);\r\n\t\t// color\r\n    \tthis.colorsArray.push(0.8);this.colorsArray.push(0.8);this.colorsArray.push(0.8);\r\n    \t// normals\r\n\t\tthis.normalsArray.push(0.0);this.normalsArray.push(-1.0);this.normalsArray.push(0.0);\r\n\t\t// position\r\n    \tthis.verticesArray.push(0.0);this.verticesArray.push(0.0);this.verticesArray.push(0.0);\r\n\t\tvar bottomcenterIndex = this.verticesArray.length/3 ;\r\n\r\n    \t// cap edge\r\n    \tfor (var j = 0; j <= this.longitudeBands; j++) { \r\n            var theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            var x = Math.cos(theta);\r\n            var y = 0.0\r\n\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t// normals\r\n            this.normalsArray.push(0.0); this.normalsArray.push(-1.0); this.normalsArray.push(0.0);\r\n\t\t\t// position\r\n            this.verticesArray.push(this.radius * x);\r\n            this.verticesArray.push(0.0);\r\n            this.verticesArray.push(this.radius * z);\r\n            // color\r\n            this.colorsArray.push(0.8); this.colorsArray.push(0.8); this.colorsArray.push(0.8);\r\n            // uv\r\n            this.textureCoordsArray.push(0.5+x*.5);              \r\n            this.textureCoordsArray.push(0.5+z*0.5);    \r\n    \t}   \r\n    \t// top cap\r\n    \t// -------\r\n    \t// center\r\n\t\t// texture coord\r\n\t\tthis.textureCoordsArray.push(0.5); this.textureCoordsArray.push(0.5);\r\n    \t// normals\r\n\t\tthis.normalsArray.push(0.0);this.normalsArray.push(1.0);this.normalsArray.push(0.0);\r\n\t\t// position\r\n    \tthis.verticesArray.push(0.0);this.verticesArray.push(this.height);this.verticesArray.push(0.0);\r\n    \tvar topcenterIndex = this.verticesArray.length/3 ;\r\n    \t// color\r\n    \tthis.colorsArray.push(0.8);\r\n    \tthis.colorsArray.push(0.8);\r\n    \tthis.colorsArray.push(0.8);\r\n    \t// cap edge\r\n    \tfor (var j = 0; j <= this.longitudeBands; j++) { \r\n            var theta = j * 2.0* Math.PI / this.longitudeBands;\r\n            var x = Math.cos(theta);\r\n            var y = this.height ;\r\n\t\t\tvar z = Math.sin(theta);\r\n            \r\n\t\t\t// normals\r\n            this.normalsArray.push(0.0); this.normalsArray.push(1.0); this.normalsArray.push(0.0);\r\n\t\t\t// position\r\n            this.verticesArray.push(this.radius * x);\r\n            this.verticesArray.push(this.height);\r\n            this.verticesArray.push(this.radius * z);\r\n            // color\r\n            this.colorsArray.push(0.8); this.colorsArray.push(0.8); this.colorsArray.push(0.8);\r\n            // uv\r\n            this.textureCoordsArray.push(0.5+x*0.5);              \r\n            this.textureCoordsArray.push(0.5+z*0.5);  \r\n    \t}   \r\n\r\n\t\t// indexes\r\n\t\t// --------\r\n\t\t// body index \r\n\t\tfor (var i=0; i < this.heightBands; i++) {\r\n        \tfor (var j = 0; j < this.longitudeBands; j++) {\r\n                \tvar t0 = i*(this.longitudeBands+1) \t+ j ;\r\n                \tvar t1 = i*(this.longitudeBands+1) \t+ j+1 ;\r\n                \tvar t2 = (i+1)*(this.longitudeBands+1) + j ;\r\n                \tvar t3 = (i+1)*(this.longitudeBands+1) + j+1 ;\r\n                \t// first triangle\r\n                \tthis.vertexIndices.push(t0);\r\n                \tthis.vertexIndices.push(t1);\r\n                \tthis.vertexIndices.push(t2);                \r\n                \r\n       \t         \t// second triangle\r\n        \t        this.vertexIndices.push(t2);\r\n           \t    \tthis.vertexIndices.push(t1);\r\n            \t    this.vertexIndices.push(t3);  \r\n        \t}\r\n    \t}\r\n\t\t// bottom cap index\r\n\t\tfor (var j = 0; j < this.longitudeBands; j++) {\r\n        \tthis.vertexIndices.push(bottomcenterIndex);\r\n        \tthis.vertexIndices.push(bottomcenterIndex +j);\r\n        \tthis.vertexIndices.push(bottomcenterIndex +j +1);  \r\n    \t}\r\n\t\t// top cap index\r\n\t\tfor (var j = 0; j < this.longitudeBands; j++) {\r\n        \tthis.vertexIndices.push(topcenterIndex);\r\n        \tthis.vertexIndices.push(topcenterIndex +j);\r\n        \tthis.vertexIndices.push(topcenterIndex +j +1);  \r\n    \t}\t\r\n\t\r\n\t\t// buffer item size and num items\r\n        this.vertexPositionBufferItemSize = 3 ;\r\n        this.vertexNormalBufferItemSize   = 3 ;\r\n        this.vertexTexCoordBufferItemSize = 2 ;\r\n        this.vertexColorBufferItemSize    = 3 ;\r\n        this.vertexIndexBufferItemSize    = 1 ;\r\n\t\r\n        this.vertexPositionBufferNumItems = this.verticesArray.length / 3 ;\r\n        this.vertexNormalBufferNumItems   = this.normalsArray.length / 3 ;\r\n        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2 ;\r\n        this.vertexColorBufferNumItems    = this.colorsArray.length /3 ;\r\n        this.vertexIndexBufferNumItems    = this.vertexIndices.length; ;\r\n\t}\r\n}"
   },
   {
     "__docId__": 132,
@@ -3643,25 +3708,25 @@
         ]
       },
       {
-        "name": "rradius",
+        "name": "radius",
         "types": [
           "*"
         ]
       },
       {
-        "name": "hheight",
+        "name": "height",
         "types": [
           "*"
         ]
       },
       {
-        "name": "hheightBands",
+        "name": "heightBands",
         "types": [
           "*"
         ]
       },
       {
-        "name": "llongitudeBands",
+        "name": "longitudeBands",
         "types": [
           "*"
         ]
@@ -4023,7 +4088,7 @@
     "access": null,
     "description": null,
     "lineNumber": 10,
-    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\t\t\t\t\r\n// contact: cozot@irisa.fr\r\n// version: 2.1\r\n// current version date: 2016/01/29\r\n//----------------------------------------------------------------------------------------\r\n// atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\"use strict\";\r\n\r\nclass atomicGL2Object3d{\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs:\tnname: \tname of the 3D Obj - string\r\n\tconstructor(nname){\r\n\t\t// name\r\n\t\tthis.name = nname ;\r\n\t\t\r\n\t\t// textures\r\n\t\tthis.scaleUV            = [];\r\n\t\tthis.textures           = [];\r\n\t\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray      = [];\r\n\t\t\r\n\t\t// normals array\r\n\t\tthis.normalsArray       = [];\r\n\t\t\r\n\t\t// color array\r\n\t\tthis.colorsArray        = [];\r\n\t\t\r\n\t\t// texture coordinates array\r\n\t\tthis.textureCoordsArray = [];\r\n\t\t\r\n\t\t// indexes\r\n\t\tthis.vertexIndices      = [];\t\r\n    \r\n    \t// OGL buffers\r\n \t\t// buffers\r\n\t\tthis.vertexPositionBuffer\t;\r\n    \tthis.vertexNormalBuffer\t\t;\r\n    \tthis.vertexColorBuffer\t\t;\r\n    \tthis.vertexTexCoordBuffer \t;\r\n    \tthis.vertexIndexBuffer \t\t;\r\n\t\r\n\t\tthis.vertexPositionBufferItemSize\t;\r\n    \tthis.vertexNormalBufferItemSize\t\t;\r\n    \tthis.vertexColorBufferItemSize\t\t;\r\n    \tthis.vertexTexCoordBufferItemSize \t;\r\n    \tthis.vertexIndexBufferItemSize \t\t;\r\n\t\r\n\t\tthis.vertexPositionBufferNumItems\t;\r\n    \tthis.vertexNormalBufferNumItems\t\t;\r\n    \tthis.vertexColorBufferNumItems\t\t;\r\n    \tthis.vertexTexCoordBufferNumItems \t;\r\n    \tthis.vertexIndexBufferNumItems \t\t;\r\n       \t\t\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t// pushTexture\r\n\t// --------------------------\r\n\t// inputs:\t atomicTex: texture - atomicGL2Texture\r\n\tpushTexture(atomicTex){this.textures.push(atomicTex);}\t\r\n\t\r\n\t\t\r\n\t// initGLBuffers\r\n\t//---------------------------\r\n\t// inputs:\tagl: openGL context\r\n\tinitGLBuffers(agl){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLObject3d(\"+this.name+\")::initGLBuffers\");\r\n\t\tvar gl = agl.gl ;\r\n\t\t// vertexPositionBuffer\r\n\t\tthis.vertexPositionBuffer\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.verticesArray), gl.STATIC_DRAW);\r\n        this.vertexPositionBufferItemSize = 3;\r\n        this.vertexPositionBufferNumItems = this.verticesArray.length/3;\r\n\r\n\t\t// vertexNormalBuffer\t\t\r\n\t\tthis.vertexNormalBuffer\t\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexNormalBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normalsArray), gl.STATIC_DRAW);\r\n        this.vertexNormalBufferItemSize = 3;\r\n        this.vertexNormalBufferNumItems = this.normalsArray.length/3;\r\n\r\n\t\t// vertexColorBuffer\t\t\r\n\t\tthis.vertexColorBuffer\t\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colorsArray), gl.STATIC_DRAW);\r\n        this.vertexColorBufferItemSize = 3;\r\n        this.vertexColorBufferNumItems = this.normalsArray.length/3;\r\n\r\n\t\t\r\n\t\t// vertexTexCoordBuffer\t\t\r\n\t\tthis.vertexTexCoordBuffer \t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textureCoordsArray), gl.STATIC_DRAW);\r\n        this.vertexTexCoordBufferItemSize = 2;\r\n        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2;\r\n\t\t\r\n\t\t// vertexIndexBuffer\t\r\n\t\tthis.vertexIndexBuffer \t\t= gl.createBuffer();\t\r\n        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);\r\n        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.vertexIndices), gl.STATIC_DRAW);\r\n        this.vertexIndexBufferItemSize = 1;\r\n        this.vertexIndexBufferNumItems = this.vertexIndices.length ;\r\n\t}\r\n\t\r\n\t\r\n\t// draw(aGL,aMS,idProg)\r\n\t//---------------------------\r\n\t// inputs: \taGL: GL context \t\t- atomicGLContext\r\n\t// \t\t\taMS: Matrix Stacks \t- atomicMatrixStack\r\n\t// \t\t\tidProg: Shader index - integer\r\n\t//\t\t\tshaderProgramName : Shader Name - string\r\n\tdraw(aGL,aMS,shaderProgramName){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLObject3d(\"+this.name+\")::draw(progId: \"+idProg+\")\");\r\n\r\n\t\t// activate shader\r\n\t\taGL.gl.useProgram(aGL.getShaderProgram(shaderProgramName).program);\r\n\t\t// setUniforms: matrices and lights\r\n\t\taGL.getShaderProgram(shaderProgramName).setUniforms(aGL,aMS);\r\n\t\t\r\n\t// link buffer to attributes\r\n\t\t//positions\r\n\t\tif(aGL.getShaderProgram(shaderProgramName).hasVertexPositionAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n\t\t\taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);\r\n     \t\taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexPosition(), this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n\t\t}\r\n\t\t//normals\r\n        if(aGL.getShaderProgram(shaderProgramName).hasVertexNormalAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n        \taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);\r\n   \t\t    aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexNormal(), this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n\t\t}\r\n\t\t// colors\r\n\t\tif(aGL.getShaderProgram(shaderProgramName).hasVertexColorAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n\t       \taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);\r\n\t       \taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexColor(), this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n    \t}\r\n\r\n\t\t// textures\r\n\t\tif(this.textures.length>0){\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);\r\n\t\t\taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);\r\n\t\t\taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\t\t\r\n\t\t}\r\n\r\n\t\tfor (var i=0; i<this.textures.length; i++ )\r\n\t\t{\r\n\t\t\t// activate texture\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+agl.GLtexture[i]+\"/\"+agl.gl.TEXTURE0);\r\n\t\t\tagl.gl.activeTexture(agl.GLtexture[i]);\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::bindTexture: \"+this.textures[i].texture);\r\n\t\t\tagl.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t\r\n\t\t\tagl.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);\r\n\r\n\t\t}\r\n\r\n\t\t// indexes\r\n        aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);\r\n\t\t\r\n\t\t// draw Object3D\r\n        aGL.gl.drawElements(aGL.gl.TRIANGLES, this.vertexIndexBufferNumItems, aGL.gl.UNSIGNED_SHORT, 0);\r\n\t}\r\n}"
+    "content": "// atomicGL\r\n//----------------------------------------------------------------------------------------\r\n// author: RC\t\t\t\t\r\n// contact: cozot@irisa.fr\r\n// version: 2.1\r\n// current version date: 2016/01/29\r\n//----------------------------------------------------------------------------------------\r\n// atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\"use strict\";\r\n\r\nclass atomicGL2Object3d{\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs:\tnname: \tname of the 3D Obj - string\r\n\tconstructor(name){\r\n\t\t// name\r\n\t\tthis.name = name ;\r\n\t\t\r\n\t\t// textures\r\n\t\tthis.scaleUV            = [];\r\n\t\tthis.textures           = [];\r\n\t\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray      = [];\r\n\t\t\r\n\t\t// normals array\r\n\t\tthis.normalsArray       = [];\r\n\t\t\r\n\t\t// color array\r\n\t\tthis.colorsArray        = [];\r\n\t\t\r\n\t\t// texture coordinates array\r\n\t\tthis.textureCoordsArray = [];\r\n\t\t\r\n\t\t// indexes\r\n\t\tthis.vertexIndices      = [];\t\r\n    \r\n    \t// OGL buffers\r\n \t\t// buffers\r\n\t\tthis.vertexPositionBuffer\t;\r\n    \tthis.vertexNormalBuffer\t\t;\r\n    \tthis.vertexColorBuffer\t\t;\r\n    \tthis.vertexTexCoordBuffer \t;\r\n    \tthis.vertexIndexBuffer \t\t;\r\n\t\r\n\t\tthis.vertexPositionBufferItemSize\t;\r\n    \tthis.vertexNormalBufferItemSize\t\t;\r\n    \tthis.vertexColorBufferItemSize\t\t;\r\n    \tthis.vertexTexCoordBufferItemSize \t;\r\n    \tthis.vertexIndexBufferItemSize \t\t;\r\n\t\r\n\t\tthis.vertexPositionBufferNumItems\t;\r\n    \tthis.vertexNormalBufferNumItems\t\t;\r\n    \tthis.vertexColorBufferNumItems\t\t;\r\n    \tthis.vertexTexCoordBufferNumItems \t;\r\n    \tthis.vertexIndexBufferNumItems \t\t;\r\n       \t\t\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t// pushTexture\r\n\t// --------------------------\r\n\t// inputs:\t atomicTex: texture - atomicGL2Texture\r\n\tpushTexture(atomicTex){this.textures.push(atomicTex);}\t\r\n\t\r\n\t\t\r\n\t// initGLBuffers\r\n\t//---------------------------\r\n\t// inputs:\tagl: openGL context\r\n\tinitGLBuffers(agl){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLObject3d(\"+this.name+\")::initGLBuffers\");\r\n\t\tvar gl = agl.gl ;\r\n\t\t// vertexPositionBuffer\r\n\t\tthis.vertexPositionBuffer\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.verticesArray), gl.STATIC_DRAW);\r\n        this.vertexPositionBufferItemSize = 3;\r\n        this.vertexPositionBufferNumItems = this.verticesArray.length/3;\r\n\r\n\t\t// vertexNormalBuffer\t\t\r\n\t\tthis.vertexNormalBuffer\t\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexNormalBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normalsArray), gl.STATIC_DRAW);\r\n        this.vertexNormalBufferItemSize = 3;\r\n        this.vertexNormalBufferNumItems = this.normalsArray.length/3;\r\n\r\n\t\t// vertexColorBuffer\t\t\r\n\t\tthis.vertexColorBuffer\t\t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexColorBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.colorsArray), gl.STATIC_DRAW);\r\n        this.vertexColorBufferItemSize = 3;\r\n        this.vertexColorBufferNumItems = this.normalsArray.length/3;\r\n\r\n\t\t\r\n\t\t// vertexTexCoordBuffer\t\t\r\n\t\tthis.vertexTexCoordBuffer \t= gl.createBuffer();\r\n\t\tgl.bindBuffer(gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);\r\n        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textureCoordsArray), gl.STATIC_DRAW);\r\n        this.vertexTexCoordBufferItemSize = 2;\r\n        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2;\r\n\t\t\r\n\t\t// vertexIndexBuffer\t\r\n\t\tthis.vertexIndexBuffer \t\t= gl.createBuffer();\t\r\n        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);\r\n        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.vertexIndices), gl.STATIC_DRAW);\r\n        this.vertexIndexBufferItemSize = 1;\r\n        this.vertexIndexBufferNumItems = this.vertexIndices.length ;\r\n\t}\r\n\t\r\n\t\r\n\t// draw(aGL,aMS,idProg)\r\n\t//---------------------------\r\n\t// inputs: \taGL: GL context \t\t- atomicGLContext\r\n\t// \t\t\taMS: Matrix Stacks \t- atomicMatrixStack\r\n\t// \t\t\tidProg: Shader index - integer\r\n\t//\t\t\tshaderProgramName : Shader Name - string\r\n\tdraw(aGL,aMS,shaderProgramName){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLObject3d(\"+this.name+\")::draw(progId: \"+idProg+\")\");\r\n\r\n\t\t// activate shader\r\n\t\taGL.gl.useProgram(aGL.getShaderProgram(shaderProgramName).program);\r\n\t\t// setUniforms: matrices and lights\r\n\t\taGL.getShaderProgram(shaderProgramName).setUniforms(aGL,aMS);\r\n\t\t\r\n\t// link buffer to attributes\r\n\t\t//positions\r\n\t\tif(aGL.getShaderProgram(shaderProgramName).hasVertexPositionAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n\t\t\taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);\r\n     \t\taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexPosition(), this.vertexPositionBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n\t\t}\r\n\t\t//normals\r\n        if(aGL.getShaderProgram(shaderProgramName).hasVertexNormalAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n        \taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexNormalBuffer);\r\n   \t\t    aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexNormal(), this.vertexNormalBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n\t\t}\r\n\t\t// colors\r\n\t\tif(aGL.getShaderProgram(shaderProgramName).hasVertexColorAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){\r\n\t       \taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexColorBuffer);\r\n\t       \taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getVertexColor(), this.vertexColorBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\r\n    \t}\r\n\r\n\t\t// textures\r\n\t\tif(this.textures.length>0){\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);\r\n\t\t\taGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);\r\n\t\t\taGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);\t\t\r\n\t\t}\r\n\r\n\t\tfor (var i=0; i<this.textures.length; i++ )\r\n\t\t{\r\n\t\t\t// activate texture\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+agl.GLtexture[i]+\"/\"+agl.gl.TEXTURE0);\r\n\t\t\tagl.gl.activeTexture(agl.GLtexture[i]);\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::bindTexture: \"+this.textures[i].texture);\r\n\t\t\tagl.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);\r\n\t\t\t// debug\r\n\t\t\t// console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t\r\n\t\t\tagl.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);\r\n\r\n\t\t}\r\n\r\n\t\t// indexes\r\n        aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);\r\n\t\t\r\n\t\t// draw Object3D\r\n        aGL.gl.drawElements(aGL.gl.TRIANGLES, this.vertexIndexBufferNumItems, aGL.gl.UNSIGNED_SHORT, 0);\r\n\t}\r\n}"
   },
   {
     "__docId__": 153,
@@ -4056,7 +4121,7 @@
     "undocument": true,
     "params": [
       {
-        "name": "nname",
+        "name": "name",
         "types": [
           "*"
         ]
@@ -4567,7 +4632,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2ObjMesh extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\n\r\n\t\r\n\r\n class atomicGL2ObjMesh extends atomicGL2Object3d {\r\n\t// constructor\r\n\t// \t\tobj  :\tatomicGlImporter object\r\n\t// \t\tuu,vv:\ttext coord scale\r\n\tconstructor(nname, obj, uu, vv){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGL2ObjMesh extends atomicGLObject3d::constructor ->\"+name );\r\n\t\tsuper(nname);\r\n\t\t// textures\r\n\t\tthis.scaleUV  = [uu,vv] ;\r\n\t\tthis.textures = [] ;\r\n\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray = obj.vertices;\r\n\t\t\r\n\r\n\t\t// normals array\r\n\t\tthis.normalsArray  = obj.normals ;\r\n\t\t\r\n\t\t// colors Array - set default color\r\n\t\tfor (var i=0; i<this.normalsArray.length;i++)\r\n\t\t\tthis.colorsArray.push(0.8) ;\r\n\r\n\t\t// texture coordinates array\r\n    \tthis.textureCoordsArray = obj.uv ;\r\n\t\t\r\n\t\t// apply scaling\r\n\t\tvar uvs = this.textureCoordsArray.length / 2 ;\r\n\t\tfor (var i=0; i<uvs; i++)\r\n\t\t{\r\n\t\t\tthis.textureCoordsArray[2*i] \t= uu*this.textureCoordsArray[2*i];\r\n\t\t\tthis.textureCoordsArray[2*i+1] \t= vv*this.textureCoordsArray[2*i+1];\r\n\t\t}\r\n\t\t\t\r\n\t\t// indexes\r\n    \tthis.vertexIndices = obj.index;\t\r\n    }\r\n}"
+    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2ObjMesh extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\n\r\n\t\r\n\r\n class atomicGL2ObjMesh extends atomicGL2Object3d {\r\n\t// constructor\r\n\t// \t\tobj  :\tatomicGlImporter object\r\n\t// \t\tuu,vv:\ttext coord scale\r\n\tconstructor(name, obj, uu, vv){\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGL2ObjMesh extends atomicGLObject3d::constructor ->\"+name );\r\n\t\tsuper(name);\r\n\t\t// textures\r\n\t\tthis.scaleUV  = [uu,vv] ;\r\n\t\tthis.textures = [] ;\r\n\t\r\n\t\t// vertices array\r\n\t\tthis.verticesArray = obj.vertices;\r\n\t\t\r\n\r\n\t\t// normals array\r\n\t\tthis.normalsArray  = obj.normals ;\r\n\t\t\r\n\t\t// colors Array - set default color\r\n\t\tfor (var i=0; i<this.normalsArray.length;i++)\r\n\t\t\tthis.colorsArray.push(0.8) ;\r\n\r\n\t\t// texture coordinates array\r\n    \tthis.textureCoordsArray = obj.uv ;\r\n\t\t\r\n\t\t// apply scaling\r\n\t\tvar uvs = this.textureCoordsArray.length / 2 ;\r\n\t\tfor (var i=0; i<uvs; i++)\r\n\t\t{\r\n\t\t\tthis.textureCoordsArray[2*i] \t= uu*this.textureCoordsArray[2*i];\r\n\t\t\tthis.textureCoordsArray[2*i+1] \t= vv*this.textureCoordsArray[2*i+1];\r\n\t\t}\r\n\t\t\t\r\n\t\t// indexes\r\n    \tthis.vertexIndices = obj.index;\t\r\n    }\r\n}"
   },
   {
     "__docId__": 182,
@@ -4603,7 +4668,7 @@
     "undocument": true,
     "params": [
       {
-        "name": "nname",
+        "name": "name",
         "types": [
           "*"
         ]
@@ -4748,7 +4813,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Sphere  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Sphere extends atomicGL2Object3d{\r\n\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs\r\n\t//------------------------\r\n\t// nname: \t\tname of the Sphere - string\r\n\t// sphere size\r\n\t// rthis.radius:\t\t\tfloat\r\n\t// lthis.latitudeBands: init\r\n\t// lthis.longitudeBands: int\r\n\tconstructor(nname,rradius, llatitudeBands,llongitudeBands,uu,vv){\r\n\t\tsuper(nname);\r\n\r\n\t\t// size\r\n\t\tthis.radius\t= rradius ;\r\n\t\tthis.latitudeBands \t= llatitudeBands ;\r\n\t\tthis.longitudeBands\t= llongitudeBands ;\r\n\r\n\t\t// textures\r\n\t\tthis.scaleUV = [uu,vv] ;\r\n\r\n\t  // build the vertices\r\n\t\tthis.build();\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs\r\n\t//---------------------------\r\n\t// face: \t\"All\" (String)\r\n\t// RBG: \t[float, float, float]\r\n\t//---------------------------\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLSphere(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"All\":\r\n\t\t\t\tthis.colorsArray = [] ;\r\n\t\t\t\tfor (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {\r\n            \t\tfor (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {\r\n                \t\t// color\r\n                \t\tthis.colorsArray.push(r);\r\n                \t\tthis.colorsArray.push(g);\r\n                \t\tthis.colorsArray.push(b);\r\n            \t\t}\r\n        \t\t}\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\t//-----------------------------------------------------\r\n\r\n\tbuild(){\r\n\t\t// build\r\n\t\t//-----------------------------\r\n\t\t// vertices, normals, colors, texCoord\r\n\t\tfor (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {\r\n\t\t\t\tvar theta = latNumber * Math.PI / this.latitudeBands;\r\n\t\t\t\tvar sinTheta = Math.sin(theta);\r\n\t\t\t\tvar cosTheta = Math.cos(theta);\r\n\r\n\t\t\t\tfor (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {\r\n\t\t\t\t\tvar phi = longNumber * 2 * Math.PI / this.longitudeBands;\r\n\t\t\t\t\tvar sinPhi = Math.sin(phi);\r\n\t\t\t\t\tvar cosPhi = Math.cos(phi);\r\n\r\n\t\t\t\t\tvar x = cosPhi * sinTheta;\r\n\t\t\t\t\tvar y = cosTheta;\r\n\t\t\t\t\tvar z = sinPhi * sinTheta;\r\n\t\t\t\t\t// normals\r\n\t\t\t\t\tthis.normalsArray.push(x);\r\n\t\t\t\t\tthis.normalsArray.push(y);\r\n\t\t\t\t\tthis.normalsArray.push(z);\r\n\t\t\t\t\t// position\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * x);\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * y);\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * z);\r\n\t\t\t\t\t// color\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\t// uv\r\n\t\t\t\t\tthis.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);\r\n\t\t\t\t\tthis.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t// index\r\n\t\tfor (var latNumber = 0; latNumber < this.latitudeBands; latNumber++) {\r\n\t\t\t\tfor (var longNumber = 0; longNumber < this.longitudeBands; longNumber++) {\r\n\t\t\t\t\tvar first = (latNumber * (this.longitudeBands + 1)) + longNumber;\r\n\t\t\t\t\tvar second = first + this.longitudeBands + 1;\r\n\t\t\t\t\tthis.vertexIndices.push(first);\r\n\t\t\t\t\tthis.vertexIndices.push(second);\r\n\t\t\t\t\tthis.vertexIndices.push(first + 1);\r\n\r\n\t\t\t\t\tthis.vertexIndices.push(second);\r\n\t\t\t\t\tthis.vertexIndices.push(second + 1);\r\n\t\t\t\t\tthis.vertexIndices.push(first + 1);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\tthis.vertexPositionBufferItemSize = 3\t;\r\n\t\tthis.vertexNormalBufferItemSize\t\t= 3\t;\r\n\t\tthis.vertexTexCoordBufferItemSize\t= 2 ;\r\n\t\tthis.vertexColorBufferItemSize\t\t= 3 ;\r\n\t\tthis.vertexIndexBufferItemSize \t\t= 1 ;\r\n\r\n\t\tthis.vertexPositionBufferNumItems\t= this.verticesArray.length / 3 ;\r\n\t  this.vertexNormalBufferNumItems\t\t= this.normalsArray.length / 3 ;\r\n\t\tthis.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;\r\n\t\tthis.vertexColorBufferNumItems \t\t= this.colorsArray.length / 3 ;\r\n\t  this.vertexIndexBufferNumItems \t\t= this.vertexIndices.length;\r\n\t}\r\n}\r\n"
+    "content": "\"use strict\";\r\n\r\n//----------------------------------------------------------------------------------------\r\n// atomicGL2Sphere  extends atomicGLObject3d\r\n//----------------------------------------------------------------------------------------\r\n\r\nclass atomicGL2Sphere extends atomicGL2Object3d{\r\n\r\n\t// constructor\r\n\t//------------------------\r\n\t// inputs\r\n\t//------------------------\r\n\t// nname: \t\tname of the Sphere - string\r\n\t// sphere size\r\n\t// rthis.radius:\t\t\tfloat\r\n\t// lthis.latitudeBands: init\r\n\t// lthis.longitudeBands: int\r\n\tconstructor(name,radius, latitudeBands,longitudeBands,uu,vv){\r\n\t\tsuper(name);\r\n\r\n\t\t// size\r\n\t\tthis.radius\t= radius ;\r\n\t\tthis.latitudeBands \t= latitudeBands ;\r\n\t\tthis.longitudeBands\t= longitudeBands ;\r\n\r\n\t\t// textures\r\n\t\tthis.scaleUV = [uu,vv] ;\r\n\r\n\t  // build the vertices\r\n\t\tthis.build();\r\n\t}\r\n\r\n\t// methods\r\n\t// --------------------------------------------------\r\n\r\n\t// setFaceColor(face, RGB)\r\n\t//---------------------------\r\n\t// inputs\r\n\t//---------------------------\r\n\t// face: \t\"All\" (String)\r\n\t// RBG: \t[float, float, float]\r\n\t//---------------------------\r\n\tsetFaceColor( face, RGB) {\r\n\t\t// debug\r\n\t\t//console.log(\"atomicGLSphere(\"+this.name+\")::setFaceColor\");\r\n\t\tvar r = RGB[0];\r\n\t\tvar g = RGB[1];\r\n\t\tvar b = RGB[2];\r\n\r\n\t\t// switch face\r\n\t\tswitch(face){\r\n\t\t\tcase \"All\":\r\n\t\t\t\tthis.colorsArray = [] ;\r\n\t\t\t\tfor (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {\r\n            \t\tfor (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {\r\n                \t\t// color\r\n                \t\tthis.colorsArray.push(r);\r\n                \t\tthis.colorsArray.push(g);\r\n                \t\tthis.colorsArray.push(b);\r\n            \t\t}\r\n        \t\t}\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\t//-----------------------------------------------------\r\n\r\n\tbuild(){\r\n\t\t// build\r\n\t\t//-----------------------------\r\n\t\t// vertices, normals, colors, texCoord\r\n\t\tfor (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {\r\n\t\t\t\tvar theta = latNumber * Math.PI / this.latitudeBands;\r\n\t\t\t\tvar sinTheta = Math.sin(theta);\r\n\t\t\t\tvar cosTheta = Math.cos(theta);\r\n\r\n\t\t\t\tfor (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {\r\n\t\t\t\t\tvar phi = longNumber * 2 * Math.PI / this.longitudeBands;\r\n\t\t\t\t\tvar sinPhi = Math.sin(phi);\r\n\t\t\t\t\tvar cosPhi = Math.cos(phi);\r\n\r\n\t\t\t\t\tvar x = cosPhi * sinTheta;\r\n\t\t\t\t\tvar y = cosTheta;\r\n\t\t\t\t\tvar z = sinPhi * sinTheta;\r\n\t\t\t\t\t// normals\r\n\t\t\t\t\tthis.normalsArray.push(x);\r\n\t\t\t\t\tthis.normalsArray.push(y);\r\n\t\t\t\t\tthis.normalsArray.push(z);\r\n\t\t\t\t\t// position\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * x);\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * y);\r\n\t\t\t\t\tthis.verticesArray.push(this.radius * z);\r\n\t\t\t\t\t// color\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\tthis.colorsArray.push(0.8);\r\n\t\t\t\t\t// uv\r\n\t\t\t\t\tthis.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);\r\n\t\t\t\t\tthis.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t// index\r\n\t\tfor (var latNumber = 0; latNumber < this.latitudeBands; latNumber++) {\r\n\t\t\t\tfor (var longNumber = 0; longNumber < this.longitudeBands; longNumber++) {\r\n\t\t\t\t\tvar first = (latNumber * (this.longitudeBands + 1)) + longNumber;\r\n\t\t\t\t\tvar second = first + this.longitudeBands + 1;\r\n\t\t\t\t\tthis.vertexIndices.push(first);\r\n\t\t\t\t\tthis.vertexIndices.push(second);\r\n\t\t\t\t\tthis.vertexIndices.push(first + 1);\r\n\r\n\t\t\t\t\tthis.vertexIndices.push(second);\r\n\t\t\t\t\tthis.vertexIndices.push(second + 1);\r\n\t\t\t\t\tthis.vertexIndices.push(first + 1);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\tthis.vertexPositionBufferItemSize = 3\t;\r\n\t\tthis.vertexNormalBufferItemSize\t\t= 3\t;\r\n\t\tthis.vertexTexCoordBufferItemSize\t= 2 ;\r\n\t\tthis.vertexColorBufferItemSize\t\t= 3 ;\r\n\t\tthis.vertexIndexBufferItemSize \t\t= 1 ;\r\n\r\n\t\tthis.vertexPositionBufferNumItems\t= this.verticesArray.length / 3 ;\r\n\t  this.vertexNormalBufferNumItems\t\t= this.normalsArray.length / 3 ;\r\n\t\tthis.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;\r\n\t\tthis.vertexColorBufferNumItems \t\t= this.colorsArray.length / 3 ;\r\n\t  this.vertexIndexBufferNumItems \t\t= this.vertexIndices.length;\r\n\t}\r\n}\r\n"
   },
   {
     "__docId__": 191,
@@ -4784,25 +4849,25 @@
     "undocument": true,
     "params": [
       {
-        "name": "nname",
+        "name": "name",
         "types": [
           "*"
         ]
       },
       {
-        "name": "rradius",
+        "name": "radius",
         "types": [
           "*"
         ]
       },
       {
-        "name": "llatitudeBands",
+        "name": "latitudeBands",
         "types": [
           "*"
         ]
       },
       {
-        "name": "llongitudeBands",
+        "name": "longitudeBands",
         "types": [
           "*"
         ]

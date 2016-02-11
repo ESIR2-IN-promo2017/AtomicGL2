@@ -230,7 +230,7 @@ class atomicGL2xml {
 			if(SHAPEType == 'js')
 				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
 			
-			if(SHAPEType == 'obj')
+			else if(SHAPEType == 'obj')
 			{
 				console.log('objs/' + GEOmesh);
 				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + GEOmesh).obj, u,v) ;
