@@ -227,8 +227,9 @@ class atomicGL2xml {
 			var v         = parseFloat(GEOuv.split(",")[1]);
 
 			// create shape
-			var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
-			//var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/u.obj').obj, u,v) ;
+			//var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
+			var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/smcar.obj').obj, u,v) ;
+			console.log(ss);
 			// debug
 			//console.log("atomicGLxml::shapes >> find shape("+i+"): "+SHAPEId+"-GEOMETRY:" + GEOId+ "-mesh:"+GEOmesh+"-uv:"+u+","+v);
 
