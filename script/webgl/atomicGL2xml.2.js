@@ -227,8 +227,14 @@ class atomicGL2xml {
 			var v         = parseFloat(GEOuv.split(",")[1]);
 
 			// create shape
-			var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
-			//var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/u.obj').obj, u,v) ;
+			if(SHAPEType == 'js')
+				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
+			
+			if(SHAPEType == 'obj')
+			{
+				console.log('objs/' + GEOmesh);
+				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + GEOmesh).obj, u,v) ;
+			}
 			// debug
 			//console.log("atomicGLxml::shapes >> find shape("+i+"): "+SHAPEId+"-GEOMETRY:" + GEOId+ "-mesh:"+GEOmesh+"-uv:"+u+","+v);
 
@@ -264,11 +270,11 @@ class atomicGL2xml {
 			var SPHEREId   = SPHERE.getAttribute("id");
 			var SPHEREType = SPHERE.getAttribute("type");
 			// only one GEOMETRY
-			var GEOMETRY  =  SPHERE.getElementsByTagName("GEOMETRY")[0];
+			var GEOMETRY  = SPHERE.getElementsByTagName("GEOMETRY")[0];
 			var GEOId     = GEOMETRY.getAttribute("id");
-      var GEORad    = parseFloat(GEOMETRY.getAttribute("rad"));
-      var GEOLat    = parseFloat(GEOMETRY.getAttribute("lat"));
-      var GEOLong   = parseFloat(GEOMETRY.getAttribute("long"));
+			var GEORad    = parseFloat(GEOMETRY.getAttribute("rad"));
+			var GEOLat    = parseFloat(GEOMETRY.getAttribute("lat"));
+			var GEOLong   = parseFloat(GEOMETRY.getAttribute("long"));
 			var GEOuv     = GEOMETRY.getAttribute("uv");
 			var u         = parseFloat(GEOuv.split(",")[0]);
 			var v         = parseFloat(GEOuv.split(",")[1]);
