@@ -171,7 +171,7 @@ class atomicGL2Importer  {
         }
         
         if (obj.normals.length == 0)
-          obj.normals..push(0);
+          obj.normals.push(0);
 
         obj.index = obj.vertexIndices;
         return obj;
