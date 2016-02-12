@@ -22,16 +22,16 @@ class atomicGL2SpotLight extends atomicGL2Light {
 
 	constructor(ccolor, pposition, ddirection, rradius){
 		//if the direction parmaters is an  incorrect parameter : Error exception
-   		if(typeof(ddirection)!=Array && ddirection.length != 3)
-      		throw new TypeError("Please instantiate the "+this.getType()+" with the ddirection parameter");
+   	if(typeof(ddirection)!=Array && ddirection.length != 3)
+    	throw new TypeError("Please instantiate the "+this.getType()+" with the ddirection parameter");
 
-      	//if radius paramater is an incorrect parameter
+  	//if radius paramater is an incorrect parameter
 		if(isNaN(parseFloat(rradius)) && isFinite(rradius))
-      		throw new TypeError("Please instantiate the "+this.getType()+" with the radius parameter");
+    	throw new TypeError("Please instantiate the "+this.getType()+" with the radius parameter");
 
 		//if the position parmaters is  an  incorrect parameter : Error exception
-   		if(typeof(pposition)!=Array && pposition.length != 3)
-      		throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
+   	if(typeof(pposition)!=Array && pposition.length != 3)
+    	throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
 
 		// attributes
 		// -------------------------------------------------
