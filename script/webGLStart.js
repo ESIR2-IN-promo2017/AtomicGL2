@@ -108,13 +108,12 @@ function webGLStart() {
 	// scenegraph creation from xml file
 
 	var scene = document.getElementById('id').innerHTML;
-	var sgxml = new atomicGL2xml(agl,'./scenes/'+scene+'.xml');
+	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
 
 	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
 
 	// light
 	agl.pushLight("Sun",new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
-	agl.ambientLightColor = [0.1,0.05,0.0];	// color
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees

@@ -6835,11 +6835,11 @@
                         "operator": "+",
                         "left": {
                           "type": "Literal",
-                          "value": "./scenes/",
-                          "raw": "'./scenes/'",
+                          "value": "scenes/",
+                          "raw": "'scenes/'",
                           "range": [
                             2622,
-                            2633
+                            2631
                           ],
                           "loc": {
                             "start": {
@@ -6848,7 +6848,7 @@
                             },
                             "end": {
                               "line": 111,
-                              "column": 45
+                              "column": 43
                             }
                           }
                         },
@@ -6856,23 +6856,23 @@
                           "type": "Identifier",
                           "name": "scene",
                           "range": [
-                            2634,
-                            2639
+                            2632,
+                            2637
                           ],
                           "loc": {
                             "start": {
                               "line": 111,
-                              "column": 46
+                              "column": 44
                             },
                             "end": {
                               "line": 111,
-                              "column": 51
+                              "column": 49
                             }
                           }
                         },
                         "range": [
                           2622,
-                          2639
+                          2637
                         ],
                         "loc": {
                           "start": {
@@ -6881,7 +6881,7 @@
                           },
                           "end": {
                             "line": 111,
-                            "column": 51
+                            "column": 49
                           }
                         }
                       },
@@ -6890,23 +6890,23 @@
                         "value": ".xml",
                         "raw": "'.xml'",
                         "range": [
-                          2640,
-                          2646
+                          2638,
+                          2644
                         ],
                         "loc": {
                           "start": {
                             "line": 111,
-                            "column": 52
+                            "column": 50
                           },
                           "end": {
                             "line": 111,
-                            "column": 58
+                            "column": 56
                           }
                         }
                       },
                       "range": [
                         2622,
-                        2646
+                        2644
                       ],
                       "loc": {
                         "start": {
@@ -6915,14 +6915,14 @@
                         },
                         "end": {
                           "line": 111,
-                          "column": 58
+                          "column": 56
                         }
                       }
                     }
                   ],
                   "range": [
                     2601,
-                    2647
+                    2645
                   ],
                   "loc": {
                     "start": {
@@ -6931,13 +6931,13 @@
                     },
                     "end": {
                       "line": 111,
-                      "column": 59
+                      "column": 57
                     }
                   }
                 },
                 "range": [
                   2593,
-                  2647
+                  2645
                 ],
                 "loc": {
                   "start": {
@@ -6946,7 +6946,7 @@
                   },
                   "end": {
                     "line": 111,
-                    "column": 59
+                    "column": 57
                   }
                 }
               }
@@ -6954,7 +6954,7 @@
             "kind": "var",
             "range": [
               2589,
-              2648
+              2646
             ],
             "loc": {
               "start": {
@@ -6963,7 +6963,7 @@
               },
               "end": {
                 "line": 111,
-                "column": 60
+                "column": 58
               }
             },
             "trailingComments": [
@@ -6971,8 +6971,8 @@
                 "type": "Line",
                 "value": "var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,\"test\");",
                 "range": [
-                  2653,
-                  2736
+                  2651,
+                  2734
                 ],
                 "loc": {
                   "start": {
@@ -6989,8 +6989,8 @@
                 "type": "Line",
                 "value": " light",
                 "range": [
-                  2741,
-                  2749
+                  2739,
+                  2747
                 ],
                 "loc": {
                   "start": {
@@ -7016,8 +7016,8 @@
                   "type": "Identifier",
                   "name": "agl",
                   "range": [
-                    2752,
-                    2755
+                    2750,
+                    2753
                   ],
                   "loc": {
                     "start": {
@@ -7034,8 +7034,8 @@
                   "type": "Identifier",
                   "name": "pushLight",
                   "range": [
-                    2756,
-                    2765
+                    2754,
+                    2763
                   ],
                   "loc": {
                     "start": {
@@ -7049,8 +7049,8 @@
                   }
                 },
                 "range": [
-                  2752,
-                  2765
+                  2750,
+                  2763
                 ],
                 "loc": {
                   "start": {
@@ -7069,8 +7069,8 @@
                   "value": "Sun",
                   "raw": "\"Sun\"",
                   "range": [
-                    2766,
-                    2771
+                    2764,
+                    2769
                   ],
                   "loc": {
                     "start": {
@@ -7089,8 +7089,8 @@
                     "type": "Identifier",
                     "name": "atomicGL2PointLight",
                     "range": [
-                      2776,
-                      2795
+                      2774,
+                      2793
                     ],
                     "loc": {
                       "start": {
@@ -7112,8 +7112,8 @@
                           "value": 0.5,
                           "raw": "0.5",
                           "range": [
-                            2797,
-                            2800
+                            2795,
+                            2798
                           ],
                           "loc": {
                             "start": {
@@ -7131,8 +7131,8 @@
                           "value": 0.5,
                           "raw": "0.5",
                           "range": [
-                            2802,
-                            2805
+                            2800,
+                            2803
                           ],
                           "loc": {
                             "start": {
@@ -7150,8 +7150,8 @@
                           "value": 0.5,
                           "raw": "0.5",
                           "range": [
-                            2807,
-                            2810
+                            2805,
+                            2808
                           ],
                           "loc": {
                             "start": {
@@ -7166,8 +7166,8 @@
                         }
                       ],
                       "range": [
-                        2796,
-                        2811
+                        2794,
+                        2809
                       ],
                       "loc": {
                         "start": {
@@ -7188,8 +7188,8 @@
                           "value": 0,
                           "raw": "0",
                           "range": [
-                            2814,
-                            2815
+                            2812,
+                            2813
                           ],
                           "loc": {
                             "start": {
@@ -7207,8 +7207,8 @@
                           "value": 1,
                           "raw": "1",
                           "range": [
-                            2817,
-                            2818
+                            2815,
+                            2816
                           ],
                           "loc": {
                             "start": {
@@ -7226,8 +7226,8 @@
                           "value": 0,
                           "raw": "0",
                           "range": [
-                            2820,
-                            2821
+                            2818,
+                            2819
                           ],
                           "loc": {
                             "start": {
@@ -7242,8 +7242,8 @@
                         }
                       ],
                       "range": [
-                        2813,
-                        2822
+                        2811,
+                        2820
                       ],
                       "loc": {
                         "start": {
@@ -7258,8 +7258,8 @@
                     }
                   ],
                   "range": [
-                    2772,
-                    2823
+                    2770,
+                    2821
                   ],
                   "loc": {
                     "start": {
@@ -7274,8 +7274,8 @@
                 }
               ],
               "range": [
-                2752,
-                2824
+                2750,
+                2822
               ],
               "loc": {
                 "start": {
@@ -7289,8 +7289,8 @@
               }
             },
             "range": [
-              2752,
-              2825
+              2750,
+              2823
             ],
             "loc": {
               "start": {
@@ -7307,8 +7307,8 @@
                 "type": "Line",
                 "value": "var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,\"test\");",
                 "range": [
-                  2653,
-                  2736
+                  2651,
+                  2734
                 ],
                 "loc": {
                   "start": {
@@ -7325,8 +7325,8 @@
                 "type": "Line",
                 "value": " light",
                 "range": [
-                  2741,
-                  2749
+                  2739,
+                  2747
                 ],
                 "loc": {
                   "start": {
@@ -7339,205 +7339,22 @@
                   }
                 }
               }
-            ]
-          },
-          {
-            "type": "ExpressionStatement",
-            "expression": {
-              "type": "AssignmentExpression",
-              "operator": "=",
-              "left": {
-                "type": "MemberExpression",
-                "computed": false,
-                "object": {
-                  "type": "Identifier",
-                  "name": "agl",
-                  "range": [
-                    2828,
-                    2831
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 117,
-                      "column": 1
-                    },
-                    "end": {
-                      "line": 117,
-                      "column": 4
-                    }
-                  }
-                },
-                "property": {
-                  "type": "Identifier",
-                  "name": "ambientLightColor",
-                  "range": [
-                    2832,
-                    2849
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 117,
-                      "column": 5
-                    },
-                    "end": {
-                      "line": 117,
-                      "column": 22
-                    }
-                  }
-                },
-                "range": [
-                  2828,
-                  2849
-                ],
-                "loc": {
-                  "start": {
-                    "line": 117,
-                    "column": 1
-                  },
-                  "end": {
-                    "line": 117,
-                    "column": 22
-                  }
-                }
-              },
-              "right": {
-                "type": "ArrayExpression",
-                "elements": [
-                  {
-                    "type": "Literal",
-                    "value": 0.1,
-                    "raw": "0.1",
-                    "range": [
-                      2853,
-                      2856
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 117,
-                        "column": 26
-                      },
-                      "end": {
-                        "line": 117,
-                        "column": 29
-                      }
-                    }
-                  },
-                  {
-                    "type": "Literal",
-                    "value": 0.05,
-                    "raw": "0.05",
-                    "range": [
-                      2857,
-                      2861
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 117,
-                        "column": 30
-                      },
-                      "end": {
-                        "line": 117,
-                        "column": 34
-                      }
-                    }
-                  },
-                  {
-                    "type": "Literal",
-                    "value": 0,
-                    "raw": "0.0",
-                    "range": [
-                      2862,
-                      2865
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 117,
-                        "column": 35
-                      },
-                      "end": {
-                        "line": 117,
-                        "column": 38
-                      }
-                    }
-                  }
-                ],
-                "range": [
-                  2852,
-                  2866
-                ],
-                "loc": {
-                  "start": {
-                    "line": 117,
-                    "column": 25
-                  },
-                  "end": {
-                    "line": 117,
-                    "column": 39
-                  }
-                }
-              },
-              "range": [
-                2828,
-                2866
-              ],
-              "loc": {
-                "start": {
-                  "line": 117,
-                  "column": 1
-                },
-                "end": {
-                  "line": 117,
-                  "column": 39
-                }
-              }
-            },
-            "range": [
-              2828,
-              2867
             ],
-            "loc": {
-              "start": {
-                "line": 117,
-                "column": 1
-              },
-              "end": {
-                "line": 117,
-                "column": 40
-              }
-            },
             "trailingComments": [
-              {
-                "type": "Line",
-                "value": " color",
-                "range": [
-                  2868,
-                  2876
-                ],
-                "loc": {
-                  "start": {
-                    "line": 117,
-                    "column": 41
-                  },
-                  "end": {
-                    "line": 117,
-                    "column": 49
-                  }
-                }
-              },
               {
                 "type": "Line",
                 "value": " init Matrix Stack",
                 "range": [
-                  2881,
-                  2901
+                  2828,
+                  2848
                 ],
                 "loc": {
                   "start": {
-                    "line": 119,
+                    "line": 118,
                     "column": 1
                   },
                   "end": {
-                    "line": 119,
+                    "line": 118,
                     "column": 21
                   }
                 }
@@ -7555,16 +7372,16 @@
                   "type": "Identifier",
                   "name": "ams",
                   "range": [
-                    2904,
-                    2907
+                    2851,
+                    2854
                   ],
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 119,
                       "column": 1
                     },
                     "end": {
-                      "line": 120,
+                      "line": 119,
                       "column": 4
                     }
                   }
@@ -7573,31 +7390,31 @@
                   "type": "Identifier",
                   "name": "initMatrix",
                   "range": [
-                    2908,
-                    2918
+                    2855,
+                    2865
                   ],
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 119,
                       "column": 5
                     },
                     "end": {
-                      "line": 120,
+                      "line": 119,
                       "column": 15
                     }
                   }
                 },
                 "range": [
-                  2904,
-                  2918
+                  2851,
+                  2865
                 ],
                 "loc": {
                   "start": {
-                    "line": 120,
+                    "line": 119,
                     "column": 1
                   },
                   "end": {
-                    "line": 120,
+                    "line": 119,
                     "column": 15
                   }
                 }
@@ -7607,16 +7424,16 @@
                   "type": "Identifier",
                   "name": "agl",
                   "range": [
-                    2919,
-                    2922
+                    2866,
+                    2869
                   ],
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 119,
                       "column": 16
                     },
                     "end": {
-                      "line": 120,
+                      "line": 119,
                       "column": 19
                     }
                   }
@@ -7626,83 +7443,65 @@
                   "value": 45,
                   "raw": "45",
                   "range": [
-                    2923,
-                    2925
+                    2870,
+                    2872
                   ],
                   "loc": {
                     "start": {
-                      "line": 120,
+                      "line": 119,
                       "column": 20
                     },
                     "end": {
-                      "line": 120,
+                      "line": 119,
                       "column": 22
                     }
                   }
                 }
               ],
               "range": [
-                2904,
-                2926
+                2851,
+                2873
               ],
               "loc": {
                 "start": {
-                  "line": 120,
+                  "line": 119,
                   "column": 1
                 },
                 "end": {
-                  "line": 120,
+                  "line": 119,
                   "column": 23
                 }
               }
             },
             "range": [
-              2904,
-              2927
+              2851,
+              2874
             ],
             "loc": {
               "start": {
-                "line": 120,
+                "line": 119,
                 "column": 1
               },
               "end": {
-                "line": 120,
+                "line": 119,
                 "column": 24
               }
             },
             "leadingComments": [
               {
                 "type": "Line",
-                "value": " color",
-                "range": [
-                  2868,
-                  2876
-                ],
-                "loc": {
-                  "start": {
-                    "line": 117,
-                    "column": 41
-                  },
-                  "end": {
-                    "line": 117,
-                    "column": 49
-                  }
-                }
-              },
-              {
-                "type": "Line",
                 "value": " init Matrix Stack",
                 "range": [
-                  2881,
-                  2901
+                  2828,
+                  2848
                 ],
                 "loc": {
                   "start": {
-                    "line": 119,
+                    "line": 118,
                     "column": 1
                   },
                   "end": {
-                    "line": 119,
+                    "line": 118,
                     "column": 21
                   }
                 }
@@ -7713,16 +7512,16 @@
                 "type": "Line",
                 "value": " fov = 45 degrees",
                 "range": [
-                  2928,
-                  2947
+                  2875,
+                  2894
                 ],
                 "loc": {
                   "start": {
-                    "line": 120,
+                    "line": 119,
                     "column": 25
                   },
                   "end": {
-                    "line": 120,
+                    "line": 119,
                     "column": 44
                   }
                 }
@@ -7731,16 +7530,16 @@
                 "type": "Line",
                 "value": " start the animation",
                 "range": [
-                  2952,
-                  2974
+                  2899,
+                  2921
                 ],
                 "loc": {
                   "start": {
-                    "line": 122,
+                    "line": 121,
                     "column": 1
                   },
                   "end": {
-                    "line": 122,
+                    "line": 121,
                     "column": 23
                   }
                 }
@@ -7755,47 +7554,47 @@
                 "type": "Identifier",
                 "name": "nextFrame",
                 "range": [
-                  2977,
-                  2986
+                  2924,
+                  2933
                 ],
                 "loc": {
                   "start": {
-                    "line": 123,
+                    "line": 122,
                     "column": 1
                   },
                   "end": {
-                    "line": 123,
+                    "line": 122,
                     "column": 10
                   }
                 }
               },
               "arguments": [],
               "range": [
-                2977,
-                2988
+                2924,
+                2935
               ],
               "loc": {
                 "start": {
-                  "line": 123,
+                  "line": 122,
                   "column": 1
                 },
                 "end": {
-                  "line": 123,
+                  "line": 122,
                   "column": 12
                 }
               }
             },
             "range": [
-              2977,
-              2989
+              2924,
+              2936
             ],
             "loc": {
               "start": {
-                "line": 123,
+                "line": 122,
                 "column": 1
               },
               "end": {
-                "line": 123,
+                "line": 122,
                 "column": 13
               }
             },
@@ -7804,16 +7603,16 @@
                 "type": "Line",
                 "value": " fov = 45 degrees",
                 "range": [
-                  2928,
-                  2947
+                  2875,
+                  2894
                 ],
                 "loc": {
                   "start": {
-                    "line": 120,
+                    "line": 119,
                     "column": 25
                   },
                   "end": {
-                    "line": 120,
+                    "line": 119,
                     "column": 44
                   }
                 }
@@ -7822,16 +7621,16 @@
                 "type": "Line",
                 "value": " start the animation",
                 "range": [
-                  2952,
-                  2974
+                  2899,
+                  2921
                 ],
                 "loc": {
                   "start": {
-                    "line": 122,
+                    "line": 121,
                     "column": 1
                   },
                   "end": {
-                    "line": 122,
+                    "line": 121,
                     "column": 23
                   }
                 }
@@ -7841,7 +7640,7 @@
         ],
         "range": [
           2268,
-          2992
+          2939
         ],
         "loc": {
           "start": {
@@ -7849,7 +7648,7 @@
             "column": 22
           },
           "end": {
-            "line": 124,
+            "line": 123,
             "column": 1
           }
         }
@@ -7858,7 +7657,7 @@
       "expression": false,
       "range": [
         2246,
-        2992
+        2939
       ],
       "loc": {
         "start": {
@@ -7866,7 +7665,7 @@
           "column": 0
         },
         "end": {
-          "line": 124,
+          "line": 123,
           "column": 1
         }
       },
@@ -7895,7 +7694,7 @@
   "sourceType": "module",
   "range": [
     16,
-    2992
+    2939
   ],
   "loc": {
     "start": {
@@ -7903,7 +7702,7 @@
       "column": 1
     },
     "end": {
-      "line": 124,
+      "line": 123,
       "column": 1
     }
   },
@@ -8614,8 +8413,8 @@
       "type": "Line",
       "value": "var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,\"test\");",
       "range": [
-        2653,
-        2736
+        2651,
+        2734
       ],
       "loc": {
         "start": {
@@ -8632,8 +8431,8 @@
       "type": "Line",
       "value": " light",
       "range": [
-        2741,
-        2749
+        2739,
+        2747
       ],
       "loc": {
         "start": {
@@ -8648,36 +8447,18 @@
     },
     {
       "type": "Line",
-      "value": " color",
-      "range": [
-        2868,
-        2876
-      ],
-      "loc": {
-        "start": {
-          "line": 117,
-          "column": 41
-        },
-        "end": {
-          "line": 117,
-          "column": 49
-        }
-      }
-    },
-    {
-      "type": "Line",
       "value": " init Matrix Stack",
       "range": [
-        2881,
-        2901
+        2828,
+        2848
       ],
       "loc": {
         "start": {
-          "line": 119,
+          "line": 118,
           "column": 1
         },
         "end": {
-          "line": 119,
+          "line": 118,
           "column": 21
         }
       }
@@ -8686,16 +8467,16 @@
       "type": "Line",
       "value": " fov = 45 degrees",
       "range": [
-        2928,
-        2947
+        2875,
+        2894
       ],
       "loc": {
         "start": {
-          "line": 120,
+          "line": 119,
           "column": 25
         },
         "end": {
-          "line": 120,
+          "line": 119,
           "column": 44
         }
       }
@@ -8704,16 +8485,16 @@
       "type": "Line",
       "value": " start the animation",
       "range": [
-        2952,
-        2974
+        2899,
+        2921
       ],
       "loc": {
         "start": {
-          "line": 122,
+          "line": 121,
           "column": 1
         },
         "end": {
-          "line": 122,
+          "line": 121,
           "column": 23
         }
       }

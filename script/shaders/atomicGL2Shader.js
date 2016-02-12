@@ -11,6 +11,8 @@
 // atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader
 // atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader
 //----------------------------------------------------------------------------------------
+"use strict";
+
 class atomicGL2Shader{
 	//constructor(nname){this.name=nname;}
 	constructor(){}

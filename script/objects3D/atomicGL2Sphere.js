@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 //----------------------------------------------------------------------------------------
 // atomicGL2Sphere  extends atomicGLObject3d
@@ -15,13 +15,13 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 	// rthis.radius:			float
 	// lthis.latitudeBands: init
 	// lthis.longitudeBands: int
-	constructor(nname,rradius, llatitudeBands,llongitudeBands,uu,vv){
-		super(nname);
+	constructor(name,radius, latitudeBands,longitudeBands,uu,vv){
+		super(name);
 
 		// size
-		this.radius	= rradius ;
-		this.latitudeBands 	= llatitudeBands ;
-		this.longitudeBands	= llongitudeBands ;
+		this.radius	= radius ;
+		this.latitudeBands 	= latitudeBands ;
+		this.longitudeBands	= longitudeBands ;
 
 		// textures
 		this.scaleUV = [uu,vv] ;

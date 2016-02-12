@@ -1,5 +1,29 @@
 window.esdocSearchIndex = [
   [
+    "./script/lights/atomicgl2directionnallight.js~atomicgl2directionnallight",
+    "class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html",
+    "<span>atomicGL2DirectionnalLight</span> <span class=\"search-result-import-path\">./script/lights/atomicGL2DirectionnalLight.js</span>",
+    "class"
+  ],
+  [
+    "./script/lights/atomicgl2light.js~atomicgl2light",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html",
+    "<span>atomicGL2Light</span> <span class=\"search-result-import-path\">./script/lights/atomicGL2Light.js</span>",
+    "class"
+  ],
+  [
+    "./script/lights/atomicgl2pointlight.js~atomicgl2pointlight",
+    "class/script/lights/atomicGL2PointLight.js~atomicGL2PointLight.html",
+    "<span>atomicGL2PointLight</span> <span class=\"search-result-import-path\">./script/lights/atomicGL2PointLight.js</span>",
+    "class"
+  ],
+  [
+    "./script/lights/atomicgl2spotlight.js~atomicgl2spotlight",
+    "class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html",
+    "<span>atomicGL2SpotLight</span> <span class=\"search-result-import-path\">./script/lights/atomicGL2SpotLight.js</span>",
+    "class"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -360,10 +384,82 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "script/lights/atomicgl2directionnallight.js~atomicgl2directionnallight#constructor",
+    "class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html#instance-constructor-constructor",
+    "script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight#constructor",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2directionnallight.js~atomicgl2directionnallight#direction",
+    "class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html#instance-member-direction",
+    "script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight#direction",
+    "member"
+  ],
+  [
     "script/lights/atomicgl2light.js",
     "file/script/lights/atomicGL2Light.js.html",
     "script/lights/atomicGL2Light.js",
     "file"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#color",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-member-color",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#color",
+    "member"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#constructor",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-constructor-constructor",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#constructor",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#direction",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-member-direction",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#direction",
+    "member"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#getcolor",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-method-getColor",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#getColor",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#getdirection",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-method-getDirection",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#getDirection",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#getposition",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-method-getPosition",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#getPosition",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#getradius",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-method-getRadius",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#getRadius",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#gettype",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-method-getType",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#getType",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#position",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-member-position",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#position",
+    "member"
+  ],
+  [
+    "script/lights/atomicgl2light.js~atomicgl2light#radius",
+    "class/script/lights/atomicGL2Light.js~atomicGL2Light.html#instance-member-radius",
+    "script/lights/atomicGL2Light.js~atomicGL2Light#radius",
+    "member"
   ],
   [
     "script/lights/atomicgl2pointlight.js",
@@ -372,10 +468,46 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "script/lights/atomicgl2pointlight.js~atomicgl2pointlight#constructor",
+    "class/script/lights/atomicGL2PointLight.js~atomicGL2PointLight.html#instance-constructor-constructor",
+    "script/lights/atomicGL2PointLight.js~atomicGL2PointLight#constructor",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2pointlight.js~atomicgl2pointlight#position",
+    "class/script/lights/atomicGL2PointLight.js~atomicGL2PointLight.html#instance-member-position",
+    "script/lights/atomicGL2PointLight.js~atomicGL2PointLight#position",
+    "member"
+  ],
+  [
     "script/lights/atomicgl2spotlight.js",
     "file/script/lights/atomicGL2SpotLight.js.html",
     "script/lights/atomicGL2SpotLight.js",
     "file"
+  ],
+  [
+    "script/lights/atomicgl2spotlight.js~atomicgl2spotlight#constructor",
+    "class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html#instance-constructor-constructor",
+    "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#constructor",
+    "method"
+  ],
+  [
+    "script/lights/atomicgl2spotlight.js~atomicgl2spotlight#direction",
+    "class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html#instance-member-direction",
+    "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#direction",
+    "member"
+  ],
+  [
+    "script/lights/atomicgl2spotlight.js~atomicgl2spotlight#position",
+    "class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html#instance-member-position",
+    "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#position",
+    "member"
+  ],
+  [
+    "script/lights/atomicgl2spotlight.js~atomicgl2spotlight#radius",
+    "class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html#instance-member-radius",
+    "script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight#radius",
+    "member"
   ],
   [
     "script/loaders/atomicgl2shaderloader.js",
@@ -480,6 +612,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "script/shaders/atomicglskybox.js",
+    "file/script/shaders/atomicGLSkyBox.js.html",
+    "script/shaders/atomicGLSkyBox.js",
+    "file"
+  ],
+  [
     "script/webglstart.js",
     "file/script/webGLStart.js.html",
     "script/webGLStart.js",
@@ -513,6 +651,12 @@ window.esdocSearchIndex = [
     "script/webgl/atomicgl2xml.2.js",
     "file/script/webgl/atomicGL2xml.2.js.html",
     "script/webgl/atomicGL2xml.2.js",
+    "file"
+  ],
+  [
+    "script/webgl/atomicglwalkcamera.js",
+    "file/script/webgl/atomicGLWalkCamera.js.html",
+    "script/webgl/atomicGLWalkCamera.js",
     "file"
   ]
 ]

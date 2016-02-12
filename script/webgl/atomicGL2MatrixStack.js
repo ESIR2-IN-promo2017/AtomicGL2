@@ -8,6 +8,7 @@
 // atomicGL2MatrixStack
 //----------------------------------------------------------------------------------------
 
+"use strict";
 
 class atomicGL2MatrixStack{
 // constructor

@@ -7,14 +7,15 @@
 //----------------------------------------------------------------------------------------
 // atomicGLObject3d
 //----------------------------------------------------------------------------------------
+"use strict";
 
 class atomicGL2Object3d{
 	// constructor
 	//------------------------
 	// inputs:	nname: 	name of the 3D Obj - string
-	constructor(nname){
+	constructor(name){
 		// name
-		this.name = nname ;
+		this.name = name ;
 		
 		// textures
 		this.scaleUV            = [];

@@ -15,7 +15,6 @@ This Class will import different type of Mesh
   2° : .fbx (I hope)
   3° : we will see
 */
-
 "use strict";
 
 class atomicGL2Importer  {
@@ -154,26 +153,26 @@ class atomicGL2Importer  {
                       // add the newly created vertex to the list of indices
                       obj.vertexIndices.push(parseInt(vertex[0])-1);
   
-                      // increment the counter
-                      objTmp.indices.push(obj.index);
                       objTmp.hashindices[elements[j]] =obj.index ;
                       
                       // increment the counter
                       obj.index += 1;
   
                       if(j === 3 && quad) {
-                          // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
-                          // in order to split the quad onto two triangle : 
-                          // f 1 2 3 4 => 1 2 3  1 3 4 
-                          //objTmp.indices.push( objTmp.hashindices[elements[0]]);
+                         // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
+                         // in order to split the quad onto two triangle : 
+                         // f 1 2 3 4 => 1 2 3  1 3 4 
                           obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
-                          obj.vertexIndices.push(obj.vertexIndices[obj.vertexIndices.length-2],
-                                                parseInt(vertex[0])-1);
+                          obj.vertexIndices.push(parseInt(vertex[0])-1);
                       }
                   }
               }
             }
         }
+        
+        if (obj.normals.length == 0)
+          obj.normals.push(0);
+
         obj.index = obj.vertexIndices;
         return obj;
     }

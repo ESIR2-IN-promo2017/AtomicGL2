@@ -7,57 +7,79 @@
 //----------------------------------------------------------------------------------------
 // atomicGL2Light
 //----------------------------------------------------------------------------------------
+"use strict";
 
+  /**
+   * @abstract atomicGL2Light
+   */
 class atomicGL2Light {
-	// constructor
-	//------------------------
-	// inputs
-	//------------------------
-	// ccolor 		: Light color
-	// nname		: nname attribute of the ligth 
-	constructor(ccolor){
+
+	/**
+   * 
+   * @param {Array[3]:float} color the color of the light
+   */
+	constructor(color){
 
 		//if this class is instantiate : Error exception Abstract Class
 		if (this.getType() == atomicGL2Light)
-      		throw new TypeError("Cannot construct Abstract instances directly");
-   		//if the ccolor parmaters is undefined : Error exception
-   		if(typeof(ccolor)!=Array[3] && ccolor.length!=3)
-      		throw new TypeError("Please instantiate with the color parameter which is an Array of 3 float");
+      throw new TypeError("Cannot construct Abstract instances directly");
+   	//if the ccolor parmaters is undefined : Error exception
+   	if(typeof(color)!=Array[3] && color.length!=3)
+      throw new TypeError("Please instantiate with the color parameter which is an Array of 3 float");
 
-/*      	if(typeof(nname)!==String)
-			nname = "warning : the identifier of the light was not initialized";*/
+    /**
+    * @type {Array[3]:float} color of the light
+    */
+		this.color = color;
 
-		// attributes
-		// -------------------------------------------------
-		// GL lights
-		this.color = ccolor;
-/*		this.name = nname;*/
-		
-		this.position = null;
-		this.direction = null;
-		this.radius = null;
+    /**
+    * @type {Array[3]:float} position of the light
+    */      
+    this.position = null;
+
+    /**
+    * @type {float} angle of the area of the SpotLight
+    */
+    this.radius = null;
+
+    /**
+    * @type {Array[3]:float} direction of the light
+    */
+    this.direction = null;
+	
 	}
 
-/*	getName(){
-		return this.name;
-	}
-*/
+	/**
+   * @return {Array[3]:float} return the color of the light
+   */
 	getColor(){
 		return this.color;
 	}
 
-	getPosition(){
-		return this.position;
-	}
+  /*
+  * @type {float} The angle of the area of the SpotLight 
+  */
+    getRadius(){
+    return this.radius;
+  }
 
-	getDirection(){
-		return this.direction;
-	}
+  /**
+  * @type {Array[3]:float} return the position of the light
+  */
+  getPosition(){
+    return this.position;
+  }
 
-	getRadius(){
-		return this.radius;
-	}
+  /**
+    * @type {Array[3]:float} return the direction of the light
+    */
+  getDirection(){
+    return this.direction;
+  }
 
+  /**
+  * @type {Array[3]:float} return the Type of the light
+  */
 	getType(){
 		return this.constructor ;
 	}

@@ -11,6 +11,8 @@
 // atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader
 // atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader
 //----------------------------------------------------------------------------------------
+"use strict";
+
 class atomicGL2ShaderLoader{
 	constructor(){
 		this.vertexShaderSRC           = "";

@@ -12,16 +12,16 @@
 
 class atomicGL2DirectionnalLight extends atomicGL2Light{
 
-	// constructor
-	//------------------------
-	// inputs
-	//------------------------
-	// ccolor	   	: Light color
-	// ddirection	: Light direction
-
-	constructor(ccolor, ddirection){
-		super(ccolor);
+  /**
+   * @param {Array[3]:float} direction the direction of the ray of light.
+   * @param {Array[3]:float} color the color of the light
+   */
+	constructor(color, direction){
+		super(color);
 		
-		this.direction = ddirection;
+		/**
+     	* @type {Array[3]:float} direction of the light
+     	*/
+		this.direction = direction;
 	}
 }

@@ -2,145 +2,29 @@
   "type": "Program",
   "body": [
     {
-      "type": "ClassDeclaration",
-      "id": {
-        "type": "Identifier",
-        "name": "atomicGL2Shader",
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "Literal",
+        "value": "use strict",
+        "raw": "\"use strict\"",
         "range": [
-          620,
-          635
+          614,
+          626
         ],
         "loc": {
           "start": {
             "line": 14,
-            "column": 6
+            "column": 0
           },
           "end": {
             "line": 14,
-            "column": 21
-          }
-        }
-      },
-      "superClass": null,
-      "body": {
-        "type": "ClassBody",
-        "body": [
-          {
-            "type": "MethodDefinition",
-            "key": {
-              "type": "Identifier",
-              "name": "constructor",
-              "range": [
-                680,
-                691
-              ],
-              "loc": {
-                "start": {
-                  "line": 16,
-                  "column": 1
-                },
-                "end": {
-                  "line": 16,
-                  "column": 12
-                }
-              }
-            },
-            "value": {
-              "type": "FunctionExpression",
-              "id": null,
-              "params": [],
-              "body": {
-                "type": "BlockStatement",
-                "body": [],
-                "range": [
-                  693,
-                  695
-                ],
-                "loc": {
-                  "start": {
-                    "line": 16,
-                    "column": 14
-                  },
-                  "end": {
-                    "line": 16,
-                    "column": 16
-                  }
-                }
-              },
-              "generator": false,
-              "expression": false,
-              "range": [
-                691,
-                695
-              ],
-              "loc": {
-                "start": {
-                  "line": 16,
-                  "column": 12
-                },
-                "end": {
-                  "line": 16,
-                  "column": 16
-                }
-              }
-            },
-            "kind": "constructor",
-            "computed": false,
-            "range": [
-              680,
-              695
-            ],
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 1
-              },
-              "end": {
-                "line": 16,
-                "column": 16
-              }
-            },
-            "leadingComments": [
-              {
-                "type": "Line",
-                "value": "constructor(nname){this.name=nname;}",
-                "range": [
-                  639,
-                  677
-                ],
-                "loc": {
-                  "start": {
-                    "line": 15,
-                    "column": 1
-                  },
-                  "end": {
-                    "line": 15,
-                    "column": 39
-                  }
-                }
-              }
-            ],
-            "static": false
-          }
-        ],
-        "range": [
-          635,
-          698
-        ],
-        "loc": {
-          "start": {
-            "line": 14,
-            "column": 21
-          },
-          "end": {
-            "line": 17,
-            "column": 1
+            "column": 12
           }
         }
       },
       "range": [
         614,
-        698
+        627
       ],
       "loc": {
         "start": {
@@ -148,8 +32,8 @@
           "column": 0
         },
         "end": {
-          "line": 17,
-          "column": 1
+          "line": 14,
+          "column": 13
         }
       },
       "leadingComments": [
@@ -388,12 +272,164 @@
           }
         }
       ]
+    },
+    {
+      "type": "ClassDeclaration",
+      "id": {
+        "type": "Identifier",
+        "name": "atomicGL2Shader",
+        "range": [
+          637,
+          652
+        ],
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 6
+          },
+          "end": {
+            "line": 16,
+            "column": 21
+          }
+        }
+      },
+      "superClass": null,
+      "body": {
+        "type": "ClassBody",
+        "body": [
+          {
+            "type": "MethodDefinition",
+            "key": {
+              "type": "Identifier",
+              "name": "constructor",
+              "range": [
+                697,
+                708
+              ],
+              "loc": {
+                "start": {
+                  "line": 18,
+                  "column": 1
+                },
+                "end": {
+                  "line": 18,
+                  "column": 12
+                }
+              }
+            },
+            "value": {
+              "type": "FunctionExpression",
+              "id": null,
+              "params": [],
+              "body": {
+                "type": "BlockStatement",
+                "body": [],
+                "range": [
+                  710,
+                  712
+                ],
+                "loc": {
+                  "start": {
+                    "line": 18,
+                    "column": 14
+                  },
+                  "end": {
+                    "line": 18,
+                    "column": 16
+                  }
+                }
+              },
+              "generator": false,
+              "expression": false,
+              "range": [
+                708,
+                712
+              ],
+              "loc": {
+                "start": {
+                  "line": 18,
+                  "column": 12
+                },
+                "end": {
+                  "line": 18,
+                  "column": 16
+                }
+              }
+            },
+            "kind": "constructor",
+            "computed": false,
+            "range": [
+              697,
+              712
+            ],
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 1
+              },
+              "end": {
+                "line": 18,
+                "column": 16
+              }
+            },
+            "leadingComments": [
+              {
+                "type": "Line",
+                "value": "constructor(nname){this.name=nname;}",
+                "range": [
+                  656,
+                  694
+                ],
+                "loc": {
+                  "start": {
+                    "line": 17,
+                    "column": 1
+                  },
+                  "end": {
+                    "line": 17,
+                    "column": 39
+                  }
+                }
+              }
+            ],
+            "static": false
+          }
+        ],
+        "range": [
+          652,
+          715
+        ],
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 21
+          },
+          "end": {
+            "line": 19,
+            "column": 1
+          }
+        }
+      },
+      "range": [
+        631,
+        715
+      ],
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 1
+        }
+      }
     }
   ],
   "sourceType": "module",
   "range": [
     614,
-    698
+    715
   ],
   "loc": {
     "start": {
@@ -401,7 +437,7 @@
       "column": 0
     },
     "end": {
-      "line": 17,
+      "line": 19,
       "column": 1
     }
   },
@@ -644,16 +680,16 @@
       "type": "Line",
       "value": "constructor(nname){this.name=nname;}",
       "range": [
-        639,
-        677
+        656,
+        694
       ],
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 1
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 39
         }
       }
