@@ -63,8 +63,8 @@
 			uniform vec3 uAmbientColor;
 
 			//point light ie omni dir:  location, color
-			uniform vec3 uPointLightPosition0;
-			uniform vec3 uPointLightColor0;
+			uniform vec3 SunPosition;
+			uniform vec3 SunColor;
 		</UNIFORMS>
 
 		<VARYING>
@@ -81,7 +81,7 @@
 
 		  void main(void) {
 				// light direction
-				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+				vec3 lightDirection = normalize(SunPosition - vPosition.xyz);
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
@@ -96,7 +96,7 @@
 				vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 
 				// light color
-				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*uPointLightColor0 *texColor.rgb ;
+				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*SunColor *texColor.rgb ;
 
 	      gl_FragColor = vec4(lightColor,1.0);
 	    }

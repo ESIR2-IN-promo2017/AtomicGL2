@@ -2,7 +2,7 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="PointLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0">
+		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0">
 		</POINTLIGHT>
 		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
 		</DIRECTIONNALLIGHT>
@@ -12,6 +12,8 @@
 
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>
+		<XMATSHADER file="shaders/textDiffProg.xml" nblight="1">texDiffProg</XMATSHADER>
+
 	</SHADERS>
 
 	<TEXTURES>
@@ -39,15 +41,11 @@
 
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
 			<TRANSFORM id="transform_ground" translate="5.0,1.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_ground_sand" shader="textProg">ground_sand</OBJECT3D>
+					<OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D>
 			</TRANSFORM>
 
 			<TRANSFORM id="transform_sphere" translate="10.0,10.0,-2.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_toto" shader="textProg">toto</OBJECT3D>
+					<OBJECT3D id="obj_toto" shader="texDiffProg">toto</OBJECT3D>
 			</TRANSFORM>
-
-			<TRANSFORM id="transform_sexylady" translate="5.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_sexy_lady" shader="textProg">sexy_lady</OBJECT3D>
-			</TRANSFORM>
-	</ROOT>
+		</ROOT>
 </SCENE>

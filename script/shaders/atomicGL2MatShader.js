@@ -141,35 +141,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// uAmbientColor
 		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
 		
-		for(var lightId of agl.lights.keys())
-		{
-			if(this.hasLight(lightId))
-			{
-				switch(agl.getLight(lightId).getType())
-				{
-					case atomicGL2PointLight:
-						setUniformById(agl,lightId + "Postition",agl.getLight(lightId).getPosition());
-						setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-					break;
-
-					case atomicGL2DirectionnalLight:
-						setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
-						setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-					break;
-
-					case atomicGL2SpotLight:
-						setUniformById(agl,lightId + "Postition",agl.getLight(lightId).getPosition());
-						setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
-						setUniformById(agl,lightId + "Radius",agl.getLight(lightId).getRadius());
-						setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-					break;
-
-					default:
-						alert("Error with the Type of the Light: still not implemented");
-					break;
-				}
-			}
-		}
+		
 
 		// textures
 		for (var i = 0; i < this.nbTex; i++) {
@@ -206,19 +178,34 @@ class  atomicGL2MatShader extends atomicGL2Shader{
         	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
         // Lights
-        //		ambient
-        //aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+		for(var lightId of agl.lights.keys())
+		{
+			if(this.hasLight(lightId))
+			{
+				switch(agl.getLight(lightId).getType())
+				{
+					case atomicGL2PointLight:
+						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+					break;
 
-		//		Omni
-		for (var i=0; i < this.nbLight ; i++){
-			// debug
-			//console.log("-- atomicGLShader::setUniforms - Light number ("+i+")");
-			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +aGL.omniLightLocation[i*3+0] +","+ aGL.omniLightLocation[i*3+1]+","+ aGL.omniLightLocation[i*3+2] );
-			//console.log("-- LightColor @"+this.pointLightColorUniform[i]+"::" +aGL.omniLightColor[i*3+0] +","+ aGL.omniLightColor[i*3+1]+","+ aGL.omniLightColor[i*3+2] );
+					case atomicGL2DirectionnalLight:
+						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+					break;
 
-		//	console.log( aGL.lights[i]);
-			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
-			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
+					case atomicGL2SpotLight:
+						this.setUniformById(agl,lightId + "Postition",agl.getLight(lightId).getPosition());
+						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
+						this.setUniformById(agl,lightId + "Radius",agl.getLight(lightId).getRadius());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+					break;
+
+					default:
+						alert("Error with the Type of the Light: still not implemented");
+					break;
+				}
+			}
 		}
 
     }
@@ -426,6 +413,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			break;
 
 			case 'vec3' :
+				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
 
 			break;
 
