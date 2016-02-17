@@ -14,7 +14,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(agl,shaderloader,nnbLights){
+	constructor(agl,shaderloader){
 		// attributes
 		// -------------------------------------------------
 		super();
@@ -25,8 +25,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// nbTex
 		this.nbTex = this.shaderloader.getNbTexture();
 
-		// nbLights
-		this.nbLight = nnbLights ;
 		// program shader
 		this.program ;
 
@@ -187,6 +185,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 					case atomicGL2PointLight:
 						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getColor());
+
 					break;
 
 					case atomicGL2DirectionnalLight:

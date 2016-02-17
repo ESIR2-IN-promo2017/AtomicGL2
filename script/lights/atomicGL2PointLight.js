@@ -16,8 +16,8 @@ class atomicGL2PointLight extends atomicGL2Light{
    * @param {Array[3]:float} color the color of the light
    * @param {Array[3]:float} position the position of the Pointlight.
    */
-	constructor(color,position){
-		super(color);
+	constructor(color,position,intensity){
+		super(color,intensity);
 		
 		//if the position parmaters is undefined : Error exception
    		if(typeof(position)!=Array && position.length != 3)

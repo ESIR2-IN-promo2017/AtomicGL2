@@ -2,7 +2,7 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0">
+		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10" >
 		</POINTLIGHT>
 		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
 		</DIRECTIONNALLIGHT>
@@ -11,8 +11,8 @@
 	</LIGHTS>
 
 	<SHADERS>
-		<XMATSHADER file="shaders/textProg.xml" nblight="0">textProg</XMATSHADER>
-		<XMATSHADER file="shaders/textDiffProg.xml" nblight="1">texDiffProg</XMATSHADER>
+		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
+		<XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER>
 
 	</SHADERS>
 
