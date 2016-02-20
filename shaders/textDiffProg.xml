@@ -65,7 +65,6 @@
 			//point light ie omni dir:  location, color
 			uniform vec3 SunPosition;
 			uniform vec3 SunColor;
-			uniform float SunIntensity;
 		</UNIFORMS>
 
 		<VARYING>
@@ -83,9 +82,6 @@
 		  void main(void) {
 				// light direction
 				vec3 lightDirection = normalize(SunPosition - vPosition.xyz);
-				float distance = sqrt(pow(SunPosition.x-vPosition.x,2.0) + 
-									pow(SunPosition.y-vPosition.y,2.0)+
-									pow(SunPosition.z-vPosition.z,2.0));
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
@@ -94,13 +90,13 @@
 				vec3 normal = normalize(vNormal);
 
 				// diffuse term
-				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0) * SunIntensity;
+				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
 
 				// texture color
 				vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 
 				// light color
-				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*SunColor *texColor.rgb/distance ;
+				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*SunColor *texColor.rgb ;
 
 	      gl_FragColor = vec4(lightColor,1.0);
 	    }

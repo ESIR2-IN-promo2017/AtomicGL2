@@ -25,9 +25,6 @@
 // -----------------------------
 function sceneDraw(){
 	agl.initDraw();
-
-
-
 	agl.scenegraph.draw(agl,ams);
 
 }
@@ -46,6 +43,11 @@ function nextFrame() {
 function animate(){
 	// increase time
 	sceneClock.tick() ;
+}
+function buildShader(agl) {
+	for (var key of agl.shaderPrograms.keys()) {
+		agl.getShaderProgram(key).build(agl);
+	}
 }
 
 // keyboard
@@ -111,7 +113,9 @@ function webGLStart() {
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees
+	agl.ams=ams;
 
+	buildShader(agl);
 	// start the animation
 	nextFrame();
 }

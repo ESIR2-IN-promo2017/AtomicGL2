@@ -17,6 +17,8 @@ class atomicGL2Object3d{
 		// name
 		this.name = name ;
 		
+		this.material=new atomicGL2Material();
+
 		// textures
 		this.scaleUV            = [];
 		this.textures           = [];
@@ -35,6 +37,8 @@ class atomicGL2Object3d{
 		
 		// indexes
 		this.vertexIndices      = [];	
+
+		this.shadow = false;
     
     	// OGL buffers
  		// buffers
@@ -55,6 +59,10 @@ class atomicGL2Object3d{
     	this.vertexColorBufferNumItems		;
     	this.vertexTexCoordBufferNumItems 	;
     	this.vertexIndexBufferNumItems 		;
+
+		this.depthFrameBuffer;
+		this.depthTexture;
+		this.depthRenderBuffer;
        		
 	}
 
@@ -64,7 +72,13 @@ class atomicGL2Object3d{
 	// pushTexture
 	// --------------------------
 	// inputs:	 atomicTex: texture - atomicGL2Texture
-	pushTexture(atomicTex){this.textures.push(atomicTex);}	
+	pushTexture(atomicTex){this.textures.push(atomicTex);}
+
+	setMaterial(material) {
+		this.material = material;
+		if(material.getTexture())
+			this.pushTexture(material.getTexture());
+	}	
 	
 		
 	// initGLBuffers
@@ -109,6 +123,32 @@ class atomicGL2Object3d{
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.vertexIndices), gl.STATIC_DRAW);
         this.vertexIndexBufferItemSize = 1;
         this.vertexIndexBufferNumItems = this.vertexIndices.length ;
+
+
+   
+
+            this.depthFrameBuffer=gl.createFramebuffer();
+            gl.bindFramebuffer(gl.FRAMEBUFFER, this.depthFrameBuffer);
+
+            this.depthTexture=gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, this.depthTexture);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, agl.viewportWidth,agl.viewportHeight , 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+
+            this.depthRenderBuffer=gl.createRenderbuffer();
+            gl.bindRenderbuffer(gl.RENDERBUFFER, this.depthRenderBuffer);
+            gl.renderbufferStorage(gl.RENDERBUFFER, agl.gl.DEPTH_COMPONENT16, agl.viewportWidth,agl.viewportHeight);
+
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.depthTexture, 0);
+
+            gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, this.depthRenderBuffer);
+
+            gl.bindTexture(gl.TEXTURE_2D, null);
+            gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 	}
 	
 	
@@ -119,14 +159,16 @@ class atomicGL2Object3d{
 	// 			idProg: Shader index - integer
 	//			shaderProgramName : Shader Name - string
 	draw(aGL,aMS,shaderProgramName){
-		// debug
-		//console.log("atomicGLObject3d("+this.name+")::draw(progId: "+idProg+")");
-
 		// activate shader
 		aGL.gl.useProgram(aGL.getShaderProgram(shaderProgramName).program);
 		// setUniforms: matrices and lights
 		aGL.getShaderProgram(shaderProgramName).setUniforms(aGL,aMS);
-		
+		if(shaderProgramName ==='AutoShadingAtomicGL2') {
+			aGL.getShaderProgram(shaderProgramName).setUniformById(aGL,"diffuseMat", this.material.getDiffuse());
+			aGL.getShaderProgram(shaderProgramName).setUniformById(aGL,"specularMat", this.material.getSpecular());
+			aGL.getShaderProgram(shaderProgramName).setUniformById(aGL,"shininessMat", this.material.getShininess());
+		}
+
 	// link buffer to attributes
 		//positions
 		if(aGL.getShaderProgram(shaderProgramName).hasVertexPositionAttribute(aGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){
@@ -149,27 +191,47 @@ class atomicGL2Object3d{
 			// debug
 			// console.log("atomicGLObject3d("+this.name+")::vertexAttribPointer: "+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);
 			aGL.gl.bindBuffer(aGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);
-			aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);		
+			aGL.gl.vertexAttribPointer(aGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, aGL.gl.FLOAT, false, 0, 0);	
 		}
-
 		for (var i=0; i<this.textures.length; i++ )
 		{
 			// activate texture
 			// debug
 			// console.log("atomicGLObject3d("+this.name+")::activateTexture: "+agl.GLtexture[i]+"/"+agl.gl.TEXTURE0);
-			agl.gl.activeTexture(agl.GLtexture[i]);
+			aGL.gl.activeTexture(aGL.GLtexture[i]);
 			// debug
 			// console.log("atomicGLObject3d("+this.name+")::bindTexture: "+this.textures[i].texture);
-			agl.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);
+			aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, this.textures[i].texture);
 			// debug
 			// console.log("atomicGLObject3d("+this.name+")::uniform: "+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+"->"+i);			
-			agl.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
+			aGL.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
 
 		}
+                   aGL.gl.bindFramebuffer(aGL.gl.FRAMEBUFFER, this.depthFrameBuffer);
+                   aGL.gl.bindRenderbuffer(aGL.gl.RENDERBUFFER, this.depthRenderBuffer);
+                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, this.depthTexture);
 
+
+                   aGL.gl.clearDepth(1.0);
+                   aGL.gl.viewport(0.0, 0.0, aGL.viewportWidth, aGL.viewportHeight);
+
+                   if(!this.shadow){
+                   	this.shadow =true;
+					aGL.initDraw();
+					aGL.scenegraph.draw(aGL,aGL.ams);
+					}
+
+                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, null);
+                   aGL.gl.bindFramebuffer(aGL.gl.FRAMEBUFFER, null);
+                   aGL.gl.bindRenderbuffer(aGL.gl.RENDERBUFFER, null);
+
+                   aGL.gl.activeTexture(aGL.gl.TEXTURE1);
+                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, this.depthTexture);
+                   aGL.gl.activeTexture(aGL.gl.TEXTURE0);
+                   
+                   aGL.gl.flush();
 		// indexes
         aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
-		
 		// draw Object3D
         aGL.gl.drawElements(aGL.gl.TRIANGLES, this.vertexIndexBufferNumItems, aGL.gl.UNSIGNED_SHORT, 0);
 	}

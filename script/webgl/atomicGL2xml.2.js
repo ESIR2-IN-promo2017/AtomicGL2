@@ -44,97 +44,105 @@ class atomicGL2xml {
 
 	// lights
 	lights(agl){
+
 		// <POINTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0"> </POINTLIGHT>
-		var listPOINT = this.dom.getElementsByTagName("POINTLIGHT");
 
-		for (var i=0; i<listPOINT.length; i++){
+		if(this.dom.getElementsByTagName("POINTLIGHT").length!=0){
+			var listPOINT = this.dom.getElementsByTagName("POINTLIGHT");
+			for (var i=0; i<listPOINT.length; i++){
 
-			var POINT     	= listPOINT[i];
-			var id 			= POINT.getAttribute("id");
-			// color
-			var color 		= POINT.getAttribute("color");
-			var r 			= parseFloat(color.split(",")[0]);
-			var g			= parseFloat(color.split(",")[1]);
-			var b			= parseFloat(color.split(",")[2]);
-			// position
-			var position 	= POINT.getAttribute("position");
-			var px 			= parseFloat(position.split(",")[0]);
-			var py 			= parseFloat(position.split(",")[1]);
-			var pz 			= parseFloat(position.split(",")[2]);
+				var POINT     	= listPOINT[i];
+				var id 			= POINT.getAttribute("id");
+				// color
+				var color 		= POINT.getAttribute("color");
+				var r 			= parseFloat(color.split(",")[0]);
+				var g			= parseFloat(color.split(",")[1]);
+				var b			= parseFloat(color.split(",")[2]);
+				// position
+				var position 	= POINT.getAttribute("position");
+				var px 			= parseFloat(position.split(",")[0]);
+				var py 			= parseFloat(position.split(",")[1]);
+				var pz 			= parseFloat(position.split(",")[2]);
 
-			var intensity  = parseFloat(POINT.getAttribute("intensity"));
+				var intensity  = parseFloat(POINT.getAttribute("intensity"));
 
-			// cast color and position to Array
-			color = [r,g,b];
-			position = [px,py,pz];
+				// cast color and position to Array
+				color = [r,g,b];
+				position = [px,py,pz];
 
-			// create pointlight and add it to context
-			agl.pushLight(id, new atomicGL2PointLight(color,position,intensity));
+				// create pointlight and add it to context
+				agl.pushLight(id, new atomicGL2PointLight(color,position,intensity));
+			}
 		}
 
 		// <DIRECTIONNALLIGHT id="test" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"> </DIRECTIONNALLIGHT>
-		var listDIR = this.dom.getElementsByTagName("DIRECTIONNALLIGHT");
+		if(this.dom.getElementsByTagName("DIRECTIONNALLIGHT").length!=0){
+			var listDIR = this.dom.getElementsByTagName("DIRECTIONNALLIGHT");
+			for (var i=0; i<listDIR.length; i++){
 
-		for (var i=0; i<listDIR.length; i++){
+				var DIR 		= listDIR[i];
+				var id 			= DIR.getAttribute("id");
+				// color
+				var color 		= DIR.getAttribute("color");
+				var r 			= parseFloat(color.split(",")[0]);
+				var g			= parseFloat(color.split(",")[1]);
+				var b			= parseFloat(color.split(",")[2]);
+				// direction
+				var direction 	= DIR.getAttribute("direction");
+				var dx 			= parseFloat(direction.split(",")[0]);
+				var dy 			= parseFloat(direction.split(",")[1]);
+				var dz 			= parseFloat(direction.split(",")[2]);
 
-			var DIR 		= listDIR[i];
-			var id 			= DIR.getAttribute("id");
-			// color
-			var color 		= DIR.getAttribute("color");
-			var r 			= parseFloat(color.split(",")[0]);
-			var g			= parseFloat(color.split(",")[1]);
-			var b			= parseFloat(color.split(",")[2]);
-			// direction
-			var direction 	= DIR.getAttribute("direction");
-			var dx 			= parseFloat(direction.split(",")[0]);
-			var dy 			= parseFloat(direction.split(",")[1]);
-			var dz 			= parseFloat(direction.split(",")[2]);
+				var intensity  = parseFloat(DIR.getAttribute("intensity"));
+				
+				// cast color and direction to Array
+				color = [r,g,b];
+				direction = [dx,dy,dz];
 
-			// cast color and direction to Array
-			color = [r,g,b];
-			direction = [dx,dy,dz];
 
-			// create directionnallight and add it to context
-			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction));
-			// debug
-			//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+				// create directionnallight and add it to context
+				agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction,intensity));
+				// debug
+				//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+			}
 		}
 
 		// <SPOTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"> </SPOTLIGHT>
-		var listSPOT = this.dom.getElementsByTagName("SPOTLIGHT");
+		if(this.dom.getElementsByTagName("SPOTLIGHT").length!=0){
+			var listSPOT = this.dom.getElementsByTagName("SPOTLIGHT");
+			for (var i=0; i<listSPOT.length; i++){
 
-		for (var i=0; i<listSPOT.length; i++){
+				var SPOT 		= listSPOT[i];
+				var id 			= SPOT.getAttribute("id");
+				// color
+				var color 		= SPOT.getAttribute("color");
+				var r 			= parseFloat(color.split(",")[0]);
+				var g			= parseFloat(color.split(",")[1]);
+				var b			= parseFloat(color.split(",")[2]);
+				// position
+				var position 	= SPOT.getAttribute("position");
+				var px 			= parseFloat(position.split(",")[0]);
+				var py 			= parseFloat(position.split(",")[1]);
+				var pz 			= parseFloat(position.split(",")[2]);
+				// direction
+				var direction 	= SPOT.getAttribute("direction");
+				var dx 			= parseFloat(direction.split(",")[0]);
+				var dy 			= parseFloat(direction.split(",")[1]);
+				var dz 			= parseFloat(direction.split(",")[2]);
 
-			var SPOT 		= listSPOT[i];
-			var id 			= SPOT.getAttribute("id");
-			// color
-			var color 		= SPOT.getAttribute("color");
-			var r 			= parseFloat(color.split(",")[0]);
-			var g			= parseFloat(color.split(",")[1]);
-			var b			= parseFloat(color.split(",")[2]);
-			// position
-			var position 	= SPOT.getAttribute("position");
-			var px 			= parseFloat(position.split(",")[0]);
-			var py 			= parseFloat(position.split(",")[1]);
-			var pz 			= parseFloat(position.split(",")[2]);
-			// direction
-			var direction 	= SPOT.getAttribute("direction");
-			var dx 			= parseFloat(direction.split(",")[0]);
-			var dy 			= parseFloat(direction.split(",")[1]);
-			var dz 			= parseFloat(direction.split(",")[2]);
+				// radius
+				var radius	 	= SPOT.getAttribute("radius");
 
-			// radius
-			var radius	 	= SPOT.getAttribute("radius");
+				// cast color, position and direction to Array
+				color = [r,g,b];
+				position = [px,py,pz]
+				direction = [dx,dy,dz];
 
-			// cast color, position and direction to Array
-			color = [r,g,b];
-			position = [px,py,pz]
-			direction = [dx,dy,dz];
-
-			// create spotlight and add it to context
-			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
-			// debug
-			//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+				// create spotlight and add it to context
+				agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
+				// debug
+				//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+			}
 		}
 	}
 
@@ -147,12 +155,25 @@ class atomicGL2xml {
 		var listXMSHAD = this.dom.getElementsByTagName("XMATSHADER");
 		for (var i=0; i<listXMSHAD.length;i++)
 		{
+			var shader_name;
 			var SHAD        = listXMSHAD[i] ;
-			var shader_name = SHAD.childNodes[0].data ;
 			var file        = SHAD.getAttribute("file");
+			//is Light process auto ?
+			var lightProcess = SHAD.getAttribute("auto") === "true";
 
+			if(lightProcess){
+				file="config/AutoShadingAtomicGL2.xml";
+				shader_name="AutoShadingAtomicGL2";
+				agl.pushProgram(shader_name, new atomicGL2MatShader(shader_name,agl,new atomicGL2ShaderLoaderScriptXML(file),lightProcess));
+				file="config/AutoShadingAtomicGL2_Textures.xml";
+				shader_name="AutoShadingAtomicGL2_Textures";
+				agl.pushProgram(shader_name, new atomicGL2MatShader(shader_name,agl,new atomicGL2ShaderLoaderScriptXML(file),lightProcess));
+			}else{
+				shader_name = SHAD.childNodes[0].data ;
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file)));
+				agl.pushProgram(shader_name, new atomicGL2MatShader(shader_name,agl,new atomicGL2ShaderLoaderScriptXML(file),lightProcess));
+			}
+
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);
@@ -167,7 +188,7 @@ class atomicGL2xml {
 			var fragment    = SHAD.getAttribute("fragment");
 
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment)));
+			agl.pushProgram(shader_name, new atomicGL2MatShader(shader_name,agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment)));
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);
@@ -193,6 +214,23 @@ class atomicGL2xml {
 		}
 	}
 
+	materials(agl){
+		//<MATERIAL diffuse="0.1,0.3,0.4" specular="0.7,0.2,0.0" shininess="3" >mat_noTexture</MATERIAL>
+		if(this.dom.getElementsByTagName("MATERIAL").length>0) {
+			var listMAT = this.dom.getElementsByTagName("MATERIAL");
+			for(var i= 0 ; i < listMAT.length;++i) {
+				var MAT 		= listMAT[i];
+				var id 			= MAT.childNodes[0].data;
+				var diffuse		= MAT.getAttribute("diffuse").split(',').map(Number); 
+				var specular	= MAT.getAttribute("specular").split(',').map(Number);
+				var shininess 	= parseFloat(MAT.getAttribute("shininess"));
+				var textureId 	= MAT.getAttribute("texture");
+				var agltid = agl.indexOfTexture(textureId);
+				agl.materials.set(id,new atomicGL2Material(id,diffuse,specular,shininess,agl.textures[agltid]));	
+			}
+		}
+	}
+
 	// shapes
 	shapes(agl){
 	// <SHAPE id="shape0" type="obj">
@@ -200,7 +238,7 @@ class atomicGL2xml {
 	//   <TEXID>test</TEXID>
 	//   <TEXTID>test_normal</TEXTID>
 	// </SHAPE>
-		var listSHAPE = this.dom.getElementsByTagName("SHAPE");
+	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
     var listSPHERE = this.dom.getElementsByTagName("SPHERE");
     var listCUBE = this.dom.getElementsByTagName("CUBE");
     var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
@@ -220,6 +258,12 @@ class atomicGL2xml {
 			var u         = parseFloat(GEOuv.split(",")[0]);
 			var v         = parseFloat(GEOuv.split(",")[1]);
 
+			/*//retrieving the material if exist
+			if(SHAPE.getElementsByTagName("MATID")[0]){
+				var MatID     = SHAPE.getElementsByTagName("MATID")[0].childNodes[0].data;
+				console.log(MatID);
+			}*/
+
 			// create shape
 
 			if(SHAPEType == 'js')
@@ -227,7 +271,6 @@ class atomicGL2xml {
 			
 			else if(SHAPEType == 'obj')
 			{
-				console.log('objs/' + GEOmesh);
 				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + GEOmesh).obj, u,v) ;
 			}
 			// debug
@@ -260,40 +303,90 @@ class atomicGL2xml {
 
     // SPHERE
     for (var i=0; i < listSPHERE.length ; i++){
+		//
+		var SPHERE     = listSPHERE[i];
+		var SPHEREId   = SPHERE.getAttribute("id");
+		var SPHEREType = SPHERE.getAttribute("type");
+		// only one GEOMETRY
+		var GEOMETRY  = SPHERE.getElementsByTagName("GEOMETRY")[0];
+		var GEOId     = GEOMETRY.getAttribute("id");
+		var GEORad    = parseFloat(GEOMETRY.getAttribute("rad"));
+		var GEOLat    = parseFloat(GEOMETRY.getAttribute("lat"));
+		var GEOLong   = parseFloat(GEOMETRY.getAttribute("long"));
+		var GEOuv     = GEOMETRY.getAttribute("uv");
+		var u         = parseFloat(GEOuv.split(",")[0]);
+		var v         = parseFloat(GEOuv.split(",")[1]);
+
+		// create shape
+		var ss = new atomicGL2Sphere(SPHEREId, GEORad, GEOLat, GEOLong, u, v);
+		// textures
+		if(SPHERE.getElementsByTagName("TEXTID").length>0){
+		var textures = SPHERE.getElementsByTagName("TEXTID");
+			for (var j=0; j < textures.length ; j++)
+			{
+				var tid = textures[j].childNodes[0].data;
+				// texture index in agl
+				var agltid = agl.indexOfTexture(tid);
+				if (agltid != -1)
+					ss.pushTexture(agl.textures[agltid]);
+				else
+					alert("atomicGLxml::shapes ("+SPHEREId+") texture: "+tid+" not found !");
+			}
+		}else if (SPHERE.getElementsByTagName("MATID").length>0) {
+			var materialId = SPHERE.getElementsByTagName("MATID")[0].childNodes[0].data;
+			ss.setMaterial(agl.materials.get(materialId));
+			if(agl.materials.get(materialId).getTexture()){
+				ss.pushTexture(agl.materials.get(materialId).getTexture());
+			}
+		}
+		// init shape buffer and add it to context
+		ss.initGLBuffers(agl);
+		agl.shapes.push(ss);
+	}
+	// PLANE
+    for (var i=0; i < listXYPLANE.length ; i++){
 			//
-			var SPHERE     = listSPHERE[i];
-			var SPHEREId   = SPHERE.getAttribute("id");
-			var SPHEREType = SPHERE.getAttribute("type");
+			var PLANE     = listXYPLANE[i];
+			var PLANEId   = PLANE.getAttribute("id");
+			var PLANEType = PLANE.getAttribute("type");
 			// only one GEOMETRY
-			var GEOMETRY  = SPHERE.getElementsByTagName("GEOMETRY")[0];
+			var GEOMETRY  = PLANE.getElementsByTagName("GEOMETRY")[0];
 			var GEOId     = GEOMETRY.getAttribute("id");
-			var GEORad    = parseFloat(GEOMETRY.getAttribute("rad"));
-			var GEOLat    = parseFloat(GEOMETRY.getAttribute("lat"));
-			var GEOLong   = parseFloat(GEOMETRY.getAttribute("long"));
+			var GEOHeight    = parseFloat(GEOMETRY.getAttribute("height"));
+			var GEOWidth    = parseFloat(GEOMETRY.getAttribute("width"));
+			var GEOxrow   = parseFloat(GEOMETRY.getAttribute("xrow"));
+			var GEOyrow   = parseFloat(GEOMETRY.getAttribute("yrow"));
+			
 			var GEOuv     = GEOMETRY.getAttribute("uv");
 			var u         = parseFloat(GEOuv.split(",")[0]);
 			var v         = parseFloat(GEOuv.split(",")[1]);
 
 			// create shape
-			var ss = new atomicGL2Sphere(SPHEREId, GEORad, GEOLat, GEOLong, u, v);
+			var ss = new atomicGLxyPlane(PLANEId, GEOHeight, GEOWidth, GEOxrow,GEOyrow, u, v);
 
 			// textures
-			var textures = SPHERE.getElementsByTagName("TEXTID");
+			if(PLANE.getElementsByTagName("TEXTID").length>0){
+			var textures = PLANE.getElementsByTagName("TEXTID");
+				for (var j=0; j < textures.length ; j++)
+				{
+					var tid = textures[j].childNodes[0].data;
+					// texture index in agl
+					var agltid = agl.indexOfTexture(tid);
 
-			for (var j=0; j < textures.length ; j++)
-			{
-				var tid = textures[j].childNodes[0].data;
+					if (agltid != -1)
+						ss.pushTexture(agl.textures[agltid]);
 
-				// texture index in agl
-				var agltid = agl.indexOfTexture(tid);
+					else
+						alert("atomicGLxml::shapes ("+SPHEREId+") texture: "+tid+" not found !");
+				}
+			}else if (PLANE.getElementsByTagName("MATID").length>0) {
+				var materialId = PLANE.getElementsByTagName("MATID")[0].childNodes[0].data;
+				ss.setMaterial(agl.materials.get(materialId));
+				if(agl.materials.get(materialId).getTexture()){
+					ss.pushTexture(agl.materials.get(materialId).getTexture());
+				}
 
-				if (agltid != -1)
-					ss.pushTexture(agl.textures[agltid]);
-
-				else
-					alert("atomicGLxml::shapes ("+SPHEREId+") texture: "+tid+" not found !");
 			}
-
 			// init shape buffer and add it to context
 			ss.initGLBuffers(agl);
 			agl.shapes.push(ss);
@@ -387,6 +480,13 @@ class atomicGL2xml {
 				// shape
 				var shapeId = e.childNodes[0].data ;
 
+				if(shaderId==null){
+					shaderId="AutoShadingAtomicGL2";
+					if (agl.shapes[agl.indexOfShape(shapeId)].textures.length) {
+						shaderId+='_Textures';
+					}
+				}
+
 				// node
 				// JS6
 				node = new atomicGL2SGobject3d('object3D',id);
@@ -422,6 +522,8 @@ class atomicGL2xml {
 		this.shaders(agl);
 		// find textures
 		this.textures(agl);
+		//find materials
+		this.materials(agl);
 		// find shapes
 		this.shapes(agl);
 		// scenegraph

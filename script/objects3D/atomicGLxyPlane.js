@@ -92,29 +92,29 @@ constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
 		for(var ii=0;ii<this.xrow;ii++){
 			// triangles indexes
 			// first
-			this.VertexIndices.push(jj*(this.xrow+1)+ii);
-			this.VertexIndices.push(jj*(this.xrow+1)+ii+1);
-			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii);
+			this.vertexIndices.push(jj*(this.xrow+1)+ii);
+			this.vertexIndices.push(jj*(this.xrow+1)+ii+1);
+			this.vertexIndices.push((jj+1)*(this.xrow+1)+ii);
 			// se
-			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii);
-			this.VertexIndices.push(jj*(this.xrow+1)+ii+1);
-			this.VertexIndices.push((jj+1)*(this.xrow+1)+ii+1);	
+			this.vertexIndices.push((jj+1)*(this.xrow+1)+ii);
+			this.vertexIndices.push(jj*(this.xrow+1)+ii+1);
+			this.vertexIndices.push((jj+1)*(this.xrow+1)+ii+1);	
 			// debug 	
 		}
 	}
 
 	
-	this.VertexPositionBufferItemSize 	= 3	;
-    this.VertexNormalBufferItemSize		= 3	;
-    this.VertexTexCoordBufferItemSize	= 2 ;
-    this.VertexColorBufferItemSize		= 3 ;
-    this.VertexIndexBufferItemSize 		= 1 ;
+	this.vertexPositionBufferItemSize 	= 3	;
+    this.vertexNormalBufferItemSize		= 3	;
+    this.vertexTexCoordBufferItemSize	= 2 ;
+    this.vertexColorBufferItemSize		= 3 ;
+    this.vertexIndexBufferItemSize 		= 1 ;
 	
-	this.VertexPositionBufferNumItems	= (this.xrow+1)*(this.yrow+1) ;
-    this.VertexNormalBufferNumItems		= (this.xrow+1)*(this.yrow+1) ;
-    this.VertexTexCoordBufferNumItems 	= (this.xrow+1)*(this.yrow+1) ;
-    this.VertexColorBufferNumItems 		= (this.xrow+1)*(this.yrow+1) ;
-    this.VertexIndexBufferNumItems 		= (this.xrow)*(this.yrow)*2*3 ;
+	this.vertexPositionBufferNumItems	= (this.xrow+1)*(this.yrow+1) ;
+    this.vertexNormalBufferNumItems		= (this.xrow+1)*(this.yrow+1) ;
+    this.vertexTexCoordBufferNumItems 	= (this.xrow+1)*(this.yrow+1) ;
+    this.vertexColorBufferNumItems 		= (this.xrow+1)*(this.yrow+1) ;
+    this.vertexIndexBufferNumItems 		= (this.xrow)*(this.yrow)*2*3 ;
 
 
 	}

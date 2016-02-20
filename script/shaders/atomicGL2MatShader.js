@@ -10,24 +10,25 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									0: shader doesn't use texture
 	//									1..: 	use texture aVertexTexCoord 	required in the shader
 	//									uSampler0 | uSampler[nbTex-1]	required in the shader
-	// 			nnbLight:			int - number of Lights in the shader
+	// 			nnbLight:			int - number of LightsAtomicGL2 in the shader
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(agl,shaderloader){
+	constructor(id,agl,shaderloader,autoCompute){
 		// attributes
 		// -------------------------------------------------
 		super();
+		this.name = id;
 
 		this.shaderloader =shaderloader;
 
-
+		//Processus of computing light automatic or not
+		this.isLightProcessAuto=autoCompute;
 		// nbTex
 		this.nbTex = this.shaderloader.getNbTexture();
 
 		// program shader
 		this.program ;
-
 
 		// map of attributes
 		// --------------------------
@@ -37,18 +38,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// --------------------------
 		this.mapUniforms = new Map();
 
-		// light
-		this.ambientColorUniform ;
-		this.pointLightLocationUniform = [] ;
-		this.pointLightColorUniform    = [] ;
-
 		// texture -sampler
 		this.samplerUniform = [] ;
 
 		//Initialisation of the key of the mapUniforms and mapAttributes
 		this.initMap();
 
-		this.build(agl,this.shaderloader);
+		//this.build(agl);
 	}
 
 	initMap(){
@@ -58,8 +54,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i =0; i <  this.shaderloader.getUniforms().length; i++) {
 			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
-
-
 	}
 
 	// methods
@@ -87,6 +81,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
             alert(agl.gl.getShaderInfoLog(vertexShader));
             return null;
         }
+
 
 		// fragment
 		var fragmentShader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
@@ -175,7 +170,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
         if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
         	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
-        // Lights
+        // LightsAtomicGL2
 		for(var lightId of agl.lights.keys())
 		{
 			if(this.hasLight(lightId))
@@ -185,7 +180,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 					case atomicGL2PointLight:
 						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getColor());
+						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getIntensity());
 
 					break;
 
@@ -212,8 +207,19 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	// build
 	//-----------------------------
-	build(agl,shaderloader){
-		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
+	build(agl){
+		var vertex = this.shaderloader.getVertex();
+		var fragment = this.shaderloader.getFragment();
+
+
+		if(this.getProcessLight()){
+			var withTexture = this.name=='AutoShadingAtomicGL2_Textures';
+			var shad = this.buildLight(agl,vertex,fragment,withTexture);
+			vertex = shad.vertex;
+			fragment = shad.fragment;
+			console.log(fragment);
+		}
+		this.program = this.createProgram(agl,vertex,fragment);
 	}
 
 	//----------------Getter----------------------------------------//
@@ -382,7 +388,11 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	getAllTexture(){
 		return this.shaderloader.getSampler2D();
 	}
-
+	
+	getProcessLight(){
+		return this.isLightProcessAuto;
+	}
+	
 	getUniformType(id){
 		var arr = this.shaderloader.getUniforms();
 		for (var i = 0; i <arr.length ; i++)
@@ -397,7 +407,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	setUniformById(agl,id,value){
 		var type = this.getUniformType(id) ;
 		var uniform = this.getUniformById(id);
-		
 		switch(type)
 		{
 			case 'float':
@@ -405,20 +414,19 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			break;
 
 			case 'int' :
-		
+				agl.gl.uniform1i(uniform,value[0],value);
 			break;
 
 			case 'vec4' :
-	
+				agl.gl.uniform4f(uniform,value[0],value[1],value[2],value[3]);
 			break;
 
 			case 'vec3' :
 				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
-
 			break;
 
 			case 'vec2' :
-
+				agl.gl.uniform2f(uniform,value[0],value[1]);
 			break;
 
 			case 'mat3' :
@@ -434,4 +442,108 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			break;
 		}
 	}
+
+	buildLight(agl,vertex,fragment,withTexture){
+		var index = 0;
+		if(withTexture) {
+			if(fragment.indexOf("//uniforms_fragment")>-1) {
+				for (var i = 0 ; i <1;i++) {
+					index = fragment.indexOf("//uniforms_fragment")+19;
+					fragment = fragment.splice(index,0,"\nuniform sampler2D uSampler"+i+';\n');
+				}
+			}
+		}
+		if(fragment.indexOf("}")>-1) {
+			index = fragment.indexOf("}");
+			fragment = fragment.splice(index,0, this.autoComputeLight(agl,withTexture));
+		}
+		if(fragment.indexOf('//fragment_AutoShadingAtomicGL2')>-1) {
+			var initStructMat = '\n'
+					+'#define atomicGL2DirectionnalLight 2\n'
+					+'#define atomicGL2PointLight 1\n'
+					+'#define atomicGL2SpotLight 3\n'
+					+'\nstruct Material {\n'
+						+'vec3 diffuse;\n'
+						+'vec3 specular;\n'
+						+'float shininess;\n};\n'
+					+'struct Light {\n'
+						+'float intensity;\n'
+						+'vec3 color;\n'
+						+'vec3 position;\n'
+						+'vec3 direction;\n'
+						+'float angle;\n'
+						+'int type;\n};\n';
+			index = fragment.indexOf('//fragment_AutoShadingAtomicGL2')+31;
+			fragment =  fragment.splice(index,0, initStructMat);
+		}
+
+		var array = {};
+		array.vertex=vertex;
+		array.fragment=fragment;
+		return array;
+	}
+
+
+	autoComputeLight(agl,withTexture){
+	 	var lights = [];
+	 	//retrieving the lights in the scene
+	 	for (var key of agl.lights.keys()) {
+	      lights.push(agl.lights.get(key));
+	    }
+	    //defining the struct of the light
+		var header = 'Light LightsAtomicGL2 ['+lights.length+'];\n'
+					+'vec4 autoComputeLightAtomicGL2;\n'
+					+'vec3 cGL2eyeDirection = normalize(-vPosition.xyz);\n'
+					+'vec3 normalAtomicGL2 = normalize(vNormal);\n'
+					+'vec3 lightDirectionAtomicGL2 ;\n'
+					+'float distanceAtomicGL2;\n'
+					+'float diffuseLightWeightAtomicGL2;\n'
+					+'vec4 textureColorAtomicGL2;\n'
+					+"Material MaterialAutoShadingAtomicGL2 = Material(diffuseMat,specularMat,shininessMat);\n";				
+
+
+		for(var j = 0 ; j < lights.length;j++) {
+			header+= 'LightsAtomicGL2['+j+'].color = vec3(' + lights[j].getColor() + ');\n'
+				    +'LightsAtomicGL2['+j+'].intensity = ' + parseFloat(lights[j].getIntensity()).toFixed(3) + ';\n';
+
+			if(lights[j].getType() == atomicGL2DirectionnalLight){
+				header+= 'LightsAtomicGL2['+j+'].direction = vec3(' + lights[j].getDirection() + ');\n'
+				    	+'LightsAtomicGL2['+j+'].type = atomicGL2DirectionnalLight;\n'
+						+'lightDirectionAtomicGL2 = normalize(LightsAtomicGL2['+j+'].direction);\n'
+						+'distanceAtomicGL2=1.0;';
+
+			}
+			else if(lights[j].getType() == atomicGL2SpotLight) {
+				header+='LightsAtomicGL2['+j+'].direction = vec3(' + lights[j].getDirection() + ');\n'
+						+'LightsAtomicGL2['+j+'].angle = '+parseFloat(lights[j].getRadius()).toFixed(3)+';\n'
+				    	+'LightsAtomicGL2['+j+'].type = atomicGL2SpotLight;\n'
+    					+'lightDirectionAtomicGL2 = normalize(LightsAtomicGL2['+j+'].position - vPosition.xyz);\n'
+    					+'distanceAtomicGL2 = sqrt(pow(LightsAtomicGL2['+j+'].position.x-vPosition.x,2.0) +' 
+							+'pow(LightsAtomicGL2['+j+'].position.y-vPosition.y,2.0)+'
+							+'pow(LightsAtomicGL2['+j+'].position.z-vPosition.z,2.0));\n';
+			}
+			else if(lights[j].getType() == atomicGL2PointLight) {
+				header+= 'LightsAtomicGL2['+j+'].position = vec3(' + lights[j].getPosition() + ');\n'
+						+'LightsAtomicGL2['+j+'].type = atomicGL2PointLight;\n'
+						+'lightDirectionAtomicGL2 = normalize(LightsAtomicGL2['+j+'].position - vPosition.xyz);\n'
+						+'distanceAtomicGL2= sqrt(pow(LightsAtomicGL2['+j+'].position.x-vPosition.x,2.0) +' 
+							+'pow(LightsAtomicGL2['+j+'].position.y-vPosition.y,2.0)+'
+							+'pow(LightsAtomicGL2['+j+'].position.z-vPosition.z,2.0));\n';	
+			
+			}
+			if(!withTexture)
+				header+='textureColorAtomicGL2 = vec4( MaterialAutoShadingAtomicGL2.diffuse,1.0);\n';
+			else
+				header+='textureColorAtomicGL2 =  texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));\n';
+			
+			header+= 'diffuseLightWeightAtomicGL2 = LightsAtomicGL2['+j+'].intensity*max(dot(normalAtomicGL2, lightDirectionAtomicGL2), 0.0);\n'
+				 	+'autoComputeLightAtomicGL2 += vec4(diffuseLightWeightAtomicGL2*LightsAtomicGL2['+j+'].color*textureColorAtomicGL2.rgb/distanceAtomicGL2 ,1.0);\n';
+			header+='gl_FragColor = autoComputeLightAtomicGL2;';
+		} 
+	return header;
+	}
+}
+
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
 }

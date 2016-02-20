@@ -2,17 +2,16 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10" >
-		</POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
+		<DIRECTIONNALLIGHT id="DirecionnalLight" color="0.0,0.7,0.0" direction="2.1,1.0,0.0" intensity="2">
 		</DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0">
-		</SPOTLIGHT>
+		<DIRECTIONNALLIGHT id="DirecionnalLight1" color="0.7,0.2,0.7" direction="0.1,1.0,1.0" intensity="2">
+		</DIRECTIONNALLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
+		<XMATSHADER file="shaders/shadowMap.xml">shadowMap</XMATSHADER>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
-		<XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER>
+		<XMATSHADER auto="true"></XMATSHADER>
 
 	</SHADERS>
 
@@ -21,12 +20,12 @@
 		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
 		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
 	</TEXTURES>
+	<MATERIALS>
+		<MATERIAL diffuse="1.0,0.3,1.0" specular="0.7,0.2,0.0" shininess="3" >mat_noTexture</MATERIAL>
+		<MATERIAL diffuse="0.0,1.0,1.0" specular="0.7,0.2,0.0" shininess="3" texture="sable1" >mat_Texture</MATERIAL>
+	</MATERIALS>
 
 	<SHAPES>
-		<SHAPE id="ground_sand" type="js">
-			<GEOMETRY id="sol_sable" uv="1.0,1.0">maison3()</GEOMETRY>
-			<TEXTID>sable1</TEXTID>
-		</SHAPE>
 
 		<SHAPE id="sexy_lady" type="obj">
 			<GEOMETRY id="sexy_lady_obj" uv="1.0,1.0">sexylady.obj</GEOMETRY>
@@ -35,17 +34,28 @@
 
 		<SPHERE id="toto" type="sphere">
 			<GEOMETRY id="sphereToto" rad="4" lat="60" long="60" uv="3,3"></GEOMETRY>
-			<TEXTID>crate1</TEXTID>
+			<MATID>mat_noTexture</MATID>
 		</SPHERE>
+		<XYPLANE id="planeXY" type="plane">
+			<GEOMETRY id="planeXY" height="20" width="20" xrow="30" yrow="30" uv="3,3"></GEOMETRY>
+			<MATID>mat_Texture</MATID>
+		</XYPLANE>
+		<SHAPE id="ground_sand" type="js">
+			<GEOMETRY id="sol_sable" uv="1.0,1.0">maison3()</GEOMETRY>
+			<TEXTID>sable1</TEXTID>
+		</SHAPE>
 	</SHAPES>
 
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
-			<TRANSFORM id="transform_ground" translate="5.0,1.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D>
+			<TRANSFORM id="testPlane" translate="10.0,1.0,5.0" rotaxis="1.0,0.0,0.0" angle="270.0">
+					<OBJECT3D id="planeObj">planeXY</OBJECT3D>
 			</TRANSFORM>
 
 			<TRANSFORM id="transform_sphere" translate="10.0,10.0,-2.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_toto" shader="texDiffProg">toto</OBJECT3D>
+					<OBJECT3D id="obj_toto" >toto</OBJECT3D>
+			</TRANSFORM>
+			<TRANSFORM id="transform_ground" translate="5.0,1.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+					<OBJECT3D id="obj_ground_sand" shader="shadowMap" >ground_sand</OBJECT3D>
 			</TRANSFORM>
 		</ROOT>
 </SCENE>

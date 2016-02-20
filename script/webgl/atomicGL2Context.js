@@ -27,6 +27,8 @@ class atomicGL2Context {
 
 		// GLtexture
 		this.GLtexture      = [];
+
+		this.ams;
 		
 		// -------------------------------------------------
 		// scene assets
@@ -35,12 +37,16 @@ class atomicGL2Context {
 		this.shaderPrograms = new Map();
 		// textures
 		this.textures       = [];
+		//materials
+		this.materials 		= new Map();
 		// shapes
 		this.shapes         = [];
 		// lights
 		this.lights         = new Map();
+
 		// scene graph
 		this.scenegraph     = null;
+
 	}
 
 	// methods
@@ -88,9 +94,10 @@ class atomicGL2Context {
 	//---------------------------
 	initDraw() {
 		// debug
-		// console.log("atomicGLContext::initDraw");
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
    	 	this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+
 	}
 
 	// pushLight(light)
