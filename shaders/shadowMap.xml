@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<SHADER name="textProg">
-	<VERTEX>
+<SHADER name="shadowMap">
+		<VERTEX>
+		// vertex shader
+		// ------------------------------------------------------
+		// texture shader per fragment
+		// ------------------------------------------------------
+		// lights nb: 1
+		// ------------------------------------------------------
+
+		// attributes inputs  (vertex arrays)
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
-			attribute vec3 aVertexNormal;
+			attribute vec2 aVertexTexCoord;
 		</ATTRIBUTES>
 
+		// uniform matrices
 		<UNIFORMS>
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
@@ -14,43 +23,40 @@
 		</UNIFORMS>
 
 		<VARYING>
-		varying vec3 vNormal;
-		varying vec3 vPosition;
-
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
 		</VARYING>
 
+		// output
 		<OUTPUT>
-		    void main(void) {
-    		    vec4 positionProjetee= uMVMatrix * vec4(aVertexPosition, 1.0);
- 				vec3 N=vec3(uPMatrix*vec4(aVertexNormal, 0.));
-	            vPosition=vec3(positionProjetee)/positionProjetee.w;
-
-
-				gl_Position = positionProjetee;
-    		}
-		</OUTPUT>
+	    void main(void) {
+	    	  gl_Position = vec4(aVertexPosition,1.0);
+		      vTextureCoord = aVertexTexCoord.xy*0.5+0.5;
+	    }
+	  </OUTPUT>
 	</VERTEX>
 
 	<FRAGMENT>
 		<PRECISION>
 			#ifdef GL_ES
-				precision highp float;
+				precision mediump float;
 			#endif
 		</PRECISION>
 
 		<UNIFORMS>
-			uniform sampler2D  samplerShadow;
+			uniform sampler2D samplerShadow;
 
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec3 vPosition;
+			varying vec2 vTextureCoord;
 
 		</VARYING>
 
 		<OUTPUT>
 		    void main(void) {
-	        	gl_FragColor=vec4((1.+vPosition.z)/2., 0., 0., 1.); 
+   			 gl_FragColor = texture2D(samplerShadow, vTextureCoord);
 		    }
 		</OUTPUT>
 	</FRAGMENT>
