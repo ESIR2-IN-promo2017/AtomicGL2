@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="AutoShadingAtomicGL2">
+	<VERTEX>
+		//vertex_AutoShadingAtomicGL2
+		<ATTRIBUTES>
+			//attributes_vertex
+			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
+			attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+		<UNIFORMS>
+			//uniforms_vertex
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+			//varying_vertex
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+		<OUTPUT>
+		// output_vertex
+	    void main(void) {
+	    	// vNormal
+				vNormal = uNMatrix * aVertexNormal;
+	      		vTextureCoord = aVertexTexCoord;
+	      		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+	    }
+	  </OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		//fragment_AutoShadingAtomicGL2
+		</PRECISION>
+		<UNIFORMS>
+			//uniforms_fragment
+			uniform vec3 diffuseMat;
+			uniform vec3 specularMat;
+			uniform float shininessMat;
+		</UNIFORMS>
+
+		<VARYING>
+			//varying_framgent
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+	<OUTPUT>
+		//output_fragment
+
+		void main(void) {
+
+	    }
+   	</OUTPUT>
+	</FRAGMENT>
+</SHADER>

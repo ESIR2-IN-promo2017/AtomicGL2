@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="textProg">
+	<VERTEX>
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+		varying vec3 vNormal;
+		varying vec3 vPosition;
+
+		</VARYING>
+
+		<OUTPUT>
+		    void main(void) {
+    		    vec4 positionProjetee= uMVMatrix * vec4(aVertexPosition, 1.0);
+ 				vec3 N=vec3(uPMatrix*vec4(aVertexNormal, 0.));
+	            vPosition=vec3(positionProjetee)/positionProjetee.w;
+
+
+				gl_Position = positionProjetee;
+    		}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+
+		<UNIFORMS>
+			uniform sampler2D  samplerShadow;
+
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec3 vPosition;
+
+		</VARYING>
+
+		<OUTPUT>
+		    void main(void) {
+	        	gl_FragColor=vec4((1.+vPosition.z)/2., 0., 0., 1.); 
+		    }
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
