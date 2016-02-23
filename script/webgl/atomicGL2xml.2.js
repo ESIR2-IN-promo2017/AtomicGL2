@@ -200,7 +200,7 @@ class atomicGL2xml {
 	//   <TEXID>test</TEXID>
 	//   <TEXTID>test_normal</TEXTID>
 	// </SHAPE>
-		var listSHAPE = this.dom.getElementsByTagName("SHAPE");
+	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
     var listSPHERE = this.dom.getElementsByTagName("SPHERE");
     var listCUBE = this.dom.getElementsByTagName("CUBE");
     var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
@@ -298,6 +298,48 @@ class atomicGL2xml {
 			ss.initGLBuffers(agl);
 			agl.shapes.push(ss);
 		}
+	
+	// CUBE
+    for (var i=0; i < listCUBE.length ; i++){
+			//
+			var CUBE 		= listCUBE[i];
+			var CUBEId   	= CUBE.getAttribute("id");
+			var CUBEType 	= CUBE.getAttribute("type");
+			// only one GEOMETRY
+			var GEOMETRY  	= CUBE.getElementsByTagName("GEOMETRY")[0];
+			var GEOId     	= GEOMETRY.getAttribute("id");
+			var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
+			var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
+			var GEODepth   	= parseFloat(GEOMETRY.getAttribute("depth"));
+			var GEOuv     	= GEOMETRY.getAttribute("uv");
+			var u         	= parseFloat(GEOuv.split(",")[0]);
+			var v         	= parseFloat(GEOuv.split(",")[1]);
+
+			// create shape
+			var ss = new atomicGL2Cube(CUBEId, GEOHeight, GEOWidth, GEODepth, u, v);
+
+			// textures
+			var textures = CUBE.getElementsByTagName("TEXTID");
+
+			for (var j=0; j < textures.length ; j++)
+			{
+				var tid = textures[j].childNodes[0].data;
+
+				// texture index in agl
+				var agltid = agl.indexOfTexture(tid);
+
+				if (agltid != -1)
+					ss.pushTexture(agl.textures[agltid]);
+
+				else
+					alert("atomicGLxml::shapes ("+CUBEId+") texture: "+tid+" not found !");
+			}
+
+			// init shape buffer and add it to context
+			ss.initGLBuffers(agl);
+			agl.shapes.push(ss);
+		}
+
 	}
 
 	// traverse
