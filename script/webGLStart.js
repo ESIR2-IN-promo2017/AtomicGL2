@@ -45,8 +45,6 @@ function nextFrame() {
 // ------------------------------
 function animate(){
 	// increase time
-	var textProg = agl.getShaderProgram("textProg");
-	textProg.setUniformById(agl,"test",2.2);
 	sceneClock.tick() ;
 }
 
@@ -110,10 +108,6 @@ function webGLStart() {
 	var scene = document.getElementById('id').innerHTML;
 	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
 
-	//var r = new atomicGL2SpotLight([0.5, 0.5, 0.5], [0, 1, 0], [0, 1, 0],1.0,"test");
-
-	// light
-	agl.pushLight("Sun",new atomicGL2PointLight([0.5, 0.5, 0.5], [0, 1, 0]));
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees

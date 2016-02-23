@@ -12,7 +12,6 @@
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 			uniform mat3 uNMatrix;
-			uniform float test;
 		</UNIFORMS>
 
 		<VARYING>
@@ -23,7 +22,7 @@
 
 		<OUTPUT>
 		    void main(void) {
-				vPosition = uMVMatrix * vec4(aVertexPosition, test);
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 				gl_Position = uPMatrix * vPosition;
 				vNormal = uNMatrix * aVertexNormal;	
 		        vTextureCoord = aVertexTexCoord;

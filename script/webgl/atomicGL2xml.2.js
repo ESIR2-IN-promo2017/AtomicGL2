@@ -62,14 +62,14 @@ class atomicGL2xml {
 			var py 			= parseFloat(position.split(",")[1]);
 			var pz 			= parseFloat(position.split(",")[2]);
 
+			var intensity  = parseFloat(POINT.getAttribute("intensity"));
+
 			// cast color and position to Array
 			color = [r,g,b];
 			position = [px,py,pz];
 
 			// create pointlight and add it to context
-			agl.pushLight(id, new atomicGL2PointLight(color,position));
-			// debug
-			//console.log("atomicGLxml::pointlights >> find light("+i+"): "+listPOINT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
+			agl.pushLight(id, new atomicGL2PointLight(color,position,intensity));
 		}
 
 		// <DIRECTIONNALLIGHT id="test" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"> </DIRECTIONNALLIGHT>
@@ -142,8 +142,8 @@ class atomicGL2xml {
 	// shaders
 	shaders(agl){
 		// examples
-		//<XMATSHADER file="texDiffProg.xml" nbtex="1" nblight="1">texDiffProg</XMATSHADER>
-		//<IMATSHADER vertex="vertex_texDiffNormalMap" fragment="frag_texDiffNormalMap" nbtex="2" nblight="1">texDiffNormalMapProg</IMATSHADER>
+		//<XMATSHADER file="texDiffProg.xml">texDiffProg</XMATSHADER>
+		//<IMATSHADER vertex="vertex_texDiffNormalMap" fragment="frag_texDiffNormalMap">texDiffNormalMapProg</IMATSHADER>
 		var listXMSHAD = this.dom.getElementsByTagName("XMATSHADER");
 		for (var i=0; i<listXMSHAD.length;i++)
 		{
@@ -151,11 +151,8 @@ class atomicGL2xml {
 			var shader_name = SHAD.childNodes[0].data ;
 			var file        = SHAD.getAttribute("file");
 
-			// var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
-			var nblight = parseFloat(SHAD.getAttribute("nblight"));
-
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
+			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file)));
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);
@@ -169,11 +166,8 @@ class atomicGL2xml {
 			var vertex      = SHAD.getAttribute("vertex");
 			var fragment    = SHAD.getAttribute("fragment");
 
-			//var nbtex = parseFloat(SHAD.getAttribute("nbtex"));
-			var nblight = parseFloat(SHAD.getAttribute("nblight"));
-
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
+			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment)));
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-vertex: "+vertex+"-fragment: "+fragment);
@@ -206,7 +200,7 @@ class atomicGL2xml {
 	//   <TEXID>test</TEXID>
 	//   <TEXTID>test_normal</TEXTID>
 	// </SHAPE>
-		var listSHAPE = this.dom.getElementsByTagName("SHAPE");
+	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
     var listSPHERE = this.dom.getElementsByTagName("SPHERE");
     var listCUBE = this.dom.getElementsByTagName("CUBE");
     var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
@@ -304,6 +298,48 @@ class atomicGL2xml {
 			ss.initGLBuffers(agl);
 			agl.shapes.push(ss);
 		}
+	
+	// CUBE
+    for (var i=0; i < listCUBE.length ; i++){
+			//
+			var CUBE 		= listCUBE[i];
+			var CUBEId   	= CUBE.getAttribute("id");
+			var CUBEType 	= CUBE.getAttribute("type");
+			// only one GEOMETRY
+			var GEOMETRY  	= CUBE.getElementsByTagName("GEOMETRY")[0];
+			var GEOId     	= GEOMETRY.getAttribute("id");
+			var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
+			var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
+			var GEODepth   	= parseFloat(GEOMETRY.getAttribute("depth"));
+			var GEOuv     	= GEOMETRY.getAttribute("uv");
+			var u         	= parseFloat(GEOuv.split(",")[0]);
+			var v         	= parseFloat(GEOuv.split(",")[1]);
+
+			// create shape
+			var ss = new atomicGL2Cube(CUBEId, GEOHeight, GEOWidth, GEODepth, u, v);
+
+			// textures
+			var textures = CUBE.getElementsByTagName("TEXTID");
+
+			for (var j=0; j < textures.length ; j++)
+			{
+				var tid = textures[j].childNodes[0].data;
+
+				// texture index in agl
+				var agltid = agl.indexOfTexture(tid);
+
+				if (agltid != -1)
+					ss.pushTexture(agl.textures[agltid]);
+
+				else
+					alert("atomicGLxml::shapes ("+CUBEId+") texture: "+tid+" not found !");
+			}
+
+			// init shape buffer and add it to context
+			ss.initGLBuffers(agl);
+			agl.shapes.push(ss);
+		}
+
 	}
 
 	// traverse

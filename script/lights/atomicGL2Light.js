@@ -18,7 +18,7 @@ class atomicGL2Light {
    * 
    * @param {Array[3]:float} color the color of the light
    */
-	constructor(color){
+	constructor(color,intensity){
 
 		//if this class is instantiate : Error exception Abstract Class
 		if (this.getType() == atomicGL2Light)
@@ -26,11 +26,18 @@ class atomicGL2Light {
    	//if the ccolor parmaters is undefined : Error exception
    	if(typeof(color)!=Array[3] && color.length!=3)
       throw new TypeError("Please instantiate with the color parameter which is an Array of 3 float");
+    if(Number(intensity) === intensity && intensity % 1 !== 0)
+      throw new TypeError("Please instantiate with the intensity parameter which is a float");
 
     /**
     * @type {Array[3]:float} color of the light
     */
 		this.color = color;
+    
+    /**
+    * @type {Array[3]:float} color of the light
+    */
+    this.intensity = intensity;
 
     /**
     * @type {Array[3]:float} position of the light
@@ -55,6 +62,13 @@ class atomicGL2Light {
 	getColor(){
 		return this.color;
 	}
+
+  /**
+   * @return {float} return the intensity of the light
+   */
+  getIntensity(){
+    return this.intensity;
+  }
 
   /*
   * @type {float} The angle of the area of the SpotLight 
