@@ -23,8 +23,8 @@ class atomicGL2SGroot extends atomicGL2SceneGraph {
 	//			sid - shader id (used by skybox)
 	setRootElt (cam,sb,sid){
 		this.camera   = cam;
-		this.skyBox   = sb ;
-		this.shaderId = sid ;
+		this.skyBox   = sb;
+		this.shaderId = sid;
 	}
 
 	// draw

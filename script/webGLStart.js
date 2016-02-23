@@ -26,19 +26,16 @@
 function sceneDraw(){
 	agl.initDraw();
 
-
-
 	agl.scenegraph.draw(agl,ams);
-
 }
 
 // nextFrame
 // -----------------------------
 function nextFrame() {
 	handleKeys();
-    requestAnimFrame(nextFrame);
-    sceneDraw();
-    animate();
+  requestAnimFrame(nextFrame);
+  sceneDraw();
+  animate();
 }
 
 // animate
@@ -50,7 +47,7 @@ function animate(){
 
 // keyboard
 // --------------------------------
-function handleKeyDown(event) 	{ currentlyPressedKeys[event.keyCode] = true;}
+function handleKeyDown(event) 	{currentlyPressedKeys[event.keyCode] = true;}
 function handleKeyUp(event) 	{currentlyPressedKeys[event.keyCode] = false;}
 
 function handleKeys() {
@@ -65,21 +62,17 @@ function handleKeys() {
 	}
 	if (currentlyPressedKeys[68]) // (D) Right
 	{
-		// debug
 		agl.scenegraph.camera.right();		}
 	if (currentlyPressedKeys[81]) // (Q) Left
 	{
-		// debug
 		agl.scenegraph.camera.left();			//
 	}
 	if (currentlyPressedKeys[90]) // (Z) Up
 	{
-		// debug
 		agl.scenegraph.camera.up();			//
 	}
 	if (currentlyPressedKeys[83]) // (S) Down
 	{
-		// debug
 		agl.scenegraph.camera.down();			//
 	}
 }
@@ -104,10 +97,8 @@ function webGLStart() {
 	agl.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
-
 	var scene = document.getElementById('id').innerHTML;
 	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
-
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees

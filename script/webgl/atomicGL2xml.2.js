@@ -201,10 +201,10 @@ class atomicGL2xml {
 	//   <TEXTID>test_normal</TEXTID>
 	// </SHAPE>
 	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
-    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
-    var listCUBE = this.dom.getElementsByTagName("CUBE");
-    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
-    var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
+  var listSPHERE = this.dom.getElementsByTagName("SPHERE");
+  var listCUBE = this.dom.getElementsByTagName("CUBE");
+  var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
+  var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
 
     // SHAPE : Object3D
     for (var i=0; i < listSHAPE.length ; i++){
@@ -224,7 +224,7 @@ class atomicGL2xml {
 
 			if(SHAPEType == 'js')
 				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
-			
+
 			else if(SHAPEType == 'obj')
 			{
 				console.log('objs/' + GEOmesh);
@@ -298,8 +298,8 @@ class atomicGL2xml {
 			ss.initGLBuffers(agl);
 			agl.shapes.push(ss);
 		}
-	
-	// CUBE
+
+	  // CUBE
     for (var i=0; i < listCUBE.length ; i++){
 			//
 			var CUBE 		= listCUBE[i];
@@ -340,6 +340,89 @@ class atomicGL2xml {
 			agl.shapes.push(ss);
 		}
 
+    // CYLINDER
+    for (var i=0; i < listCYLINDER.length ; i++){
+			//
+			var CYLINDER     	= listCYLINDER[i];
+			var CYLINDERId   	= CYLINDER.getAttribute("id");
+			var CYLINDERType 	= CYLINDER.getAttribute("type");
+			// only one GEOMETRY
+			var GEOMETRY  	= CYLINDER.getElementsByTagName("GEOMETRY")[0];
+			var GEOId     	= GEOMETRY.getAttribute("id");
+			var GEORad  	= parseFloat(GEOMETRY.getAttribute("rad"));
+			var GEOHeight 	= parseFloat(GEOMETRY.getAttribute("height"));
+			var GEOLat   	= parseFloat(GEOMETRY.getAttribute("lat"));
+			var GEOLong   	= parseFloat(GEOMETRY.getAttribute("long"));
+			var GEOuv     	= GEOMETRY.getAttribute("uv");
+			var u         	= parseFloat(GEOuv.split(",")[0]);
+			var v         	= parseFloat(GEOuv.split(",")[1]);
+
+			// create shape
+			var ss = new atomicGL2Cylinder(CYLINDERId, GEORad, GEOHeight, GEOLat, GEOLong, u, v);
+
+			// textures
+			var textures = CYLINDER.getElementsByTagName("TEXTID");
+
+			for (var j=0; j < textures.length ; j++)
+			{
+				var tid = textures[j].childNodes[0].data;
+
+				// texture index in agl
+				var agltid = agl.indexOfTexture(tid);
+
+				if (agltid != -1)
+					ss.pushTexture(agl.textures[agltid]);
+
+				else
+					alert("atomicGLxml::shapes ("+CYLINDERId+") texture: "+tid+" not found !");
+			}
+
+			// init shape buffer and add it to context
+			ss.initGLBuffers(agl);
+			agl.shapes.push(ss);
+		}
+
+    // XYPLANE
+    for (var i=0; i < listXYPLANE.length ; i++){
+      //
+      var XYPLANE     	= listXYPLANE[i];
+      var XYPLANEId   	= XYPLANE.getAttribute("id");
+      var XYPLANEType 	= XYPLANE.getAttribute("type");
+      // only one GEOMETRY
+      var GEOMETRY  	= XYPLANE.getElementsByTagName("GEOMETRY")[0];
+      var GEOId     	= GEOMETRY.getAttribute("id");
+      var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
+      var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
+      var GEOXRow   	= parseFloat(GEOMETRY.getAttribute("xrow"));
+      var GEOYRow   	= parseFloat(GEOMETRY.getAttribute("yrow"));
+      var GEOuv     	= GEOMETRY.getAttribute("uv");
+      var u         	= parseFloat(GEOuv.split(",")[0]);
+      var v         	= parseFloat(GEOuv.split(",")[1]);
+
+      // create shape
+      var ss = new atomicGL2xyPlane(XYPLANEId, GEOHeight, GEOWidth, GEOXRow, GEOYRow, u, v);
+
+      // textures
+      var textures = XYPLANE.getElementsByTagName("TEXTID");
+
+      for (var j=0; j < textures.length ; j++)
+      {
+        var tid = textures[j].childNodes[0].data;
+
+        // texture index in agl
+        var agltid = agl.indexOfTexture(tid);
+
+        if (agltid != -1)
+          ss.pushTexture(agl.textures[agltid]);
+
+        else
+          alert("atomicGLxml::shapes ("+XYPLANEId+") texture: "+tid+" not found !");
+      }
+
+      // init shape buffer and add it to context
+      ss.initGLBuffers(agl);
+      agl.shapes.push(ss);
+    }
 	}
 
 	// traverse
@@ -433,7 +516,7 @@ class atomicGL2xml {
 				// JS6
 				node = new atomicGL2SGobject3d('object3D',id);
 				node.setObject3D(agl.shapes[agl.indexOfShape(shapeId)],shaderId);
-				s.addChild(node);				
+				s.addChild(node);
 
 				// debug
 				//console.log("atomicGL2xml::traverse -> add OBJECT3D");

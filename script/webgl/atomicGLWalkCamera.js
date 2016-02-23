@@ -1,6 +1,6 @@
 // atomicGL
 //----------------------------------------------------------------------------------------
-// author: RC				
+// author: RC
 // contact: cozot@irisa.fr
 // version: 0.1
 // current version date: 2015/10/07
@@ -16,7 +16,7 @@
 // constructor
 //------------------------
 class atomicGLWalkCamera {
- constructor(){ 
+ constructor(){
 	// attributes
 	// -------------------------------------------------
 	// camera position
@@ -30,7 +30,7 @@ class atomicGLWalkCamera {
 	this.step = 0.10 ;
 	// rot
 	this.rot = 0.5 ;
-}	
+}
 	// methods
 	// --------------------------------------------------
 	// up/right/left/down
@@ -54,7 +54,7 @@ class atomicGLWalkCamera {
 	turnright(a) {
 		this.theta += +a ;
 	}
-	turnleft(a) {		
+	turnleft(a) {
 		this.theta += +a ;
 	}
 	turnup(a){this.phi = a;}
