@@ -12,8 +12,7 @@
 
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
-		<XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER>
-
+		<!-- <XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
@@ -41,11 +40,13 @@
 
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
 			<TRANSFORM id="transform_ground" translate="5.0,1.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D>
+				<OBJECT3D id="obj_sexy_lady" shader="textProg">sexy_lady</OBJECT3D>
 			</TRANSFORM>
 
 			<TRANSFORM id="transform_sphere" translate="10.0,10.0,-2.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_toto" shader="texDiffProg">toto</OBJECT3D>
+				<OBJECT3D id="obj_toto" shader="textProg">toto</OBJECT3D>
+					<!-- <OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D> -->
 			</TRANSFORM>
 		</ROOT>
 </SCENE>
+
