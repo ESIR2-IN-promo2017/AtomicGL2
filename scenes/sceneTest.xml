@@ -4,8 +4,10 @@
 	<LIGHTS>
 		<DIRECTIONNALLIGHT id="DirecionnalLight" color="0.0,0.7,0.0" direction="2.1,1.0,0.0" intensity="2">
 		</DIRECTIONNALLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight1" color="0.7,0.2,0.7" direction="0.1,1.0,1.0" intensity="2">
+		<DIRECTIONNALLIGHT id="DirecionnalLight1" color="0.0,0.2,0.7" direction="0.1,1.0,1.0" intensity="2">
 		</DIRECTIONNALLIGHT>
+		<POINTLIGHT id="PointLight2" color="1.0,0.0,0.0" position="3.1,2.0,0.5" intensity="20">
+		</POINTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
@@ -55,7 +57,7 @@
 					<OBJECT3D id="obj_toto" >toto</OBJECT3D>
 			</TRANSFORM>
 			<TRANSFORM id="transform_ground" translate="5.0,1.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_ground_sand" shader="shadowMap" >ground_sand</OBJECT3D>
+					<OBJECT3D id="obj_ground_sand" >ground_sand</OBJECT3D>
 			</TRANSFORM>
 		</ROOT>
 </SCENE>

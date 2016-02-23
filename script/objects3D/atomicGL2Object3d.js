@@ -60,10 +60,6 @@ class atomicGL2Object3d{
     	this.vertexTexCoordBufferNumItems 	;
     	this.vertexIndexBufferNumItems 		;
 
-		this.depthFrameBuffer;
-		this.depthTexture;
-		this.depthRenderBuffer;
-       		
 	}
 
 	// methods
@@ -123,32 +119,6 @@ class atomicGL2Object3d{
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.vertexIndices), gl.STATIC_DRAW);
         this.vertexIndexBufferItemSize = 1;
         this.vertexIndexBufferNumItems = this.vertexIndices.length ;
-
-
-   
-
-            this.depthFrameBuffer=gl.createFramebuffer();
-            gl.bindFramebuffer(gl.FRAMEBUFFER, this.depthFrameBuffer);
-
-            this.depthTexture=gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, this.depthTexture);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, agl.viewportWidth,agl.viewportHeight , 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-
-            this.depthRenderBuffer=gl.createRenderbuffer();
-            gl.bindRenderbuffer(gl.RENDERBUFFER, this.depthRenderBuffer);
-            gl.renderbufferStorage(gl.RENDERBUFFER, agl.gl.DEPTH_COMPONENT16, agl.viewportWidth,agl.viewportHeight);
-
-            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.depthTexture, 0);
-
-            gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, this.depthRenderBuffer);
-
-            gl.bindTexture(gl.TEXTURE_2D, null);
-            gl.bindRenderbuffer(gl.RENDERBUFFER, null);
-            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 	}
 	
 	
@@ -207,29 +177,6 @@ class atomicGL2Object3d{
 			aGL.gl.uniform1i(aGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
 
 		}
-                   aGL.gl.bindFramebuffer(aGL.gl.FRAMEBUFFER, this.depthFrameBuffer);
-                   aGL.gl.bindRenderbuffer(aGL.gl.RENDERBUFFER, this.depthRenderBuffer);
-                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, this.depthTexture);
-
-
-                   aGL.gl.clearDepth(1.0);
-                   aGL.gl.viewport(0.0, 0.0, aGL.viewportWidth, aGL.viewportHeight);
-
-                   if(!this.shadow){
-                   	this.shadow =true;
-					aGL.initDraw();
-					aGL.scenegraph.draw(aGL,aGL.ams);
-					}
-
-                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, null);
-                   aGL.gl.bindFramebuffer(aGL.gl.FRAMEBUFFER, null);
-                   aGL.gl.bindRenderbuffer(aGL.gl.RENDERBUFFER, null);
-
-                   aGL.gl.activeTexture(aGL.gl.TEXTURE1);
-                   aGL.gl.bindTexture(aGL.gl.TEXTURE_2D, this.depthTexture);
-                   aGL.gl.activeTexture(aGL.gl.TEXTURE0);
-                   
-                   aGL.gl.flush();
 		// indexes
         aGL.gl.bindBuffer(aGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
 		// draw Object3D
