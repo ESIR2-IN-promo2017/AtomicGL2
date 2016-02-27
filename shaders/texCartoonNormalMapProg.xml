@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="texCartoonNormalMapProg">
+	<VERTEX>
+		// vertex shader
+		// ------------------------------------------------------
+		// texture shader per fragment
+		// ------------------------------------------------------
+		// lights nb: 1
+		// ------------------------------------------------------
+
+		// attributes inputs
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
+			attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+
+		// uniform matrices
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+		// output (to fragment shader)
+		<OUTPUT>
+			void main(void) {
+				// vNormal
+				vNormal = uNMatrix * aVertexNormal;
+
+				// model -> view
+				// vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+
+				vTextureCoord = aVertexTexCoord;
+			}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
+		// fragment shader
+		// ------------------------------------------------------
+		// texture shader per fragment
+		// ------------------------------------------------------
+		// lights nb: 1
+		// ------------------------------------------------------
+
+		<UNIFORMS>
+			uniform sampler2D uSampler0;
+		  uniform sampler2D uSampler1;
+
+			// ambient lights
+			uniform vec3 uAmbientColor;
+
+			//point light ie omni dir:  location, color
+			uniform vec3 uPointLightPosition0;
+			uniform vec3 uPointLightColor0;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+		<OUTPUT>
+			// local constant
+
+			// edge color
+			vec3 edgeColor = vec3(0.1,0.1,0.1);
+			// shadow color
+			vec3 shadowColor = vec3(0.5, 0.5, 0.5);
+			// midtoneColor
+			vec3 midtoneColor = vec3(0.8,0.8,0.8);
+			// highlight color
+			vec3 highLightColor = vec3(1.0,1.0,1.0);
+
+			// Kd: diffuse coeff, Ks: specular coeff, sh: specular exponent
+			float Kd = 0.5 ;
+			float Ks = 0.5 ;
+			float sh = 8.0 ;
+
+			// thresholds
+			float shadowMidtone = 0.2;
+			float midToneHighLight = 0.75 ;
+			float edgeThreshold = 0.98 ;
+
+			// specular color
+			vec3 specColor = vec3(1.0,1.0,1.0);
+
+			// main
+			void main(void) {
+				// light direction
+				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
+
+				// eye direction
+				vec3 eyeDirection = normalize(-vPosition.xyz);
+
+				// normalize normal
+				vec3 oldNormal = normalize(vNormal);
+
+				// new normal in tangent space
+				vec3 newNormalTS = normalize(2.0*texture2D(uSampler1, vTextureCoord).xyz -1.0) ;
+
+				// TS to View
+				vec3 biTangent = cross(oldNormal,vec3(0.0,0.0,1.0));
+
+				// test tangent
+				if (dot(biTangent,biTangent) == 0.0){biTangent = cross(oldNormal,vec3(0.0,1.0,0.0));}
+				vec3 tangent =  cross(biTangent,oldNormal);
+
+				// no transpose
+				vec3 u1 = tangent ;
+				vec3 u2 = biTangent;
+				vec3 u3 = oldNormal;
+
+				// TS to view matrix
+				mat3 TBN = mat3(u1,u2,u3);
+
+				// transform normal
+				vec3 normal = TBN*newNormalTS ;
+
+				//  diffuse term
+				float diffuse = max(dot(normal, -lightDirection), 0.0);
+
+				// reflection direction
+				vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+
+				// specular term
+				float specular = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+				// texture color
+				vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t)) * vec4(normal, 1.0);
+
+				// light
+				float light = diffuse;
+
+				// edge term
+				float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
+
+				// color
+				vec3 final = vec3(0.0,0.0,0.0);
+
+				if (edgeThreshold > edge)
+					{ final = edgeColor;}
+				else if (shadowMidtone > light)
+					{ final = shadowColor;}
+				else if (midToneHighLight > light)
+					{ final = midtoneColor;}
+				else
+					{ final = highLightColor;}
+
+				vec3 color = final*(Kd*uAmbientColor*texColor.rgb + Kd*diffuse*uPointLightColor0*texColor.rgb) * 5.0;
+				gl_FragColor = vec4(color,1.0);
+			}
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>

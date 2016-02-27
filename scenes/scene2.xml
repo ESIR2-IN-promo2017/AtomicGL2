@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCENE>
+	<SHADERS>
+		<XMATSHADER file="shaders/texProg.xml" nblight="0">textProg</XMATSHADER>
+		<XMATSHADER file="shaders/texDiffProg.xml" nblight="1">texDiffProg</XMATSHADER>
+		<XMATSHADER file="shaders/texNormalMapProg.xml" nblight="1">texDiffNormalMapProg</XMATSHADER>
+		<XMATSHADER file="shaders/texCartoonNormalMapProg.xml" nblight="1">texCartoonNormalMapProg</XMATSHADER>
+	</SHADERS>
+
+	<TEXTURES>
+		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
+		<TEXTURE id="mur_pierre1_normal" type="normal">texture/mur_pierre1_normal.png</TEXTURE>
+		<TEXTURE id="pave2" type="color">texture/pave2.png</TEXTURE>
+		<TEXTURE id="pave2_normal" type="normal">texture/pave2_normal.png</TEXTURE>
+
+		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
+	</TEXTURES>
+
+	<SHAPES>
+		<SHAPE id="bridge1stone" type="obj">
+			<GEOMETRY id="pont_pierre" uv="1.0,1.0">pont_pierre()</GEOMETRY>
+			<TEXTID>mur_pierre1</TEXTID>
+			<TEXTID>mur_pierre1_normal</TEXTID>
+		</SHAPE>
+		<SHAPE id="bridge1top" type="obj">
+			<GEOMETRY id="pont_dessus" uv="0.1,0.1">pont_dessus()</GEOMETRY>
+			<TEXTID>pave2</TEXTID>
+			<TEXTID>pave2_normal</TEXTID>
+		</SHAPE>
+	</SHAPES>
+
+	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
+
+		<TRANSFORM id="transform_bridge" translate="0.0,0.0,-20" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_bridge1stone" shader="texCartoonNormalMapProg">bridge1stone</OBJECT3D>
+			<OBJECT3D id="obj_bridge1top" shader="texCartoonNormalMapProg">bridge1top</OBJECT3D>
+		</TRANSFORM>
+	</ROOT>
+</SCENE>
