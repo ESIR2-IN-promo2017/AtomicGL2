@@ -17,7 +17,7 @@
 	// matrix stack
 	var ams = new atomicGL2MatrixStack();
 	// clock
-	var sceneClock = new atomicGL2Clock() ;
+	var sceneClock = new atomicGL2Clock();
 	// -------------------------------------------------
 
 
@@ -62,7 +62,8 @@ function handleKeys() {
 	}
 	if (currentlyPressedKeys[68]) // (D) Right
 	{
-		agl.scenegraph.camera.right();		}
+		agl.scenegraph.camera.right();
+	}
 	if (currentlyPressedKeys[81]) // (Q) Left
 	{
 		agl.scenegraph.camera.left();			//

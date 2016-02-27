@@ -349,9 +349,9 @@ class atomicGL2xml {
 			// only one GEOMETRY
 			var GEOMETRY  	= CYLINDER.getElementsByTagName("GEOMETRY")[0];
 			var GEOId     	= GEOMETRY.getAttribute("id");
-			var GEORad  	= parseFloat(GEOMETRY.getAttribute("rad"));
+			var GEORad  	  = parseFloat(GEOMETRY.getAttribute("rad"));
 			var GEOHeight 	= parseFloat(GEOMETRY.getAttribute("height"));
-			var GEOLat   	= parseFloat(GEOMETRY.getAttribute("lat"));
+			var GEOLat   	  = parseFloat(GEOMETRY.getAttribute("lat"));
 			var GEOLong   	= parseFloat(GEOMETRY.getAttribute("long"));
 			var GEOuv     	= GEOMETRY.getAttribute("uv");
 			var u         	= parseFloat(GEOuv.split(",")[0]);
