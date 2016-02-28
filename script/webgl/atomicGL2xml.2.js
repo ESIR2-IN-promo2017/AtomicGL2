@@ -457,7 +457,7 @@ class atomicGL2xml {
 				var camera = null ;
 				switch (camId)
 				{
-					case "walk": camera = new atomicGLWalkCamera() ;
+					case "walk": camera = new atomicGLWalkCamera(e.getAttribute("navmesh")) ;
 				}
 
 				// JS6

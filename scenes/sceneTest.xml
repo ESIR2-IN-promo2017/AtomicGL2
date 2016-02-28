@@ -2,12 +2,9 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10" >
-		</POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
-		</DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0">
-		</SPOTLIGHT>
+		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10"></POINTLIGHT>
+		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"></SPOTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
@@ -40,7 +37,7 @@
 		</SPHERE>
 	</SHAPES>
 
-	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk">
+	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_herbe()'>
 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_ground_sand" shader="textProg">ground_sand</OBJECT3D>
 			</TRANSFORM>
