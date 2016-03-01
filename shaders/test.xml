@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="textProg">
+	<VERTEX>
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
+			attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+		</VARYING>
+
+		<OUTPUT>
+		    void main(void) {
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * vPosition;
+				vNormal = uNMatrix * aVertexNormal;	
+    		}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+
+		<UNIFORMS>
+		    uniform vec3 pointLightLocations;
+		    uniform vec3 pointLightColor;
+		</UNIFORMS>
+
+		<VARYING>
+		</VARYING>
+
+		<OUTPUT>
+			vec3 color;
+
+			for (int i = 0; i < pointLightLocations.size(); i++) 
+			{
+			  color += pointLightLocations[i];
+			}
+
+			gl_color = color; 
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
