@@ -19,15 +19,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// -------------------------------------------------
 		super();
 
-		this.shaderloader =shaderloader;
-
+		this.shaderloader = shaderloader;
 
 		// nbTex
 		this.nbTex = this.shaderloader.getNbTexture();
 
 		// program shader
 		this.program ;
-
 
 		// map of attributes
 		// --------------------------
@@ -58,8 +56,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		for (var i =0; i <  this.shaderloader.getUniforms().length; i++) {
 			this.mapUniforms.set(this.shaderloader.getUniforms()[i][1],null);
 		};
-
-
 	}
 
 	// methods
@@ -72,63 +68,62 @@ class  atomicGL2MatShader extends atomicGL2Shader{
     createProgram(agl,vstr,fstr) {
 		// debug
 		//console.log("atomicGLShader::createProgram ("+fragmentShaderID+","+vertexShaderID+")");
-		
+
 		// creation des shaders
 		// vertex
-        var vertexShader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
+    var vertexShader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
 		// set source
-        agl.gl.shaderSource(vertexShader, vstr);
+    agl.gl.shaderSource(vertexShader, vstr);
 		// shader compilation
-        agl.gl.compileShader(vertexShader);
+    agl.gl.compileShader(vertexShader);
 		// debug
 		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
-        if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
-            alert(agl.gl.getShaderInfoLog(vertexShader));
-            return null;
-        }
+    if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
+    	alert(agl.gl.getShaderInfoLog(vertexShader));
+      return null;
+    }
 
 		// fragment
 		var fragmentShader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
 		// set source
-        agl.gl.shaderSource(fragmentShader, fstr);
+    agl.gl.shaderSource(fragmentShader, fstr);
 		// shader compilation
-        agl.gl.compileShader(fragmentShader);
+    agl.gl.compileShader(fragmentShader);
 		// debug
 		console.log("atomicGLShader2::createProgram -> compile result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
 		// check erreur de compilation
-        if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
-            alert(agl.gl.getShaderInfoLog(fragmentShader));
-            return null;
-        }
+    if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
+      alert(agl.gl.getShaderInfoLog(fragmentShader));
+      return null;
+    }
 
 		// creation program et link
-        var program = agl.gl.createProgram();
-        agl.gl.attachShader(program, vertexShader);
-        agl.gl.attachShader(program, fragmentShader);
-        agl.gl.linkProgram(program);
+    var program = agl.gl.createProgram();
+    agl.gl.attachShader(program, vertexShader);
+    agl.gl.attachShader(program, fragmentShader);
+    agl.gl.linkProgram(program);
 
 		// debug
 		console.log("atomicGLShader2::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
-        if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
-            alert("atomicGLShader2::Could not initialise shaders");
-        }
+    if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
+      alert("atomicGLShader2::Could not initialise shaders");
+    }
 
 		// attributes
 		//------------------------
-       	for (var key of this.mapAttributes.keys())
-       	{
+    for (var key of this.mapAttributes.keys())
+    {
 			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
-	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
-
+	  	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 		}
 
 		// uniforms
 		//------------------------
 	 	for (var key of this.mapUniforms.keys())
 	 	{
-	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
-	    }
+      this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+    }
 
 		if(this.nbTex>0){
 			agl.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
@@ -138,44 +133,43 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// lights
 		// uAmbientColor
 		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
-		
-		
+
+
 
 		// textures
 		for (var i = 0; i < this.nbTex; i++) {
 			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
 		}
 
-        return program;
-    }
+    return program;
+  }
 
-    // setUniforms
-    //----------------------------------------
-    // inputs: 	aGL: atomicGLContext
+  // setUniforms
+  //----------------------------------------
+  // inputs: 	aGL: atomicGLContext
 	// 			aMS: atomicGLMatrixStack
-    setUniforms(aGL,aMS){
+  setUniforms(aGL,aMS){
 		// debug
 		//console.log("atomicGLShader::setUniforms ");
-    	// set this shader as active shader
-    	aGL.gl.useProgram(this.program);
+  	// set this shader as active shader
+    aGL.gl.useProgram(this.program);
 
+    // matrix
+  	//		Projection
+  	// 		Model->view
+  	//		Normal built from Model->view
+  	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
+ 			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+  	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
+      aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
 
-    	// matrix
-    	//		Projection
-    	// 		Model->view
-    	//		Normal built from Model->view
-    	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
-   			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
-    	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
-	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
+    var normalMatrix = mat3.create();
+    mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+    mat3.transpose(normalMatrix);
+    if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
+    	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
-        var normalMatrix = mat3.create();
-        mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
-        mat3.transpose(normalMatrix);
-        if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
-        	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
-
-        // Lights
+    // Lights
 		for(var lightId of agl.lights.keys())
 		{
 			if(this.hasLight(lightId))
@@ -186,29 +180,27 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
 						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getColor());
-
-					break;
+						break;
 
 					case atomicGL2DirectionnalLight:
 						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-					break;
+						break;
 
 					case atomicGL2SpotLight:
 						this.setUniformById(agl,lightId + "Postition",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
 						this.setUniformById(agl,lightId + "Radius",agl.getLight(lightId).getRadius());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-					break;
+						break;
 
 					default:
 						alert("Error with the Type of the Light: still not implemented");
-					break;
+						break;
 				}
 			}
 		}
-
-    }
+  }
 
 	// build
 	//-----------------------------
@@ -239,7 +231,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a Normal attribute in the vertex shader
 	*/
 	hasVertexNormalAttribute(src){
-	for(var i = 0 ;  i < src.length; ++i){
+		for(var i = 0 ;  i < src.length; ++i){
 			var res = (src[i][1].indexOf('normal') > -1) || (src[i][1].indexOf('Normal') > -1) ;
 			if(res)
 				return true;
@@ -318,13 +310,11 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	getVertexPosition(){
 		for (var key of this.mapAttributes.keys()) {
-
 			var res = (key.indexOf('position') > -1) || (key.indexOf('Position') > -1) ;
 			if(res){
 				return this.mapAttributes.get(key);
 			}
 		}
-
 	}
 
 	/**
@@ -336,7 +326,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			if(res)
 				return this.mapAttributes.get(key);
 		}
-
 	}
 
 	/**
@@ -397,41 +386,34 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	setUniformById(agl,id,value){
 		var type = this.getUniformType(id) ;
 		var uniform = this.getUniformById(id);
-		
+
 		switch(type)
 		{
 			case 'float':
 				agl.gl.uniform1f(uniform,value);
-			break;
+				break;
 
 			case 'int' :
-		
-			break;
+				break;
 
 			case 'vec4' :
-	
-			break;
+				break;
 
 			case 'vec3' :
 				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
-
-			break;
+				break;
 
 			case 'vec2' :
-
-			break;
+				break;
 
 			case 'mat3' :
-			
-			break;
+				break;
 
 			case 'mat4' :
-			
-			break;
+				break;
 
 			default:
-				
-			break;
+				break;
 		}
 	}
 }
