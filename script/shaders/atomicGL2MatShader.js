@@ -19,7 +19,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		// -------------------------------------------------
 		super();
 
-		this.shaderloader =shaderloader;
+		this.shaderloader = shaderloader;
 
 		// nbTex
 		this.nbTex = this.shaderloader.getNbTexture();

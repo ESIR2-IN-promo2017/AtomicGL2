@@ -23,15 +23,20 @@ class atomicGLWalkCamera {
 	this.xc = 10.0 ;
 	this.yc = 2.0 ;
 	this.zc = 0.0 ;
-	// camera orientation
+
+  // camera orientation
 	this.theta = 0.0 ;
 	this.phi = 0.0 ;
-	// step
-	this.step = 0.30 ;
-	// rot
+
+  // step
+	this.step = 0.50 ;
+
+  // rot
 	this.rot = 0.5 ;
 
   // navmesh
+  this.heightUp = 1;
+  this.heightDown = -5;
   this.navmesh = new atomicGL2ObjMesh("navigation", eval("new "+navMesh), 1, 1);
 }
 
@@ -93,21 +98,23 @@ class atomicGLWalkCamera {
 
       if((b1 == b2) && (b2 == b3))
       {
-        this.xc = ptx;
-        this.zc = ptz;
-        this.moveY(ptx, ptz, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z);
+        if(this.moveY(ptx, ptz, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z))
+        {
+          this.xc = ptx;
+          this.zc = ptz;
+        }
       }
       else
       {
         if((b1X == b2X) && (b2X == b3X))
         {
-          this.xc = ptx;
-          this.moveY(ptx, this.zc, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z);
+          if(this.moveY(ptx, this.zc, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z))
+            this.xc = ptx;
         }
         if((b1Z == b2Z) && (b2Z == b3Z))
         {
-          this.zc = ptz;
-          this.moveY(this.xc, ptz, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z);
+          if(this.moveY(this.xc, ptz, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z))
+            this.zc = ptz;
         }
       }
     }
@@ -137,7 +144,13 @@ class atomicGLWalkCamera {
     var beta = AirB / Air;
     var gamma = AirC / Air;
 
-    this.yc = (alpha*v3y + beta*v1y + gamma*v2y) + 2;
+    var movement = (alpha*v3y + beta*v1y + gamma*v2y) + 2 - this.yc;
+    var authorized = (movement > this.heightDown) && (movement < this.heightUp);
+
+    if(authorized)
+      this.yc = (alpha*v3y + beta*v1y + gamma*v2y) + 2;
+
+    return authorized;
   }
 
 	turnright(a) {
