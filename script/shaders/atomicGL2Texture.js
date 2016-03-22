@@ -45,6 +45,7 @@ class atomicGL2Texture{
     // build
     this.build();
 	}
+
 	// --------------------------------------------------
 	// methods
 	// --------------------------------------------------
@@ -59,28 +60,29 @@ class atomicGL2Texture{
 		// debug
 		//console.log("atomicGLTexture::onload("+o.file+")");
 
-        o.agl.gl.pixelStorei(o.agl.gl.UNPACK_FLIP_Y_WEBGL, true);
+    o.agl.gl.pixelStorei(o.agl.gl.UNPACK_FLIP_Y_WEBGL, true);
 		// bindTexture
-        o.agl.gl.bindTexture(o.agl.gl.TEXTURE_2D, o.texture);
-        o.agl.gl.texImage2D(o.agl.gl.TEXTURE_2D, 0, o.agl.gl.RGBA, o.agl.gl.RGBA, o.agl.gl.UNSIGNED_BYTE, o.texture.image);
-        // parameters
+    o.agl.gl.bindTexture(o.agl.gl.TEXTURE_2D, o.texture);
+    o.agl.gl.texImage2D(o.agl.gl.TEXTURE_2D, 0, o.agl.gl.RGBA, o.agl.gl.RGBA, o.agl.gl.UNSIGNED_BYTE, o.texture.image);
+    // parameters
 		o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MAG_FILTER, o.agl.gl.LINEAR);
-        o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MIN_FILTER, o.agl.gl.LINEAR_MIPMAP_NEAREST);
-        o.agl.gl.generateMipmap(o.agl.gl.TEXTURE_2D);
+    o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MIN_FILTER, o.agl.gl.LINEAR_MIPMAP_NEAREST);
+    o.agl.gl.generateMipmap(o.agl.gl.TEXTURE_2D);
 		// unbind
-        o.agl.gl.bindTexture(agl.gl.TEXTURE_2D, null);
+    o.agl.gl.bindTexture(agl.gl.TEXTURE_2D, null);
 		// loaded !
 		o.loaded = true ;
 	}
+
 	// --------------------------------------------------
 	// build
 	// --------------------------------------------------
 	// handle image load
 	build(){
-	this.textureImage.onload = this.handleIMG.bind(this);
+		this.textureImage.onload = this.handleIMG.bind(this);
 
-	// init: set the file src
-    this.textureImage.src = this.file;
+		// init: set the file src
+	  this.textureImage.src = this.file;
 	}
 
 }

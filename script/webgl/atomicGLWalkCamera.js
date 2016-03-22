@@ -1,3 +1,4 @@
+
 // atomicGL
 //----------------------------------------------------------------------------------------
 // author: RC
@@ -17,19 +18,19 @@
 //------------------------
 class atomicGLWalkCamera {
  constructor(){
-	// attributes
-	// -------------------------------------------------
-	// camera position
-	this.xc = 10.0 ;
-	this.yc = 2.0 ;
-	this.zc = 0.0 ;
-	// camera orientation
-	this.theta = 0.0 ;
-	this.phi = 0.0 ;
-	// step
-	this.step = 0.50 ;
-	// rot
-	this.rot = 0.5 ;
+  // attributes
+  // -------------------------------------------------
+  // camera position
+  this.xc = 10.0 ;
+  this.yc = 2.0 ;
+  this.zc = 0.0 ;
+  // camera orientation
+  this.theta = 0.0 ;
+  this.phi = 0.0 ;
+  // step
+  this.step = 0.50 ;
+  // rot
+  this.rot = 0.5 ;
 
   this.isFreeCam = false;
 /*
@@ -45,33 +46,33 @@ class atomicGLWalkCamera {
   this.navmesh = new atomicGL2ObjMesh("navigation", new sol_herbe(), 1, 1);
 }
 
-	// methods
-	// --------------------------------------------------
-	// up/right/left/down
-	//---------------------------
-	up() {
+  // methods
+  // --------------------------------------------------
+  // up/right/left/down
+  //---------------------------
+  up() {
     var displaceX = +this.step*Math.sin(this.theta*3.14/180.0);
     var displaceZ = -this.step*Math.cos(this.theta*3.14/180.0);
     this.move(displaceX, displaceZ);
-	}
+  }
 
-	down() {
+  down() {
     var displaceX = -this.step*Math.sin(this.theta*3.14/180.0);
     var displaceZ = +this.step*Math.cos(this.theta*3.14/180.0);
     this.move(displaceX, displaceZ);
-	}
+  }
 
-	right() {
+  right() {
     var displaceX = +this.step*Math.cos(this.theta*3.14/180.0);
     var displaceZ = +this.step*Math.sin(this.theta*3.14/180.0);
     this.move(displaceX, displaceZ);
-	}
+  }
 
-	left() {
+  left() {
     var displaceX = -this.step*Math.cos(this.theta*3.14/180.0);
     var displaceZ = -this.step*Math.sin(this.theta*3.14/180.0);
     this.move(displaceX, displaceZ);
-	}
+  }
 
   move(displaceX, displaceZ) {
     if(this.isFreeCam)
@@ -126,8 +127,8 @@ class atomicGLWalkCamera {
           var beta = AirB / Air;
           var gamma = AirC / Air;
 
-          this.xc +=	displaceX;
-          this.zc += 	displaceZ;
+          this.xc +=  displaceX;
+          this.zc +=  displaceZ;
           this.yc = (alpha*v3y + beta*v1y + gamma*v2y) + 2;
 
           break;
@@ -136,7 +137,7 @@ class atomicGLWalkCamera {
     }
   }
 
-	turnright(a) 
+  turnright(a) 
   {this.theta += a;}
 
   turnleft(a) 
