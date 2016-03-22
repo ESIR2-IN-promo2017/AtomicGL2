@@ -3,8 +3,10 @@
 <SCENE>
 	<LIGHTS>
 		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10"></POINTLIGHT>
+	<!--
 		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
 		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"></SPOTLIGHT>
+	-->
 	</LIGHTS>
 
 	<SHADERS>

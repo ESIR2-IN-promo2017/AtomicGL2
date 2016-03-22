@@ -33,6 +33,7 @@ function sceneDraw(){
 // -----------------------------
 function nextFrame() {
 	handleKeys();
+	agl.scenegraph.camera.update();
   requestAnimFrame(nextFrame);
   sceneDraw();
   animate();
@@ -76,6 +77,10 @@ function handleKeys() {
 	{
 		agl.scenegraph.camera.down();			//
 	}
+	if (currentlyPressedKeys[32]) // (Space) Jump
+	{
+		agl.scenegraph.camera.jump();			//
+	}
 }
 
 // mouse
@@ -89,7 +94,7 @@ function onDocumentMouseMove( event ) {
 	//webGLStart
 function webGLStart() {
 	// init
-	// -----------------------------
+	// ---------------------
 	// recover OpenGL canvas
 	var canvas = document.getElementById("oglcanvas");
 
@@ -99,7 +104,7 @@ function webGLStart() {
 
 	// scenegraph creation from xml file
 	var scene = document.getElementById('id').innerHTML;
-	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
+	var sgxml = new atomicGL2xml(agl, 'scenes/'+scene+'.xml');
 
 	// init Matrix Stack
 	ams.initMatrix(agl,45); // fov = 45 degrees

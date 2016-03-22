@@ -20,7 +20,6 @@ class atomicGL2xml {
 		// attributes
 		// -------------------------------------------------
 		this.dom  = null ;
-
 		// build
 		// ----------------------
 		// init
