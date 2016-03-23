@@ -53,15 +53,15 @@ function handleKeyDown(event) {
 
 function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
-}
 
-function handleKeys() {
-
-	if (currentlyPressedKeys[32]) {
+	if (event.keyCode == 32) {
 		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
 		agl.scenegraph.camera.up();
 	}
 
+}
+
+function handleKeys() {
 	if(agl.scenegraph.camera.isFreeCam)
 	{
 		// (Z) Up
