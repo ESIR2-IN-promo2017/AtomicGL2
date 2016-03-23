@@ -1,37 +1,29 @@
-// for mouse
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
+// atomicGL2
 
+// MOUSE
 var mouseY;
 var mouseX;
 
-document.onmousemove = handleMouseMove;
-
+// KEYBOARD
 var currentlyPressedKeys = {};
-//	keyboard callbacks
 document.onkeydown 	= handleKeyDown;
 document.onkeyup 	= handleKeyUp;
 
-// atomicGL
-// -------------------------------------------------
 // GL context
 var agl = new atomicGL2Context();
 // matrix stack
 var ams = new atomicGL2MatrixStack();
 // clock
 var sceneClock = new atomicGL2Clock();
-// -------------------------------------------------
 
 
-// draw
-// -----------------------------
+// DRAW
 function sceneDraw() {
 	agl.initDraw();
 	agl.scenegraph.draw(agl,ams);
 }
 
-// nextFrame
-// -----------------------------
+// NEXTFRAME
 function nextFrame() {
 	handleKeys();
   	requestAnimFrame(nextFrame);
@@ -39,8 +31,7 @@ function nextFrame() {
   	animate();
 }
 
-// animate
-// ------------------------------
+// ANIMATE
 function animate() {
 	// increase time
 	sceneClock.tick();
@@ -53,15 +44,16 @@ function handleKeyDown(event) {
 
 function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
-}
 
-function handleKeys() {
-
-	if (currentlyPressedKeys[32]) {
+	// Push [SPACE] to switch mode
+	if (event.keyCode == 32) {
 		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
 		agl.scenegraph.camera.up();
 	}
+}
 
+function handleKeys() {
+	// CEMARA MODE
 	if(agl.scenegraph.camera.isFreeCam)
 	{
 		// (Z) Up
@@ -76,14 +68,11 @@ function handleKeys() {
 		console.log('speed : ', agl.scenegraph.camera.step);
 		agl.scenegraph.camera.up();
 	}
+	// WALK MODE
 	else
 	{
 		agl.scenegraph.camera.step = 0.5;
 
-		// (C) debug
-		if (currentlyPressedKeys[67]) { 
-			console.log('atomicGL - Rémi COZOT - 2015');
-		}
 		// (D) Right
 		if (currentlyPressedKeys[68]) {
 			agl.scenegraph.camera.right();
@@ -104,16 +93,6 @@ function handleKeys() {
 }
 
 // MOUSE
-function handleMouseMove(event) {
-	mouseX = event.clientX;
-	mouseY = event.clientY;
-}
-
-function degToRad(degrees) {
-	var result = Math.PI/180 * degrees;
-	return result;
-}
-
 function canvasDraw(agl, canvas) {
 	if(mouseX != undefined && mouseY != undefined)
 	{
@@ -125,7 +104,7 @@ function canvasDraw(agl, canvas) {
 	}
 }
 
-//webGLStart
+// webGLStart
 function webGLStart() 
 {
 	// init
@@ -138,54 +117,39 @@ function webGLStart()
 	agl.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
-	var scene = document.getElementById('id').innerHTML;
+	var scene = document.getElementById('scene').innerHTML;
 	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
 
 	// pointer lock object forking for cross browser
-	canvas.requestPointerLock = 
-		canvas.requestPointerLock ||
-		canvas.mozRequestPointerLock;
-
-	document.exitPointerLock = 
-		document.exitPointerLock ||
-		document.mozExitPointerLock;
+	canvas.requestPointerLock = canvas.mozRequestPointerLock;
+	canvas.exitPointerLock = canvas.mozExitPointerLock;
 
 	canvas.onclick = function() {
 		canvas.requestPointerLock();
 	}
 
 	// Hook pointer lock state change events for different browsers
-	document.addEventListener('pointerlockchange', lockChangeAlert, false);
-	document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
-
-	// Hook mouse move events
-	document.addEventListener("mousemove", this.moveCallback, false);
+	document.addEventListener("mozpointerlockchange", lockChangeAlert, false);
 
 	function lockChangeAlert() {
-		if(document.pointerLockElement === canvas ||
-		document.mozPointerLockElement === canvas) {
+		if(document.mozPointerLockElement == canvas) {
 			console.log('The pointer lock status is now locked');
 	    	document.addEventListener("mousemove", canvasLoop, false);
 		} else {
-	    	console.log('The pointer lock status is now unlocked');  
+	    	console.log('The pointer lock status is now unlocked');
 	    	document.removeEventListener("mousemove", canvasLoop, false);
 	  	}
 	}
 
 	function canvasLoop(e) {
-		var movementX = e.mozMovementX;
-		var movementY = e.mozMovementY;
-
-		mouseX = movementX;
-		mouseY = movementY;
+		mouseX = e.mozMovementX;
+		mouseY = e.mozMovementY;
 
 		canvasDraw(agl, canvas);
-
-		var animation = requestAnimationFrame(canvasLoop);
 	}
 
 	// init Matrix Stack
-	ams.initMatrix(agl, 45); // fov = 45 degrees
+	ams.initMatrix(agl, 80); // fov = 80 degrees
 
 	// start the animation
 	nextFrame();
