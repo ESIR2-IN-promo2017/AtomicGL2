@@ -121,6 +121,7 @@ class atomicGLWalkCamera {
   update(){
     if(this.isFreeCam == true)
     {
+        this.levelZero = this.yc;
         this.navmesh.xc = this.xc;
         this.navmesh.zc = this.zc;
     }

@@ -48,9 +48,15 @@ function handleKeyUp(event) {
 
 	// Push [SPACE] to switch mode
 	if (event.keyCode == 70) {
-		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
+		if(agl.scenegraph.camera.isFreeCam){
+			agl.scenegraph.camera.isFreeCam = false;
+			agl.scenegraph.camera.jumping = true;
+			agl.scenegraph.camera.jumpDown = true;
+		} else {
+		agl.scenegraph.camera.isFreeCam = true;
 		agl.scenegraph.camera.walkStep = 0.0;
 		agl.scenegraph.camera.up();
+		}
 	}
 }
 
@@ -70,7 +76,6 @@ function handleKeys() {
 				agl.scenegraph.camera.walkStep -= 0.05;
 		}
 
-		console.log('speed : ', agl.scenegraph.camera.walkStep);
 		agl.scenegraph.camera.up();
 	}
 
