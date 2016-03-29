@@ -138,7 +138,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 
 		// textures
-		for (var i = 0; i < this.nbTex; i++) {
+		for (var i = 0; i < this.nbTex.lenght; i++) {
 			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
 		}
 
@@ -180,7 +180,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 					case atomicGL2PointLight:
 						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
-						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getColor());
+						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getIntensity());
 						break;
 
 					case atomicGL2DirectionnalLight:
@@ -189,7 +189,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 						break;
 
 					case atomicGL2SpotLight:
-						this.setUniformById(agl,lightId + "Postition",agl.getLight(lightId).getPosition());
+						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
 						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
 						this.setUniformById(agl,lightId + "Radius",agl.getLight(lightId).getRadius());
 						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());

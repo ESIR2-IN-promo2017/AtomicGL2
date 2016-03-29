@@ -15,7 +15,7 @@
 class atomicGL2Light {
 
 	/**
-   * 
+   *
    * @param {Array[3]:float} color the color of the light
    */
 	constructor(color,intensity){
@@ -33,15 +33,15 @@ class atomicGL2Light {
     * @type {Array[3]:float} color of the light
     */
 		this.color = color;
-    
+
     /**
-    * @type {Array[3]:float} color of the light
+    * @type {float} intensity of the light
     */
     this.intensity = intensity;
 
     /**
     * @type {Array[3]:float} position of the light
-    */      
+    */
     this.position = null;
 
     /**
@@ -53,7 +53,7 @@ class atomicGL2Light {
     * @type {Array[3]:float} direction of the light
     */
     this.direction = null;
-	
+
 	}
 
 	/**
@@ -71,7 +71,7 @@ class atomicGL2Light {
   }
 
   /*
-  * @type {float} The angle of the area of the SpotLight 
+  * @type {float} The angle of the area of the SpotLight
   */
     getRadius(){
     return this.radius;
