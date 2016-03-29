@@ -1,37 +1,29 @@
-// for mouse
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
+// atomicGL2
 
+// MOUSE
 var mouseY;
 var mouseX;
 
-document.onmousemove = handleMouseMove;
-
+// KEYBOARD
 var currentlyPressedKeys = {};
-//	keyboard callbacks
 document.onkeydown 	= handleKeyDown;
 document.onkeyup 	= handleKeyUp;
 
-// atomicGL
-// -------------------------------------------------
 // GL context
 var agl = new atomicGL2Context();
 // matrix stack
 var ams = new atomicGL2MatrixStack();
 // clock
 var sceneClock = new atomicGL2Clock();
-// -------------------------------------------------
 
 
-// draw
-// -----------------------------
+// DRAW
 function sceneDraw() {
 	agl.initDraw();
 	agl.scenegraph.draw(agl,ams);
 }
 
-// nextFrame
-// -----------------------------
+// NEXTFRAME
 function nextFrame() {
 	handleKeys();
 	agl.scenegraph.camera.update();
@@ -40,8 +32,7 @@ function nextFrame() {
   animate();
 }
 
-// animate
-// ------------------------------
+// ANIMATE
 function animate() {
 	// increase time
 	sceneClock.tick();
@@ -54,46 +45,64 @@ function handleKeyDown(event) {
 
 function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
+
+	// Push [SPACE] to switch mode
+	if (event.keyCode == 70) {
+		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
+		agl.scenegraph.camera.walkStep = 0.0;
+		agl.scenegraph.camera.up();
+	}
 }
 
 function handleKeys() {
-	// (C) debug
-	if (currentlyPressedKeys[67]) {
-		console.log('atomicGL - Rémi COZOT - 2015');
-	}
-	// (D) Right
-	if (currentlyPressedKeys[68]) {
-		agl.scenegraph.camera.right();
-	}
-	// (Q) Left
-	if (currentlyPressedKeys[81]) {
-		agl.scenegraph.camera.left();
-	}
-	// (Z) Up
-	if (currentlyPressedKeys[90]) {
+
+	// CAMERA MODE
+	if(agl.scenegraph.camera.isFreeCam)
+	{
+		// (Z) Up
+		if (currentlyPressedKeys[90]) {
+			if(agl.scenegraph.camera.walkStep < 2)
+				agl.scenegraph.camera.walkStep += 0.05;
+		}
+		// (S) Down
+		if (currentlyPressedKeys[83]) {
+			if(agl.scenegraph.camera.walkStep > -2)
+				agl.scenegraph.camera.walkStep -= 0.05;
+		}
+
+		console.log('speed : ', agl.scenegraph.camera.walkStep);
 		agl.scenegraph.camera.up();
 	}
-	// (S) Down
-	if (currentlyPressedKeys[83]) {
-		agl.scenegraph.camera.down();
-	}
-	// (Space) Jump
-	if (currentlyPressedKeys[32]) {
-		agl.scenegraph.camera.jump();
+
+	// WALK MODE
+	else
+	{
+		agl.scenegraph.camera.walkStep = 0.5;
+
+		// (D) Right
+		if (currentlyPressedKeys[68]) {
+			agl.scenegraph.camera.right();
+		}
+		// (Q) Left
+		if (currentlyPressedKeys[81]) {
+			agl.scenegraph.camera.left();
+		}
+		// (Z) Up
+		if (currentlyPressedKeys[90]) {
+			agl.scenegraph.camera.up();
+		}
+		// (S) Down
+		if (currentlyPressedKeys[83]) {
+			agl.scenegraph.camera.down();
+		}
+		// (Space) Jump
+		if (currentlyPressedKeys[32]) {
+			agl.scenegraph.camera.jump();
+		}
 	}
 }
 
 // MOUSE
-function handleMouseMove(event) {
-	mouseX = event.clientX;
-	mouseY = event.clientY;
-}
-
-function degToRad(degrees) {
-	var result = Math.PI/180 * degrees;
-	return result;
-}
-
 function canvasDraw(agl, canvas) {
 	if(mouseX != undefined && mouseY != undefined)
 	{
@@ -118,32 +127,22 @@ function webGLStart()
 	agl.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
-	var scene = document.getElementById('id').innerHTML;
-	var sgxml = new atomicGL2xml(agl, 'scenes/'+scene+'.xml');
+	var scene = document.getElementById('scene').innerHTML;
+	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
 
 	// pointer lock object forking for cross browser
-	canvas.requestPointerLock =
-		canvas.requestPointerLock ||
-		canvas.mozRequestPointerLock;
-
-	document.exitPointerLock =
-		document.exitPointerLock ||
-		document.mozExitPointerLock;
+	canvas.requestPointerLock = canvas.mozRequestPointerLock;
+	canvas.exitPointerLock = canvas.mozExitPointerLock;
 
 	canvas.onclick = function() {
 		canvas.requestPointerLock();
 	}
 
 	// Hook pointer lock state change events for different browsers
-	document.addEventListener('pointerlockchange', lockChangeAlert, false);
-	document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
-
-	// Hook mouse move events
-	document.addEventListener("mousemove", this.moveCallback, false);
+	document.addEventListener("mozpointerlockchange", lockChangeAlert, false);
 
 	function lockChangeAlert() {
-		if(document.pointerLockElement === canvas ||
-		document.mozPointerLockElement === canvas) {
+		if(document.mozPointerLockElement == canvas) {
 			console.log('The pointer lock status is now locked');
 	    	document.addEventListener("mousemove", canvasLoop, false);
 		} else {
@@ -153,19 +152,14 @@ function webGLStart()
 	}
 
 	function canvasLoop(e) {
-		var movementX = e.mozMovementX;
-		var movementY = e.mozMovementY;
-
-		mouseX = movementX;
-		mouseY = movementY;
+		mouseX = e.mozMovementX;
+		mouseY = e.mozMovementY;
 
 		canvasDraw(agl, canvas);
-
-		var animation = requestAnimationFrame(canvasLoop);
 	}
 
 	// init Matrix Stack
-	ams.initMatrix(agl, 45); // fov = 45 degrees
+	ams.initMatrix(agl, 80); // fov = 80 degrees
 
 	// start the animation
 	nextFrame();

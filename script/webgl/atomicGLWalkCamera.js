@@ -1,4 +1,3 @@
-
 // atomicGL
 //----------------------------------------------------------------------------------------
 // author: RC
@@ -35,6 +34,9 @@ class atomicGLWalkCamera {
 
   // rot
 	this.rot = 0.5 ;
+
+  // fly
+  this.isFreeCam = false;
 
   // jump
   this.jumping = false;
@@ -98,6 +100,12 @@ class atomicGLWalkCamera {
       this.zc += displaceZ;
     }
 
+    if(this.isFreeCam) {
+      this.xc += displaceX;
+      this.zc += displaceZ;
+      this.yc += this.walkStep * Math.sin(-this.phi * 3.14 / 180);
+    }
+
     this.navmesh.move(displaceX, displaceZ);
   }
 
@@ -111,7 +119,12 @@ class atomicGLWalkCamera {
   }
 
   update(){
-    if(this.jumping == true)
+    if(this.isFreeCam == true)
+    {
+        this.navmesh.xc = this.xc;
+        this.navmesh.zc = this.zc;
+    }
+    else if(this.jumping == true)
     {
         this.animJump();
         this.navmesh.xc = this.xc;
