@@ -89,12 +89,14 @@ class atomicGL2xml {
 			var dy 			= parseFloat(direction.split(",")[1]);
 			var dz 			= parseFloat(direction.split(",")[2]);
 
+            var intensity  = parseFloat(DIR.getAttribute("intensity"));
+
 			// cast color and direction to Array
 			color = [r,g,b];
 			direction = [dx,dy,dz];
 
 			// create directionnallight and add it to context
-			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction));
+			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction,intensity));
 			// debug
 			//console.log("atomicGLxml::directionnallights >> find light("+i+"): "+listDIR[i].childNodes[0].data+"-id: "+id+" -color: "+color);
 		}
@@ -125,13 +127,16 @@ class atomicGL2xml {
 			// radius
 			var radius	 	= SPOT.getAttribute("radius");
 
+            // intensity
+            var intensity  = parseFloat(SPOT.getAttribute("intensity"));
+
 			// cast color, position and direction to Array
 			color = [r,g,b];
 			position = [px,py,pz]
 			direction = [dx,dy,dz];
 
 			// create spotlight and add it to context
-			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
+			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius,intensity));
 			// debug
 			//console.log("atomicGLxml::spotlights >> find light("+i+"): "+listSPOT[i].childNodes[0].data+"-id: "+id+" -color: "+color);
 		}

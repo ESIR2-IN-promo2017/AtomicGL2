@@ -2,9 +2,10 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="PointLight" color="1.0,1.0,1.0" position="2.0,10.0,0.0" intensity="1"></POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight" color="0.3,0.3,0.3" direction="10.0,-5.0,-10.0"></DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight" color="10.0,0.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2"></SPOTLIGHT>
+		<POINTLIGHT id="PointLight0" color="1.0,1.0,1.0" position="2.0,10.0,0.0" intensity="1"></POINTLIGHT>
+		<DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.3,0.3,0.3" direction="10.0,-5.0,-10.0" intensity="1"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight0" color="10.0,0.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2" intensity="1"></SPOTLIGHT>
+		<SPOTLIGHT id="SpotLight1" color="0.0,10.0,0.0" position="10.0,2.0,-10.0" direction="0.0,-1.0,0.0" radius="1" intensity="1"></SPOTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>

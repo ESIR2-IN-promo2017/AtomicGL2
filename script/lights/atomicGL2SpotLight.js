@@ -21,7 +21,7 @@ class atomicGL2SpotLight extends atomicGL2Light {
    * @param {Array[3]:float} direction the direction of the spotlight
    * @param {float} radius the radius of the area of the spotlight
    */
-	constructor(color, position, direction, radius){
+	constructor(color, position, direction, radius, intensity){
 		//if the direction parmaters is an  incorrect parameter : Error exception
 		if(typeof(direction)!=Array && direction.length != 3)
     	throw new TypeError("Please instantiate the "+this.getType()+" with the ddirection parameter");
@@ -34,7 +34,7 @@ class atomicGL2SpotLight extends atomicGL2Light {
    	if(typeof(position)!=Array && position.length != 3)
     	throw new TypeError("Please instantiate the "+this.getType()+" with the position parameter");
 
-		super(color);
+		super(color, intensity);
 
 		/**
      	* @type {Array[3]:float}  of the SpotLight
