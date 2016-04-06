@@ -39,6 +39,10 @@ class atomicGL2Context {
 		this.shapes         = [];
 		// lights
 		this.lights         = new Map();
+		this.nbPointLights        = 0; 
+		this.nbSpotLights         = 0;
+		this.nbDirectionnalLights = 0;
+		
 		// scene graph
 		this.scenegraph     = null;
 	}
@@ -100,6 +104,19 @@ class atomicGL2Context {
 		// debug
 		// console.log("atomicGLContext::pushLight");
 		this.lights.set(id,light);
+		switch(light.getType())
+		{
+			case atomicGL2PointLight :
+				this.nbPointLights ++;
+				break;
+			case atomicGL2SpotLight :
+				this.nbSpotLights ++;
+				break;
+			case atomicGL2DirectionnalLight :
+				this.nbDirectionnalLights ++;
+				break;
+
+		}
 		console.log("New ligth added: " + id);
 	}
 

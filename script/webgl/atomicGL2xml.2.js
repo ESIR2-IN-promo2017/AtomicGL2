@@ -20,7 +20,6 @@ class atomicGL2xml {
 		// attributes
 		// -------------------------------------------------
 		this.dom  = null ;
-
 		// build
 		// ----------------------
 		// init
@@ -251,6 +250,13 @@ class atomicGL2xml {
 
 				// debug
 				//console.log("-- texture used ("+j+"):"+tid + "- index:" + agltid);
+			}
+
+			var pointLights = SHAPE.getElementsByTagName("POINTLIGHTID");
+
+			for(var j=0; j<pointLights.length; j++)
+			{
+				var ptid = pointLights[j].childNodes[0].data;
 			}
 
 			// init shape buffer and add it to context

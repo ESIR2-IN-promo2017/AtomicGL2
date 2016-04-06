@@ -4,6 +4,7 @@
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
 			attribute vec3 aVertexNormal;
 		</ATTRIBUTES>
 
@@ -14,16 +15,18 @@
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec3 vNormal;
-		  varying vec4 vPosition;
+		  varying vec2 vTextureCoord;
+		  varying vec3 vNormal;
+		  varying vec4 vPosition; 
 		</VARYING>
 
 		<OUTPUT>
-		  void main(void) {
-				vPosition = uMVMatrix *vec4(aVertexPosition, 1.0);
+		    void main(void) {
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 				gl_Position = uPMatrix * vPosition;
-				vNormal = uNMatrix * aVertexNormal;
-    	}
+				vNormal = uNMatrix * aVertexNormal;	
+		        vTextureCoord = aVertexTexCoord;
+    		}
 		</OUTPUT>
 	</VERTEX>
 
@@ -35,22 +38,18 @@
 		</PRECISION>
 
 		<UNIFORMS>
-		    uniform vec3 pointLightLocations;
-		    uniform vec3 pointLightColor;
+		    uniform sampler2D uSampler0;
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec3 vNormal;
-		  varying vec4 vPosition;
+			varying vec2 vTextureCoord;
 		</VARYING>
 
 		<OUTPUT>
 			void main(void) {
 				vec3 color;
-				for (int i = 0; i < pointLightLocations.size(); i++)
-				{
-				  color += pointLightColor[i];
-				}
+				for (int i = 0; i < 1; i++)
+				 	color += pointLights[i].color + texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
 
 				gl_FragColor = color;
 			}

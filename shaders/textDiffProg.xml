@@ -34,8 +34,9 @@
 	    void main(void) {
 	    	// vNormal
 				vNormal = uNMatrix * aVertexNormal;
+				vPosition = vec4(aVertexPosition, 1.0);
 
-	      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+	      gl_Position = uPMatrix * uMVMatrix * vPosition;
 	      vTextureCoord = aVertexTexCoord;
 	    }
 	  </OUTPUT>
@@ -58,14 +59,18 @@
 	  <UNIFORMS>
     	uniform sampler2D uSampler0;
 
-			// lights
-			// ambient
-			uniform vec3 uAmbientColor;
-
 			//point light ie omni dir:  location, color
-			uniform vec3 SunPosition;
-			uniform vec3 SunColor;
-			uniform float SunIntensity;
+			uniform vec3 PointLightPosition;
+			uniform vec3 PointLightColor;
+			uniform float PointLightIntensity;
+
+			uniform vec3 DirecionnalLightColor;
+			uniform vec3 DirecionnalLightDirection;
+
+			uniform vec3 SpotLightColor;
+			uniform vec3 SpotLightPosition;
+			uniform vec3 SpotLightDirection;
+			uniform float SpotLightRadius;
 		</UNIFORMS>
 
 		<VARYING>
@@ -81,11 +86,13 @@
 			float Kd = 1.0 ;
 
 		  void main(void) {
-				// light direction
-				vec3 lightDirection = normalize(SunPosition - vPosition.xyz);
-				float distance = sqrt(pow(SunPosition.x-vPosition.x,2.0) + 
-									pow(SunPosition.y-vPosition.y,2.0)+
-									pow(SunPosition.z-vPosition.z,2.0));
+				//////////////////
+				// Point Lights //
+				//////////////////
+				vec3 lightDirection = normalize(PointLightPosition - vPosition.xyz);
+
+				// distance
+				float distance = sqrt(pow(PointLightPosition.x-vPosition.x,2.0) + pow(PointLightPosition.y-vPosition.y,2.0) + pow(PointLightPosition.z-vPosition.z,2.0));
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
@@ -94,14 +101,52 @@
 				vec3 normal = normalize(vNormal);
 
 				// diffuse term
-				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0) * SunIntensity;
+				float diffuseLightWeight = max(dot(normal, lightDirection), 0.0) * PointLightIntensity;
 
 				// texture color
-				vec4 texColor  = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+				vec4 texColor  = texture2D(uSampler0, vTextureCoord);
 
 				// light color
-				vec3 lightColor = Kd*uAmbientColor*texColor.rgb + Kd*diffuseLightWeight*SunColor *texColor.rgb/distance ;
+				vec3 lightColor = Kd*diffuseLightWeight*PointLightColor*texColor.rgb / distance;
 
+
+				////////////////////////
+				// Directional Lights //
+				////////////////////////
+				lightDirection = normalize(-DirecionnalLightDirection.xyz);
+
+				// diffuse term
+				diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+
+				// light color
+				lightColor += Kd*diffuseLightWeight*DirecionnalLightColor*texColor.rgb;
+
+
+				/////////////////
+				// Spot Lights //
+				/////////////////
+				lightDirection = normalize(SpotLightPosition - vPosition.xyz);
+
+				float factor = (SpotLightPosition.y / SpotLightDirection.y) - vPosition.y;
+				vec3 longDir = SpotLightDirection.xyz * factor;
+				vec3 centerShower = SpotLightPosition.xyz + longDir;
+
+				distance = sqrt(pow(SpotLightPosition.x-vPosition.x,2.0) +	pow(SpotLightPosition.y-vPosition.y,2.0) + pow(SpotLightPosition.z-vPosition.z,2.0));
+
+				float planDistance = sqrt(pow(centerShower.x-vPosition.x,2.0) + pow(centerShower.z-vPosition.z,2.0));
+				float planRadius = distance*SpotLightRadius;
+
+				if(planRadius > planDistance)
+				{
+					// diffuse term
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0) * 10.0;
+
+					// light color
+				  lightColor += Kd*diffuseLightWeight*SpotLightColor*texColor.rgb / distance;
+				}
+
+
+				// Global Color
 	      gl_FragColor = vec4(lightColor,1.0);
 	    }
    	</OUTPUT>

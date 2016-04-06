@@ -11,7 +11,6 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 	}
 
 	/*------------------------------------------
-
 	param type : the type request it would be "attribute" or "uniform"
 
 	return : an array with all the identifiers of the type
@@ -83,9 +82,27 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 				if (res[1] == "sampler2D")
 					this.sampler.push(res[2]);
 
-				else 
+				else
 				{
-					elem.push(res[1], res[2]);
+					if(res[1] == "pointLight")
+					{
+						elem.push(res[1],"pointLights");
+						
+					}
+
+					else if(res[1] == "spotLight")
+					{
+						elem.push(res[1],"spotLights");
+					}
+
+					else if(res[1] == "directionnalLight")
+					{
+						elem.push(res[1],"directionnalLights");
+					}
+
+					else 
+						elem.push(res[1], res[2]);
+
 					array.push(elem);
 				}
 			}

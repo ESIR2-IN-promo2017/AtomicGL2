@@ -2,38 +2,47 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10"></POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"></SPOTLIGHT>
+		<!-- <POINTLIGHT id="PointLight0" color="1.0,0.0,0.0" position="15.0,12.0,0.0" intensity="1"></POINTLIGHT>
+		<POINTLIGHT id="PointLight1" color="0.0,1.0,0.0" position="2.0,10.0,0.0" intensity="1"></POINTLIGHT> -->
+		<POINTLIGHT id="PointLight2" color="0.0,0.0,0.0" position="12.0,5.0,0.0" intensity="1"></POINTLIGHT>
+
+		<DIRECTIONNALLIGHT id="DirecionnalLight" color="0.3,0.3,0.3" direction="10.0,-5.0,-10.0"></DIRECTIONNALLIGHT>
+
+		<SPOTLIGHT id="SpotLight" color="10.0,0.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2"></SPOTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
-		<XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER>
+<!-- 		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
+		<XMATSHADER file="shaders/test.xml">textNormalMapProg</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
 		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
 		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
-		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
+		<TEXTURE id="herbe1" type="color">texture/bitume2.png</TEXTURE>
+		<TEXTURE id="herbe1_normal" type="color">texture/bitume2_normal.png</TEXTURE>
 		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
 		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
 		<SHAPE id="ground_sand" type="js">
-			<GEOMETRY id="sol_sable" uv="0.2,0.2">sol_herbe()</GEOMETRY>
+			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_herbe()</GEOMETRY>
 			<TEXTID>herbe1</TEXTID>
+			<TEXTID>herbe1_normal</TEXTID>
 		</SHAPE>
 
 		<SHAPE id="sexy_lady" type="obj">
 			<GEOMETRY id="sexy_lady_obj" uv="1.0,1.0">sexylady.obj</GEOMETRY>
-			<TEXTID>crate1</TEXTID>
+			<TEXTID>herbe1</TEXTID>
+			<TEXTID>herbe1_normal</TEXTID>
 		</SHAPE>
 
 		<SPHERE id="sphere" type="js">
 			<GEOMETRY id="sphereToto" rad="1" lat="60" long="60" uv="3,3"></GEOMETRY>
-			<TEXTID>crate1</TEXTID>
+			<TEXTID>mur_pierre1</TEXTID>
+			<TEXTID>mur_pierre1</TEXTID>
 		</SPHERE>
 	</SHAPES>
 

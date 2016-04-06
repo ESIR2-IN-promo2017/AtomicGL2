@@ -26,9 +26,10 @@ function sceneDraw() {
 // NEXTFRAME
 function nextFrame() {
 	handleKeys();
-  	requestAnimFrame(nextFrame);
-  	sceneDraw();
-  	animate();
+	agl.scenegraph.camera.update();
+  requestAnimFrame(nextFrame);
+  sceneDraw();
+  animate();
 }
 
 // ANIMATE
@@ -46,8 +47,9 @@ function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
 
 	// Push [SPACE] to switch mode
-	if (event.keyCode == 32) {
+	if (event.keyCode == 70) {
 		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
+		agl.scenegraph.camera.walkStep = 0.0;
 		agl.scenegraph.camera.up();
 	}
 }
@@ -59,21 +61,22 @@ function handleKeys() {
 	{
 		// (Z) Up
 		if (currentlyPressedKeys[90]) {
-			agl.scenegraph.camera.step += 0.05;
+			if(agl.scenegraph.camera.walkStep < 2)
+				agl.scenegraph.camera.walkStep += 0.05;
 		}
 		// (S) Down
 		if (currentlyPressedKeys[83]) {
-			agl.scenegraph.camera.step -= 0.05;
+			if(agl.scenegraph.camera.walkStep > -2)
+				agl.scenegraph.camera.walkStep -= 0.05;
 		}
-
-		console.log('speed : ', agl.scenegraph.camera.step);
+		
 		agl.scenegraph.camera.up();
 	}
-	
+
 	// WALK MODE
 	else
 	{
-		agl.scenegraph.camera.step = 0.5;
+		agl.scenegraph.camera.walkStep = 0.5;
 
 		// (D) Right
 		if (currentlyPressedKeys[68]) {
@@ -91,6 +94,10 @@ function handleKeys() {
 		if (currentlyPressedKeys[83]) {
 			agl.scenegraph.camera.down();
 		}
+		// (Space) Jump
+		if (currentlyPressedKeys[32]) {
+			agl.scenegraph.camera.jump();
+		}
 	}
 }
 
@@ -106,11 +113,11 @@ function canvasDraw(agl, canvas) {
 	}
 }
 
-// webGLStart
-function webGLStart() 
+//webGLStart
+function webGLStart()
 {
 	// init
-	// -----------------------------
+	// ---------------------
 	// recover OpenGL canvas
 	var element = document.pointerLockElement;
 	var canvas = document.getElementById("oglcanvas");

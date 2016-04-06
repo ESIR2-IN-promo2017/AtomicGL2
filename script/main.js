@@ -78,6 +78,7 @@ require([
 				'script/webgl/atomicGL2MatrixStack.js',
 				'script/webgl/atomicGL2xml.2.js',
 				'script/webgl/atomicGLWalkCamera.js',
+				'script/webgl/atomicGL2NavMesh.js',
 
 				'script/webGLStart.js'
 
