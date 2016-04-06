@@ -61,11 +61,15 @@ class atomicGL2xml {
 			var py 			= parseFloat(position.split(",")[1]);
 			var pz 			= parseFloat(position.split(",")[2]);
 
-			var intensity  = parseFloat(POINT.getAttribute("intensity"));
+			var intensity   = POINT.getAttribute("intensity");
+            var ix          = parseFloat(intensity.split(",")[0]);
+            var iy          = parseFloat(intensity.split(",")[1]);
+            var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color and position to Array
 			color = [r,g,b];
 			position = [px,py,pz];
+            intensity = [ix, iy, iz];
 
 			// create pointlight and add it to context
 			agl.pushLight(id, new atomicGL2PointLight(color,position,intensity));
@@ -89,11 +93,15 @@ class atomicGL2xml {
 			var dy 			= parseFloat(direction.split(",")[1]);
 			var dz 			= parseFloat(direction.split(",")[2]);
 
-            var intensity  = parseFloat(DIR.getAttribute("intensity"));
+            var intensity   = DIR.getAttribute("intensity");
+            var ix          = parseFloat(intensity.split(",")[0]);
+            var iy          = parseFloat(intensity.split(",")[1]);
+            var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color and direction to Array
 			color = [r,g,b];
 			direction = [dx,dy,dz];
+            intensity = [ix, iy, iz];
 
 			// create directionnallight and add it to context
 			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction,intensity));
@@ -128,12 +136,16 @@ class atomicGL2xml {
 			var radius	 	= SPOT.getAttribute("radius");
 
             // intensity
-            var intensity  = parseFloat(SPOT.getAttribute("intensity"));
+            var intensity   = SPOT.getAttribute("intensity");
+            var ix          = parseFloat(intensity.split(",")[0]);
+            var iy          = parseFloat(intensity.split(",")[1]);
+            var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color, position and direction to Array
 			color = [r,g,b];
 			position = [px,py,pz]
 			direction = [dx,dy,dz];
+            intensity = [ix, iy, iz];
 
 			// create spotlight and add it to context
 			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius,intensity));
@@ -255,6 +267,13 @@ class atomicGL2xml {
 
 				// debug
 				//console.log("-- texture used ("+j+"):"+tid + "- index:" + agltid);
+			}
+
+			var pointLights = SHAPE.getElementsByTagName("POINTLIGHTID");
+
+			for(var j=0; j<pointLights.length; j++)
+			{
+				var ptid = pointLights[j].childNodes[0].data;
 			}
 
 			// init shape buffer and add it to context

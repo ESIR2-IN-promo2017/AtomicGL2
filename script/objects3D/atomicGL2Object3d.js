@@ -122,7 +122,6 @@ class atomicGL2Object3d{
 		// debug
 		//console.log("atomicGLObject3d("+this.name+")::draw(progId: "+idProg+")");
 
-		// activate shader
 		aGL.gl.useProgram(aGL.getShaderProgram(shaderProgramName).program);
 		// setUniforms: matrices and lights
 		aGL.getShaderProgram(shaderProgramName).setUniforms(aGL,aMS);

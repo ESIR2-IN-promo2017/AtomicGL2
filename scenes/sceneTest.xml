@@ -2,23 +2,26 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="PointLight0" color="1.0,1.0,1.0" position="2.0,10.0,0.0" intensity="1"></POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.3,0.3,0.3" direction="10.0,-5.0,-10.0" intensity="1"></DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight0" color="10.0,0.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2" intensity="1"></SPOTLIGHT>
-		<SPOTLIGHT id="SpotLight1" color="0.0,10.0,0.0" position="10.0,2.0,-10.0" direction="0.0,-1.0,0.0" radius="1" intensity="1"></SPOTLIGHT>
+		<POINTLIGHT id="PointLight0" color="1.0,1.0,0.1" position="10.0,10.0,-10.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
+
+		<DIRECTIONNALLIGHT id="DirectionnalLight0" color="1.0,0.9,0.1" direction="-3.0,-1.0,1.0" intensity="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
+
+		<SPOTLIGHT id="SpotLight0" color="0.0,1.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+		<SPOTLIGHT id="SpotLight1" color="0.0,0.0,1.0" position="15.0,1.0,-5.0" direction="0.0,-1.0,0.0" radius="1" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+
 	</LIGHTS>
 
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
 		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
-		<XMATSHADER file="shaders/textNormalMapProg.xml">textNormalMapProg</XMATSHADER>
+		<XMATSHADER file="shaders/textPhongProg.xml">textPhongProg</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
 		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
 		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
-		<TEXTURE id="herbe1" type="color">texture/bitume2.png</TEXTURE>
-		<TEXTURE id="herbe1_normal" type="color">texture/bitume2_normal.png</TEXTURE>
+		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
+		<TEXTURE id="herbe1_normal" type="color">texture/herbe1_normal.png</TEXTURE>
 		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
 		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
 	</TEXTURES>
@@ -27,29 +30,28 @@
 		<SHAPE id="ground_sand" type="js">
 			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_herbe()</GEOMETRY>
 			<TEXTID>herbe1</TEXTID>
-			<TEXTID>herbe1_normal</TEXTID>
 		</SHAPE>
 
 		<SHAPE id="sexy_lady" type="obj">
 			<GEOMETRY id="sexy_lady_obj" uv="1.0,1.0">sexylady.obj</GEOMETRY>
-			<TEXTID>crate1</TEXTID>
+			<TEXTID>herbe1</TEXTID>
 		</SHAPE>
 
 		<SPHERE id="sphere" type="js">
 			<GEOMETRY id="sphereToto" rad="1" lat="60" long="60" uv="3,3"></GEOMETRY>
-			<TEXTID>crate1</TEXTID>
+			<TEXTID>mur_pierre1</TEXTID>
 		</SPHERE>
 	</SHAPES>
 
 	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_herbe()'>
  			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_sol" shader="textNormalMapProg">ground_sand</OBJECT3D>
+				<OBJECT3D id="obj_sol" shader="textDiffProg">ground_sand</OBJECT3D>
 				<TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-						<OBJECT3D id="obj_toto" shader="textDiffProg">sphere</OBJECT3D>
+						<OBJECT3D id="obj_toto" shader="textPhongProg">sphere</OBJECT3D>
 				</TRANSFORM>
 			</TRANSFORM>
 			<TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
-					<OBJECT3D id="obj_sexy_lady" shader="textDiffProg">sexy_lady</OBJECT3D>
+					<OBJECT3D id="obj_sexy_lady" shader="textPhongProg">sexy_lady</OBJECT3D>
 			</TRANSFORM>
 	</ROOT>
 </SCENE>

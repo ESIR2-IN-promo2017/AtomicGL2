@@ -17,16 +17,18 @@
 		<VARYING>
 		  varying vec2 vTextureCoord;
 		  varying vec3 vNormal;
-		  varying vec4 vPosition; 
+		  varying vec4 vPosition;
 		</VARYING>
 
 		<OUTPUT>
-		    void main(void) {
-				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				gl_Position = uPMatrix * vPosition;
-				vNormal = uNMatrix * aVertexNormal;	
-		        vTextureCoord = aVertexTexCoord;
-    		}
+	    void main(void) {
+    		// vNormal
+			vNormal = uNMatrix * aVertexNormal;
+			vPosition = vec4(aVertexPosition, 1.0);
+
+			gl_Position = uPMatrix * uMVMatrix * vPosition;
+      		vTextureCoord = aVertexTexCoord;
+    	}
 		</OUTPUT>
 	</VERTEX>
 
@@ -38,16 +40,23 @@
 		</PRECISION>
 
 		<UNIFORMS>
-		    uniform sampler2D uSampler0;
+			uniform sampler2D uSampler0;
 		</UNIFORMS>
 
 		<VARYING>
 			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
 		</VARYING>
 
 		<OUTPUT>
-		    void main(void) {
-	        	gl_FragColor = texture2D(uSampler0, vec2(vTextureCoord.s, vTextureCoord.t));
+			void main(void) {
+				// texture color
+				vec4 texColor = texture2D(uSampler0, vTextureCoord);
+
+				vec3 lightColor = texColor.rgb;
+
+				gl_FragColor = vec4(lightColor,1.0);
 		    }
 		</OUTPUT>
 	</FRAGMENT>
