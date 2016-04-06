@@ -208,6 +208,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		{
 			switch(agl.getLight(lightId).getType())
 			{
+<<<<<<< HEAD
 				case atomicGL2PointLight:
 					this.setUniformById(agl, "pointLights" + '[' + id_pointLight + ']', agl.getLight(lightId));
 					id_pointLight++;
@@ -226,6 +227,32 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 				default:
 					alert("Error with the Type of the Light: still not implemented");
 					break;
+=======
+				switch(agl.getLight(lightId).getType())
+				{
+					case atomicGL2PointLight:
+						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+						this.setUniformById(agl,lightId + "Intensity",agl.getLight(lightId).getIntensity());
+						break;
+
+					case atomicGL2DirectionnalLight:
+						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+						break;
+
+					case atomicGL2SpotLight:
+						this.setUniformById(agl,lightId + "Position",agl.getLight(lightId).getPosition());
+						this.setUniformById(agl,lightId + "Direction",agl.getLight(lightId).getDirection());
+						this.setUniformById(agl,lightId + "Radius",agl.getLight(lightId).getRadius());
+						this.setUniformById(agl,lightId + "Color",agl.getLight(lightId).getColor());
+						break;
+
+					default:
+						alert("Error with the Type of the Light: still not implemented");
+						break;
+				}
+>>>>>>> 9ad54c78f406e49e12882a7dbe599fd5bc8653f6
 			}
 		}
   }
