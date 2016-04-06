@@ -48,16 +48,12 @@ function handleKeyUp(event) {
 
 	// Push [SPACE] to switch mode
 	if (event.keyCode == 70) {
-<<<<<<< HEAD
 		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
-=======
 		if(agl.scenegraph.camera.isFreeCam){
 			agl.scenegraph.camera.isFreeCam = false;
 			agl.scenegraph.camera.jumping = true;
 			agl.scenegraph.camera.jumpDown = true;
 		} else {
-		agl.scenegraph.camera.isFreeCam = true;
->>>>>>> 9ad54c78f406e49e12882a7dbe599fd5bc8653f6
 		agl.scenegraph.camera.walkStep = 0.0;
 		agl.scenegraph.camera.up();
 		}
