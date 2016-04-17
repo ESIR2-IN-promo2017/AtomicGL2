@@ -63,38 +63,50 @@ class atomicGL2Light {
 		return this.color;
 	}
 
-  /**
-   * @return {float} return the intensity of the light
-   */
-  getIntensity(){
-    return this.intensity;
-  }
+    /**
+    * @return {float} return the intensity of the light
+    */
+    getIntensity(){
+        return this.intensity;
+    }
 
-  /*
-  * @type {float} The angle of the area of the SpotLight
-  */
+    /*
+    * @type {float} The angle of the area of the SpotLight
+    */
     getRadius(){
-    return this.radius;
-  }
+        return this.radius;
+    }
 
-  /**
-  * @type {Array[3]:float} return the position of the light
-  */
-  getPosition(){
-    return this.position;
-  }
+    /**
+    * @type {Array[3]:float} return the position of the light
+    */
+    getPosition(){
+        return this.position;
+    }
 
-  /**
+    /**
     * @type {Array[3]:float} return the direction of the light
     */
-  getDirection(){
-    return this.direction;
-  }
+    getDirection(){
+        return this.direction;
+    }
 
-  /**
-  * @type {Array[3]:float} return the Type of the light
-  */
-	getType(){
-		return this.constructor ;
-	}
+    /**
+    * @type {Array[3]:float} return the Type of the light
+    */
+    getType(){
+        return this.constructor ;
+    }
+
+    draw(ams)
+    { 
+        if(this.position != null)
+        {
+            console.log(this.position);
+            this.position[0] = ams.mvMatrix[12];
+            this.position[1] = ams.mvMatrix[13];
+            this.position[2] = ams.mvMatrix[14];
+            console.log(this.position);
+        }
+    }
 }

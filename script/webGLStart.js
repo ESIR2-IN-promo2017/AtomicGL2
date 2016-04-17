@@ -51,8 +51,8 @@ function handleKeyUp(event) {
 		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
 		if(agl.scenegraph.camera.isFreeCam){
 			agl.scenegraph.camera.isFreeCam = false;
-			agl.scenegraph.camera.jumping = true;
-			agl.scenegraph.camera.jumpDown = true;
+			agl.scenegraph.camera.jumping   = true;
+			agl.scenegraph.camera.jumpDown  = true;
 		} else {
 		agl.scenegraph.camera.walkStep = 0.0;
 		agl.scenegraph.camera.up();

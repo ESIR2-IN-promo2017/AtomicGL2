@@ -537,12 +537,20 @@ class atomicGL2xml {
 
 				// node
 				// JS6
-				node = new atomicGL2SGobject3d('object3D',id);
+				node = new atomicGL2SGobject3d(id);
 				node.setObject3D(agl.shapes[agl.indexOfShape(shapeId)],shaderId);
 				s.addChild(node);
 
 				// debug
 				//console.log("atomicGL2xml::traverse -> add OBJECT3D");
+			break;
+
+			case "LIGHT":
+				var lightId = e.getAttribute("id");
+
+				node = new atomicGL2SGLight(lightId);
+				node.setLight(agl.lights.get(lightId));
+				s.addChild(node);
 			break;
 		}
 		// children

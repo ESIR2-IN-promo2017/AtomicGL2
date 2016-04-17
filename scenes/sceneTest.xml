@@ -14,7 +14,7 @@
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
 		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
-		<XMATSHADER file="shaders/textPhongProg.xml">textPhongProg</XMATSHADER>
+		<!-- <XMATSHADER file="shaders/textPhongProg.xml">textPhongProg</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
@@ -47,11 +47,12 @@
  			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_sol" shader="textDiffProg">ground_sand</OBJECT3D>
 				<TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-						<OBJECT3D id="obj_toto" shader="textPhongProg">sphere</OBJECT3D>
+						<OBJECT3D id="obj_toto" shader="textDiffProg">sphere</OBJECT3D>
+						<LIGHT id="SpotLight0"></LIGHT>
 				</TRANSFORM>
 			</TRANSFORM>
 			<TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
-					<OBJECT3D id="obj_sexy_lady" shader="textPhongProg">sexy_lady</OBJECT3D>
+					<OBJECT3D id="obj_sexy_lady" shader="textDiffProg">sexy_lady</OBJECT3D>
 			</TRANSFORM>
 	</ROOT>
 </SCENE>

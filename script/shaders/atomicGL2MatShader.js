@@ -173,34 +173,46 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
 
     	return program;
-  }
+  	}
 
-  // setUniforms
-  //----------------------------------------
-  // inputs: 	aGL: atomicGLContext
+	getUniformType(id){
+		var arr = this.shaderloader.getUniforms();
+		for (var i = 0; i <arr.length ; i++)
+			if(arr[i][1] == id)
+				return arr[i][0];
+	}
+
+	getUniformById(id){
+		return this.mapUniforms.get(id);
+	}
+
+	// setUniforms
+	//----------------------------------------
+	// inputs: 	aGL: atomicGLContext
 	// 			aMS: atomicGLMatrixStack
-  setUniforms(aGL,aMS){
-	// debug
-	//console.log("atomicGLShader::setUniforms ");
-  	// set this shader as active shader
-    aGL.gl.useProgram(this.program);
+	
+	setUniforms(aGL,aMS){	
+		// debug
+		//console.log("atomicGLShader::setUniforms ");
+	  	// set this shader as active shader
+	    aGL.gl.useProgram(this.program);
 
-    // matrix
-  	//		Projection
-  	// 		Model->view
-  	//		Normal built from Model->view
-  	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
- 		aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
-  	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
-    	aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
+	    // matrix
+	  	//		Projection
+	  	// 		Model->view
+	  	//		Normal built from Model->view
+	  	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
+	 		aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+	  	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
+	    	aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
 
-    var normalMatrix = mat3.create();
-    mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
-    mat3.transpose(normalMatrix);
-    if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
-    	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
+	    var normalMatrix = mat3.create();
+	    mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+	    mat3.transpose(normalMatrix);
+	    if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
+	    	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
-    // Lights
+    	// Lights
     	var id_pointLight = 0;
     	var id_spotLight = 0;
     	var id_direcionnalLight = 0;
@@ -231,6 +243,92 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		}
 	}
 
+	setUniformById(agl,id,value){
+		//For a light
+		//id = pointLights[0].direction;
+		//value = (0.1,0.1,0.1);
+
+		var trueID = "";
+
+		if((value.getType() == atomicGL2PointLight) || (value.getType() == atomicGL2SpotLight) || (value.getType() == atomicGL2DirectionnalLight))
+			trueID = (id.split('['))[0];
+
+		else
+			trueID = id;
+
+
+		var type = this.getUniformType(trueID);
+		// console.log(this.mapUniforms);
+		var uniform = this.getUniformById(id);
+
+		switch(type)
+		{
+			case 'float':
+				agl.gl.uniform1f(uniform,value);
+			break;
+
+			case 'int' :
+			break;
+
+			case 'vec4' :
+			break;
+
+			case 'vec3' :
+				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
+			break;
+
+			case 'vec2' :
+			break;
+
+			case 'mat3' :
+			break;
+
+			case 'mat4' :
+			break;
+
+			case 'pointLight':
+				uniform = this.getUniformById(id + ".position");
+				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
+
+				uniform = this.getUniformById(id + ".color");
+				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+
+				uniform = this.getUniformById(id + ".intensity");
+				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+			break;
+
+			case 'spotLight':
+				uniform = this.getUniformById(id + ".position");
+				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
+
+				uniform = this.getUniformById(id + ".direction");
+				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
+
+				uniform = this.getUniformById(id + ".color");
+				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+
+				uniform = this.getUniformById(id + ".radius");
+				agl.gl.uniform1f(uniform,value.getRadius());
+
+				uniform = this.getUniformById(id + ".intensity");
+				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+			break;
+
+			case 'directionnalLight':
+				uniform = this.getUniformById(id + ".direction");
+				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
+
+				uniform = this.getUniformById(id + ".color");
+				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+
+				uniform = this.getUniformById(id + ".intensity");
+				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+			break;
+
+			default:
+			break;
+		}
+	}
 
 	// build
 	//-----------------------------
@@ -419,103 +517,5 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	getAllTexture(){
 		return this.shaderloader.getSampler2D();
-	}
-
-	getUniformType(id){
-		var arr = this.shaderloader.getUniforms();
-		for (var i = 0; i <arr.length ; i++)
-			if(arr[i][1] == id)
-				return arr[i][0];
-	}
-
-	getUniformById(id){
-		return this.mapUniforms.get(id);
-	}
-
-	setUniformById(agl,id,value){
-		//For a light
-		//id = pointLights[0].direction;
-		//value = (0.1,0.1,0.1);
-
-		var trueID = "";
-
-		if((value.getType() == atomicGL2PointLight) || (value.getType() == atomicGL2SpotLight) || (value.getType() == atomicGL2DirectionnalLight))
-			trueID = (id.split('['))[0];
-
-		else
-			trueID = id;
-
-
-		var type = this.getUniformType(trueID);
-		// console.log(this.mapUniforms);
-		var uniform = this.getUniformById(id);
-
-		switch(type)
-		{
-			case 'float':
-				agl.gl.uniform1f(uniform,value);
-			break;
-
-			case 'int' :
-			break;
-
-			case 'vec4' :
-			break;
-
-			case 'vec3' :
-				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
-			break;
-
-			case 'vec2' :
-			break;
-
-			case 'mat3' :
-			break;
-
-			case 'mat4' :
-			break;
-
-			case 'pointLight':
-				uniform = this.getUniformById(id + ".position");
-				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
-
-				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
-
-				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
-			break;
-
-			case 'spotLight':
-				uniform = this.getUniformById(id + ".position");
-				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
-
-				uniform = this.getUniformById(id + ".direction");
-				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
-
-				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
-
-				uniform = this.getUniformById(id + ".radius");
-				agl.gl.uniform1f(uniform,value.getRadius());
-
-				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
-			break;
-
-			case 'directionnalLight':
-				uniform = this.getUniformById(id + ".direction");
-				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
-
-				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
-
-				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
-			break;
-
-			default:
-			break;
-		}
 	}
 }
