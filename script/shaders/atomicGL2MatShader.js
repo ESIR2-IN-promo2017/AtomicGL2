@@ -5,7 +5,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	// constructor
 	//------------------------
 	// inputs:	nname: 		shader name - string
-	//			 agl:				atomicGL context
+	//			 AGL:				atomicGL context
 	// 			shaderloader: 		shader loader
 	//			nbTex: 				integer
 	//									0: shader doesn't use texture
@@ -15,7 +15,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(agl,shaderloader){
+	constructor(AGL,shaderloader){
 		// attributes
 		// -------------------------------------------------
 		super();
@@ -47,7 +47,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//Initialisation of the key of the mapUniforms and mapAttributes
 		this.initMap();
 
-		this.build(agl,this.shaderloader);
+		this.build(AGL,this.shaderloader);
 	}
 
 	initMap(){
@@ -63,51 +63,51 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	// --------------------------------------------------
 	// createProgram
 	//---------------------------
-	// inputs:	agl: GL context
+	// inputs:	AGL: GL context
 	// 			vstr: vertex shader  - string
 	// 			fstr: fragment shader - string
-    createProgram(agl,vstr,fstr) {
+    createProgram(AGL,vstr,fstr) {
 		// debug
 		//console.log("atomicGLShader::createProgram ("+fragmentShaderID+","+vertexShaderID+")");
 
 		// creation des shaders
 		// vertex
-    	var vertexShader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
+    	var vertexShader = AGL.gl.createShader(AGL.gl.VERTEX_SHADER);
 		// set source
-    	agl.gl.shaderSource(vertexShader, vstr);
+    	AGL.gl.shaderSource(vertexShader, vstr);
 		// shader compilation
-    	agl.gl.compileShader(vertexShader);
+    	AGL.gl.compileShader(vertexShader);
 		// debug
-		console.log("atomicGLShader2::createProgram -> compile vertex result: "+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile vertex result: "+AGL.gl.getShaderParameter(vertexShader, AGL.gl.COMPILE_STATUS));
 		// check erreur de compilation
-    	if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
-    		alert(agl.gl.getShaderInfoLog(vertexShader));
+    	if (!AGL.gl.getShaderParameter(vertexShader, AGL.gl.COMPILE_STATUS)) {
+    		alert(AGL.gl.getShaderInfoLog(vertexShader));
       		return null;
     	}
 
 		// fragment
-		var fragmentShader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
+		var fragmentShader = AGL.gl.createShader(AGL.gl.FRAGMENT_SHADER);
 		// set source
-    	agl.gl.shaderSource(fragmentShader, fstr);
+    	AGL.gl.shaderSource(fragmentShader, fstr);
 		// shader compilation
-    	agl.gl.compileShader(fragmentShader);
+    	AGL.gl.compileShader(fragmentShader);
 		// debug
-		console.log("atomicGLShader2::createProgram -> compile fragment result: "+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		console.log("atomicGLShader2::createProgram -> compile fragment result: "+AGL.gl.getShaderParameter(fragmentShader, AGL.gl.COMPILE_STATUS));
 		// check erreur de compilation
-    	if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
-      		alert(agl.gl.getShaderInfoLog(fragmentShader));
+    	if (!AGL.gl.getShaderParameter(fragmentShader, AGL.gl.COMPILE_STATUS)) {
+      		alert(AGL.gl.getShaderInfoLog(fragmentShader));
       		return null;
     	}
 
 		// creation program et link
-	    var program = agl.gl.createProgram();
-	    agl.gl.attachShader(program, vertexShader);
-	    agl.gl.attachShader(program, fragmentShader);
-	    agl.gl.linkProgram(program);
+	    var program = AGL.gl.createProgram();
+	    AGL.gl.attachShader(program, vertexShader);
+	    AGL.gl.attachShader(program, fragmentShader);
+	    AGL.gl.linkProgram(program);
 
 		// debug
-		console.log("atomicGLShader2::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
-	    if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
+		console.log("atomicGLShader2::createProgram-> link result: "+AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS));
+	    if (!AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS)) {
 	      alert("atomicGLShader2::Could not initialise shaders");
 	    }
 
@@ -115,8 +115,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//------------------------
 	    for (var key of this.mapAttributes.keys())
 	    {
-			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
-	  		agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+			this.mapAttributes.set(key,AGL.gl.getAttribLocation(program, key));
+	  		AGL.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 		}
 
 
@@ -127,50 +127,50 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	 	{
 	 		if(key == "pointLights")
 	 		{
-	 			for(var i=0; i<agl.nbPointLights; i++)
+	 			for(var i=0; i<AGL.nbPointLights; i++)
 	 			{
-	  				this.mapUniforms.set(key + "[" + i + "].position",agl.gl.getUniformLocation(program, key + "[" + i + "].position"));
-	  				this.mapUniforms.set(key + "[" + i + "].color",agl.gl.getUniformLocation(program, key + "[" + i + "].color"));
-	  				this.mapUniforms.set(key + "[" + i + "].intensity",agl.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
+	  				this.mapUniforms.set(key + "[" + i + "].position",AGL.gl.getUniformLocation(program, key + "[" + i + "].position"));
+	  				this.mapUniforms.set(key + "[" + i + "].color",AGL.gl.getUniformLocation(program, key + "[" + i + "].color"));
+	  				this.mapUniforms.set(key + "[" + i + "].intensity",AGL.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
 	 			}
 	 		}
 
 	 		else if(key == "spotLights")
 	 		{
-	 			for(var i=0; i<agl.nbSpotLights; i++)
+	 			for(var i=0; i<AGL.nbSpotLights; i++)
 	 			{
-	  				this.mapUniforms.set(key + "[" + i + "].position",agl.gl.getUniformLocation(program, key + "[" + i + "].position"));
-	  				this.mapUniforms.set(key + "[" + i + "].direction",agl.gl.getUniformLocation(program, key + "[" + i + "].direction"));
-	  				this.mapUniforms.set(key + "[" + i + "].color",agl.gl.getUniformLocation(program, key + "[" + i + "].color"));
-	  				this.mapUniforms.set(key + "[" + i + "].radius",agl.gl.getUniformLocation(program, key + "[" + i + "].radius"));
-	  				this.mapUniforms.set(key + "[" + i + "].intensity",agl.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
+	  				this.mapUniforms.set(key + "[" + i + "].position",AGL.gl.getUniformLocation(program, key + "[" + i + "].position"));
+	  				this.mapUniforms.set(key + "[" + i + "].direction",AGL.gl.getUniformLocation(program, key + "[" + i + "].direction"));
+	  				this.mapUniforms.set(key + "[" + i + "].color",AGL.gl.getUniformLocation(program, key + "[" + i + "].color"));
+	  				this.mapUniforms.set(key + "[" + i + "].radius",AGL.gl.getUniformLocation(program, key + "[" + i + "].radius"));
+	  				this.mapUniforms.set(key + "[" + i + "].intensity",AGL.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
 	 			}
 	 		}
 
 	 		else if(key == "directionnalLights")
 	 		{
-	 			for(var i=0; i<agl.nbDirectionnalLights; i++)
+	 			for(var i=0; i<AGL.nbDirectionnalLights; i++)
 	 			{
-	  				this.mapUniforms.set(key + "[" + i + "].direction",agl.gl.getUniformLocation(program, key + "[" + i + "].direction"));
-	  				this.mapUniforms.set(key + "[" + i + "].color",agl.gl.getUniformLocation(program, key + "[" + i + "].color"));
-	  				this.mapUniforms.set(key + "[" + i + "].intensity",agl.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
+	  				this.mapUniforms.set(key + "[" + i + "].direction",AGL.gl.getUniformLocation(program, key + "[" + i + "].direction"));
+	  				this.mapUniforms.set(key + "[" + i + "].color",AGL.gl.getUniformLocation(program, key + "[" + i + "].color"));
+	  				this.mapUniforms.set(key + "[" + i + "].intensity",AGL.gl.getUniformLocation(program, key + "[" + i + "].intensity"));
 	 			}
 	 		}
 
 	 		else
-	  			this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+	  			this.mapUniforms.set(key,AGL.gl.getUniformLocation(program, key));
 	 	}
 
 		if(this.nbTex>0)
-			agl.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
+			AGL.gl.enableVertexAttribArray(this.mapAttributes.get("aVertexTexCoord"));
 
 		// lights
 		// uAmbientColor
-		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
+		this.ambientColorUniform = AGL.gl.getUniformLocation(program, "uAmbientColor");
 
 		// textures
 		for (var i = 0; i < this.nbTex.lenght; i++)
-			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
+			this.samplerUniform[i] = AGL.gl.getUniformLocation(program, this.getTextureID(i));
 
     	return program;
   	}
@@ -188,51 +188,51 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	// setUniforms
 	//----------------------------------------
-	// inputs: 	aGL: atomicGLContext
-	// 			aMS: atomicGLMatrixStack
+	// inputs: 	AGL: atomicGLContext
+	// 			AMS: atomicGLMatrixStack
 	
-	setUniforms(aGL,aMS){	
+	setUniforms(AGL,AMS){	
 		// debug
 		//console.log("atomicGLShader::setUniforms ");
 	  	// set this shader as active shader
-	    aGL.gl.useProgram(this.program);
+	    AGL.gl.useProgram(this.program);
 
 	    // matrix
 	  	//		Projection
 	  	// 		Model->view
 	  	//		Normal built from Model->view
 	  	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
-	 		aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+	 		AGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, AMS.pMatrix);
 	  	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
-	    	aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
+	    	AGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, AMS.mvMatrix);
 
 	    var normalMatrix = mat3.create();
-	    mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+	    mat4.toInverseMat3(AMS.mvMatrix, normalMatrix);
 	    mat3.transpose(normalMatrix);
 	    if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
-	    	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
+	    	AGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
     	// Lights
     	var id_pointLight = 0;
     	var id_spotLight = 0;
     	var id_direcionnalLight = 0;
 
-		for(var lightId of agl.lights.keys())
+		for(var lightId of AGL.lights.keys())
 		{
-			switch(agl.getLight(lightId).getType())
+			switch(AGL.getLight(lightId).getType())
 			{
 				case atomicGL2PointLight:
-					this.setUniformById(agl, "pointLights" + '[' + id_pointLight + ']', agl.getLight(lightId));
+					this.setUniformById(AGL, "pointLights" + '[' + id_pointLight + ']', AGL.getLight(lightId));
 					id_pointLight++;
 					break;
 
 				case atomicGL2SpotLight:
-					this.setUniformById(agl, "spotLights" + '[' + id_spotLight + ']', agl.getLight(lightId));
+					this.setUniformById(AGL, "spotLights" + '[' + id_spotLight + ']', AGL.getLight(lightId));
 					id_spotLight++;
 					break;
 
 				case atomicGL2DirectionnalLight:
-					this.setUniformById(agl, "directionnalLights" + '[' + id_direcionnalLight + ']', agl.getLight(lightId));
+					this.setUniformById(AGL, "directionnalLights" + '[' + id_direcionnalLight + ']', AGL.getLight(lightId));
 					id_direcionnalLight++;
 					break;
 
@@ -243,7 +243,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		}
 	}
 
-	setUniformById(agl,id,value){
+	setUniformById(AGL,id,value){
 		//For a light
 		//id = pointLights[0].direction;
 		//value = (0.1,0.1,0.1);
@@ -264,7 +264,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		switch(type)
 		{
 			case 'float':
-				agl.gl.uniform1f(uniform,value);
+				AGL.gl.uniform1f(uniform,value);
 			break;
 
 			case 'int' :
@@ -274,7 +274,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			break;
 
 			case 'vec3' :
-				agl.gl.uniform3f(uniform,value[0],value[1],value[2]);
+				AGL.gl.uniform3f(uniform,value[0],value[1],value[2]);
 			break;
 
 			case 'vec2' :
@@ -288,41 +288,41 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 			case 'pointLight':
 				uniform = this.getUniformById(id + ".position");
-				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
+				AGL.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
 
 				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+				AGL.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
 
 				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+				AGL.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
 			break;
 
 			case 'spotLight':
 				uniform = this.getUniformById(id + ".position");
-				agl.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
+				AGL.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
 
 				uniform = this.getUniformById(id + ".direction");
-				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
+				AGL.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
 
 				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+				AGL.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
 
 				uniform = this.getUniformById(id + ".radius");
-				agl.gl.uniform1f(uniform,value.getRadius());
+				AGL.gl.uniform1f(uniform,value.getRadius());
 
 				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+				AGL.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
 			break;
 
 			case 'directionnalLight':
 				uniform = this.getUniformById(id + ".direction");
-				agl.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
+				AGL.gl.uniform3f(uniform,value.getDirection()[0],value.getDirection()[1],value.getDirection()[2]);
 
 				uniform = this.getUniformById(id + ".color");
-				agl.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
+				AGL.gl.uniform3f(uniform,value.getColor()[0],value.getColor()[1],value.getColor()[2]);
 
 				uniform = this.getUniformById(id + ".intensity");
-				agl.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+				AGL.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
 			break;
 
 			default:
@@ -332,26 +332,26 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	// build
 	//-----------------------------
-	build(agl,shaderloader){
+	build(AGL,shaderloader){
 
 		var fragment = shaderloader.getFragment();
 
-		fragment = this.nomberOfLight(agl,fragment,'NB_POINTLIGHTS',agl.nbPointLights);
-		fragment = this.nomberOfLight(agl,fragment,'NB_SPOTLIGHTS',agl.nbSpotLights);
-		fragment = this.nomberOfLight(agl,fragment,'NB_DIRECTIONNALLIGHTS',agl.nbDirectionnalLights);
+		fragment = this.nomberOfLight(AGL,fragment,'NB_POINTLIGHTS',AGL.nbPointLights);
+		fragment = this.nomberOfLight(AGL,fragment,'NB_SPOTLIGHTS',AGL.nbSpotLights);
+		fragment = this.nomberOfLight(AGL,fragment,'NB_DIRECTIONNALLIGHTS',AGL.nbDirectionnalLights);
 
-		this.program = this.createProgram(agl,shaderloader.getVertex(),fragment);
+		this.program = this.createProgram(AGL,shaderloader.getVertex(),fragment);
 		// console.log(this.shaderloader.getUniforms());
 	}
 
 	// Parse nomber of light
 	//-----------------------------
-	nomberOfLight(agl,fragment,flagLights,nbLights){
+	nomberOfLight(AGL,fragment,flAGLights,nbLights){
 
-		var position = fragment.indexOf(flagLights);
+		var position = fragment.indexOf(flAGLights);
 
 		if(position > -1)
-			fragment = fragment.slice(0, position + flagLights.length) + " " + nbLights + fragment.slice(position + flagLights.length);
+			fragment = fragment.slice(0, position + flAGLights.length) + " " + nbLights + fragment.slice(position + flAGLights.length);
 
 		return fragment;
 	}

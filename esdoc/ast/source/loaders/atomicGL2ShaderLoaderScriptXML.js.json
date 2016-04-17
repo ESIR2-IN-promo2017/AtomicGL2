@@ -101,7 +101,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "xmlfile",
@@ -1240,7 +1240,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "str",
@@ -7974,7 +7974,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "xmlfile",

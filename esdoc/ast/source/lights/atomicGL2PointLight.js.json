@@ -267,7 +267,7 @@
               "value": {
                 "type": "FunctionExpression",
                 "id": null,
-                "params": [
+                "parAMS": [
                   {
                     "type": "Identifier",
                     "name": "color",

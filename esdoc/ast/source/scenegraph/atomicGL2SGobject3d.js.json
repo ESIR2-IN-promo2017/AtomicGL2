@@ -157,7 +157,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "name",
@@ -804,7 +804,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "o",
@@ -1311,7 +1311,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \tagl - atomicGLContext",
+                "value": " inputs: \tAGL - atomicGLContext",
                 "range": [
                   991,
                   1024
@@ -1329,7 +1329,7 @@
               },
               {
                 "type": "Line",
-                "value": "\t\t\tams - atomicGLMatrixStack",
+                "value": "\t\t\tAMS - atomicGLMatrixStack",
                 "range": [
                   1027,
                   1057
@@ -1371,10 +1371,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     1066,
                     1069
@@ -1392,7 +1392,7 @@
                 },
                 {
                   "type": "Identifier",
-                  "name": "ams",
+                  "name": "AMS",
                   "range": [
                     1070,
                     1073
@@ -1508,7 +1508,7 @@
                       "arguments": [
                         {
                           "type": "Identifier",
-                          "name": "agl",
+                          "name": "AGL",
                           "range": [
                             1214,
                             1217
@@ -1526,7 +1526,7 @@
                         },
                         {
                           "type": "Identifier",
-                          "name": "ams",
+                          "name": "AMS",
                           "range": [
                             1218,
                             1221
@@ -1666,7 +1666,7 @@
                     "trailingComments": [
                       {
                         "type": "Line",
-                        "value": "this.object3D.draw(agl,ams,this.name);",
+                        "value": "this.object3D.draw(AGL,AMS,this.name);",
                         "range": [
                           1241,
                           1281
@@ -1772,7 +1772,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \tagl - atomicGLContext",
+                "value": " inputs: \tAGL - atomicGLContext",
                 "range": [
                   991,
                   1024
@@ -1790,7 +1790,7 @@
               },
               {
                 "type": "Line",
-                "value": "\t\t\tams - atomicGLMatrixStack",
+                "value": "\t\t\tAMS - atomicGLMatrixStack",
                 "range": [
                   1027,
                   1057
@@ -2221,7 +2221,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs: \tagl - atomicGLContext",
+      "value": " inputs: \tAGL - atomicGLContext",
       "range": [
         991,
         1024
@@ -2239,7 +2239,7 @@
     },
     {
       "type": "Line",
-      "value": "\t\t\tams - atomicGLMatrixStack",
+      "value": "\t\t\tAMS - atomicGLMatrixStack",
       "range": [
         1027,
         1057
@@ -2293,7 +2293,7 @@
     },
     {
       "type": "Line",
-      "value": "this.object3D.draw(agl,ams,this.name);",
+      "value": "this.object3D.draw(AGL,AMS,this.name);",
       "range": [
         1241,
         1281

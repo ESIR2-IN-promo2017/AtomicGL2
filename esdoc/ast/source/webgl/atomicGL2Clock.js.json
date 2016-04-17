@@ -248,7 +248,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -730,7 +730,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -1476,7 +1476,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [

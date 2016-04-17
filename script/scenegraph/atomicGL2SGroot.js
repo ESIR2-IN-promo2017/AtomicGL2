@@ -29,48 +29,48 @@ class atomicGL2SGroot extends atomicGL2SceneGraph {
 
 	// draw
 	// -------------------------
-	// inputs: 	agl - atomicGLContext
-	//			ams - atomicGLMatrixStack
-	draw (agl,ams){
+	// inputs: 	AGL - atomicGLContext
+	//			AMS - atomicGLMatrixStack
+	draw (AGL,AMS){
 		// debug
 		// console.log("atomicGLSceneGraph::draw("+this.type+","+this.name+", shaderId:"+this.shaderId+")");
 
 		// initDraw
-		agl.initDraw();
+		AGL.initDraw();
 
 		// push matrix
-		ams.mvIdentity();
-		ams.mvPushMatrix();
+		AMS.mvIdentity();
+		AMS.mvPushMatrix();
 
 		// skyBox ----------------------------------------------------------------
 		if (this.skyBox != null)
 		{
-			ams.mvPushMatrix();
+			AMS.mvPushMatrix();
 
 			// position & orientation
-			ams.mvTranslate(0.0,0.0,0.0);
-			ams.mvRotate(this.camera.phi,[1,0,0]);
-			ams.mvRotate(this.camera.theta,[0,1,0]);
+			AMS.mvTranslate(0.0,0.0,0.0);
+			AMS.mvRotate(this.camera.phi,[1,0,0]);
+			AMS.mvRotate(this.camera.theta,[0,1,0]);
 
 			// draw
-			this.skyBox.draw(agl,ams,this.shaderId);
+			this.skyBox.draw(AGL,AMS,this.shaderId);
 
 			// pop matrix
-			ams.mvPopMatrix();
+			AMS.mvPopMatrix();
 		}
 
 		// camera -----------------------------------------------------------------
 		if (this.camera != null){
-			ams.mvRotate(this.camera.phi,[1,0,0]);
-			ams.mvRotate(this.camera.theta,[0,1,0]);
-			ams.mvTranslate(-this.camera.xc,-this.camera.yc,-this.camera.zc);
+			AMS.mvRotate(this.camera.phi,[1,0,0]);
+			AMS.mvRotate(this.camera.theta,[0,1,0]);
+			AMS.mvTranslate(-this.camera.xc,-this.camera.yc,-this.camera.zc);
 		}
 
 		// children
 		for (var i=0; i<this.children.length ; i++)
-			this.children[i].draw(agl,ams);
+			this.children[i].draw(AGL,AMS);
 
 		// pop
-		ams.mvPopMatrix();
+		AMS.mvPopMatrix();
 	}
 }

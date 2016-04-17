@@ -248,7 +248,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -915,7 +915,7 @@
                         },
                         "property": {
                           "type": "Identifier",
-                          "name": "shaderPrograms",
+                          "name": "shaderProgrAMS",
                           "range": [
                             942,
                             956
@@ -1911,7 +1911,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "canvas",
@@ -5300,7 +5300,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -6100,7 +6100,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -6671,7 +6671,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "name",
@@ -6741,7 +6741,7 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "name": "shaderPrograms",
+                            "name": "shaderProgrAMS",
                             "range": [
                               3107,
                               3121
@@ -6962,7 +6962,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "shaderPrograms",
+                                "name": "shaderProgrAMS",
                                 "range": [
                                   3156,
                                   3170
@@ -7407,7 +7407,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -8412,7 +8412,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -8650,7 +8650,7 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "name": "shaderPrograms",
+                            "name": "shaderProgrAMS",
                             "range": [
                               3897,
                               3911
@@ -8820,7 +8820,7 @@
                                     },
                                     "property": {
                                       "type": "Identifier",
-                                      "name": "shaderPrograms",
+                                      "name": "shaderProgrAMS",
                                       "range": [
                                         3955,
                                         3969
@@ -9417,7 +9417,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -10348,7 +10348,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -10400,7 +10400,7 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "name": "shaderPrograms",
+                            "name": "shaderProgrAMS",
                             "range": [
                               4480,
                               4494
@@ -10588,7 +10588,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",

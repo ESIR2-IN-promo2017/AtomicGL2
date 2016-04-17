@@ -15,7 +15,7 @@
 // inputs
 //------------------------
 // nname: 		shader name - string
-// agl:			atomicGL context
+// AGL:			atomicGL context
 // id_vs: 		vertex shader id - string
 // id_fs: 		fragment shader id - string
 // uuseTex: 		boolean
@@ -27,7 +27,7 @@
 "use strict";
 
 class atomicGLwaveShader {
-	constructor(nname, agl,fragmentShaderID, vertexShaderID,nnbTex,nnbLights){
+	constructor(nname, AGL,fragmentShaderID, vertexShaderID,nnbTex,nnbLights){
 	// attributes
 	// -------------------------------------------------
 	// name
@@ -85,7 +85,7 @@ class atomicGLwaveShader {
 	// gl: GL context
 	// id: shader id - string
 	//---------------------------	
-	this.getShader = function getShader(agl, id) {
+	this.getShader = function getShader(AGL, id) {
 		// debug
 		//console.log("atomicGLShader::getShader("+id+")");
 		// shader
@@ -106,23 +106,23 @@ class atomicGLwaveShader {
 		
 			// creation shader
 			if (shaderScript.type == "x-shader/x-fragment") {
-				shader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
+				shader = AGL.gl.createShader(AGL.gl.FRAGMENT_SHADER);
 			} else if (shaderScript.type == "x-shader/x-vertex") {
-				shader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
+				shader = AGL.gl.createShader(AGL.gl.VERTEX_SHADER);
 			} else {
             return null;
         }
 
 		// set source
-        agl.gl.shaderSource(shader, str);
+        AGL.gl.shaderSource(shader, str);
 		// shader compilation
-        agl.gl.compileShader(shader);
+        AGL.gl.compileShader(shader);
 		// debug
-		//console.log("atomicGLShader::getShader -> compile result: "+agl.gl.getShaderParameter(shader, agl.gl.COMPILE_STATUS));
+		//console.log("atomicGLShader::getShader -> compile result: "+AGL.gl.getShaderParameter(shader, AGL.gl.COMPILE_STATUS));
 
 		// check erreur de compilation
-        if (!agl.gl.getShaderParameter(shader, agl.gl.COMPILE_STATUS)) {
-            alert(agl.gl.getShaderInfoLog(shader));
+        if (!AGL.gl.getShaderParameter(shader, AGL.gl.COMPILE_STATUS)) {
+            alert(AGL.gl.getShaderInfoLog(shader));
             return null;
         }
 
@@ -138,22 +138,22 @@ class atomicGLwaveShader {
 	// fragmentShaderID: fragment shader id - string
 	// vertexShaderID: fragment shader id - string
 	//---------------------------	
-    this.createProgram =  function (agl,fragmentShaderID, vertexShaderID) {
+    this.createProgram =  function (AGL,fragmentShaderID, vertexShaderID) {
 		// debug
 		//console.log("atomicGLwaveShader::createProgram ("+fragmentShaderID+","+vertexShaderID+")");
 		// creation des shaders
-        var fragmentShader = 	this.getShader(agl, fragmentShaderID);
-        var vertexShader = 		this.getShader(agl, vertexShaderID);
+        var fragmentShader = 	this.getShader(AGL, fragmentShaderID);
+        var vertexShader = 		this.getShader(AGL, vertexShaderID);
 		
 		// creation program et link
-        var program = agl.gl.createProgram();
-        agl.gl.attachShader(program, vertexShader);
-        agl.gl.attachShader(program, fragmentShader);
-        agl.gl.linkProgram(program);
+        var program = AGL.gl.createProgram();
+        AGL.gl.attachShader(program, vertexShader);
+        AGL.gl.attachShader(program, fragmentShader);
+        AGL.gl.linkProgram(program);
 
 		// debug
-		//console.log("atomicGLwaveShader::createProgram-> link result: "+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
-        if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
+		//console.log("atomicGLwaveShader::createProgram-> link result: "+AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS));
+        if (!AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS)) {
             alert("Could not initialise shaders");
         }
 
@@ -164,18 +164,18 @@ class atomicGLwaveShader {
 		// aVertexColor
 		// aVertexTexCoord
 		
-        this.vertexPositionAttribute = agl.gl.getAttribLocation(program, "aVertexPosition");
-        agl.gl.enableVertexAttribArray(this.vertexPositionAttribute);
+        this.vertexPositionAttribute = AGL.gl.getAttribLocation(program, "aVertexPosition");
+        AGL.gl.enableVertexAttribArray(this.vertexPositionAttribute);
 
-        this.vertexNormalAttribute = agl.gl.getAttribLocation(program, "aVertexNormal");
-        agl.gl.enableVertexAttribArray(this.vertexNormalAttribute);
+        this.vertexNormalAttribute = AGL.gl.getAttribLocation(program, "aVertexNormal");
+        AGL.gl.enableVertexAttribArray(this.vertexNormalAttribute);
 
-        this.vertexColorAttribute = agl.gl.getAttribLocation(program, "aVertexColor");
-        agl.gl.enableVertexAttribArray(this.vertexColorAttribute);
+        this.vertexColorAttribute = AGL.gl.getAttribLocation(program, "aVertexColor");
+        AGL.gl.enableVertexAttribArray(this.vertexColorAttribute);
 		
 		if(this.nbTex>0){
-			this.texCoordAttribute = agl.gl.getAttribLocation(program, "aVertexTexCoord");
-			agl.gl.enableVertexAttribArray(this.texCoordAttribute);
+			this.texCoordAttribute = AGL.gl.getAttribLocation(program, "aVertexTexCoord");
+			AGL.gl.enableVertexAttribArray(this.texCoordAttribute);
 		}
 		
 		// uniforms
@@ -187,40 +187,40 @@ class atomicGLwaveShader {
 		// debug
 		//console.log("atomicGLwaveShader::createProgram - uniforms ");
 		// matrix
-        this.pMatrixUniform = agl.gl.getUniformLocation(program, "uPMatrix");
-        this.mvMatrixUniform = agl.gl.getUniformLocation(program, "uMVMatrix");
-        this.nMatrixUniform = agl.gl.getUniformLocation(program, "uNMatrix");
+        this.pMatrixUniform = AGL.gl.getUniformLocation(program, "uPMatrix");
+        this.mvMatrixUniform = AGL.gl.getUniformLocation(program, "uMVMatrix");
+        this.nMatrixUniform = AGL.gl.getUniformLocation(program, "uNMatrix");
 		
 		// lights
 		// uAmbientColor
 		// uPointLightingPosition0|1|2 required per light in the shader
 		// uPointLightingColor0|1|2 required per light in the shader        
 		
-		this.ambientColorUniform = agl.gl.getUniformLocation(program, "uAmbientColor");
+		this.ambientColorUniform = AGL.gl.getUniformLocation(program, "uAmbientColor");
 		
         for (i = 0; i < this.nbLight; i++) { 
 			// lights  	position 
 			//			color
 			//console.log("atomicGLwaveShader::createProgram - getUniformLocation ->"+"uPointLightPosition"+i);
 			//console.log("atomicGLwaveShader::createProgram - getUniformLocation ->"+"uPointLightColor"+i);
-			this.pointLightLocationUniform[i] = agl.gl.getUniformLocation(program, "uPointLightPosition"+i);
-			this.pointLightColorUniform[i] = agl.gl.getUniformLocation(program, "uPointLightColor"+i);
+			this.pointLightLocationUniform[i] = AGL.gl.getUniformLocation(program, "uPointLightPosition"+i);
+			this.pointLightColorUniform[i] = AGL.gl.getUniformLocation(program, "uPointLightColor"+i);
 		}
 		
 		// textures
 		for (i = 0; i < this.nbTex; i++) { 
 			// console.log("atomicGLShader::createProgram - getUniformLocation ->"+"uSampler"+i);
-			this.samplerUniform[i] = agl.gl.getUniformLocation(program, "uSampler"+i);
+			this.samplerUniform[i] = AGL.gl.getUniformLocation(program, "uSampler"+i);
 		}
 		
 		// uniform defining the waves (see shader code for details)
-		this.A0Uniform = agl.gl.getUniformLocation(program, "uA0");
-		this.A1Uniform = agl.gl.getUniformLocation(program, "uA1");
-		this.A2Uniform = agl.gl.getUniformLocation(program, "uA2");
-		this.A3Uniform = agl.gl.getUniformLocation(program, "uA3");
+		this.A0Uniform = AGL.gl.getUniformLocation(program, "uA0");
+		this.A1Uniform = AGL.gl.getUniformLocation(program, "uA1");
+		this.A2Uniform = AGL.gl.getUniformLocation(program, "uA2");
+		this.A3Uniform = AGL.gl.getUniformLocation(program, "uA3");
 		
-		this.xRangeUniform = agl.gl.getUniformLocation(program, "uXrange");
-		this.timeUniform = agl.gl.getUniformLocation(program, "utime");
+		this.xRangeUniform = AGL.gl.getUniformLocation(program, "uXrange");
+		this.timeUniform = AGL.gl.getUniformLocation(program, "utime");
 
         return program;
     }	
@@ -229,51 +229,51 @@ class atomicGLwaveShader {
     //----------------------------------------
     // inputs
     //--------------
-    // aGL: atomicGLContext
-	// aMS: atomicGLMatrixStack
+    // AGL: atomicGLContext
+	// AMS: atomicGLMatrixStack
     //----------------------------------------
-    this.setUniforms = function(aGL,aMS){
+    this.setUniforms = function(AGL,AMS){
 		// debug
 		//console.log("atomicGLwaveShader::setUniforms ");
     	// set this shader as active shader
-    	aGL.gl.useProgram(this.program);
+    	AGL.gl.useProgram(this.program);
     	// matrix
     	//		Projection
     	// 		Model->view
     	//		Normal built from Model->view
-    	aGL.gl.uniformMatrix4fv(this.pMatrixUniform, false, aMS.pMatrix);
-        aGL.gl.uniformMatrix4fv(this.mvMatrixUniform, false, aMS.mvMatrix);
+    	AGL.gl.uniformMatrix4fv(this.pMatrixUniform, false, AMS.pMatrix);
+        AGL.gl.uniformMatrix4fv(this.mvMatrixUniform, false, AMS.mvMatrix);
 
         var normalMatrix = mat3.create();
-        mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+        mat4.toInverseMat3(AMS.mvMatrix, normalMatrix);
         mat3.transpose(normalMatrix);
-        aGL.gl.uniformMatrix3fv(this.nMatrixUniform, false, normalMatrix);
+        AGL.gl.uniformMatrix3fv(this.nMatrixUniform, false, normalMatrix);
         
         // Lights
         //		ambient
-        aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+        AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);
 		//		Omni
 		for (var i=0; i < this.nbLight ; i++){
 			// debug
 			//console.log("-- atomicGLwaveShader::setUniforms - Light number ("+i+")");
-			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +aGL.omniLightLocation[i*3+0] +","+ aGL.omniLightLocation[i*3+1]+","+ aGL.omniLightLocation[i*3+2] );
-			//console.log("-- LightColor @"+this.pointLightColorUniform[i]+"::" +aGL.omniLightColor[i*3+0] +","+ aGL.omniLightColor[i*3+1]+","+ aGL.omniLightColor[i*3+2] );
+			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +AGL.omniLightLocation[i*3+0] +","+ AGL.omniLightLocation[i*3+1]+","+ AGL.omniLightLocation[i*3+2] );
+			//console.log("-- LightColor @"+this.pointLightColorUniform[i]+"::" +AGL.omniLightColor[i*3+0] +","+ AGL.omniLightColor[i*3+1]+","+ AGL.omniLightColor[i*3+2] );
 			
-			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.omniLightLocation[i*3+0], aGL.omniLightLocation[i*3+1], aGL.omniLightLocation[i*3+2]);
-			aGL.gl.uniform3f(this.pointLightColorUniform[i],aGL.omniLightColor[i*3+0],aGL.omniLightColor[i*3+1],aGL.omniLightColor[i*3+2]);
+			AGL.gl.uniform3f(this.pointLightLocationUniform[i], AGL.omniLightLocation[i*3+0], AGL.omniLightLocation[i*3+1], AGL.omniLightLocation[i*3+2]);
+			AGL.gl.uniform3f(this.pointLightColorUniform[i],AGL.omniLightColor[i*3+0],AGL.omniLightColor[i*3+1],AGL.omniLightColor[i*3+2]);
 		}
 		
 		// uniform defining the waves (see shader code for details)
-		aGL.gl.uniform3f(this.A0Uniform,this.A0[0],this.A0[1],this.A0[2]) ;
-		aGL.gl.uniform3f(this.A1Uniform,this.A1[0],this.A1[1],this.A1[2]) ;
-		aGL.gl.uniform3f(this.A2Uniform,this.A2[0],this.A2[1],this.A2[2]) ;
-		aGL.gl.uniform3f(this.A3Uniform,this.A3[0],this.A3[1],this.A3[2]) ;
+		AGL.gl.uniform3f(this.A0Uniform,this.A0[0],this.A0[1],this.A0[2]) ;
+		AGL.gl.uniform3f(this.A1Uniform,this.A1[0],this.A1[1],this.A1[2]) ;
+		AGL.gl.uniform3f(this.A2Uniform,this.A2[0],this.A2[1],this.A2[2]) ;
+		AGL.gl.uniform3f(this.A3Uniform,this.A3[0],this.A3[1],this.A3[2]) ;
 		// xRange and time
-		aGL.gl.uniform2f(this.xRangeUniform,this.xRange[0],this.xRange[1]) ;
-		aGL.gl.uniform1f(this.timeUniform,this.wTime) ;
+		AGL.gl.uniform2f(this.xRangeUniform,this.xRange[0],this.xRange[1]) ;
+		AGL.gl.uniform1f(this.timeUniform,this.wTime) ;
 		
     }
 	
 	// init
-	this.program  = this.createProgram(agl,fragmentShaderID, vertexShaderID) ;    
+	this.program  = this.createProgram(AGL,fragmentShaderID, vertexShaderID) ;    
 }

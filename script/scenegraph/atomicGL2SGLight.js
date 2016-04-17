@@ -23,11 +23,11 @@ class atomicGL2SGLight extends atomicGL2SceneGraph {
 
 	// draw
 	// -------------------------
-	// inputs: 	agl - atomicGLContext
-	//			ams - atomicGLMatrixStack
-	draw (agl,ams){
+	// inputs: 	AGL - atomicGLContext
+	//			AMS - atomicGLMatrixStack
+	draw (AGL,AMS){
 		// debug
 		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::draw ->"+this.type+" - "+this.name);
-		this.light.draw(ams);
+		this.light.draw(AMS);
 	}
 }

@@ -320,7 +320,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [],

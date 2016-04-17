@@ -27,7 +27,7 @@
           {
             "type": "FunctionExpression",
             "id": null,
-            "params": [
+            "parAMS": [
               {
                 "type": "Identifier",
                 "name": "JsFilesloaded",
@@ -78,7 +78,7 @@
                         "value": {
                           "type": "FunctionExpression",
                           "id": null,
-                          "params": [],
+                          "parAMS": [],
                           "body": {
                             "type": "BlockStatement",
                             "body": [

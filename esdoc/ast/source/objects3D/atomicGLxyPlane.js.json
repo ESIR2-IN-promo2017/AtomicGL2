@@ -481,7 +481,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "nname",
@@ -1644,7 +1644,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -10247,7 +10247,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "face",

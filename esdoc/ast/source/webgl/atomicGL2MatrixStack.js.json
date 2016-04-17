@@ -248,7 +248,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -940,7 +940,7 @@
               },
               {
                 "type": "Line",
-                "value": " initMatrix(aGL,fov)",
+                "value": " initMatrix(AGL,fov)",
                 "range": [
                   864,
                   886
@@ -976,7 +976,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: atomicGLContext",
+                "value": " inputs: \tAGL: atomicGLContext",
                 "range": [
                   921,
                   953
@@ -1036,10 +1036,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "aGL",
+                  "name": "AGL",
                   "range": [
                     1015,
                     1018
@@ -1162,7 +1162,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 1075,
                                 1078
@@ -1216,7 +1216,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 1095,
                                 1098
@@ -1693,7 +1693,7 @@
               },
               {
                 "type": "Line",
-                "value": " initMatrix(aGL,fov)",
+                "value": " initMatrix(AGL,fov)",
                 "range": [
                   864,
                   886
@@ -1729,7 +1729,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: atomicGLContext",
+                "value": " inputs: \tAGL: atomicGLContext",
                 "range": [
                   921,
                   953
@@ -1827,7 +1827,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -2142,7 +2142,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "x",
@@ -2621,7 +2621,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "angle",
@@ -3136,7 +3136,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -3721,7 +3721,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -4619,7 +4619,7 @@
     },
     {
       "type": "Line",
-      "value": " initMatrix(aGL,fov)",
+      "value": " initMatrix(AGL,fov)",
       "range": [
         864,
         886
@@ -4655,7 +4655,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs: \taGL: atomicGLContext",
+      "value": " inputs: \tAGL: atomicGLContext",
       "range": [
         921,
         953

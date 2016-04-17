@@ -248,7 +248,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "name",
@@ -2727,7 +2727,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "atomicTex",
@@ -3073,7 +3073,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs:\tagl: openGL context",
+                "value": " inputs:\tAGL: openGL context",
                 "range": [
                   1905,
                   1935
@@ -3115,10 +3115,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     1952,
                     1955
@@ -3166,7 +3166,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               2050,
                               2053
@@ -8366,7 +8366,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs:\tagl: openGL context",
+                "value": " inputs:\tAGL: openGL context",
                 "range": [
                   1905,
                   1935
@@ -8386,7 +8386,7 @@
             "trailingComments": [
               {
                 "type": "Line",
-                "value": " draw(aGL,aMS,idProg)",
+                "value": " draw(AGL,AMS,idProg)",
                 "range": [
                   3863,
                   3886
@@ -8422,7 +8422,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: GL context \t\t- atomicGLContext",
+                "value": " inputs: \tAGL: GL context \t\t- atomicGLContext",
                 "range": [
                   3921,
                   3968
@@ -8440,7 +8440,7 @@
               },
               {
                 "type": "Line",
-                "value": " \t\t\taMS: Matrix Stacks \t- atomicMatrixStack",
+                "value": " \t\t\tAMS: Matrix Stacks \t- atomicMatrixStack",
                 "range": [
                   3971,
                   4016
@@ -8518,10 +8518,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "aGL",
+                  "name": "AGL",
                   "range": [
                     4111,
                     4114
@@ -8539,7 +8539,7 @@
                 },
                 {
                   "type": "Identifier",
-                  "name": "aMS",
+                  "name": "AMS",
                   "range": [
                     4115,
                     4118
@@ -8589,7 +8589,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "aGL",
+                            "name": "AGL",
                             "range": [
                               4257,
                               4260
@@ -8682,7 +8682,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "aGL",
+                                "name": "AGL",
                                 "range": [
                                   4275,
                                   4278
@@ -8920,7 +8920,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 4367,
                                 4370
@@ -9040,7 +9040,7 @@
                       "arguments": [
                         {
                           "type": "Identifier",
-                          "name": "aGL",
+                          "name": "AGL",
                           "range": [
                             4419,
                             4422
@@ -9058,7 +9058,7 @@
                         },
                         {
                           "type": "Identifier",
-                          "name": "aMS",
+                          "name": "AMS",
                           "range": [
                             4423,
                             4426
@@ -9177,7 +9177,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 4485,
                                 4488
@@ -9310,7 +9310,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       4552,
                                       4555
@@ -9507,7 +9507,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     4628,
                                     4631
@@ -9598,7 +9598,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       4646,
                                       4649
@@ -9776,7 +9776,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     4703,
                                     4706
@@ -9871,7 +9871,7 @@
                                       "computed": false,
                                       "object": {
                                         "type": "Identifier",
-                                        "name": "aGL",
+                                        "name": "AGL",
                                         "range": [
                                           4730,
                                           4733
@@ -10065,7 +10065,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       4826,
                                       4829
@@ -10339,7 +10339,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 4884,
                                 4887
@@ -10472,7 +10472,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       4949,
                                       4952
@@ -10669,7 +10669,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5031,
                                     5034
@@ -10760,7 +10760,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5049,
                                       5052
@@ -10938,7 +10938,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5106,
                                     5109
@@ -11033,7 +11033,7 @@
                                       "computed": false,
                                       "object": {
                                         "type": "Identifier",
-                                        "name": "aGL",
+                                        "name": "AGL",
                                         "range": [
                                           5133,
                                           5136
@@ -11227,7 +11227,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5225,
                                       5228
@@ -11483,7 +11483,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 5277,
                                 5280
@@ -11616,7 +11616,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5341,
                                       5344
@@ -11813,7 +11813,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5423,
                                     5426
@@ -11904,7 +11904,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5441,
                                       5444
@@ -12082,7 +12082,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5497,
                                     5500
@@ -12177,7 +12177,7 @@
                                       "computed": false,
                                       "object": {
                                         "type": "Identifier",
-                                        "name": "aGL",
+                                        "name": "AGL",
                                         "range": [
                                           5524,
                                           5527
@@ -12371,7 +12371,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5614,
                                       5617
@@ -12756,7 +12756,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5851,
                                     5854
@@ -12847,7 +12847,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       5869,
                                       5872
@@ -13033,7 +13033,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);",
+                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+AGL.getShaderProgram(shaderProgramName).texCoordAttribute);",
                               "range": [
                                 5715,
                                 5846
@@ -13063,7 +13063,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     5922,
                                     5925
@@ -13158,7 +13158,7 @@
                                       "computed": false,
                                       "object": {
                                         "type": "Identifier",
-                                        "name": "aGL",
+                                        "name": "AGL",
                                         "range": [
                                           5949,
                                           5952
@@ -13352,7 +13352,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       6043,
                                       6046
@@ -13827,7 +13827,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     6284,
                                     6287
@@ -13918,7 +13918,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       6305,
                                       6308
@@ -14069,7 +14069,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+agl.GLtexture[i]+\"/\"+agl.gl.TEXTURE0);",
+                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+AGL.GLtexture[i]+\"/\"+AGL.gl.TEXTURE0);",
                               "range": [
                                 6173,
                                 6279
@@ -14137,7 +14137,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     6436,
                                     6439
@@ -14228,7 +14228,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "aGL",
+                                    "name": "AGL",
                                     "range": [
                                       6455,
                                       6458
@@ -14524,7 +14524,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
+                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
                               "range": [
                                 6518,
                                 6647
@@ -14554,7 +14554,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     6652,
                                     6655
@@ -14650,7 +14650,7 @@
                                       "computed": false,
                                       "object": {
                                         "type": "Identifier",
-                                        "name": "aGL",
+                                        "name": "AGL",
                                         "range": [
                                           6669,
                                           6672
@@ -14869,7 +14869,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
+                              "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
                               "range": [
                                 6518,
                                 6647
@@ -14950,7 +14950,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "aGL",
+                            "name": "AGL",
                             "range": [
                               6764,
                               6767
@@ -15041,7 +15041,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6782,
                                 6785
@@ -15259,7 +15259,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "aGL",
+                            "name": "AGL",
                             "range": [
                               6869,
                               6872
@@ -15350,7 +15350,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6889,
                                 6892
@@ -15493,7 +15493,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6939,
                                 6942
@@ -15697,7 +15697,7 @@
             "leadingComments": [
               {
                 "type": "Line",
-                "value": " draw(aGL,aMS,idProg)",
+                "value": " draw(AGL,AMS,idProg)",
                 "range": [
                   3863,
                   3886
@@ -15733,7 +15733,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: GL context \t\t- atomicGLContext",
+                "value": " inputs: \tAGL: GL context \t\t- atomicGLContext",
                 "range": [
                   3921,
                   3968
@@ -15751,7 +15751,7 @@
               },
               {
                 "type": "Line",
-                "value": " \t\t\taMS: Matrix Stacks \t- atomicMatrixStack",
+                "value": " \t\t\tAMS: Matrix Stacks \t- atomicMatrixStack",
                 "range": [
                   3971,
                   4016
@@ -16360,7 +16360,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs:\tagl: openGL context",
+      "value": " inputs:\tAGL: openGL context",
       "range": [
         1905,
         1935
@@ -16504,7 +16504,7 @@
     },
     {
       "type": "Line",
-      "value": " draw(aGL,aMS,idProg)",
+      "value": " draw(AGL,AMS,idProg)",
       "range": [
         3863,
         3886
@@ -16540,7 +16540,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs: \taGL: GL context \t\t- atomicGLContext",
+      "value": " inputs: \tAGL: GL context \t\t- atomicGLContext",
       "range": [
         3921,
         3968
@@ -16558,7 +16558,7 @@
     },
     {
       "type": "Line",
-      "value": " \t\t\taMS: Matrix Stacks \t- atomicMatrixStack",
+      "value": " \t\t\tAMS: Matrix Stacks \t- atomicMatrixStack",
       "range": [
         3971,
         4016
@@ -16792,7 +16792,7 @@
     },
     {
       "type": "Line",
-      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+aGL.getShaderProgram(shaderProgramName).texCoordAttribute);",
+      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::vertexAttribPointer: \"+AGL.getShaderProgram(shaderProgramName).texCoordAttribute);",
       "range": [
         5715,
         5846
@@ -16846,7 +16846,7 @@
     },
     {
       "type": "Line",
-      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+agl.GLtexture[i]+\"/\"+agl.gl.TEXTURE0);",
+      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::activateTexture: \"+AGL.GLtexture[i]+\"/\"+AGL.gl.TEXTURE0);",
       "range": [
         6173,
         6279
@@ -16918,7 +16918,7 @@
     },
     {
       "type": "Line",
-      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+aGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
+      "value": " console.log(\"atomicGLObject3d(\"+this.name+\")::uniform: \"+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+\"->\"+i);\t\t\t",
       "range": [
         6518,
         6647

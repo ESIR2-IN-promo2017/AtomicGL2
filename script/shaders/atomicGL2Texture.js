@@ -20,16 +20,16 @@ class atomicGL2Texture{
 //------------------------
 // ffile: 	texture filename - string
 // ttype:		texture type : color | normal | displacement | specular | opacity - string
-// aagl:		atomicGL context
+// aAGL:		atomicGL context
 
 
-	constructor(iid,ffile, ttype, aagl){
+	constructor(iid,ffile, ttype, aAGL){
 		// debug
 		//console.log("atomicGLTexture::constructor("+ffile+")");
 		// attributes
 		// -------------------------------------------------
 		// local context
-		this.agl = aagl ;
+		this.AGL = aAGL ;
 		// texture id
 		this.id = iid ;
 		// file name
@@ -39,7 +39,7 @@ class atomicGL2Texture{
 		// texture image
 		this.textureImage = new Image();
 		// ogl texture
-    this.texture = aagl.gl.createTexture();
+    this.texture = aAGL.gl.createTexture();
     this.texture.image =   this.textureImage ;
 
     // build
@@ -60,16 +60,16 @@ class atomicGL2Texture{
 		// debug
 		//console.log("atomicGLTexture::onload("+o.file+")");
 
-    o.agl.gl.pixelStorei(o.agl.gl.UNPACK_FLIP_Y_WEBGL, true);
+    o.AGL.gl.pixelStorei(o.AGL.gl.UNPACK_FLIP_Y_WEBGL, true);
 		// bindTexture
-    o.agl.gl.bindTexture(o.agl.gl.TEXTURE_2D, o.texture);
-    o.agl.gl.texImage2D(o.agl.gl.TEXTURE_2D, 0, o.agl.gl.RGBA, o.agl.gl.RGBA, o.agl.gl.UNSIGNED_BYTE, o.texture.image);
+    o.AGL.gl.bindTexture(o.AGL.gl.TEXTURE_2D, o.texture);
+    o.AGL.gl.texImage2D(o.AGL.gl.TEXTURE_2D, 0, o.AGL.gl.RGBA, o.AGL.gl.RGBA, o.AGL.gl.UNSIGNED_BYTE, o.texture.image);
     // parameters
-		o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MAG_FILTER, o.agl.gl.LINEAR);
-    o.agl.gl.texParameteri(o.agl.gl.TEXTURE_2D, o.agl.gl.TEXTURE_MIN_FILTER, o.agl.gl.LINEAR_MIPMAP_NEAREST);
-    o.agl.gl.generateMipmap(o.agl.gl.TEXTURE_2D);
+		o.AGL.gl.texParameteri(o.AGL.gl.TEXTURE_2D, o.AGL.gl.TEXTURE_MAG_FILTER, o.AGL.gl.LINEAR);
+    o.AGL.gl.texParameteri(o.AGL.gl.TEXTURE_2D, o.AGL.gl.TEXTURE_MIN_FILTER, o.AGL.gl.LINEAR_MIPMAP_NEAREST);
+    o.AGL.gl.generateMipmap(o.AGL.gl.TEXTURE_2D);
 		// unbind
-    o.agl.gl.bindTexture(agl.gl.TEXTURE_2D, null);
+    o.AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, null);
 		// loaded !
 		o.loaded = true ;
 	}
