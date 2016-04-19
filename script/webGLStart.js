@@ -27,9 +27,9 @@ function sceneDraw() {
 function nextFrame() {
 	handleKeys();
 	AGL.scenegraph.camera.update();
-  requestAnimFrame(nextFrame);
-  sceneDraw();
-  animate();
+	requestAnimFrame(nextFrame);
+	sceneDraw();
+	animate();
 }
 
 // ANIMATE
@@ -46,16 +46,16 @@ function handleKeyDown(event) {
 function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
 
-	// Push [SPACE] to switch mode
+	// Push (F) to switch mode
 	if (event.keyCode == 70) {
 		AGL.scenegraph.camera.isFreeCam = !AGL.scenegraph.camera.isFreeCam;
-		if(AGL.scenegraph.camera.isFreeCam){
-			AGL.scenegraph.camera.isFreeCam = false;
+		if(AGL.scenegraph.camera.isFreeCam) {
+			AGL.scenegraph.camera.isFreeCam = true;
 			AGL.scenegraph.camera.jumping   = true;
 			AGL.scenegraph.camera.jumpDown  = true;
 		} else {
-		AGL.scenegraph.camera.walkStep = 0.0;
-		AGL.scenegraph.camera.up();
+			AGL.scenegraph.camera.walkStep = 0.0;
+			AGL.scenegraph.camera.up();
 		}
 	}
 }
