@@ -252,6 +252,9 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		var position = fragment.indexOf(flagLights);
 
+		if(nbLights == 0)
+			nbLights = 1;
+
 		if(position > -1)
 			fragment = fragment.slice(0, position + flagLights.length) + " " + nbLights + fragment.slice(position + flagLights.length);
 

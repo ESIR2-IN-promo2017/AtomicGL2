@@ -2,18 +2,15 @@
 
 <SCENE>
 	<LIGHTS>
-		<POINTLIGHT id="Sun" color="1.0,1.0,1.0" position="2.0,30.0,0.0" intensity="10" >
-		</POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight" color="1.0,1.0,1.0" direction="1.0,0.0,0.0">
-		</DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0">
-		</SPOTLIGHT>
+		<POINTLIGHT id="PointLight0" color="0.6,0.4,0.0" position="0.0,3.0,-50.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
+		<DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.1,0.2,0.7" direction="-3.0,-1.0,5.0" intensity="2.0,0.0,0.0"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight0" color="1.0,0.0,0.0" position="00.0,5.0,0.0" direction="0.0,-1.0,0.0" radius="1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
-		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
-		<XMATSHADER file="shaders/textDiffProg.xml">texDiffProg</XMATSHADER>
-		<XMATSHADER file="shaders/textNormalMapProg.xml">texDiffNormalMapProg</XMATSHADER>
+		<XMATSHADER id="texProg">shaders/textProg.xml</XMATSHADER>
+		<XMATSHADER id="texDiffProg">shaders/textDiffProg.xml</XMATSHADER>
+		<XMATSHADER id="texDiffNormalMapProg">shaders/textDiffNormalMapProg.xml</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
@@ -42,182 +39,52 @@
 		<TEXTURE id="toit2" type="color">texture/toit2.png</TEXTURE>
 		<TEXTURE id="toit2_normal" type="normal">texture/toit2_normal.png</TEXTURE>
 		<TEXTURE id="bois1" type="color">texture/bois1.png</TEXTURE>
-		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
+		<TEXTURE id="skyTex" type="color">texture/skybox3_texture.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
-		<SHAPE id="ground_grass" type="js">
-			<GEOMETRY id="solherbe" uv="1.0,1.0">sol_herbe()</GEOMETRY>
-			<TEXTID>herbe1</TEXTID>
-		</SHAPE>
-		<SHAPE id="ground_road" type="js">
-			<GEOMETRY id="sol_route" uv="0.5,0.5">sol_route()</GEOMETRY>
-			<TEXTID>sol4</TEXTID>
-			<TEXTID>sol4_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="ground_wall" type="js">
-			<GEOMETRY id="sol_muret" uv="1.0,1.0">sol_muret()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="ground_sand" type="js">
-			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_sable()</GEOMETRY>
-			<TEXTID>sable1</TEXTID>
-		</SHAPE>
-		<SHAPE id="house3wall" type="js">
-			<GEOMETRY id="maison3" uv="1.0,1.0">maison3()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house3roof" type="js">
-			<GEOMETRY id="maison3roof" uv="1.0,1.0">maison3roof()</GEOMETRY>
-			<TEXTID>toit1</TEXTID>
-			<TEXTID>toit1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house3wood" type="js">
-			<GEOMETRY id="maison3wood" uv="1.0,1.0">maison3wood()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="bridge1stone" type="js">
-			<GEOMETRY id="pont_pierre" uv="1.0,1.0">pont_pierre()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="bridge1top" type="js">
-			<GEOMETRY id="pont_dessus" uv="0.1,0.1">pont_dessus()</GEOMETRY>
-			<TEXTID>pave2</TEXTID>
-			<TEXTID>pave2_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="tower1base" type="js">
-			<GEOMETRY id="tour1base" uv="0.2,0.2">tour1base()</GEOMETRY>
-			<TEXTID>pierre3</TEXTID>
-			<TEXTID>pierre3_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="tower1mur" type="js">
-			<GEOMETRY id="tour1mur" uv="1.0,1.0">tour1mur()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="tower1parape" type="js">
-			<GEOMETRY id="tour1parape" uv="1.0,1.0">tour1parape()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="tower1sol" type="js">
-			<GEOMETRY id="tour1sol" uv="1.0,1.0">tour1sol()</GEOMETRY>
-			<TEXTID>sol3</TEXTID>
-		</SHAPE>
-		<SHAPE id="tower1toit" type="js">
-			<GEOMETRY id="tour1toit" uv="1.0,1.0">tour1toit()</GEOMETRY>
-			<TEXTID>toit1</TEXTID>
-			<TEXTID>toit1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="wall2base" type="js">
-			<GEOMETRY id="mur2base" uv="0.2,0.2">mur2base()</GEOMETRY>
-			<TEXTID>pierre3</TEXTID>
-			<TEXTID>pierre3_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="wall2stone" type="js">
-			<GEOMETRY id="mur2pierre" uv="1.0,1.0">mur2pierre()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="wall2wood" type="js">
-			<GEOMETRY id="mur2bois" uv="1.0,1.0">mur2bois()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="wall2roof" type="js">
-			<GEOMETRY id="mur2toit" uv="1.0,1.0">mur2toit()</GEOMETRY>
-			<TEXTID>toit1</TEXTID>
-			<TEXTID>toit1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1mur" type="js">
-			<GEOMETRY id="maison1mur" uv="0.2,0.2">maison1mur()</GEOMETRY>
-			<TEXTID>mur3</TEXTID>
-			<TEXTID>mur3_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1sol" type="js">
-			<GEOMETRY id="maison1sol" uv="1.0,1.0">maison1sol()</GEOMETRY>
-			<TEXTID>sol3</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1stone" type="js">
-			<GEOMETRY id="maison1stone" uv="1.0,1.0">maison1stone()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1stone2" type="js">
-			<GEOMETRY id="maison1stone2" uv="1.0,1.0">maison1stone2()</GEOMETRY>
-			<TEXTID>mur2</TEXTID>
-			<TEXTID>mur2_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1toit" type="js">
-			<GEOMETRY id="maison1toit" uv="1.0,1.0">maison1toit()</GEOMETRY>
-			<TEXTID>toit1</TEXTID>
-			<TEXTID>toit1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="house1wood" type="js">
-			<GEOMETRY id="maison1wood2" uv="1.0,1.0">maison1wood()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Base" type="js">
-			<GEOMETRY id="donjonBase" uv="0.2,0.2">donjonBase()</GEOMETRY>
-			<TEXTID>pierre3</TEXTID>
-			<TEXTID>pierre3_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Bois" type="js">
-			<GEOMETRY id="donjonBois" uv="1.0,1.0">donjonBois()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Fenetre" type="js">
-			<GEOMETRY id="donjonFenetre" uv="1.0,1.0">donjonFenetre()</GEOMETRY>
-			<TEXTID>marbre1</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Mur" type="js">
-			<GEOMETRY id="donjonMur" uv="1.0,1.0">donjonMur()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Sol" type="js">
-			<GEOMETRY id="donjonSol" uv="1.0,1.0">donjonSol()</GEOMETRY>
-			<TEXTID>sol3</TEXTID>
-		</SHAPE>
-		<SHAPE id="donjon1Toiture" type="js">
-			<GEOMETRY id="donjonToiture" uv="1.0,1.0">donjonToiture()</GEOMETRY>
-			<TEXTID>toit1</TEXTID>
-			<TEXTID>toit1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais1" type="js">
-			<GEOMETRY id="palais_v01_bois_parquet" uv="1.0,1.0">palais_v01_bois_parquet()</GEOMETRY>
-			<TEXTID>bois2</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais2" type="js">
-			<GEOMETRY id="palais_v01_bois_poutre" uv="1.0,1.0">palais_v01_bois_poutre()</GEOMETRY>
-			<TEXTID>bois1</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais3" type="js">
-			<GEOMETRY id="palais_v01_decors" uv="1.0,1.0">palais_v01_decors()</GEOMETRY>
-			<TEXTID>sol5</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais4" type="js">
-			<GEOMETRY id="palais_v01_mur" uv="1.0,1.0">palais_v01_mur()</GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-			<TEXTID>mur_pierre1_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais5" type="js">
-			<GEOMETRY id="palais_v01_terrase" uv="1.0,1.0">palais_v01_terrase()</GEOMETRY>
-			<TEXTID>sol4</TEXTID>
-			<TEXTID>sol4_normal</TEXTID>
-		</SHAPE>
-		<SHAPE id="palais6" type="js">
-			<GEOMETRY id="palais_v01_toiture" uv="1.0,1.0">palais_v01_toiture()</GEOMETRY>
-			<TEXTID>toit2</TEXTID>
-			<TEXTID>toit2_normal</TEXTID>
-		</SHAPE>
+		<SHAPE id="ground_grass" type="js" uv="1.0,1.0" tex="herbe1">sol_herbe()</SHAPE>
+		<SHAPE id="ground_road" type="js" uv="0.2,0.2" tex="sol4,sol4_normal">sol_route()</SHAPE>
+		<SHAPE id="ground_wall" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">sol_muret()</SHAPE>
+		<SHAPE id="ground_sand" type="js" uv="0.1,0.1" tex="sable1">sol_sable()</SHAPE>
+		<SHAPE id="house3wall" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">maison3()</SHAPE>
+		<SHAPE id="house3roof" type="js" uv="1.0,1.0" tex="toit1,toit1_normal">maison3roof()</SHAPE>
+		<SHAPE id="house3wood" type="js" uv="1.0,1.0" tex="bois1">maison3wood()</SHAPE>
+		<SHAPE id="bridge1stone" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">pont_pierre()</SHAPE>
+		<SHAPE id="bridge1top" type="js" uv="0.1,0.1" tex="pave2,pave2_normal">pont_dessus()</SHAPE>
+		<SHAPE id="tower1base" type="js" uv="0.2,0.2" tex="pierre3,pierre3_normal">tour1base()</SHAPE>
+		<SHAPE id="tower1mur" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">tour1mur()</SHAPE>
+		<SHAPE id="tower1parape" type="js" uv="1.0,1.0" tex="bois1">tour1parape()</SHAPE>
+		<SHAPE id="tower1sol" type="js" uv="1.0,1.0" tex="sol3">tour1sol()</SHAPE>
+		<SHAPE id="tower1toit" type="js" uv="1.0,1.0" tex="toit1,toit1_normal">tour1toit()</SHAPE>
+		<SHAPE id="wall2base" type="js" uv="0.2,0.2" tex="pierre3,pierre3_normal">mur2base()</SHAPE>
+		<SHAPE id="wall2stone" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">mur2pierre()</SHAPE>
+		<SHAPE id="wall2wood" type="js" uv="1.0,1.0" tex="bois1">mur2bois()</SHAPE>
+		<SHAPE id="wall2roof" type="js" uv="1.0,1.0" tex="toit1,toit1_normal">mur2toit()</SHAPE>
+		<SHAPE id="house1mur" type="js" uv="0.2,0.2" tex="mur3,mur3_normal">maison1mur()</SHAPE>
+		<SHAPE id="house1sol" type="js" uv="1.0,1.0" tex="sol3">maison1sol()</SHAPE>
+		<SHAPE id="house1stone" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">maison1stone()</SHAPE>
+		<SHAPE id="house1stone2" type="js" uv="1.0,1.0" tex="mur2,mur2_normal">maison1stone2()</SHAPE>
+		<SHAPE id="house1toit" type="js" uv="1.0,1.0" tex="toit1,toit1_normal">maison1toit()</SHAPE>
+		<SHAPE id="house1wood" type="js" uv="1.0,1.0" tex="bois1">maison1wood()</SHAPE>
+		<SHAPE id="donjon1Base" type="js" uv="0.2,0.2" tex="pierre3,pierre3_normal">donjonBase()</SHAPE>
+		<SHAPE id="donjon1Bois" type="js" uv="1.0,1.0" tex="bois1">donjonBois()</SHAPE>
+		<SHAPE id="donjon1Fenetre" type="js" uv="1.0,1.0" tex="marbre1">donjonFenetre()</SHAPE>
+		<SHAPE id="donjon1Mur" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">donjonMur()</SHAPE>
+		<SHAPE id="donjon1Sol" type="js" uv="1.0,1.0" tex="sol3">donjonSol()</SHAPE>
+		<SHAPE id="donjon1Toiture" type="js" uv="1.0,1.0" tex="toit1,toit1_normal">donjonToiture()</SHAPE>
+		<SHAPE id="palais1" type="js" uv="1.0,1.0" tex="bois2">palais_v01_bois_parquet()</SHAPE>
+		<SHAPE id="palais2" type="js" uv="1.0,1.0" tex="bois1">palais_v01_bois_poutre()</SHAPE>
+		<SHAPE id="palais3" type="js" uv="1.0,1.0" tex="sol5">palais_v01_decors()</SHAPE>
+		<SHAPE id="palais4" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">palais_v01_mur()</SHAPE>
+		<SHAPE id="palais5" type="js" uv="1.0,1.0" tex="sol4,sol4_normal">palais_v01_terrase()</SHAPE>
+		<SHAPE id="palais6" type="js" uv="1.0,1.0" tex="toit2,toit2_normal">palais_v01_toiture()</SHAPE>
 	</SHAPES>
 
-	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_route()'>
+	<ROOT skybox="skyTex" skysize="800.0" skyshader="texProg" camera="walk" navmesh='sol_route()'>
 
 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-					<OBJECT3D id="obj_ground_road" shader="texDiffNormalMapProg">ground_road</OBJECT3D>
+					<OBJECT3D id="obj_ground_road" shader="texDiffProg">ground_road</OBJECT3D>
 					<OBJECT3D id="obj_ground_wall" shader="texDiffNormalMapProg">ground_wall</OBJECT3D>
 					<OBJECT3D id="obj_ground_sand" shader="texDiffProg">ground_sand</OBJECT3D>
 					<OBJECT3D id="obj_ground_grass" shader="texDiffProg">ground_grass</OBJECT3D>

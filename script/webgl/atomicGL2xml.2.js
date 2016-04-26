@@ -55,11 +55,6 @@ class atomicGL2xml {
 			var r 			= parseFloat(color.split(",")[0]);
 			var g			= parseFloat(color.split(",")[1]);
 			var b			= parseFloat(color.split(",")[2]);
-			// position
-			var position 	= POINT.getAttribute("position");
-			var px 			= parseFloat(position.split(",")[0]);
-			var py 			= parseFloat(position.split(",")[1]);
-			var pz 			= parseFloat(position.split(",")[2]);
 
 			var intensity   = POINT.getAttribute("intensity");
             var ix          = parseFloat(intensity.split(",")[0]);
@@ -68,7 +63,7 @@ class atomicGL2xml {
 
 			// cast color and position to Array
 			color = [r,g,b];
-			position = [px,py,pz];
+			var position = [0,0,0];
             intensity = [ix, iy, iz];
 
 			// create pointlight and add it to context
@@ -121,11 +116,6 @@ class atomicGL2xml {
 			var r 			= parseFloat(color.split(",")[0]);
 			var g			= parseFloat(color.split(",")[1]);
 			var b			= parseFloat(color.split(",")[2]);
-			// position
-			var position 	= SPOT.getAttribute("position");
-			var px 			= parseFloat(position.split(",")[0]);
-			var py 			= parseFloat(position.split(",")[1]);
-			var pz 			= parseFloat(position.split(",")[2]);
 			// direction
 			var direction 	= SPOT.getAttribute("direction");
 			var dx 			= parseFloat(direction.split(",")[0]);
@@ -143,7 +133,7 @@ class atomicGL2xml {
 
 			// cast color, position and direction to Array
 			color = [r,g,b];
-			position = [px,py,pz]
+			var position = [0,0,0];
 			direction = [dx,dy,dz];
             intensity = [ix, iy, iz];
 
@@ -164,14 +154,14 @@ class atomicGL2xml {
 		for (var i=0; i<listXMSHAD.length;i++)
 		{
 			var SHAD        = listXMSHAD[i] ;
-			var shader_name = SHAD.childNodes[0].data ;
-			var file        = SHAD.getAttribute("file");
+			var file        = SHAD.childNodes[0].data ;
+			var id          = SHAD.getAttribute("id");
 
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file)));
+			agl.pushProgram(id, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file)));
 
 			// debug
-			console.log("atomicGLxml::shaders >> find shader("+i+"): "+shader_name+"-file: "+file);
+			console.log("atomicGLxml::shaders >> find shader("+i+"): "+id+" -file: "+file);
 		}
 
 		var listIMSHAD = this.dom.getElementsByTagName("IMATSHADER");
@@ -217,10 +207,10 @@ class atomicGL2xml {
 	//   <TEXTID>test_normal</TEXTID>
 	// </SHAPE>
 	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
-  var listSPHERE = this.dom.getElementsByTagName("SPHERE");
-  var listCUBE = this.dom.getElementsByTagName("CUBE");
-  var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
-  var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
+    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
+    var listCUBE = this.dom.getElementsByTagName("CUBE");
+    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
+    var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
 
     // SHAPE : Object3D
     for (var i=0; i < listSHAPE.length ; i++){
@@ -228,52 +218,34 @@ class atomicGL2xml {
 			var SHAPE     = listSHAPE[i];
 			var SHAPEId   = SHAPE.getAttribute("id");
 			var SHAPEType = SHAPE.getAttribute("type");
-			// only one GEOMETRY
-			var GEOMETRY  =  SHAPE.getElementsByTagName("GEOMETRY")[0];
-			var GEOmesh   = GEOMETRY.childNodes[0].data ;
-			var GEOId     = GEOMETRY.getAttribute("id");
-			var GEOuv     = GEOMETRY.getAttribute("uv");
-			var u         = parseFloat(GEOuv.split(",")[0]);
-			var v         = parseFloat(GEOuv.split(",")[1]);
+            var SHAPETex  = SHAPE.getAttribute("tex").split(",");
+            var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
+            var u         = parseFloat(SHAPEuv[0]);
+            var v         = parseFloat(SHAPEuv[1]);
+
+            var SHAPEMesh = SHAPE.childNodes[0].data ;
 
 			// create shape
-
 			if(SHAPEType == 'js')
-				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+GEOmesh), u,v) ;
-
+				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+SHAPEMesh), u, v) ;
 			else if(SHAPEType == 'obj')
-			{
-				console.log('objs/' + GEOmesh);
-				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + GEOmesh).obj, u,v) ;
-			}
-			// debug
-			//console.log("atomicGLxml::shapes >> find shape("+i+"): "+SHAPEId+"-GEOMETRY:" + GEOId+ "-mesh:"+GEOmesh+"-uv:"+u+","+v);
+				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + SHAPEMesh).obj, u, v) ;
 
-			// textures
-			var textures = SHAPE.getElementsByTagName("TEXTID");
-
-			for (var j=0; j < textures.length ; j++)
+            // load textures
+			for (var j=0; j < SHAPETex.length ; j++)
 			{
-				var tid = textures[j].childNodes[0].data;
+				var texId = SHAPETex[j];
 
 				// texture index in agl
-				var agltid = agl.indexOfTexture(tid);
+				var aglTexId = agl.indexOfTexture(texId);
 
-				if (agltid != -1)
-					ss.pushTexture(agl.textures[agltid]);
-
+				if (aglTexId != -1)
+					ss.pushTexture(agl.textures[aglTexId]);
 				else
-					alert("atomicGLxml::shapes ("+SHAPEId+") texture: "+tid+" not found !");
+					alert("atomicGLxml::shapes ("+SHAPEId+") texture: "+texId+" not found !");
 
 				// debug
 				//console.log("-- texture used ("+j+"):"+tid + "- index:" + agltid);
-			}
-
-			var pointLights = SHAPE.getElementsByTagName("POINTLIGHTID");
-
-			for(var j=0; j<pointLights.length; j++)
-			{
-				var ptid = pointLights[j].childNodes[0].data;
 			}
 
 			// init shape buffer and add it to context
@@ -286,26 +258,21 @@ class atomicGL2xml {
 			//
 			var SPHERE     = listSPHERE[i];
 			var SPHEREId   = SPHERE.getAttribute("id");
-			var SPHEREType = SPHERE.getAttribute("type");
-			// only one GEOMETRY
-			var GEOMETRY  = SPHERE.getElementsByTagName("GEOMETRY")[0];
-			var GEOId     = GEOMETRY.getAttribute("id");
-			var GEORad    = parseFloat(GEOMETRY.getAttribute("rad"));
-			var GEOLat    = parseFloat(GEOMETRY.getAttribute("lat"));
-			var GEOLong   = parseFloat(GEOMETRY.getAttribute("long"));
-			var GEOuv     = GEOMETRY.getAttribute("uv");
-			var u         = parseFloat(GEOuv.split(",")[0]);
-			var v         = parseFloat(GEOuv.split(",")[1]);
+			var SPHERERad  = parseFloat(SPHERE.getAttribute("rad"));
+			var SPHERELat  = parseFloat(SPHERE.getAttribute("lat"));
+			var SPHERELong = parseFloat(SPHERE.getAttribute("long"));
+            var SPHERETex  = SPHERE.getAttribute("tex").split(",");
+            var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
+            var u          = parseFloat(SPHEREuv[0]);
+            var v          = parseFloat(SPHEREuv[1]);
 
 			// create shape
-			var ss = new atomicGL2Sphere(SPHEREId, GEORad, GEOLat, GEOLong, u, v);
+			var ss = new atomicGL2Sphere(SPHEREId, SPHERERad, SPHERELat, SPHERELong, u, v);
 
 			// textures
-			var textures = SPHERE.getElementsByTagName("TEXTID");
-
-			for (var j=0; j < textures.length ; j++)
+			for (var j=0; j < SPHERETex.length ; j++)
 			{
-				var tid = textures[j].childNodes[0].data;
+				var tid = SPHERETex[j];
 
 				// texture index in agl
 				var agltid = agl.indexOfTexture(tid);
@@ -327,26 +294,21 @@ class atomicGL2xml {
 			//
 			var CUBE 		= listCUBE[i];
 			var CUBEId   	= CUBE.getAttribute("id");
-			var CUBEType 	= CUBE.getAttribute("type");
-			// only one GEOMETRY
-			var GEOMETRY  	= CUBE.getElementsByTagName("GEOMETRY")[0];
-			var GEOId     	= GEOMETRY.getAttribute("id");
-			var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
-			var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
-			var GEODepth   	= parseFloat(GEOMETRY.getAttribute("depth"));
-			var GEOuv     	= GEOMETRY.getAttribute("uv");
-			var u         	= parseFloat(GEOuv.split(",")[0]);
-			var v         	= parseFloat(GEOuv.split(",")[1]);
+			var CUBEHeight  = parseFloat(CUBE.getAttribute("height"));
+			var CUBEWidth 	= parseFloat(CUBE.getAttribute("width"));
+			var CUBEDepth   = parseFloat(CUBE.getAttribute("depth"));
+            var CUBETex     = CUBE.getAttribute("tex").split(",");
+            var CUBEuv     	= CUBE.getAttribute("uv").split(",");
+			var u         	= parseFloat(CUBEuv[0]);
+			var v         	= parseFloat(CUBEuv[1]);
 
 			// create shape
-			var ss = new atomicGL2Cube(CUBEId, GEOHeight, GEOWidth, GEODepth, u, v);
+			var ss = new atomicGL2Cube(CUBEId, CUBEHeight, CUBEWidth, CUBEDepth, u, v);
 
 			// textures
-			var textures = CUBE.getElementsByTagName("TEXTID");
-
-			for (var j=0; j < textures.length ; j++)
+			for (var j=0; j < CUBETex.length ; j++)
 			{
-				var tid = textures[j].childNodes[0].data;
+				var tid = CUBETex[j];
 
 				// texture index in agl
 				var agltid = agl.indexOfTexture(tid);
@@ -368,27 +330,22 @@ class atomicGL2xml {
 			//
 			var CYLINDER     	= listCYLINDER[i];
 			var CYLINDERId   	= CYLINDER.getAttribute("id");
-			var CYLINDERType 	= CYLINDER.getAttribute("type");
-			// only one GEOMETRY
-			var GEOMETRY  	= CYLINDER.getElementsByTagName("GEOMETRY")[0];
-			var GEOId     	= GEOMETRY.getAttribute("id");
-			var GEORad  	  = parseFloat(GEOMETRY.getAttribute("rad"));
-			var GEOHeight 	= parseFloat(GEOMETRY.getAttribute("height"));
-			var GEOLat   	  = parseFloat(GEOMETRY.getAttribute("lat"));
-			var GEOLong   	= parseFloat(GEOMETRY.getAttribute("long"));
-			var GEOuv     	= GEOMETRY.getAttribute("uv");
-			var u         	= parseFloat(GEOuv.split(",")[0]);
-			var v         	= parseFloat(GEOuv.split(",")[1]);
+			var CYLINDERRad  	= parseFloat(CYLINDER.getAttribute("rad"));
+			var CYLINDERHeight 	= parseFloat(CYLINDER.getAttribute("height"));
+			var CYLINDERLat   	= parseFloat(CYLINDER.getAttribute("lat"));
+			var CYLINDERLong   	= parseFloat(CYLINDER.getAttribute("long"));
+            var CYLINDERTex     = CYLINDER.getAttribute("tex").split(",");
+            var CYLINDERuv     	= CYLINDER.getAttribute("uv").split(",");
+			var u         	    = parseFloat(CYLINDERuv[0]);
+			var v         	    = parseFloat(CYLINDERuv[1]);
 
 			// create shape
-			var ss = new atomicGL2Cylinder(CYLINDERId, GEORad, GEOHeight, GEOLat, GEOLong, u, v);
+			var ss = new atomicGL2Cylinder(CYLINDERId, CYLINDERRad, CYLINDERHeight, CYLINDERLat, CYLINDERLong, u, v);
 
 			// textures
-			var textures = CYLINDER.getElementsByTagName("TEXTID");
-
-			for (var j=0; j < textures.length ; j++)
+			for (var j=0; j < CYLINDERTex.length ; j++)
 			{
-				var tid = textures[j].childNodes[0].data;
+				var tid = CYLINDERTex[j];
 
 				// texture index in agl
 				var agltid = agl.indexOfTexture(tid);
@@ -410,27 +367,22 @@ class atomicGL2xml {
       //
       var XYPLANE     	= listXYPLANE[i];
       var XYPLANEId   	= XYPLANE.getAttribute("id");
-      var XYPLANEType 	= XYPLANE.getAttribute("type");
-      // only one GEOMETRY
-      var GEOMETRY  	= XYPLANE.getElementsByTagName("GEOMETRY")[0];
-      var GEOId     	= GEOMETRY.getAttribute("id");
-      var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
-      var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
-      var GEOXRow   	= parseFloat(GEOMETRY.getAttribute("xrow"));
-      var GEOYRow   	= parseFloat(GEOMETRY.getAttribute("yrow"));
-      var GEOuv     	= GEOMETRY.getAttribute("uv");
+      var XYPLANEHeight = parseFloat(XYPLANE.getAttribute("height"));
+      var XYPLANEWidth 	= parseFloat(XYPLANE.getAttribute("width"));
+      var XYPLANEXRow   = parseFloat(XYPLANE.getAttribute("xrow"));
+      var XYPLANEYRow   = parseFloat(XYPLANE.getAttribute("yrow"));
+      var XYPLANETex    = XYPLANE.getAttribute("tex").split(",");
+      var XYPLANEuv     = XYPLANE.getAttribute("uv");
       var u         	= parseFloat(GEOuv.split(",")[0]);
       var v         	= parseFloat(GEOuv.split(",")[1]);
 
       // create shape
-      var ss = new atomicGL2xyPlane(XYPLANEId, GEOHeight, GEOWidth, GEOXRow, GEOYRow, u, v);
+      var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
 
       // textures
-      var textures = XYPLANE.getElementsByTagName("TEXTID");
-
-      for (var j=0; j < textures.length ; j++)
+      for (var j=0; j < XYPLANETex.length ; j++)
       {
-        var tid = textures[j].childNodes[0].data;
+        var tid = XYPLANETex[j];
 
         // texture index in agl
         var agltid = agl.indexOfTexture(tid);
@@ -544,6 +496,14 @@ class atomicGL2xml {
 				// debug
 				//console.log("atomicGL2xml::traverse -> add OBJECT3D");
 			break;
+
+            case "LIGHT":
+                var id = e.getAttribute("id") ;
+
+                var lightId = e.childNodes[0].data ;
+
+                node = agl.getLight(lightId);
+				s.addChild(node);
 		}
 		// children
 		for (var i=0; i<e.children.length;i++)
