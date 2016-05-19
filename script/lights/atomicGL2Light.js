@@ -66,102 +66,66 @@ class atomicGL2Light{
 		return this.color;
 	}
 
-  /**
-   * @return {float} return the intensity of the light
-   */
-  getIntensity(){
-    return this.intensity;
-  }
+    /**
+    * @return {float} return the intensity of the light
+    */
+    getIntensity(){
+        return this.intensity;
+    }
 
-  /*
-  * @type {float} The angle of the area of the SpotLight
-  */
+    /*
+    * @type {float} The angle of the area of the SpotLight
+    */
     getRadius(){
-    return this.radius;
-  }
+        return this.radius;
+    }
 
-  /**
-  * @type {Array[3]:float} return the position of the light
-  */
-  getPosition(){
-    return this.position;
-  }
+    /**
+    * @type {Array[3]:float} return the position of the light
+    */
+    getPosition(){
+        return this.position;
+    }
 
-  /**
+    /**
     * @type {Array[3]:float} return the direction of the light
     */
-  getDirection(){
-    return this.direction;
-  }
+    getDirection(){
+        return this.direction;
+    }
 
-  /**
-  * @type {Array[3]:float} return the Type of the light
-  */
-	getType(){
-		return this.constructor ;
-	}
+    /**
+    * @type {Array[3]:float} return the Type of the light
+    */
+    getType(){
+        return this.constructor ;
+    }
 
+    draw(AMS){
+		var vPosition = [this.position[0], this.position[1], this.position[2], 1.0];
 
-	// draw
-	// -------------------------
-	// inputs: 	agl - atomicGLContext
-	//			ams - atomicGLMatrixStack
-	draw (agl, ams){
-		// var mvPosition = [ams.mvMatrix[12], ams.mvMatrix[13], ams.mvMatrix[14], 1.0];
-		var mvPosition = [this.position[0], this.position[1], this.position[2], 1.0];
-		var pPosition = [0.0,0.0,0.0,0.0];
+		var mvPosition = [0,0,0,0];
+		for(var i=0; i<4; i++){
+			var value = 0;
+			for(var k=0; k<4; k++){
+				value += AMS.mvMatrix[i*4 + k] * vPosition[k];
+			}
+			mvPosition[i] = value;
+		}
 
+		var newPosition = [0,0,0,0];
+		for(var i=0; i<4; i++){
+			var value = 0;
+			for(var k=0; k<4; k++){
+				value += AMS.pMatrix[i*4 + k] * mvPosition[k];
+			}
+			newPosition[i] = value;
+		}
 
-		pPosition[0] = ams.mvMatrix[0] * mvPosition[0]
-						 + ams.mvMatrix[4] * mvPosition[1]
-						 + ams.mvMatrix[8] * mvPosition[2]
-						 + ams.mvMatrix[12] * mvPosition[3];
+		this.position[0] = newPosition[0]/newPosition[3];
+        this.position[1] = newPosition[1]/newPosition[3];
+		this.position[2] = newPosition[2]/newPosition[3];
 
-		pPosition[1] = ams.mvMatrix[1] * mvPosition[0]
-						 + ams.mvMatrix[5] * mvPosition[1]
-						 + ams.mvMatrix[9] * mvPosition[2]
-						 + ams.mvMatrix[13] * mvPosition[3];
-
-		pPosition[2] = ams.mvMatrix[2] * mvPosition[0]
-						 + ams.mvMatrix[6] * mvPosition[1]
-						 + ams.mvMatrix[10] * mvPosition[2]
-						 + ams.mvMatrix[14] * mvPosition[3];
-
-		pPosition[3] = ams.mvMatrix[3] * mvPosition[0]
-						 + ams.mvMatrix[7] * mvPosition[1]
-						 + ams.mvMatrix[11] * mvPosition[2]
-						 + ams.mvMatrix[15] * mvPosition[3];
-
-
-		this.position[0] = pPosition[0];
-		this.position[1] = pPosition[1];
-		this.position[2] = pPosition[2];
-		var homogeneous = pPosition[3];
-
-		this.position[0] = ams.pMatrix[0] * pPosition[0]
-						 + ams.pMatrix[4] * pPosition[1]
-						 + ams.pMatrix[8] * pPosition[2]
-						 + ams.pMatrix[12] * pPosition[3];
-
-		this.position[1] = ams.pMatrix[1] * pPosition[0]
-						 + ams.pMatrix[5] * pPosition[1]
-						 + ams.pMatrix[9] * pPosition[2]
-						 + ams.pMatrix[13] * pPosition[3];
-
-		this.position[0] = ams.pMatrix[2] * pPosition[0]
-						 + ams.pMatrix[6] * pPosition[1]
-						 + ams.pMatrix[10] * pPosition[2]
-						 + ams.pMatrix[14] * pPosition[3];
-
-		var homogeneous = ams.pMatrix[3] * pPosition[0]
-						 + ams.pMatrix[7] * pPosition[1]
-						 + ams.pMatrix[11] * pPosition[2]
-						 + ams.pMatrix[15] * pPosition[3];
-
-		this.position[0] /= homogeneous
-		this.position[1] /= homogeneous;
-		this.position[2] /= homogeneous;
-
-		console.log(pPosition);
-	}
+        console.log(this.position);
+    }
 }

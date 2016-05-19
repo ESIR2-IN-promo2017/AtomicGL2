@@ -47,7 +47,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	// constructor
 	//------------------------
 	// inputs:	nname: 		shader name - string
-	//			 agl:				atomicGL context
+	//			 AGL:				atomicGL context
 	// 			shaderloader: 		shader loader
 	//			nbTex: 				integer
 	//									0: shader doesn&apos;t use texture
@@ -57,7 +57,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//									uPointLightPosition0|1|2 required per light in the shader
 	//									uPointLightColor0|1|2 required per light in the shader
 
-	constructor(agl,shaderloader,nnbLights){
+	constructor(AGL,shaderloader,nnbLights){
 		// attributes
 		// -------------------------------------------------
 		super();
@@ -93,7 +93,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//Initialisation of the key of the mapUniforms and mapAttributes
 		this.initMap();
 
-		this.build(agl,this.shaderloader);
+		this.build(AGL,this.shaderloader);
 	}
 
 	initMap(){
@@ -111,51 +111,51 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	// --------------------------------------------------
 	// createProgram
 	//---------------------------
-	// inputs:	agl: GL context
+	// inputs:	AGL: GL context
 	// 			vstr: vertex shader  - string
 	// 			fstr: fragment shader - string
-    createProgram(agl,vstr,fstr) {
+    createProgram(AGL,vstr,fstr) {
 		// debug
 		//console.log(&quot;atomicGLShader::createProgram (&quot;+fragmentShaderID+&quot;,&quot;+vertexShaderID+&quot;)&quot;);
 		
 		// creation des shaders
 		// vertex
-        var vertexShader = agl.gl.createShader(agl.gl.VERTEX_SHADER);
+        var vertexShader = AGL.gl.createShader(AGL.gl.VERTEX_SHADER);
 		// set source
-        agl.gl.shaderSource(vertexShader, vstr);
+        AGL.gl.shaderSource(vertexShader, vstr);
 		// shader compilation
-        agl.gl.compileShader(vertexShader);
+        AGL.gl.compileShader(vertexShader);
 		// debug
-		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS));
+		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+AGL.gl.getShaderParameter(vertexShader, AGL.gl.COMPILE_STATUS));
 		// check erreur de compilation
-        if (!agl.gl.getShaderParameter(vertexShader, agl.gl.COMPILE_STATUS)) {
-            alert(agl.gl.getShaderInfoLog(vertexShader));
+        if (!AGL.gl.getShaderParameter(vertexShader, AGL.gl.COMPILE_STATUS)) {
+            alert(AGL.gl.getShaderInfoLog(vertexShader));
             return null;
         }
 
 		// fragment
-		var fragmentShader = agl.gl.createShader(agl.gl.FRAGMENT_SHADER);
+		var fragmentShader = AGL.gl.createShader(AGL.gl.FRAGMENT_SHADER);
 		// set source
-        agl.gl.shaderSource(fragmentShader, fstr);
+        AGL.gl.shaderSource(fragmentShader, fstr);
 		// shader compilation
-        agl.gl.compileShader(fragmentShader);
+        AGL.gl.compileShader(fragmentShader);
 		// debug
-		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS));
+		console.log(&quot;atomicGLShader2::createProgram -&gt; compile result: &quot;+AGL.gl.getShaderParameter(fragmentShader, AGL.gl.COMPILE_STATUS));
 		// check erreur de compilation
-        if (!agl.gl.getShaderParameter(fragmentShader, agl.gl.COMPILE_STATUS)) {
-            alert(agl.gl.getShaderInfoLog(fragmentShader));
+        if (!AGL.gl.getShaderParameter(fragmentShader, AGL.gl.COMPILE_STATUS)) {
+            alert(AGL.gl.getShaderInfoLog(fragmentShader));
             return null;
         }
 
 		// creation program et link
-        var program = agl.gl.createProgram();
-        agl.gl.attachShader(program, vertexShader);
-        agl.gl.attachShader(program, fragmentShader);
-        agl.gl.linkProgram(program);
+        var program = AGL.gl.createProgram();
+        AGL.gl.attachShader(program, vertexShader);
+        AGL.gl.attachShader(program, fragmentShader);
+        AGL.gl.linkProgram(program);
 
 		// debug
-		console.log(&quot;atomicGLShader2::createProgram-&gt; link result: &quot;+agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS));
-        if (!agl.gl.getProgramParameter(program, agl.gl.LINK_STATUS)) {
+		console.log(&quot;atomicGLShader2::createProgram-&gt; link result: &quot;+AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS));
+        if (!AGL.gl.getProgramParameter(program, AGL.gl.LINK_STATUS)) {
             alert(&quot;atomicGLShader2::Could not initialise shaders&quot;);
         }
 
@@ -163,8 +163,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//------------------------
        	for (var key of this.mapAttributes.keys())
        	{
-			this.mapAttributes.set(key,agl.gl.getAttribLocation(program, key));
-	    	agl.gl.enableVertexAttribArray(this.mapAttributes.get(key));
+			this.mapAttributes.set(key,AGL.gl.getAttribLocation(program, key));
+	    	AGL.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 
 		}
 
@@ -172,39 +172,39 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		//------------------------
 	 	for (var key of this.mapUniforms.keys())
 	 	{
-	        this.mapUniforms.set(key,agl.gl.getUniformLocation(program, key));
+	        this.mapUniforms.set(key,AGL.gl.getUniformLocation(program, key));
 	    }
 
 		if(this.nbTex&gt;0){
-			agl.gl.enableVertexAttribArray(this.mapAttributes.get(&quot;aVertexTexCoord&quot;));
+			AGL.gl.enableVertexAttribArray(this.mapAttributes.get(&quot;aVertexTexCoord&quot;));
 		}
 
 
 		// lights
 		// uAmbientColor
-		this.ambientColorUniform = agl.gl.getUniformLocation(program, &quot;uAmbientColor&quot;);
+		this.ambientColorUniform = AGL.gl.getUniformLocation(program, &quot;uAmbientColor&quot;);
 		
-		for(var lightId of agl.lights.keys())
+		for(var lightId of AGL.lights.keys())
 		{
 			if(this.hasLight(lightId))
 			{
-				switch(agl.getLight(lightId).getType())
+				switch(AGL.getLight(lightId).getType())
 				{
 					case atomicGL2PointLight:
-						setUniformById(agl,lightId + &quot;Postition&quot;,agl.getLight(lightId).getPosition());
-						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+						setUniformById(AGL,lightId + &quot;Postition&quot;,AGL.getLight(lightId).getPosition());
+						setUniformById(AGL,lightId + &quot;Color&quot;,AGL.getLight(lightId).getColor());
 					break;
 
 					case atomicGL2DirectionnalLight:
-						setUniformById(agl,lightId + &quot;Direction&quot;,agl.getLight(lightId).getDirection());
-						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+						setUniformById(AGL,lightId + &quot;Direction&quot;,AGL.getLight(lightId).getDirection());
+						setUniformById(AGL,lightId + &quot;Color&quot;,AGL.getLight(lightId).getColor());
 					break;
 
 					case atomicGL2SpotLight:
-						setUniformById(agl,lightId + &quot;Postition&quot;,agl.getLight(lightId).getPosition());
-						setUniformById(agl,lightId + &quot;Direction&quot;,agl.getLight(lightId).getDirection());
-						setUniformById(agl,lightId + &quot;Radius&quot;,agl.getLight(lightId).getRadius());
-						setUniformById(agl,lightId + &quot;Color&quot;,agl.getLight(lightId).getColor());
+						setUniformById(AGL,lightId + &quot;Postition&quot;,AGL.getLight(lightId).getPosition());
+						setUniformById(AGL,lightId + &quot;Direction&quot;,AGL.getLight(lightId).getDirection());
+						setUniformById(AGL,lightId + &quot;Radius&quot;,AGL.getLight(lightId).getRadius());
+						setUniformById(AGL,lightId + &quot;Color&quot;,AGL.getLight(lightId).getColor());
 					break;
 
 					default:
@@ -216,7 +216,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		// textures
 		for (var i = 0; i &lt; this.nbTex; i++) {
-			this.samplerUniform[i] = agl.gl.getUniformLocation(program, this.getTextureID(i));
+			this.samplerUniform[i] = AGL.gl.getUniformLocation(program, this.getTextureID(i));
 		}
 
         return program;
@@ -224,13 +224,13 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
     // setUniforms
     //----------------------------------------
-    // inputs: 	aGL: atomicGLContext
-	// 			aMS: atomicGLMatrixStack
-    setUniforms(aGL,aMS){
+    // inputs: 	AGL: atomicGLContext
+	// 			AMS: atomicGLMatrixStack
+    setUniforms(AGL,AMS){
 		// debug
 		//console.log(&quot;atomicGLShader::setUniforms &quot;);
     	// set this shader as active shader
-    	aGL.gl.useProgram(this.program);
+    	AGL.gl.useProgram(this.program);
 
 
     	// matrix
@@ -238,38 +238,38 @@ class  atomicGL2MatShader extends atomicGL2Shader{
     	// 		Model-&gt;view
     	//		Normal built from Model-&gt;view
     	if(this.hasProjectionMatrix(this.shaderloader.getUniforms()))
-   			aGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, aMS.pMatrix);
+   			AGL.gl.uniformMatrix4fv(this.getProjectionMatrix() , false, AMS.pMatrix);
     	if(this.hasModelViewMatrix(this.shaderloader.getUniforms()))
-	        aGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, aMS.mvMatrix);
+	        AGL.gl.uniformMatrix4fv(this.getModelViewMatrix(), false, AMS.mvMatrix);
 
         var normalMatrix = mat3.create();
-        mat4.toInverseMat3(aMS.mvMatrix, normalMatrix);
+        mat4.toInverseMat3(AMS.mvMatrix, normalMatrix);
         mat3.transpose(normalMatrix);
         if(this.hasNormalMatrix(this.shaderloader.getUniforms()))
-        	aGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
+        	AGL.gl.uniformMatrix3fv( this.getNormalMatrix(), false, normalMatrix);
 
         // Lights
         //		ambient
-        //aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);
+        //AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);
 
 		//		Omni
 		for (var i=0; i &lt; this.nbLight ; i++){
 			// debug
 			//console.log(&quot;-- atomicGLShader::setUniforms - Light number (&quot;+i+&quot;)&quot;);
-			//console.log(&quot;-- LightLocation @&quot;+this.pointLightLocationUniform[i]+&quot;::&quot; +aGL.omniLightLocation[i*3+0] +&quot;,&quot;+ aGL.omniLightLocation[i*3+1]+&quot;,&quot;+ aGL.omniLightLocation[i*3+2] );
-			//console.log(&quot;-- LightColor @&quot;+this.pointLightColorUniform[i]+&quot;::&quot; +aGL.omniLightColor[i*3+0] +&quot;,&quot;+ aGL.omniLightColor[i*3+1]+&quot;,&quot;+ aGL.omniLightColor[i*3+2] );
+			//console.log(&quot;-- LightLocation @&quot;+this.pointLightLocationUniform[i]+&quot;::&quot; +AGL.omniLightLocation[i*3+0] +&quot;,&quot;+ AGL.omniLightLocation[i*3+1]+&quot;,&quot;+ AGL.omniLightLocation[i*3+2] );
+			//console.log(&quot;-- LightColor @&quot;+this.pointLightColorUniform[i]+&quot;::&quot; +AGL.omniLightColor[i*3+0] +&quot;,&quot;+ AGL.omniLightColor[i*3+1]+&quot;,&quot;+ AGL.omniLightColor[i*3+2] );
 
-		//	console.log( aGL.lights[i]);
-			aGL.gl.uniform3f(this.pointLightLocationUniform[i], aGL.lights[i].getPosition()[0], aGL.lights[i].getPosition()[1], aGL.lights[i].getPosition()[2]);
-			aGL.gl.uniform3f(this.pointLightColorUniform[i], aGL.lights[i].getColor()[0], aGL.lights[i].getColor()[1], aGL.lights[i].getColor()[2]);
+		//	console.log( AGL.lights[i]);
+			AGL.gl.uniform3f(this.pointLightLocationUniform[i], AGL.lights[i].getPosition()[0], AGL.lights[i].getPosition()[1], AGL.lights[i].getPosition()[2]);
+			AGL.gl.uniform3f(this.pointLightColorUniform[i], AGL.lights[i].getColor()[0], AGL.lights[i].getColor()[1], AGL.lights[i].getColor()[2]);
 		}
 
     }
 
 	// build
 	//-----------------------------
-	build(agl,shaderloader){
-		this.program = this.createProgram(agl,shaderloader.getVertex(), shaderloader.getFragment());
+	build(AGL,shaderloader){
+		this.program = this.createProgram(AGL,shaderloader.getVertex(), shaderloader.getFragment());
 	}
 
 	//----------------Getter----------------------------------------//
@@ -450,14 +450,14 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		return this.mapUniforms.get(id);
 	}
 
-	setUniformById(agl,id,value){
+	setUniformById(AGL,id,value){
 		var type = this.getUniformType(id) ;
 		var uniform = this.getUniformById(id);
 		
 		switch(type)
 		{
 			case &apos;float&apos;:
-				agl.gl.uniform1f(uniform,value);
+				AGL.gl.uniform1f(uniform,value);
 			break;
 
 			case &apos;int&apos; :

@@ -71,25 +71,25 @@ class atomicGL2SGtransform extends atomicGL2SceneGraph {
 
 	// draw
 	// -------------------------
-	// inputs: 	agl - atomicGLContext
-	//			ams - atomicGLMatrixStack
-	draw (agl,ams){
+	// inputs: 	AGL - atomicGLContext
+	//			AMS - atomicGLMatrixStack
+	draw (AGL,AMS){
 		// debug
 		// console.log(&quot;atomicGLSceneGraph::draw(&quot;+this.type+&quot;,&quot;+this.name+&quot;, shaderId:&quot;+this.shaderId+&quot;)&quot;);
 
 		// matrix
-		ams.mvPushMatrix();
+		AMS.mvPushMatrix();
 
 		// position &amp; orientation
-		ams.mvTranslate(this.translate[0],this.translate[1],this.translate[2]);
-		ams.mvRotate(this.rotation,this.rotAxis);
+		AMS.mvTranslate(this.translate[0],this.translate[1],this.translate[2]);
+		AMS.mvRotate(this.rotation,this.rotAxis);
 
 		// children
 		for (var i=0; i&lt;this.children.length ; i++)
-			this.children[i].draw(agl,ams);
+			this.children[i].draw(AGL,AMS);
 
 		// matrix pop
-		ams.mvPopMatrix();
+		AMS.mvPopMatrix();
 	}
 }
 </code></pre>

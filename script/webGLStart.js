@@ -10,26 +10,26 @@ document.onkeydown 	= handleKeyDown;
 document.onkeyup 	= handleKeyUp;
 
 // GL context
-var agl = new atomicGL2Context();
+var AGL = new atomicGL2Context();
 // matrix stack
-var ams = new atomicGL2MatrixStack();
+var AMS = new atomicGL2MatrixStack();
 // clock
 var sceneClock = new atomicGL2Clock();
 
 
 // DRAW
 function sceneDraw() {
-	agl.initDraw();
-	agl.scenegraph.draw(agl,ams);
+	AGL.initDraw();
+	AGL.scenegraph.draw(AGL,AMS);
 }
 
 // NEXTFRAME
 function nextFrame() {
 	handleKeys();
-	agl.scenegraph.camera.update();
-  requestAnimFrame(nextFrame);
-  sceneDraw();
-  animate();
+	AGL.scenegraph.camera.update();
+	requestAnimFrame(nextFrame);
+	sceneDraw();
+	animate();
 }
 
 // ANIMATE
@@ -46,16 +46,16 @@ function handleKeyDown(event) {
 function handleKeyUp(event) {
 	currentlyPressedKeys[event.keyCode] = false;
 
-	// Push [SPACE] to switch mode
+	// Push (F) to switch mode
 	if (event.keyCode == 70) {
-		agl.scenegraph.camera.isFreeCam = !agl.scenegraph.camera.isFreeCam;
-		if(agl.scenegraph.camera.isFreeCam){
-			agl.scenegraph.camera.isFreeCam = false;
-			agl.scenegraph.camera.jumping = true;
-			agl.scenegraph.camera.jumpDown = true;
+		AGL.scenegraph.camera.isFreeCam = !AGL.scenegraph.camera.isFreeCam;
+		if(AGL.scenegraph.camera.isFreeCam) {
+			AGL.scenegraph.camera.isFreeCam = true;
+			AGL.scenegraph.camera.jumping   = true;
+			AGL.scenegraph.camera.jumpDown  = true;
 		} else {
-		agl.scenegraph.camera.walkStep = 0.0;
-		agl.scenegraph.camera.up();
+			AGL.scenegraph.camera.walkStep = 0.0;
+			AGL.scenegraph.camera.up();
 		}
 	}
 }
@@ -63,56 +63,56 @@ function handleKeyUp(event) {
 function handleKeys() {
 
 	// CAMERA MODE
-	if(agl.scenegraph.camera.isFreeCam)
+	if(AGL.scenegraph.camera.isFreeCam)
 	{
 		// (Z) Up
 		if (currentlyPressedKeys[90]) {
-			if(agl.scenegraph.camera.walkStep < 2)
-				agl.scenegraph.camera.walkStep += 0.05;
+			if(AGL.scenegraph.camera.walkStep < 2)
+				AGL.scenegraph.camera.walkStep += 0.05;
 		}
 		// (S) Down
 		if (currentlyPressedKeys[83]) {
-			if(agl.scenegraph.camera.walkStep > -2)
-				agl.scenegraph.camera.walkStep -= 0.05;
+			if(AGL.scenegraph.camera.walkStep > -2)
+				AGL.scenegraph.camera.walkStep -= 0.05;
 		}
 
-		agl.scenegraph.camera.up();
+		AGL.scenegraph.camera.up();
 	}
 
 	// WALK MODE
 	else
 	{
-		agl.scenegraph.camera.walkStep = 0.5;
+		AGL.scenegraph.camera.walkStep = 0.5;
 
 		// (D) Right
 		if (currentlyPressedKeys[68]) {
-			agl.scenegraph.camera.right();
+			AGL.scenegraph.camera.right();
 		}
 		// (Q) Left
 		if (currentlyPressedKeys[81]) {
-			agl.scenegraph.camera.left();
+			AGL.scenegraph.camera.left();
 		}
 		// (Z) Up
 		if (currentlyPressedKeys[90]) {
-			agl.scenegraph.camera.up();
+			AGL.scenegraph.camera.up();
 		}
 		// (S) Down
 		if (currentlyPressedKeys[83]) {
-			agl.scenegraph.camera.down();
+			AGL.scenegraph.camera.down();
 		}
 		// (Space) Jump
 		if (currentlyPressedKeys[32]) {
-			agl.scenegraph.camera.jump();
+			AGL.scenegraph.camera.jump();
 		}
 	}
 }
 
 // MOUSE
-function canvasDraw(agl, canvas) {
+function canvasDraw(AGL, canvas) {
 	if(mouseX != undefined && mouseY != undefined)
 	{
-		agl.scenegraph.camera.turnright(mouseX);
-		agl.scenegraph.camera.turnup(mouseY);
+		AGL.scenegraph.camera.turnright(mouseX);
+		AGL.scenegraph.camera.turnup(mouseY);
 
 		mouseY = 0;
 		mouseX = 0;
@@ -129,11 +129,11 @@ function webGLStart()
 	var canvas = document.getElementById("oglcanvas");
 	// init OpenGL context
 	// canvas, background color
-	agl.initGL(canvas,[0.15,0.1,0.5]);
+	AGL.initGL(canvas,[0.15,0.1,0.5]);
 
 	// scenegraph creation from xml file
 	var scene = document.getElementById('scene').innerHTML;
-	var sgxml = new atomicGL2xml(agl,'scenes/'+scene+'.xml');
+	var sgxml = new atomicGL2xml(AGL,'scenes/'+scene+'.xml');
 
 	// pointer lock object forking for cross browser
 	canvas.requestPointerLock = canvas.mozRequestPointerLock;
@@ -160,11 +160,11 @@ function webGLStart()
 		mouseX = e.mozMovementX;
 		mouseY = e.mozMovementY;
 
-		canvasDraw(agl, canvas);
+		canvasDraw(AGL, canvas);
 	}
 
 	// init Matrix Stack
-	ams.initMatrix(agl, 80); // fov = 80 degrees
+	AMS.initMatrix(AGL, 80); // fov = 80 degrees
 
 	// start the animation
 	nextFrame();

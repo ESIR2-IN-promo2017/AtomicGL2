@@ -26,13 +26,13 @@ class atomicGL2MatrixStack{
 
 	// methods
 	// --------------------------------------------------
-	// initMatrix(aGL,fov)
+	// initMatrix(AGL,fov)
 	//---------------------------
-	// inputs: 	aGL: atomicGLContext
+	// inputs: 	AGL: atomicGLContext
 	// 			fov: field of view (in degrees) - float
-	initMatrix(aGL,fov){
+	initMatrix(AGL,fov){
 		// perspective matrix
-		mat4.perspective(fov, aGL.viewportWidth / aGL.viewportHeight, 0.1, 1000.0, this.pMatrix);
+		mat4.perspective(fov, AGL.viewportWidth / AGL.viewportHeight, 0.1, 1000.0, this.pMatrix);
 		// model -> view matrix
 		mat4.identity(this.mvMatrix);
 	}

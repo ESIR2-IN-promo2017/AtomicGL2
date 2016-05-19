@@ -32,7 +32,7 @@ class atomicGL2Context {
 		// scene assets
 		// -------------------------------------------------
 		// shaders
-		this.shaderPrograms = new Map();
+		this.shaderProgrAMS = new Map();
 		// textures
 		this.textures       = [];
 		// shapes
@@ -125,8 +125,8 @@ class atomicGL2Context {
 	pushProgram(name,prog){
 		// debug
 		//console.log("atomicGLContext::pushProgram");
-		this.shaderPrograms.set(name,prog);
-		var id =  this.shaderPrograms.length -1
+		this.shaderProgrAMS.set(name,prog);
+		var id =  this.shaderProgrAMS.length -1
 		// debug
 		//console.log("-- atomicGLContext::pushProgram("+prog.name+")-> index:"+id);
 		return  id ;
@@ -159,9 +159,9 @@ class atomicGL2Context {
 	indexOfShader(id){
 		var res = -1 ;
 
-		for (var i=0; i<this.shaderPrograms.length;i++)
+		for (var i=0; i<this.shaderProgrAMS.length;i++)
 		{
-			var shadername = this.shaderPrograms[i].name ;
+			var shadername = this.shaderProgrAMS[i].name ;
 			if (id==shadername)
 			{
 				res = i;
@@ -192,7 +192,7 @@ class atomicGL2Context {
 	}
 
 	getShaderProgram(id){
-		return this.shaderPrograms.get(id);
+		return this.shaderProgrAMS.get(id);
 	}
 
 	getLight(id){

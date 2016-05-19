@@ -357,7 +357,7 @@ table.summary td p {
   margin-bottom: 24px;
 }
 
-table.params {
+table.parAMS {
   width: 100%;
   margin: 10px 0;
   border-spacing: 0;
@@ -365,17 +365,17 @@ table.params {
   border-collapse: collapse;
 }
 
-table.params thead {
+table.parAMS thead {
   background: #eee;
   color: #aaa;
 }
 
-table.params td {
+table.parAMS td {
   padding: 4px;
   border: solid 1px #ddd;
 }
 
-table.params td p {
+table.parAMS td p {
   margin: 0;
 }
 
@@ -416,7 +416,7 @@ table.params td p {
   display: inline;
 }
 
-.argument-params {
+.argument-parAMS {
   margin-bottom: 20px;
 }
 

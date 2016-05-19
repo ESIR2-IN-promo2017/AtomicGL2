@@ -59,7 +59,7 @@ class atomicGL2xml {
 
 	// constructor
 	//------------------------
- 	constructor(agl,name){
+ 	constructor(AGL,name){
 		// attributes
 		// -------------------------------------------------
 		this.dom  = null ;
@@ -67,14 +67,14 @@ class atomicGL2xml {
 		// build
 		// ----------------------
 		// init
-		this.build(agl,name);
+		this.build(AGL,name);
 	}
 
 	// methods
 	// --------------------------------------------------
 
 	// loadXML
-	loadXML(agl,name){
+	loadXML(AGL,name){
 		var xmlhttp = new XMLHttpRequest();
 
 		xmlhttp.open(&quot;GET&quot;,name,false);
@@ -86,7 +86,7 @@ class atomicGL2xml {
 	}
 
 	// lights
-	lights(agl){
+	lights(AGL){
 		// &lt;POINTLIGHT id=&quot;test&quot; color=&quot;1.0,1.0,1.0&quot; position=&quot;0.0,0.0,0.0&quot;&gt; &lt;/POINTLIGHT&gt;
 		var listPOINT = this.dom.getElementsByTagName(&quot;POINTLIGHT&quot;);
 
@@ -110,7 +110,7 @@ class atomicGL2xml {
 			position = [px,py,pz];
 
 			// create pointlight and add it to context
-			agl.pushLight(id, new atomicGL2PointLight(color,position));
+			AGL.pushLight(id, new atomicGL2PointLight(color,position));
 			// debug
 			//console.log(&quot;atomicGLxml::pointlights &gt;&gt; find light(&quot;+i+&quot;): &quot;+listPOINT[i].childNodes[0].data+&quot;-id: &quot;+id+&quot; -color: &quot;+color);
 		}
@@ -138,7 +138,7 @@ class atomicGL2xml {
 			direction = [dx,dy,dz];
 
 			// create directionnallight and add it to context
-			agl.pushLight(id, new atomicGL2DirectionnalLight(color,direction));
+			AGL.pushLight(id, new atomicGL2DirectionnalLight(color,direction));
 			// debug
 			//console.log(&quot;atomicGLxml::directionnallights &gt;&gt; find light(&quot;+i+&quot;): &quot;+listDIR[i].childNodes[0].data+&quot;-id: &quot;+id+&quot; -color: &quot;+color);
 		}
@@ -175,7 +175,7 @@ class atomicGL2xml {
 			direction = [dx,dy,dz];
 
 			// create spotlight and add it to context
-			agl.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
+			AGL.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius));
 			// debug
 			//console.log(&quot;atomicGLxml::spotlights &gt;&gt; find light(&quot;+i+&quot;): &quot;+listSPOT[i].childNodes[0].data+&quot;-id: &quot;+id+&quot; -color: &quot;+color);
 		}
@@ -183,7 +183,7 @@ class atomicGL2xml {
 
 
 	// shaders
-	shaders(agl){
+	shaders(AGL){
 		// examples
 		//&lt;XMATSHADER file=&quot;texDiffProg.xml&quot; nbtex=&quot;1&quot; nblight=&quot;1&quot;&gt;texDiffProg&lt;/XMATSHADER&gt;
 		//&lt;IMATSHADER vertex=&quot;vertex_texDiffNormalMap&quot; fragment=&quot;frag_texDiffNormalMap&quot; nbtex=&quot;2&quot; nblight=&quot;1&quot;&gt;texDiffNormalMapProg&lt;/IMATSHADER&gt;
@@ -198,7 +198,7 @@ class atomicGL2xml {
 			var nblight = parseFloat(SHAD.getAttribute(&quot;nblight&quot;));
 
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptXML(file),nblight));
+			AGL.pushProgram(shader_name, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML(file),nblight));
 
 			// debug
 			console.log(&quot;atomicGLxml::shaders &gt;&gt; find shader(&quot;+i+&quot;): &quot;+shader_name+&quot;-file: &quot;+file);
@@ -216,7 +216,7 @@ class atomicGL2xml {
 			var nblight = parseFloat(SHAD.getAttribute(&quot;nblight&quot;));
 
 			// create shader and add it to context
-			agl.pushProgram(shader_name, new atomicGL2MatShader(agl,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
+			AGL.pushProgram(shader_name, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptInLine(vertex,fragment),nblight));
 
 			// debug
 			console.log(&quot;atomicGLxml::shaders &gt;&gt; find shader(&quot;+i+&quot;): &quot;+shader_name+&quot;-vertex: &quot;+vertex+&quot;-fragment: &quot;+fragment);
@@ -224,7 +224,7 @@ class atomicGL2xml {
 	}
 
 	// textures
-	textures(agl){
+	textures(AGL){
 		// &lt;TEXTURE id=&quot;test&quot; type=&quot;color&quot;&gt; texture/test.png &lt;/TEXTURE&gt;
 		var listTEX = this.dom.getElementsByTagName(&quot;TEXTURE&quot;);
 
@@ -236,14 +236,14 @@ class atomicGL2xml {
 			var type      = TEX.getAttribute(&quot;type&quot;);
 
 			// create texture and add it to context
-			agl.textures.push(new atomicGL2Texture(id,file_name,type,agl));
+			AGL.textures.push(new atomicGL2Texture(id,file_name,type,AGL));
 			// debug
 			//console.log(&quot;atomicGLxml::textures &gt;&gt; find texture(&quot;+i+&quot;): &quot;+listTEX[i].childNodes[0].data+&quot;-id: &quot;+id+&quot; -type: &quot;+type);
 		}
 	}
 
 	// shapes
-	shapes(agl){
+	shapes(AGL){
 	// &lt;SHAPE id=&quot;shape0&quot; type=&quot;obj&quot;&gt;
 	//   &lt;GEOMETRY id=&quot;mesh1&quot; uv=&quot;1.0,1.0&quot;&gt;mesh1()&lt;/GEOMETRY&gt;
 	//   &lt;TEXID&gt;test&lt;/TEXID&gt;
@@ -282,22 +282,22 @@ class atomicGL2xml {
 			{
 				var tid = textures[j].childNodes[0].data;
 
-				// texture index in agl
-				var agltid = agl.indexOfTexture(tid);
+				// texture index in AGL
+				var AGLtid = AGL.indexOfTexture(tid);
 
-				if (agltid != -1)
-					ss.pushTexture(agl.textures[agltid]);
+				if (AGLtid != -1)
+					ss.pushTexture(AGL.textures[AGLtid]);
 
 				else
 					alert(&quot;atomicGLxml::shapes (&quot;+SHAPEId+&quot;) texture: &quot;+tid+&quot; not found !&quot;);
 
 				// debug
-				//console.log(&quot;-- texture used (&quot;+j+&quot;):&quot;+tid + &quot;- index:&quot; + agltid);
+				//console.log(&quot;-- texture used (&quot;+j+&quot;):&quot;+tid + &quot;- index:&quot; + AGLtid);
 			}
 
 			// init shape buffer and add it to context
-			ss.initGLBuffers(agl);
-			agl.shapes.push(ss);
+			ss.initGLBuffers(AGL);
+			AGL.shapes.push(ss);
 		}
 
     // SPHERE
@@ -326,19 +326,19 @@ class atomicGL2xml {
 			{
 				var tid = textures[j].childNodes[0].data;
 
-				// texture index in agl
-				var agltid = agl.indexOfTexture(tid);
+				// texture index in AGL
+				var AGLtid = AGL.indexOfTexture(tid);
 
-				if (agltid != -1)
-					ss.pushTexture(agl.textures[agltid]);
+				if (AGLtid != -1)
+					ss.pushTexture(AGL.textures[AGLtid]);
 
 				else
 					alert(&quot;atomicGLxml::shapes (&quot;+SPHEREId+&quot;) texture: &quot;+tid+&quot; not found !&quot;);
 			}
 
 			// init shape buffer and add it to context
-			ss.initGLBuffers(agl);
-			agl.shapes.push(ss);
+			ss.initGLBuffers(AGL);
+			AGL.shapes.push(ss);
 		}
 	}
 
@@ -349,7 +349,7 @@ class atomicGL2xml {
 	// e: DOM elements
 	// s: parent node
 	// ---------------------------
-	traverse(agl,e,s){
+	traverse(AGL,e,s){
 		// current node
 		var nodeName = e.nodeName ;
 		var node = null;
@@ -365,8 +365,8 @@ class atomicGL2xml {
 				if ((skyTexId!=&quot;&quot;)||(skyTexId!=&quot;no&quot;))
 				{
 					skyBox = new atomicGLSkyBox(&apos;skybox&apos;,parseFloat(e.getAttribute(&quot;skysize&quot;)));
-					skyBox.pushTexture(agl.textures[agl.indexOfTexture(skyTexId)]);
-					skyBox.initGLBuffers(agl);
+					skyBox.pushTexture(AGL.textures[AGL.indexOfTexture(skyTexId)]);
+					skyBox.initGLBuffers(AGL);
 				}
 
 				// camera
@@ -380,7 +380,7 @@ class atomicGL2xml {
 				// JS6
 				node = new atomicGL2SGroot(&quot;root&quot;,e.getAttribute(&quot;id&quot;));
 				node.setRootElt(camera,skyBox,e.getAttribute(&quot;skyshader&quot;));
-				agl.scenegraph = node ;
+				AGL.scenegraph = node ;
 
 				//  debug
 				// console.log(s+e.getAttribute(&quot;id&quot;));
@@ -432,7 +432,7 @@ class atomicGL2xml {
 				// node
 				// JS6
 				node = new atomicGL2SGobject3d(&apos;object3D&apos;,id);
-				node.setObject3D(agl.shapes[agl.indexOfShape(shapeId)],shaderId);
+				node.setObject3D(AGL.shapes[AGL.indexOfShape(shapeId)],shaderId);
 				s.addChild(node);				
 
 				// debug
@@ -443,31 +443,31 @@ class atomicGL2xml {
 		for (var i=0; i&lt;e.children.length;i++)
 		{
 			var child = e.children[i];
-			this.traverse(agl,child,node);
+			this.traverse(AGL,child,node);
 		}
 	}
 
 	// scenegraph
-	scenegraph(agl){
+	scenegraph(AGL){
 		var root = this.dom.getElementsByTagName(&quot;ROOT&quot;)[0];
-		this.traverse(agl,root,agl.scenegraph);
+		this.traverse(AGL,root,AGL.scenegraph);
 	}
 
 	// build
-	build(agl, name){
+	build(AGL, name){
 		// --------------------------------------------------
 		// load XML file
-		this.dom = this.loadXML(agl,name)  ;
+		this.dom = this.loadXML(AGL,name)  ;
 		// find lights
-		this.lights(agl);
+		this.lights(AGL);
 		// find shaders
-		this.shaders(agl);
+		this.shaders(AGL);
 		// find textures
-		this.textures(agl);
+		this.textures(AGL);
 		// find shapes
-		this.shapes(agl);
+		this.shapes(AGL);
 		// scenegraph
-		this.scenegraph(agl);
+		this.scenegraph(AGL);
 	}
 }
 </code></pre>

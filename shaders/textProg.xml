@@ -24,9 +24,9 @@
 	    void main(void) {
     		// vNormal
 			vNormal = uNMatrix * aVertexNormal;
-			vPosition = vec4(aVertexPosition, 1.0);
+			vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 
-			gl_Position = uPMatrix * uMVMatrix * vPosition;
+			gl_Position = uPMatrix * vPosition;
       		vTextureCoord = aVertexTexCoord;
     	}
 		</OUTPUT>

@@ -70,6 +70,7 @@ require([
 				'script/scenegraph/atomicGL2SGroot.js',
 				'script/scenegraph/atomicGL2SGtransform.js',
 				'script/scenegraph/atomicGL2SGobject3d.js',
+				'script/scenegraph/atomicGL2SGlight.js',
 
 
 				'script/webgl/atomicGL2Clock.js',

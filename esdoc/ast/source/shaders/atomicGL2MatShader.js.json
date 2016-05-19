@@ -101,10 +101,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     646,
                     649
@@ -1903,7 +1903,7 @@
                       "arguments": [
                         {
                           "type": "Identifier",
-                          "name": "agl",
+                          "name": "AGL",
                           "range": [
                             1422,
                             1425
@@ -2109,7 +2109,7 @@
               },
               {
                 "type": "Line",
-                "value": "\t\t\t agl:\t\t\t\tatomicGL context",
+                "value": "\t\t\t AGL:\t\t\t\tatomicGL context",
                 "range": [
                   159,
                   189
@@ -2295,7 +2295,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -3757,7 +3757,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs:\tagl: GL context",
+                "value": " inputs:\tAGL: GL context",
                 "range": [
                   1895,
                   1921
@@ -3835,10 +3835,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     2018,
                     2021
@@ -3927,7 +3927,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2212,
                                   2215
@@ -4018,7 +4018,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     2232,
                                     2235
@@ -4254,7 +4254,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               2281,
                               2284
@@ -4456,7 +4456,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               2356,
                               2359
@@ -4719,7 +4719,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     2472,
                                     2475
@@ -4828,7 +4828,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       2512,
                                       2515
@@ -5027,7 +5027,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2585,
                                 2588
@@ -5136,7 +5136,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2625,
                                   2628
@@ -5286,7 +5286,7 @@
                                     "computed": false,
                                     "object": {
                                       "type": "Identifier",
-                                      "name": "agl",
+                                      "name": "AGL",
                                       "range": [
                                         2670,
                                         2673
@@ -5575,7 +5575,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2788,
                                   2791
@@ -5666,7 +5666,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     2808,
                                     2811
@@ -5848,7 +5848,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               2859,
                               2862
@@ -6050,7 +6050,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               2936,
                               2939
@@ -6313,7 +6313,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     3054,
                                     3057
@@ -6422,7 +6422,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       3096,
                                       3099
@@ -6621,7 +6621,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 3169,
                                 3172
@@ -6730,7 +6730,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   3211,
                                   3214
@@ -6880,7 +6880,7 @@
                                     "computed": false,
                                     "object": {
                                       "type": "Identifier",
-                                      "name": "agl",
+                                      "name": "AGL",
                                       "range": [
                                         3256,
                                         3259
@@ -7169,7 +7169,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   3391,
                                   3394
@@ -7331,7 +7331,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               3424,
                               3427
@@ -7493,7 +7493,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               3477,
                               3480
@@ -7655,7 +7655,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               3532,
                               3535
@@ -7898,7 +7898,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     3639,
                                     3642
@@ -8007,7 +8007,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       3675,
                                       3678
@@ -8186,7 +8186,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 3711,
                                 3714
@@ -8295,7 +8295,7 @@
                               "computed": false,
                               "object": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   3747,
                                   3750
@@ -8845,7 +8845,7 @@
                                     "computed": false,
                                     "object": {
                                       "type": "Identifier",
-                                      "name": "agl",
+                                      "name": "AGL",
                                       "range": [
                                         3993,
                                         3996
@@ -9023,7 +9023,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     4041,
                                     4044
@@ -9660,7 +9660,7 @@
                                     "computed": false,
                                     "object": {
                                       "type": "Identifier",
-                                      "name": "agl",
+                                      "name": "AGL",
                                       "range": [
                                         4242,
                                         4245
@@ -10002,7 +10002,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "agl",
+                                  "name": "AGL",
                                   "range": [
                                     4319,
                                     4322
@@ -10381,7 +10381,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 4466,
                                 4469
@@ -10653,7 +10653,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               4545,
                               4548
@@ -10863,7 +10863,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "agl",
+                                          "name": "AGL",
                                           "range": [
                                             4618,
                                             4621
@@ -11043,7 +11043,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 4712,
                                                 4715
@@ -11126,7 +11126,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         4738,
                                                         4741
@@ -11315,7 +11315,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 4798,
                                                 4801
@@ -11398,7 +11398,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         4820,
                                                         4823
@@ -11642,7 +11642,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 4931,
                                                 4934
@@ -11725,7 +11725,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         4957,
                                                         4960
@@ -11914,7 +11914,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 5018,
                                                 5021
@@ -11997,7 +11997,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         5040,
                                                         5043
@@ -12241,7 +12241,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 5143,
                                                 5146
@@ -12324,7 +12324,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         5169,
                                                         5172
@@ -12513,7 +12513,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 5229,
                                                 5232
@@ -12596,7 +12596,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         5255,
                                                         5258
@@ -12785,7 +12785,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 5316,
                                                 5319
@@ -12868,7 +12868,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         5339,
                                                         5342
@@ -13057,7 +13057,7 @@
                                           "arguments": [
                                             {
                                               "type": "Identifier",
-                                              "name": "agl",
+                                              "name": "AGL",
                                               "range": [
                                                 5397,
                                                 5400
@@ -13140,7 +13140,7 @@
                                                     "computed": false,
                                                     "object": {
                                                       "type": "Identifier",
-                                                      "name": "agl",
+                                                      "name": "AGL",
                                                       "range": [
                                                         5419,
                                                         5422
@@ -13857,7 +13857,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       5676,
                                       5679
@@ -14304,7 +14304,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs:\tagl: GL context",
+                "value": " inputs:\tAGL: GL context",
                 "range": [
                   1895,
                   1921
@@ -14396,7 +14396,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: atomicGLContext",
+                "value": " inputs: \tAGL: atomicGLContext",
                 "range": [
                   5848,
                   5880
@@ -14414,7 +14414,7 @@
               },
               {
                 "type": "Line",
-                "value": " \t\t\taMS: atomicGLMatrixStack",
+                "value": " \t\t\tAMS: atomicGLMatrixStack",
                 "range": [
                   5883,
                   5913
@@ -14456,10 +14456,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "aGL",
+                  "name": "AGL",
                   "range": [
                     5931,
                     5934
@@ -14477,7 +14477,7 @@
                 },
                 {
                   "type": "Identifier",
-                  "name": "aMS",
+                  "name": "AMS",
                   "range": [
                     5935,
                     5938
@@ -14509,7 +14509,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "aGL",
+                            "name": "AGL",
                             "range": [
                               6051,
                               6054
@@ -14999,7 +14999,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6263,
                                 6266
@@ -15177,7 +15177,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aMS",
+                              "name": "AMS",
                               "range": [
                                 6323,
                                 6326
@@ -15540,7 +15540,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6414,
                                 6417
@@ -15718,7 +15718,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aMS",
+                              "name": "AMS",
                               "range": [
                                 6472,
                                 6475
@@ -16005,7 +16005,7 @@
                           "computed": false,
                           "object": {
                             "type": "Identifier",
-                            "name": "aMS",
+                            "name": "AMS",
                             "range": [
                               6560,
                               6563
@@ -16404,7 +16404,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aGL",
+                              "name": "AGL",
                               "range": [
                                 6705,
                                 6708
@@ -16680,7 +16680,7 @@
                       },
                       {
                         "type": "Line",
-                        "value": "aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);",
+                        "value": "AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);",
                         "range": [
                           6827,
                           6947
@@ -16933,7 +16933,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     7479,
                                     7482
@@ -17121,7 +17121,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7531,
                                             7534
@@ -17302,7 +17302,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7563,
                                             7566
@@ -17483,7 +17483,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7595,
                                             7598
@@ -17717,7 +17717,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": "console.log(\"-- LightLocation @\"+this.pointLightLocationUniform[i]+\"::\" +aGL.omniLightLocation[i*3+0] +\",\"+ aGL.omniLightLocation[i*3+1]+\",\"+ aGL.omniLightLocation[i*3+2] );",
+                              "value": "console.log(\"-- LightLocation @\"+this.pointLightLocationUniform[i]+\"::\" +AGL.omniLightLocation[i*3+0] +\",\"+ AGL.omniLightLocation[i*3+1]+\",\"+ AGL.omniLightLocation[i*3+2] );",
                               "range": [
                                 7097,
                                 7272
@@ -17735,7 +17735,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": "console.log(\"-- LightColor @\"+this.pointLightColorUniform[i]+\"::\" +aGL.omniLightColor[i*3+0] +\",\"+ aGL.omniLightColor[i*3+1]+\",\"+ aGL.omniLightColor[i*3+2] );",
+                              "value": "console.log(\"-- LightColor @\"+this.pointLightColorUniform[i]+\"::\" +AGL.omniLightColor[i*3+0] +\",\"+ AGL.omniLightColor[i*3+1]+\",\"+ AGL.omniLightColor[i*3+2] );",
                               "range": [
                                 7277,
                                 7437
@@ -17753,7 +17753,7 @@
                             },
                             {
                               "type": "Line",
-                              "value": "\tconsole.log( aGL.lights[i]);",
+                              "value": "\tconsole.log( AGL.lights[i]);",
                               "range": [
                                 7443,
                                 7474
@@ -17783,7 +17783,7 @@
                                 "computed": false,
                                 "object": {
                                   "type": "Identifier",
-                                  "name": "aGL",
+                                  "name": "AGL",
                                   "range": [
                                     7632,
                                     7635
@@ -17971,7 +17971,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7681,
                                             7684
@@ -18152,7 +18152,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7710,
                                             7713
@@ -18333,7 +18333,7 @@
                                         "computed": false,
                                         "object": {
                                           "type": "Identifier",
-                                          "name": "aGL",
+                                          "name": "AGL",
                                           "range": [
                                             7739,
                                             7742
@@ -18598,7 +18598,7 @@
                       },
                       {
                         "type": "Line",
-                        "value": "aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);",
+                        "value": "AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);",
                         "range": [
                           6827,
                           6947
@@ -18722,7 +18722,7 @@
               },
               {
                 "type": "Line",
-                "value": " inputs: \taGL: atomicGLContext",
+                "value": " inputs: \tAGL: atomicGLContext",
                 "range": [
                   5848,
                   5880
@@ -18740,7 +18740,7 @@
               },
               {
                 "type": "Line",
-                "value": " \t\t\taMS: atomicGLMatrixStack",
+                "value": " \t\t\tAMS: atomicGLMatrixStack",
                 "range": [
                   5883,
                   5913
@@ -18820,10 +18820,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     7838,
                     7841
@@ -18977,7 +18977,7 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "name": "agl",
+                            "name": "AGL",
                             "range": [
                               7894,
                               7897
@@ -19333,7 +19333,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -20348,7 +20348,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -21345,7 +21345,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -22268,7 +22268,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -23026,7 +23026,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -23784,7 +23784,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "src",
@@ -24522,7 +24522,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "lightId",
@@ -25075,7 +25075,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -25959,7 +25959,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -26824,7 +26824,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -27689,7 +27689,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -27951,7 +27951,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -28213,7 +28213,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -28455,7 +28455,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -28677,7 +28677,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -28934,7 +28934,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -29136,7 +29136,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -29866,7 +29866,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "id",
@@ -30106,10 +30106,10 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
-                  "name": "agl",
+                  "name": "AGL",
                   "range": [
                     12025,
                     12028
@@ -30510,7 +30510,7 @@
                                   "computed": false,
                                   "object": {
                                     "type": "Identifier",
-                                    "name": "agl",
+                                    "name": "AGL",
                                     "range": [
                                       12170,
                                       12173
@@ -31239,7 +31239,7 @@
     },
     {
       "type": "Line",
-      "value": "\t\t\t agl:\t\t\t\tatomicGL context",
+      "value": "\t\t\t AGL:\t\t\t\tatomicGL context",
       "range": [
         159,
         189
@@ -31689,7 +31689,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs:\tagl: GL context",
+      "value": " inputs:\tAGL: GL context",
       "range": [
         1895,
         1921
@@ -32175,7 +32175,7 @@
     },
     {
       "type": "Line",
-      "value": " inputs: \taGL: atomicGLContext",
+      "value": " inputs: \tAGL: atomicGLContext",
       "range": [
         5848,
         5880
@@ -32193,7 +32193,7 @@
     },
     {
       "type": "Line",
-      "value": " \t\t\taMS: atomicGLMatrixStack",
+      "value": " \t\t\tAMS: atomicGLMatrixStack",
       "range": [
         5883,
         5913
@@ -32373,7 +32373,7 @@
     },
     {
       "type": "Line",
-      "value": "aGL.gl.uniform3f(this.ambientColorUniform,aGL.ambientLightColor[0],aGL.ambientLightColor[1],aGL.ambientLightColor[2]);",
+      "value": "AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);",
       "range": [
         6827,
         6947
@@ -32445,7 +32445,7 @@
     },
     {
       "type": "Line",
-      "value": "console.log(\"-- LightLocation @\"+this.pointLightLocationUniform[i]+\"::\" +aGL.omniLightLocation[i*3+0] +\",\"+ aGL.omniLightLocation[i*3+1]+\",\"+ aGL.omniLightLocation[i*3+2] );",
+      "value": "console.log(\"-- LightLocation @\"+this.pointLightLocationUniform[i]+\"::\" +AGL.omniLightLocation[i*3+0] +\",\"+ AGL.omniLightLocation[i*3+1]+\",\"+ AGL.omniLightLocation[i*3+2] );",
       "range": [
         7097,
         7272
@@ -32463,7 +32463,7 @@
     },
     {
       "type": "Line",
-      "value": "console.log(\"-- LightColor @\"+this.pointLightColorUniform[i]+\"::\" +aGL.omniLightColor[i*3+0] +\",\"+ aGL.omniLightColor[i*3+1]+\",\"+ aGL.omniLightColor[i*3+2] );",
+      "value": "console.log(\"-- LightColor @\"+this.pointLightColorUniform[i]+\"::\" +AGL.omniLightColor[i*3+0] +\",\"+ AGL.omniLightColor[i*3+1]+\",\"+ AGL.omniLightColor[i*3+2] );",
       "range": [
         7277,
         7437
@@ -32481,7 +32481,7 @@
     },
     {
       "type": "Line",
-      "value": "\tconsole.log( aGL.lights[i]);",
+      "value": "\tconsole.log( AGL.lights[i]);",
       "range": [
         7443,
         7474

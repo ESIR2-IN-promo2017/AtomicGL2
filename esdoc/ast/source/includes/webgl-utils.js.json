@@ -29,7 +29,7 @@
           "callee": {
             "type": "FunctionExpression",
             "id": null,
-            "params": [],
+            "parAMS": [],
             "body": {
               "type": "BlockStatement",
               "body": [
@@ -59,7 +59,7 @@
                       "init": {
                         "type": "FunctionExpression",
                         "id": null,
-                        "params": [
+                        "parAMS": [
                           {
                             "type": "Identifier",
                             "name": "msg",
@@ -920,7 +920,7 @@
                       "init": {
                         "type": "FunctionExpression",
                         "id": null,
-                        "params": [
+                        "parAMS": [
                           {
                             "type": "Identifier",
                             "name": "canvas",
@@ -999,7 +999,7 @@
                                   }
                                 }
                               },
-                              "params": [
+                              "parAMS": [
                                 {
                                   "type": "Identifier",
                                   "name": "msg",
@@ -1952,7 +1952,7 @@
                                         {
                                           "type": "FunctionExpression",
                                           "id": null,
-                                          "params": [
+                                          "parAMS": [
                                             {
                                               "type": "Identifier",
                                               "name": "event",
@@ -2749,7 +2749,7 @@
                       "init": {
                         "type": "FunctionExpression",
                         "id": null,
-                        "params": [
+                        "parAMS": [
                           {
                             "type": "Identifier",
                             "name": "canvas",
@@ -4083,7 +4083,7 @@
           "callee": {
             "type": "FunctionExpression",
             "id": null,
-            "params": [],
+            "parAMS": [],
             "body": {
               "type": "BlockStatement",
               "body": [
@@ -4437,7 +4437,7 @@
                     "right": {
                       "type": "FunctionExpression",
                       "id": null,
-                      "params": [
+                      "parAMS": [
                         {
                           "type": "Identifier",
                           "name": "callback",

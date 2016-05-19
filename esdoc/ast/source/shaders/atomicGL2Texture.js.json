@@ -284,7 +284,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [
+              "parAMS": [
                 {
                   "type": "Identifier",
                   "name": "iid",
@@ -341,7 +341,7 @@
                 },
                 {
                   "type": "Identifier",
-                  "name": "aagl",
+                  "name": "aAGL",
                   "range": [
                     830,
                     834
@@ -388,7 +388,7 @@
                         },
                         "property": {
                           "type": "Identifier",
-                          "name": "agl",
+                          "name": "AGL",
                           "range": [
                             1011,
                             1014
@@ -421,7 +421,7 @@
                       },
                       "right": {
                         "type": "Identifier",
-                        "name": "aagl",
+                        "name": "aAGL",
                         "range": [
                           1017,
                           1021
@@ -1249,7 +1249,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "aagl",
+                              "name": "aAGL",
                               "range": [
                                 1235,
                                 1239
@@ -1862,7 +1862,7 @@
               },
               {
                 "type": "Line",
-                "value": " aagl:\t\tatomicGL context",
+                "value": " aAGL:\t\tatomicGL context",
                 "range": [
                   767,
                   793
@@ -2068,7 +2068,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -2215,7 +2215,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 1745,
                                 1748
@@ -2342,7 +2342,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1766,
                                   1769
@@ -2580,7 +2580,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 1830,
                                 1833
@@ -2707,7 +2707,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1851,
                                   1854
@@ -2942,7 +2942,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 1893,
                                 1896
@@ -3069,7 +3069,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1913,
                                   1916
@@ -3214,7 +3214,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1937,
                                   1940
@@ -3340,7 +3340,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1952,
                                   1955
@@ -3466,7 +3466,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   1967,
                                   1970
@@ -3737,7 +3737,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2035,
                                 2038
@@ -3864,7 +3864,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2058,
                                   2061
@@ -3990,7 +3990,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2079,
                                   2082
@@ -4116,7 +4116,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2108,
                                   2111
@@ -4297,7 +4297,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2135,
                                 2138
@@ -4424,7 +4424,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2158,
                                   2161
@@ -4550,7 +4550,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2179,
                                   2182
@@ -4676,7 +4676,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2208,
                                   2211
@@ -4837,7 +4837,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2250,
                                 2253
@@ -4964,7 +4964,7 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "name": "agl",
+                                "name": "AGL",
                                 "range": [
                                   2274,
                                   2277
@@ -5145,7 +5145,7 @@
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2318,
                                 2321
@@ -5251,7 +5251,7 @@
                             "computed": false,
                             "object": {
                               "type": "Identifier",
-                              "name": "agl",
+                              "name": "AGL",
                               "range": [
                                 2337,
                                 2340
@@ -5863,7 +5863,7 @@
             "value": {
               "type": "FunctionExpression",
               "id": null,
-              "params": [],
+              "parAMS": [],
               "body": {
                 "type": "BlockStatement",
                 "body": [
@@ -6814,7 +6814,7 @@
     },
     {
       "type": "Line",
-      "value": " aagl:\t\tatomicGL context",
+      "value": " aAGL:\t\tatomicGL context",
       "range": [
         767,
         793
