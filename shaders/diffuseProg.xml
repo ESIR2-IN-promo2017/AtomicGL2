@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<SHADER name="phongProg">
+<SHADER name="diffuseProg">
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
@@ -14,17 +14,14 @@
 		</UNIFORMS>
 
 		<VARYING>
-		  varying vec3 vNormal;
 		  varying vec4 vPosition;
+		  varying vec3 vNormal;
 		</VARYING>
 
 		<OUTPUT>
 	    void main(void) {
-    		// vNormal
 			vNormal = uNMatrix * aVertexNormal;
-			vPosition = vec4(aVertexPosition, 1.0);
-			// color
-			vec3 color = vec3(1.0,0.0,0.0);
+    		vPosition = vec4(aVertexPosition, 1.0);
 
 			gl_Position = uPMatrix * uMVMatrix * vPosition;
     	}
@@ -63,7 +60,7 @@
 		</PRECISION>
 
 		<UNIFORMS>
-		    uniform pointLight pointLights[NB_POINTLIGHTS];
+			uniform pointLight pointLights[NB_POINTLIGHTS];
 		    uniform spotLight spotLights[NB_SPOTLIGHTS];
 		    uniform directionnalLight directionnalLights[NB_DIRECTIONNALLIGHTS];
 		</UNIFORMS>
@@ -74,18 +71,12 @@
 		</VARYING>
 
 		<OUTPUT>
-			// local constant
-			// Kd: diffuse coeff
-			float Kd = 1.0 ;
-			float Ks = 0.8 ;
-			float sh = 3.0 ;
-
-			// specular color
-			vec3 specColor = vec3(1.0,1.0,1.0);
-
 			void main(void) {
 				// color
 				vec3 color = vec3(1.0,0.0,0.0);
+
+				// Kd: diffuse coeff
+				float Kd = 1.0 ;
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
@@ -93,16 +84,14 @@
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
 				float diffuseLightWeight = 0.0;
-				vec3 reflectDirection = vec3(0.0,0.0,0.0);
-				float specularLightWeight = 0.0;
 
 				vec3 lightColor = vec3(0.0,0.0,0.0);
 
-	        	//////////////////
+				//////////////////
 				// Point Lights //
 				//////////////////
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
-		    	{
+				{
 					lightDirection = normalize(pointLights[i].position - vPosition.xyz);
 
 					// distance
@@ -111,14 +100,8 @@
 					// diffuse term
 					diffuseLightWeight = max(dot(normalize(vNormal), lightDirection), 0.0)*pointLights[i].intensity.x;
 
-					// reflection direction
-					reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-					// specular term
-					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
-
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color  + Ks*specularLightWeight*pointLights[i].color*color) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color) / distance;
 				}
 
 
@@ -126,20 +109,14 @@
 				// Directional Lights //
 				////////////////////////
 				for(int i=NB_DIRECTIONNALLIGHTS-1; i>=0; i--)
-		    	{
+				{
 					lightDirection = normalize(-directionnalLights[i].direction);
 
 					// diffuse term
 					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
 
-					// reflection direction
-					reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-					// specular term
-					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
-
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color + Ks*specularLightWeight*directionnalLights[i].color*color);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color);
 				}
 
 
@@ -147,7 +124,7 @@
 				// Spot Lights //
 				/////////////////
 				for(int i=NB_SPOTLIGHTS-1; i>=0; i--)
-		    	{
+				{
 					lightDirection = normalize(spotLights[i].position - vPosition.xyz);
 
 					float factor = (spotLights[i].position.y / spotLights[i].direction.y) - vPosition.y;
@@ -164,18 +141,12 @@
 						// diffuse term
 						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
 
-						// reflection direction
-						reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-						// specular term
-						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
-
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color + Ks*specularLightWeight*spotLights[i].color*color) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color) / distance;
 					}
 				}
 
-				gl_FragColor = vec4(lightColor,1.0);
+				gl_FragColor = vec4(lightColor, 1.0);
 		    }
 		</OUTPUT>
 	</FRAGMENT>

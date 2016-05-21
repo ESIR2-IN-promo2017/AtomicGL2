@@ -2,58 +2,74 @@
 
 <SHADER name="colorProg">
 	<VERTEX>
-		// attributes inputs
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
-			attribute vec3 aVertexNormal;
-			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
-		// uniform matrices
 		<UNIFORMS>
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
-			uniform mat3 uNMatrix;
-
-			// uniform ambiant color
-			uniform vec3 uAmbientColor;
 		</UNIFORMS>
 
 		<VARYING>
-		  varying vec3 vcolor;
+		  	varying vec4 vPosition;
 		</VARYING>
 
-		// output (to fragment shader)
 		<OUTPUT>
-			void main(void) {
-				// model -> view
-				vec4 mvPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				gl_Position = uPMatrix * mvPosition;
-
-				// vcolor
-				vcolor = uAmbientColor+aVertexColor;
-			}
+		    void main(void) {
+	    		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * vPosition;
+	    	}
 		</OUTPUT>
 	</VERTEX>
 
 	<FRAGMENT>
 		<PRECISION>
 			#ifdef GL_ES
- 				precision highp float;
- 			#endif
+				precision highp float;
+			#endif
+
+			#define NB_POINTLIGHTS
+			#define NB_SPOTLIGHTS
+			#define NB_DIRECTIONNALLIGHTS
+
+			struct pointLight{
+				vec3 position;
+				vec3 color;
+				vec3 intensity;
+			};
+
+			struct spotLight{
+				vec3 position;
+				vec3 direction;
+				vec3 color;
+				float radius;
+				vec3 intensity;
+			};
+
+			struct directionnalLight{
+				vec3 direction;
+				vec3 color;
+				vec3 intensity;
+			};
 		</PRECISION>
 
-		<UNIFORMS/>
+		<UNIFORMS>
+			uniform pointLight pointLights[NB_POINTLIGHTS];
+			uniform spotLight spotLights[NB_SPOTLIGHTS];
+			uniform directionnalLight directionnalLights[NB_DIRECTIONNALLIGHTS];
+		</UNIFORMS>
 
 		<VARYING>
-			varying vec3 vcolor;
+			varying vec4 vPosition;
 		</VARYING>
 
 		<OUTPUT>
-			// main
 			void main(void) {
-				gl_FragColor = vec4(vcolor, 1.0);
-			}
+				// color
+				vec3 color = vec3(1.0,0.0,0.0);
+				gl_FragColor = vec4(color, 1.0);
+		    }
 		</OUTPUT>
 	</FRAGMENT>
 </SHADER>

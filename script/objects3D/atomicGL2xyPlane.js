@@ -51,13 +51,10 @@ constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
 //-----------------------------------------------------
 
 	build(){
-
-
 	//-----------------------------
 	// vertices, normals, colors
 
 	for(var j=0 ; j<= this.yrow ;j++){
-
 		for(var i=0;i<=this.xrow;i++){
 			// vertices
 			var x = - 0.5*this.width + i*this.width/this.xrow;
@@ -81,13 +78,14 @@ constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
 			this.normalsArray.push(nx);
 			this.normalsArray.push(ny);
 			this.normalsArray.push(nz);
-    	this.textureCoordsArray.push(tu);
-    	this.textureCoordsArray.push(tv);
+	    	this.textureCoordsArray.push(tu);
+	    	this.textureCoordsArray.push(tv);
 			this.colorsArray.push(r);
 			this.colorsArray.push(g);
 			this.colorsArray.push(b);
 		}
 	}
+
 	for(var jj=0;jj<this.yrow;jj++){
 		for(var ii=0;ii<this.xrow;ii++){
 			// triangles indexes

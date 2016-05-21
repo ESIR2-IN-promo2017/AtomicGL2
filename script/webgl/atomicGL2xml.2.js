@@ -56,6 +56,11 @@ class atomicGL2xml {
 			var g			= parseFloat(color.split(",")[1]);
 			var b			= parseFloat(color.split(",")[2]);
 
+            var position 	= POINT.getAttribute("position");
+			var x 			= parseFloat(position.split(",")[0]);
+			var y			= parseFloat(position.split(",")[1]);
+			var z			= parseFloat(position.split(",")[2]);
+
 			var intensity   = POINT.getAttribute("intensity");
             var ix          = parseFloat(intensity.split(",")[0]);
             var iy          = parseFloat(intensity.split(",")[1]);
@@ -63,7 +68,7 @@ class atomicGL2xml {
 
 			// cast color and position to Array
 			color = [r,g,b];
-			var position = [5,2,-20];
+            position = [x,y,z];
             intensity = [ix, iy, iz];
 
 			// create pointlight and add it to context
@@ -122,6 +127,12 @@ class atomicGL2xml {
 			var dy 			= parseFloat(direction.split(",")[1]);
 			var dz 			= parseFloat(direction.split(",")[2]);
 
+            //position
+            var position 	= SPOT.getAttribute("position");
+			var x 			= parseFloat(position.split(",")[0]);
+			var y			= parseFloat(position.split(",")[1]);
+			var z			= parseFloat(position.split(",")[2]);
+
 			// radius
 			var radius	 	= SPOT.getAttribute("radius");
 
@@ -133,7 +144,7 @@ class atomicGL2xml {
 
 			// cast color, position and direction to Array
 			color = [r,g,b];
-			var position = [0,0,0];
+            position = [x,y,z];
 			direction = [dx,dy,dz];
             intensity = [ix, iy, iz];
 
@@ -373,8 +384,8 @@ class atomicGL2xml {
       var XYPLANEYRow   = parseFloat(XYPLANE.getAttribute("yrow"));
       var XYPLANETex    = XYPLANE.getAttribute("tex").split(",");
       var XYPLANEuv     = XYPLANE.getAttribute("uv");
-      var u         	= parseFloat(GEOuv.split(",")[0]);
-      var v         	= parseFloat(GEOuv.split(",")[1]);
+      var u         	= parseFloat(XYPLANEuv.split(",")[0]);
+      var v         	= parseFloat(XYPLANEuv.split(",")[1]);
 
       // create shape
       var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
@@ -431,7 +442,7 @@ class atomicGL2xml {
 				var camera = null ;
 				switch (camId)
 				{
-					case "walk": camera = new atomicGLWalkCamera(e.getAttribute("navmesh")) ;
+					case "walk": camera = new atomicGLWalkCamera(AGL.shapes[AGL.indexOfShape(e.getAttribute("navmesh"))]) ;
 				}
 
 				// JS6

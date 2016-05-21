@@ -102,30 +102,30 @@ class atomicGL2Light{
     }
 
     draw(AMS){
-		var vPosition = [this.position[0], this.position[1], this.position[2], 1.0];
-
-		var mvPosition = [0,0,0,0];
-		for(var i=0; i<4; i++){
-			var value = 0;
-			for(var k=0; k<4; k++){
-				value += AMS.mvMatrix[i*4 + k] * vPosition[k];
-			}
-			mvPosition[i] = value;
-		}
-
-		var newPosition = [0,0,0,0];
-		for(var i=0; i<4; i++){
-			var value = 0;
-			for(var k=0; k<4; k++){
-				value += AMS.pMatrix[i*4 + k] * mvPosition[k];
-			}
-			newPosition[i] = value;
-		}
-
-		this.position[0] = newPosition[0]/newPosition[3];
-        this.position[1] = newPosition[1]/newPosition[3];
-		this.position[2] = newPosition[2]/newPosition[3];
-
-        console.log(this.position);
+		// var vPosition = [this.position[0], this.position[1], this.position[2], 1.0];
+		//
+		// var mvPosition = [0,0,0,0];
+		// for(var i=0; i<4; i++){
+		// 	var value = 0;
+		// 	for(var k=0; k<4; k++){
+		// 		value += AMS.mvMatrix[i*4 + k] * vPosition[k];
+		// 	}
+		// 	mvPosition[i] = value;
+		// }
+		//
+		// var newPosition = [0,0,0,0];
+		// for(var i=0; i<4; i++){
+		// 	var value = 0;
+		// 	for(var k=0; k<4; k++){
+		// 		value += AMS.pMatrix[i*4 + k] * mvPosition[k];
+		// 	}
+		// 	newPosition[i] = value;
+		// }
+		//
+		// this.position[0] = newPosition[0]/newPosition[3];
+        // this.position[1] = newPosition[1]/newPosition[3];
+		// this.position[2] = newPosition[2]/newPosition[3];
+		//
+        // console.log(this.position);
     }
 }

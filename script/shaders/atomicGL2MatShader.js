@@ -116,8 +116,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	    for (var key of this.mapAttributes.keys())
 	    {
 			this.mapAttributes.set(key,AGL.gl.getAttribLocation(program, key));
-			console.log(key);
-			console.log(this.mapAttributes.get(key));
 	  		AGL.gl.enableVertexAttribArray(this.mapAttributes.get(key));
 		}
 
