@@ -27,7 +27,7 @@ class atomicGL2Context {
 
 		// GLtexture
 		this.GLtexture      = [];
-		
+
 		// -------------------------------------------------
 		// scene assets
 		// -------------------------------------------------
@@ -39,10 +39,10 @@ class atomicGL2Context {
 		this.shapes         = [];
 		// lights
 		this.lights         = new Map();
-		this.nbPointLights        = 0; 
+		this.nbPointLights        = 0;
 		this.nbSpotLights         = 0;
 		this.nbDirectionnalLights = 0;
-		
+
 		// scene graph
 		this.scenegraph     = null;
 	}
@@ -61,17 +61,17 @@ class atomicGL2Context {
       		this.gl = canvas.getContext("webgl");
      	 	this.viewportWidth = canvas.width;
       		this.viewportHeight = canvas.height;
-    	} 
+    	}
 
-    	catch (e) 
+    	catch (e)
     	{}
 
 		// error in the initialisation of GL context
-    	if (!this.gl) 
+    	if (!this.gl)
       		alert("atomicGLContext::Could not initialise WebGL");
-    	
-		else 
-		{ 
+
+		else
+		{
 			// GL context initialised -> first init (background color, DEPTH_TEST)
 			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
 			this.gl.enable(this.gl.DEPTH_TEST);
@@ -117,7 +117,6 @@ class atomicGL2Context {
 				break;
 
 		}
-		console.log("New ligth added: " + id);
 	}
 
 	// pushProgram(prog)

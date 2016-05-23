@@ -190,8 +190,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//----------------------------------------
 	// inputs: 	AGL: atomicGLContext
 	// 			AMS: atomicGLMatrixStack
-	
-	setUniforms(AGL,AMS){	
+
+	setUniforms(AGL,AMS){
 		// debug
 		//console.log("atomicGLShader::setUniforms ");
 	  	// set this shader as active shader
@@ -349,6 +349,9 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	nomberOfLight(AGL,fragment,flAGLights,nbLights){
 
 		var position = fragment.indexOf(flAGLights);
+
+		if(nbLights == 0)
+			nbLights = 1;
 
 		if(position > -1)
 			fragment = fragment.slice(0, position + flAGLights.length) + " " + nbLights + fragment.slice(position + flAGLights.length);

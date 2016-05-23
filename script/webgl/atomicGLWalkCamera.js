@@ -20,8 +20,8 @@ class atomicGLWalkCamera {
   // attributes
   // -------------------------------------------------
   // camera position
-  this.xc = 10.0 ;
-  this.yc = 2.0 ;
+  this.xc = 0.0 ;
+  this.yc = 3.0 ;
   this.zc = 0.0 ;
 
   // camera orientation
@@ -33,7 +33,7 @@ class atomicGLWalkCamera {
   this.jumpStep = 0.60 ;
 
   // rot
-	this.rot = 0.5 ;
+  this.rot = 0.5 ;
 
   // fly
   this.isFreeCam = false;
@@ -133,10 +133,10 @@ class atomicGLWalkCamera {
     }
     else if(!this.navmesh.isOnNavMesh(this.xc, this.zc)) {
       console.log("You died !");
-      this.navmesh.xc = 10.0 ;
-      this.navmesh.yc = 2.0 ;
+      this.navmesh.xc = 0.0 ;
+      this.navmesh.yc = 0.0 ;
       this.navmesh.zc = 0.0 ;
-      this.xc = 10.0 ;
+      this.xc = 0.0 ;
       this.yc = 2.0 ;
       this.zc = 0.0 ;
     }

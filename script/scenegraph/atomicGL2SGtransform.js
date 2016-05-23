@@ -21,8 +21,14 @@ class atomicGL2SGtransform extends atomicGL2SceneGraph {
 	//			ax - vec3: rotation axis vector
 	//			ro - float: rotationangle
 	setTransform(tr,ax,ro){
-		this.translate = tr;
-		this.rotAxis   = ax;
+		this.translate[0] = tr[0];
+		this.translate[1] = tr[1];
+		this.translate[2] = tr[2];
+
+		this.rotAxis[0]   = ax[0];
+		this.rotAxis[1]   = ax[1];
+		this.rotAxis[2]   = ax[2];
+
 		this.rotation  = ro ;
 	}
 

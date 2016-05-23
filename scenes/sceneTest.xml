@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <SCENE>
+
 	<LIGHTS>
-		<POINTLIGHT id="PointLight0" color="1.0,1.0,0.1" position="10.0,10.0,-10.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
-
-		<DIRECTIONNALLIGHT id="DirectionnalLight0" color="1.0,0.9,0.1" direction="-3.0,-1.0,1.0" intensity="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
-
-		<SPOTLIGHT id="SpotLight0" color="0.0,1.0,0.0" position="15.0,2.0,-15.0" direction="0.0,-1.0,0.0" radius="2" intensity="10.0,0.0,0.0"></SPOTLIGHT>
-		<SPOTLIGHT id="SpotLight1" color="0.0,0.0,1.0" position="15.0,1.0,-5.0" direction="0.0,-1.0,0.0" radius="1" intensity="10.0,0.0,0.0"></SPOTLIGHT>
-
+		<POINTLIGHT id="PointLight0" color="1.0,1.0,1.0" intensity="20.0,0.0,0.0"></POINTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
 		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
+
 		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
+		
 		<XMATSHADER file="shaders/deformationProg.xml">deformationProg</XMATSHADER>
-	</SHADERS>
+		
+		<XMATSHADER id="textProg">shaders/textProg.xml</XMATSHADER>
+		
+		<XMATSHADER id="textDiffProg">shaders/textDiffProg.xml</XMATSHADER>
+		
+		<XMATSHADER id="textPhongProg">shaders/textPhongProg.xml</XMATSHADER>
+		
+		<XMATSHADER id="textDiffNormalMapProg">shaders/textDiffNormalMapProg.xml</XMATSHADER>
 
-	<TEXTURES>
-		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
-		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
-		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
-		<TEXTURE id="herbe1_normal" type="color">texture/herbe1_normal.png</TEXTURE>
-		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
-		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
-	</TEXTURES>
-
-	<SHAPES>
 		<SHAPE id="ground_sand" type="js">
 			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_herbe()</GEOMETRY>
 			<TEXTID>herbe1</TEXTID>
@@ -54,5 +48,16 @@
 			<TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
 					<OBJECT3D id="obj_sexy_lady" shader="textDiffProg">sexy_lady</OBJECT3D>
 			</TRANSFORM>
+			<!-- <TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_toto" shader="textPhongProg">sphere</OBJECT3D>
+				<TRANSFORM id="transform_light" translate="0.0,2.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+					<LIGHT id="spotToSphere">PointLight1</LIGHT>
+				</TRANSFORM>
+			</TRANSFORM> -->
+		</TRANSFORM>
+		<!-- <TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
+			<OBJECT3D id="obj_sexy_lady" shader="textPhongProg">sexy_lady</OBJECT3D>
+		</TRANSFORM> -->
 	</ROOT>
+
 </SCENE>

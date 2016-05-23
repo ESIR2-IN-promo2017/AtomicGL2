@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">script/webgl/atomicGLWalkCamera.js | AtomicGL2 API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">lights</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2DirectionnalLight.js~atomicGL2DirectionnalLight.html">atomicGL2DirectionnalLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2Light.js~atomicGL2Light.html">atomicGL2Light</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2PointLight.js~atomicGL2PointLight.html">atomicGL2PointLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/lights/atomicGL2SpotLight.js~atomicGL2SpotLight.html">atomicGL2SpotLight</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">loaders</div><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/script/loaders/atomicGL2ShaderLoader.js~atomicGL2ShaderLoader.html">atomicGL2ShaderLoader</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">scenegraph</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/scenegraph/atomicGL2SGLight.js~atomicGL2SGLight.html">atomicGL2SGLight</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/scenegraph/atomicGL2SGobject3d.js~atomicGL2SGobject3d.html">atomicGL2SGobject3d</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/scenegraph/atomicGL2SGroot.js~atomicGL2SGroot.html">atomicGL2SGroot</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/scenegraph/atomicGL2SGtransform.js~atomicGL2SGtransform.html">atomicGL2SGtransform</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/scenegraph/atomicGL2SceneGraph.2.js~atomicGL2SceneGraph.html">atomicGL2SceneGraph</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">shaders</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/shaders/atomicGL2MatShader.js~atomicGL2MatShader.html">atomicGL2MatShader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/shaders/atomicGL2Shader.js~atomicGL2Shader.html">atomicGL2Shader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/script/shaders/atomicGL2Texture.js~atomicGL2Texture.html">atomicGL2Texture</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">script/webgl/atomicGLWalkCamera.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// atomicGL
+//----------------------------------------------------------------------------------------
+// author: RC
+// contact: cozot@irisa.fr
+// version: 0.1
+// current version date: 2015/10/07
+//----------------------------------------------------------------------------------------
+// atomicGLClock
+//----------------------------------------------------------------------------------------
+// TODO list
+//----------------------------------------------------------------------------------------
+
+&quot;use strict&quot;;
+
+
+// constructor
+//------------------------
+class atomicGLWalkCamera {
+ constructor(navMesh){
+  // attributes
+  // -------------------------------------------------
+  // camera position
+  this.xc = 10.0 ;
+  this.yc = 2.0 ;
+  this.zc = 0.0 ;
+
+  // camera orientation
+  this.theta = 0.0 ;
+  this.phi = 0.0 ;
+
+  // walkStep
+  this.walkStep = 0.50 ;
+  this.jumpStep = 0.60 ;
+
+  // rot
+	this.rot = 0.5 ;
+
+  // fly
+  this.isFreeCam = false;
+
+  // jump
+  this.jumping = false;
+  this.jumpUp = false;
+  this.jumpDown = false;
+  this.heightJump = 4;
+  this.levelZero = 0;
+
+  // navmesh
+  this.navmesh = new atomicGL2NavMesh(navMesh, this.xc, this.yc, this.zc);
+
+  // fix initial position
+  this.up();
+}
+
+  // methods
+  // --------------------------------------------------
+  // up/right/left/down
+  //---------------------------
+  up() {
+    var displaceX = +this.walkStep*Math.sin(this.theta*3.14/180.0);
+    var displaceZ = -this.walkStep*Math.cos(this.theta*3.14/180.0);
+    this.move(displaceX, displaceZ);
+	}
+
+  down() {
+    var displaceX = -this.walkStep*Math.sin(this.theta*3.14/180.0);
+    var displaceZ = +this.walkStep*Math.cos(this.theta*3.14/180.0);
+    this.move(displaceX, displaceZ);
+	}
+
+  right() {
+    var displaceX = +this.walkStep*Math.cos(this.theta*3.14/180.0);
+    var displaceZ = +this.walkStep*Math.sin(this.theta*3.14/180.0);
+    this.move(displaceX, displaceZ);
+	}
+
+  left() {
+    var displaceX = -this.walkStep*Math.cos(this.theta*3.14/180.0);
+    var displaceZ = -this.walkStep*Math.sin(this.theta*3.14/180.0);
+    this.move(displaceX, displaceZ);
+	}
+
+	turnright(a) {
+		this.theta += this.rot*a ;
+	}
+
+  turnleft(a) {
+		this.theta += this.rot*a ;
+	}
+
+  turnup(a){
+    var displaceY = this.phi + this.rot*a;
+    if((displaceY &gt; -90) &amp;&amp; (displaceY &lt; 90))
+      this.phi = displaceY;
+  }
+
+  move(displaceX, displaceZ) {
+    if(this.jumping) {
+      this.xc += displaceX;
+      this.zc += displaceZ;
+    }
+
+    if(this.isFreeCam) {
+      this.xc += displaceX;
+      this.zc += displaceZ;
+      this.yc += this.walkStep * Math.sin(-this.phi * 3.14 / 180);
+    }
+
+    this.navmesh.move(displaceX, displaceZ);
+  }
+
+  jump() {
+    if(this.jumping == false)
+    {
+      this.levelZero = this.yc;
+      this.jumping = true;
+      this.jumpUp = true;
+    }
+  }
+
+  update(){
+    if(this.isFreeCam == true)
+    {
+        this.levelZero = this.yc;
+        this.navmesh.xc = this.xc;
+        this.navmesh.zc = this.zc;
+    }
+    else if(this.jumping == true)
+    {
+        this.animJump();
+        this.navmesh.xc = this.xc;
+        this.navmesh.zc = this.zc;
+    }
+    else if(!this.navmesh.isOnNavMesh(this.xc, this.zc)) {
+      console.log(&quot;You died !&quot;);
+      this.navmesh.xc = 10.0 ;
+      this.navmesh.yc = 2.0 ;
+      this.navmesh.zc = 0.0 ;
+      this.xc = 10.0 ;
+      this.yc = 2.0 ;
+      this.zc = 0.0 ;
+    }
+    else {
+      this.xc = this.navmesh.xc;
+      this.yc = this.navmesh.yc + 2.0;
+      this.zc = this.navmesh.zc;
+    }
+  }
+
+  animJump() {
+    if(this.jumpUp == true)
+      if(this.yc &lt; this.levelZero + this.heightJump + 2)
+        this.yc += this.jumpStep * (this.levelZero + this.heightJump + 3 - this.yc) / this.heightJump;
+      else
+      {
+        this.yc = this.levelZero + this.heightJump + 2
+        this.jumpUp = false;
+        this.jumpDown = true;
+      }
+
+    if(this.jumpDown == true)
+      if(this.yc &gt; this.navmesh.yc + 2)
+        this.yc -= this.jumpStep * (this.levelZero + this.heightJump + 3 - this.yc) / this.heightJump;
+      else
+      {
+        this.yc = this.navmesh.yc + 2
+        this.jumpUp = false;
+        this.jumpDown = false;
+        this.jumping = false;
+      }
+
+    if(this.yc &lt; this.navmesh.yc + 2)
+    {
+      this.yc = this.navmesh.yc + 2
+      this.jumpUp = false;
+      this.jumpDown = false;
+      this.jumping = false;
+    }
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

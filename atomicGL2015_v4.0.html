@@ -5,18 +5,104 @@
 
 		<!-- load "modules" -->
 		<script type="text/javascript" src="script/includes/glMatrix-0.js"></script>
-		<script data-main="script/main" src="script/includes/require.js"></script>
+
+		<script type="text/javascript" src="script/JsFilesloaded.js"></script>
+		<script type="text/javascript" src="script/shaders/atomicGL2Shader.js"></script>
+		<script type="text/javascript" src="script/shaders/atomicGL2MatShader.js"></script>
+
+		<script type="text/javascript" src="script/includes/webgl-utils.js"></script>
+		<script type="text/javascript" src="script/includes/glMatrix-0.js"></script>
+
+		<script type="text/javascript" src="objs/palais_v01_bois_parquet.js"></script>
+		<script type="text/javascript" src="objs/palais_v01_bois_poutre.js"></script>
+		<script type="text/javascript" src="objs/palais_v01_decors.js"></script>
+		<script type="text/javascript" src="objs/palais_v01_mur.js"></script>
+		<script type="text/javascript" src="objs/palais_v01_terrase.js"></script>
+		<script type="text/javascript" src="objs/palais_v01_toiture.js"></script>
+		<script type="text/javascript" src="objs/pont_dessus.js"></script>
+		<script type="text/javascript" src="objs/pont_pierre.js"></script>
+		<script type="text/javascript" src="objs/riviere.js"></script>
+		<script type="text/javascript" src="objs/sol.js"></script>
+		<script type="text/javascript" src="objs/sol_herbe.js"></script>
+		<script type="text/javascript" src="objs/sol_muret.js"></script>
+		<script type="text/javascript" src="objs/sol_route.js"></script>
+		<script type="text/javascript" src="objs/sol_sable.js"></script>
+		<script type="text/javascript" src="objs/tour1base.js"></script>
+		<script type="text/javascript" src="objs/tour1mur.js"></script>
+		<script type="text/javascript" src="objs/tour1parape.js"></script>
+		<script type="text/javascript" src="objs/tour1sol.js"></script>
+		<script type="text/javascript" src="objs/donjonBase.js"></script>
+		<script type="text/javascript" src="objs/donjonBois.js"></script>
+		<script type="text/javascript" src="objs/donjonFenetre.js"></script>
+		<script type="text/javascript" src="objs/donjonMur.js"></script>
+		<script type="text/javascript" src="objs/donjonSol.js"></script>
+		<script type="text/javascript" src="objs/donjonToiture.js"></script>
+		<script type="text/javascript" src="objs/maison1mur.js"></script>
+		<script type="text/javascript" src="objs/maison1sol.js"></script>
+		<script type="text/javascript" src="objs/maison1stone.js"></script>
+		<script type="text/javascript" src="objs/maison1stone2.js"></script>
+		<script type="text/javascript" src="objs/maison1toit.js"></script>
+		<script type="text/javascript" src="objs/maison1wood.js"></script>
+		<script type="text/javascript" src="objs/maison3.js"></script>
+		<script type="text/javascript" src="objs/maison3roof.js"></script>
+		<script type="text/javascript" src="objs/maison3wood.js"></script>
+		<script type="text/javascript" src="objs/mur2base.js"></script>
+		<script type="text/javascript" src="objs/mur2bois.js"></script>
+		<script type="text/javascript" src="objs/mur2pierre.js"></script>
+		<script type="text/javascript" src="objs/mur2toit.js"></script>
+		<script type="text/javascript" src="objs/tour1toit.js"></script>
+
+		<script type="text/javascript" src="script/lights/atomicGL2Light.js"></script>
+		<script type="text/javascript" src="script/lights/atomicGL2PointLight.js"></script>
+		<script type="text/javascript" src="script/lights/atomicGL2DirectionnalLight.js"></script>
+		<script type="text/javascript" src="script/lights/atomicGL2SpotLight.js"></script>
+
+		<script type="text/javascript" src="script/loaders/atomicGL2ShaderLoader.js"></script>
+		<script type="text/javascript" src="script/loaders/atomicGL2ShaderLoaderScriptXML.js"></script>
+		<script type="text/javascript" src="script/loaders/atomicGL2ShaderLoaderScriptInLine.js"></script>
+
+
 		<script type="text/javascript" src="script/objects3D/atomicGL2Object3d.js"></script>
+		<script type="text/javascript" src="script/objects3D/atomicGL2ObjMesh.js"></script>
+		<script type="text/javascript" src="script/objects3D/atomicGL2Cube.js"></script>
+		<script type="text/javascript" src="script/objects3D/atomicGL2Cylinder.js"></script>
+		<script type="text/javascript" src="script/objects3D/atomicGL2Sphere.js"></script>
+		<script type="text/javascript" src="script/objects3D/atomicGL2xyPlane.js"></script>
+
+		<script type="text/javascript" src="script/shaders/atomicGL2Texture.js"></script>
+		<script type="text/javascript" src="script/shaders/atomicGLSkyBox.js"></script>
+
+		<script type="text/javascript" src="script/scenegraph/atomicGL2SceneGraph.2.js"></script>
+		<script type="text/javascript" src="script/scenegraph/atomicGL2SGroot.js"></script>
+		<script type="text/javascript" src="script/scenegraph/atomicGL2SGtransform.js"></script>
+		<script type="text/javascript" src="script/scenegraph/atomicGL2SGobject3d.js"></script>
+		<script type="text/javascript" src="script/scenegraph/atomicGL2SGlight.js"></script>
+
+
+		<script type="text/javascript" src="script/webgl/atomicGL2Clock.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGL2Context.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGL2Importer.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGL2MatrixStack.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGL2xml.2.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGLWalkCamera.js"></script>
+		<script type="text/javascript" src="script/webgl/atomicGL2NavMesh.js"></script>
+
+		<script type="text/javascript" src="script/webGLStart.js"></script>
+
+
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-		<audio src="sounds/Menu.mp3" autoplay="true" loop="true" hidden="true" controls>
+		<!-- <audio src="sounds/Menu.mp3" autoplay="true" loop="true" hidden="true" controls>
 			<embed src="sounds/Menu.mp3" autostart="true" loop="true" hidden="true">
-		</audio>
+		</audio> -->
 	</head>
 
 	<body>
-		<div id="scene" style="visibility:hidden; height:0%;">sceneTest</div>
+		<div id="scene" style="visibility:hidden; height:0%;">Presentation</div>
 	 	<canvas id="oglcanvas" width="1900;" height="1080;" style="border:none; width:100%; height:100%;"></canvas>
+		<script type="text/javascript">
+			webGLStart();
+		</script>
 	</body>
 </html>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<SHADER name="phongProg">
+<SHADER name="textDiffNormalMapProg">
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
 			attribute vec3 aVertexNormal;
 		</ATTRIBUTES>
 
@@ -14,6 +15,7 @@
 		</UNIFORMS>
 
 		<VARYING>
+		  varying vec2 vTextureCoord;
 		  varying vec3 vNormal;
 		  varying vec4 vPosition;
 		</VARYING>
@@ -23,10 +25,9 @@
     		// vNormal
 			vNormal = uNMatrix * aVertexNormal;
 			vPosition = vec4(aVertexPosition, 1.0);
-			// color
-			vec3 color = vec3(1.0,0.0,0.0);
 
 			gl_Position = uPMatrix * uMVMatrix * vPosition;
+      		vTextureCoord = aVertexTexCoord;
     	}
 		</OUTPUT>
 	</VERTEX>
@@ -62,13 +63,17 @@
 			};
 		</PRECISION>
 
-		<UNIFORMS>
-		    uniform pointLight pointLights[NB_POINTLIGHTS];
+   		<UNIFORMS>
+	  		uniform sampler2D uSampler0;
+			uniform sampler2D uSampler1;
+
+			uniform pointLight pointLights[NB_POINTLIGHTS];
 		    uniform spotLight spotLights[NB_SPOTLIGHTS];
 		    uniform directionnalLight directionnalLights[NB_DIRECTIONNALLIGHTS];
 		</UNIFORMS>
 
 		<VARYING>
+			varying vec2 vTextureCoord;
 			varying vec4 vPosition;
 			varying vec3 vNormal;
 		</VARYING>
@@ -77,28 +82,45 @@
 			// local constant
 			// Kd: diffuse coeff
 			float Kd = 1.0 ;
-			float Ks = 0.8 ;
-			float sh = 3.0 ;
-
-			// specular color
-			vec3 specColor = vec3(1.0,1.0,1.0);
 
 			void main(void) {
-				// color
-				vec3 color = vec3(1.0,0.0,0.0);
+				// texture color
+				vec4 texColor = texture2D(uSampler1, vTextureCoord);
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
 
+				// normalize normal
+				vec3 oldNormal = normalize(vNormal);
+
+				// new normal in tangent space
+				vec3 newNormalTS = normalize(2.0*texture2D(uSampler1, vTextureCoord).xyz - 1.0) ;
+
+				// TS to View
+				vec3 biTangent = cross(oldNormal,vec3(0.0,0.0,1.0));
+
+				// test tangent
+				if (dot(biTangent,biTangent) == 0.0){biTangent = cross(oldNormal,vec3(0.0,1.0,0.0));}
+				vec3 tangent =  cross(biTangent,oldNormal);
+
+				// no transpose
+				vec3 u1 = tangent ;
+				vec3 u2 = biTangent;
+				vec3 u3 = oldNormal;
+
+				// TS to view matrix
+				mat3 TBN = mat3(u1,u2,u3);
+
+				// transform normal
+				vec3 normal = TBN*newNormalTS ;
+
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
 				float diffuseLightWeight = 0.0;
-				vec3 reflectDirection = vec3(0.0,0.0,0.0);
-				float specularLightWeight = 0.0;
 
 				vec3 lightColor = vec3(0.0,0.0,0.0);
 
-	        	//////////////////
+				//////////////////
 				// Point Lights //
 				//////////////////
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
@@ -109,16 +131,10 @@
 					distance = sqrt(pow(pointLights[i].position.x-vPosition.x,2.0) + pow(pointLights[i].position.y-vPosition.y,2.0) + pow(pointLights[i].position.z-vPosition.z,2.0));
 
 					// diffuse term
-					diffuseLightWeight = max(dot(normalize(vNormal), lightDirection), 0.0)*pointLights[i].intensity.x;
-
-					// reflection direction
-					reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-					// specular term
-					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color  + Ks*specularLightWeight*pointLights[i].color*color) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*texColor.rgb)*pointLights[i].intensity.x / distance;
 				}
 
 
@@ -130,16 +146,10 @@
 					lightDirection = normalize(-directionnalLights[i].direction);
 
 					// diffuse term
-					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
-
-					// reflection direction
-					reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-					// specular term
-					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color + Ks*specularLightWeight*directionnalLights[i].color*color);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*texColor.rgb)*directionnalLights[i].intensity.x;
 				}
 
 
@@ -162,21 +172,15 @@
 					if(planRadius > planDistance)
 					{
 						// diffuse term
-						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
-
-						// reflection direction
-						reflectDirection = normalize(reflect(-lightDirection,vNormal));
-
-						// specular term
-						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+						diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color + Ks*specularLightWeight*spotLights[i].color*color) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*texColor.rgb)*spotLights[i].intensity.x / distance;
 					}
 				}
 
-				gl_FragColor = vec4(lightColor,1.0);
-		    }
+	      		gl_FragColor = vec4(lightColor,1.0);
+	    	}
 		</OUTPUT>
 	</FRAGMENT>
 </SHADER>

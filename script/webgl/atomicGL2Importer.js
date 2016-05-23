@@ -26,9 +26,9 @@ class atomicGL2Importer  {
     readTextFile(file){
         var rawFile = new XMLHttpRequest();
         rawFile.open("GET", file, false);
-        
+
         var allText = "Loading failed";
-        
+
         rawFile.onreadystatechange = function ()
         {
             if(rawFile.readyState === 4)
@@ -78,20 +78,20 @@ class atomicGL2Importer  {
             var firstChar = elements.shift();
             if(firstChar == '#')
                 continue;
-    
+
             else if (firstChar == 'g' ||firstChar == 'o')
                 obj.name = elements;
-    
+
             else if (firstChar == 'v') {
                 // if this is a vertex
-                for (var ii = 0; ii < elements.length; ii++) 
+                for (var ii = 0; ii < elements.length; ii++)
                     obj.vertices.push(parseFloat(elements[ii]));
             }
             else if (firstChar == 'vn') {
                 // if this is a vertex normal
                 objTmp.normals.push.apply(objTmp.normals, elements);
                 hasNormal = true;
-            }      
+            }
             else if (firstChar == 'vt') {
                 // if this is a texture
                 objTmp.textures.push.apply(objTmp.textures, elements);
@@ -136,32 +136,32 @@ class atomicGL2Importer  {
                       objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 2]);
                       objTmp.verts.push(+ obj.vertices[(vertex[0] - 1) * 3 + 0]);
                       */
-  
+
                       // vertex textures
                       if (objTmp.textures.length && hasTexture) {
                           obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 0]);
                           obj.uv.push(+objTmp.textures[(vertex[1] - 1) * 2 + 1]);
                       }
-  
+
                       // vertex normals
                       if(hasNormal){
                           obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 0]));
                           obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 1]));
                           obj.normals.push(parseFloat(+objTmp.normals[(vertex[2] - 1) * 3 + 2]));
                       }
-  
+
                       // add the newly created vertex to the list of indices
                       obj.vertexIndices.push(parseInt(vertex[0])-1);
-  
+
                       objTmp.hashindices[elements[j]] =obj.index ;
-                      
+
                       // increment the counter
                       obj.index += 1;
-  
+
                       if(j === 3 && quad) {
                          // replace the fourth vertex of the quad which is the last element of obj.vertexIndices
-                         // in order to split the quad onto two triangle : 
-                         // f 1 2 3 4 => 1 2 3  1 3 4 
+                         // in order to split the quad onto two triangle :
+                         // f 1 2 3 4 => 1 2 3  1 3 4
                           obj.vertexIndices[obj.vertexIndices.length-1] =  obj.vertexIndices[obj.vertexIndices.length-4];
                           obj.vertexIndices.push(parseInt(vertex[0])-1);
                       }
@@ -169,7 +169,7 @@ class atomicGL2Importer  {
               }
             }
         }
-        
+
         if (obj.normals.length == 0)
           obj.normals.push(0);
 

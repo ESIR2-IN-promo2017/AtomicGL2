@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<SHADER name="phongProg">
+<SHADER name="textPhongProg">
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
 			attribute vec3 aVertexNormal;
 		</ATTRIBUTES>
 
@@ -14,6 +15,7 @@
 		</UNIFORMS>
 
 		<VARYING>
+		  varying vec2 vTextureCoord;
 		  varying vec3 vNormal;
 		  varying vec4 vPosition;
 		</VARYING>
@@ -23,10 +25,9 @@
     		// vNormal
 			vNormal = uNMatrix * aVertexNormal;
 			vPosition = vec4(aVertexPosition, 1.0);
-			// color
-			vec3 color = vec3(1.0,0.0,0.0);
 
 			gl_Position = uPMatrix * uMVMatrix * vPosition;
+      		vTextureCoord = aVertexTexCoord;
     	}
 		</OUTPUT>
 	</VERTEX>
@@ -63,12 +64,15 @@
 		</PRECISION>
 
 		<UNIFORMS>
+			uniform sampler2D uSampler0;
+
 		    uniform pointLight pointLights[NB_POINTLIGHTS];
 		    uniform spotLight spotLights[NB_SPOTLIGHTS];
 		    uniform directionnalLight directionnalLights[NB_DIRECTIONNALLIGHTS];
 		</UNIFORMS>
 
 		<VARYING>
+			varying vec2 vTextureCoord;
 			varying vec4 vPosition;
 			varying vec3 vNormal;
 		</VARYING>
@@ -84,8 +88,8 @@
 			vec3 specColor = vec3(1.0,1.0,1.0);
 
 			void main(void) {
-				// color
-				vec3 color = vec3(1.0,0.0,0.0);
+				// texture color
+				vec4 texColor = texture2D(uSampler0, vTextureCoord);
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
@@ -118,7 +122,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color  + Ks*specularLightWeight*pointLights[i].color*color) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*texColor.rgb  + Ks*specularLightWeight*pointLights[i].color*texColor.rgb) / distance;
 				}
 
 
@@ -139,7 +143,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color + Ks*specularLightWeight*directionnalLights[i].color*color);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*texColor.rgb + Ks*specularLightWeight*directionnalLights[i].color*texColor.rgb);
 				}
 
 
@@ -171,7 +175,7 @@
 						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color + Ks*specularLightWeight*spotLights[i].color*color) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*texColor.rgb + Ks*specularLightWeight*spotLights[i].color*texColor.rgb) / distance;
 					}
 				}
 

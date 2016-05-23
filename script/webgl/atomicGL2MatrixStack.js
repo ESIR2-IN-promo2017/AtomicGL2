@@ -1,6 +1,6 @@
 // atomicGL
 //----------------------------------------------------------------------------------------
-// author: RC				
+// author: RC
 // contact: cozot@irisa.fr
 // version: 2.1
 // current version date: 2016/01/26
@@ -16,14 +16,14 @@ class atomicGL2MatrixStack{
  	constructor(){
 		// attributes
 		// -------------------------------------------------
-		// model -> view Matrix 
+		// model -> view Matrix
     	this.mvMatrix = mat4.create();
 		// model -> view Matrix stack
     	this.mvMatrixStack = [];
 		// projection Matrix
     	this.pMatrix = mat4.create();
 	}
-	
+
 	// methods
 	// --------------------------------------------------
 	// initMatrix(AGL,fov)
@@ -40,20 +40,20 @@ class atomicGL2MatrixStack{
 	// mvIdentity
 	// ------------------------
 	mvIdentity(){ mat4.identity(this.mvMatrix);}
-	
+
 	// mvTranslate(x,y,z)
 	//---------------------------
 	// inputs: x,y,z: translation - float
 	mvTranslate(x,y,z){ mat4.translate(this.mvMatrix, [x, y, z]); }
-	
+
 	// mvRotate(angleDegree,axe)
 	//---------------------------
 	// inputs:	angle: angle of rotation (degree) - float
 	// 			axe: vector axe of rotation [float, float,float]
-	mvRotate(angle,axe){ mat4.rotate(this.mvMatrix, angle*Math.PI/180, axe); }     
+	mvRotate(angle,axe){ mat4.rotate(this.mvMatrix, angle*Math.PI/180, axe); }
 
 	// mvPushMatrix()
-	//---------------------------	
+	//---------------------------
 	mvPushMatrix() {
         var copy = mat4.create();
         mat4.set(this.mvMatrix, copy);
@@ -61,12 +61,12 @@ class atomicGL2MatrixStack{
     }
 
 	// mvPopMatrix()
-	//---------------------------	
+	//---------------------------
 	mvPopMatrix(){
         if (this.mvMatrixStack.length == 0) {
             alert( "Invalid popMatrix!");
         }
         this.mvMatrix = this.mvMatrixStack.pop();
     }
-	
+
 }

@@ -27,8 +27,7 @@ class atomicGL2NavMesh {
     this.heightDown = -5;
 
     // navmesh
-    this.navmesh = new atomicGL2ObjMesh("navigation", eval("new "+navMesh), 1, 1);
-    // this.navmesh = new atomicGL2ObjMesh("navigation", new atomicGL2Importer('objs/' + navMesh).obj, 1, 1) ;
+    this.navmesh = navMesh;
   }
 
 	// methods

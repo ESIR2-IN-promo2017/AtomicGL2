@@ -1,6 +1,6 @@
 // atomicGL
 //----------------------------------------------------------------------------------------
-// author: RC				
+// author: RC
 // contact: cozot@irisa.fr
 // version: 2.2
 // current version date: 2016/01/27
@@ -21,11 +21,11 @@ class atomicGL2SceneGraph {
 		// type: string - "root" | "transform" | "object3D"
 		this.type = stype;
 		this.name = nname ;
-	
+
 		// children
-		this.children = [];	
+		this.children = [];
 	}
-	
+
 	// methods
 	// --------------------------------------------------
 
@@ -35,14 +35,14 @@ class atomicGL2SceneGraph {
 	addChild(o){
 		switch (this.type)
 		{
-			case "root": 
-				this.children.push(o); 
+			case "root":
+				this.children.push(o);
 			break;
-			
-			case "transform" : 
-				this.children.push(o); 
+
+			case "transform" :
+				this.children.push(o);
 			break;
-			
+
 			default: console.log("atomicGL:atomicGLSceneGraph("+this.name+"/"+this.type+"):can not add child to "+this.type);
 		}
 	}
@@ -59,33 +59,33 @@ class atomicGL2SceneGraph {
 		console.log("atomicGLSceneGraph::");
 		this.toDEBUG2("--");
 	}
-	
+
 	// toDEBUG(param)
 	// -------------------------
 	// inputs: p - string
 	toDEBUG2(p){
-		var s = p+this.name+"("+this.type+")"; 
+		var s = p+this.name+"("+this.type+")";
 		console.log(s);
 		console.log(p+"----------------------------");
-		
+
 		switch(this.type)
 		{
 			case "root":
-			break;			
-			
+			break;
+
 			case "transform":
 				// type= transform - translation & rotation
 				console.log(p+ ">translate:["+this.translate[0]+","+this.translate[1]+","+this.translate[2]+"]");
 				console.log(p+ ">rotAxis:["+this.rotAxis[0]+","+this.rotAxis[1]+","+this.rotAxis[2]+"]");
 				console.log(p+ ">angle:"+this.rotation);
 				console.log(p+"----------------------------");
-			break;			
-			
+			break;
+
 			case "object":
 			break;
 		}
 
-		for (var i=0;i<this.children.length;i++) 
+		for (var i=0;i<this.children.length;i++)
 			this.children[i].toDEBUG2(p+"--");
 	}
 }

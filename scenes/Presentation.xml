@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCENE>
+	<LIGHTS>
+		<DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.1,0.1,0.1" direction="0.0,-1.0,0.0" intensity="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight0" color="1.0,1.0,1.0" position="0.0,3.0,-10.0" direction="0.0,-1.0,0.0" radius="1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+	</LIGHTS>
+
+	<SHADERS>
+		<XMATSHADER id="textProg">shaders/textProg.xml</XMATSHADER>
+		<XMATSHADER id="colorProg">shaders/colorProg.xml</XMATSHADER>
+		<XMATSHADER id="diffuseProg">shaders/diffuseProg.xml</XMATSHADER>
+		<XMATSHADER id="phongProg">shaders/phongProg.xml</XMATSHADER>
+	</SHADERS>
+
+	<TEXTURES>
+		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
+
+		<TEXTURE id="skyTex" type="color">texture/skybox3_texture.png</TEXTURE>
+	</TEXTURES>
+
+	<SHAPES>
+		<XYPLANE id="ground" height="100" width="100" xrow="100" yrow="2" uv="1.0,1.0" tex="herbe1"></XYPLANE>
+		<CUBE id="testCube" height="100" width="100" depth="100" tex="herbe1" uv="1.0,1.0"></CUBE>
+		<SPHERE id="testSphere" rad="10" lat="100" long="100" tex="herbe1" uv="1.0,1.0"></SPHERE>
+	</SHAPES>
+
+	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='testCube'>
+		<!-- <TRANSFORM id="transform_ground" translate="0.0,-2.0,-10.0" rotaxis="1.0,0.0,0.0" angle="90.0"> -->
+			<!-- <OBJECT3D id="obj_ground" shader="textProg">ground</OBJECT3D> -->
+			<!-- <TRANSFORM id="transform_cube" translate="0.0,-2.0,0.0" rotaxis="1.0,0.0,0.0" angle="0.0"> -->
+				<OBJECT3D id="obj_testCube" shader="textProg">testSphere</OBJECT3D>
+			<!-- </TRANSFORM> -->
+		<!-- </TRANSFORM> -->
+	</ROOT>
+</SCENE>
