@@ -232,7 +232,7 @@ class atomicGL2xml {
 			}
 
 			catch(e){
-				alert("atomicGLxml::shapes ("+SHAPEId+") texture parameters not found!");
+				alert("atomicGLxml::shapes ("+SHAPEId+") texture/colors parameters not found!");
 				continue;
 			}
 
@@ -295,7 +295,7 @@ class atomicGL2xml {
 				}
 
 				catch(e){
-					alert("/!\\ atomicGLxml::sphere ("+SPHEREId+") texture parameters not found! /!\\");
+					alert("/!\\ atomicGLxml::sphere ("+SPHEREId+") texture/colors parameters not found! /!\\");
 					continue;
 				}
 			}
@@ -358,7 +358,7 @@ class atomicGL2xml {
 				}
 
 				catch(e){
-					alert("/!\\ atomicGLxml::sphere ("+CUBEId+") texture parameters not found! /!\\");
+					alert("/!\\ atomicGLxml::cube ("+CUBEId+") texture/colors parameters not found! /!\\");
 					continue;
 				}
 			}
@@ -423,7 +423,7 @@ class atomicGL2xml {
 				}
 
 				catch(e){
-					alert("/!\\ atomicGLxml::sphere ("+CYLINDERId+") texture parameters not found! /!\\");
+					alert("/!\\ atomicGLxml::cylinder ("+CYLINDERId+") texture/colors parameters not found! /!\\");
 					continue;
 				}
 			}
@@ -487,7 +487,7 @@ class atomicGL2xml {
 				}
 
 				catch(e){
-					alert("/!\\ atomicGLxml::sphere ("+XYPLANEId+") texture parameters not found! /!\\");
+					alert("/!\\ atomicGLxml::xyplane ("+XYPLANEId+") texture/colors parameters not found! /!\\");
 					continue;
 				}
 			}

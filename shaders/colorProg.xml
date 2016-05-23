@@ -4,7 +4,7 @@
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
-			attribute vec3 aColor;
+			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
 		<UNIFORMS>
@@ -18,7 +18,7 @@
 
 		<OUTPUT>
 		    void main(void) {
-		    	vColor = aColor;
+		    	vColor = aVertexColor;
 
 	    		vec4 position = uMVMatrix * vec4(aVertexPosition, 1.0);
 				gl_Position = uPMatrix * position;
