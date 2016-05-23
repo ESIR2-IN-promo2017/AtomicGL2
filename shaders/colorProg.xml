@@ -4,6 +4,7 @@
 	<VERTEX>
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
+			attribute vec3 aColor;
 		</ATTRIBUTES>
 
 		<UNIFORMS>
@@ -12,13 +13,15 @@
 		</UNIFORMS>
 
 		<VARYING>
-		  	varying vec4 vPosition;
+		  	varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
 		    void main(void) {
-	    		vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				gl_Position = uPMatrix * vPosition;
+		    	vColor = aColor;
+
+	    		vec4 position = uMVMatrix * vec4(aVertexPosition, 1.0);
+				gl_Position = uPMatrix * position;
 	    	}
 		</OUTPUT>
 	</VERTEX>
@@ -61,14 +64,12 @@
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec4 vPosition;
+			varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
 			void main(void) {
-				// color
-				vec3 color = vec3(1.0,0.0,0.0);
-				gl_FragColor = vec4(color, 1.0);
+				gl_FragColor = vec4(vColor, 1.0);
 		    }
 		</OUTPUT>
 	</FRAGMENT>

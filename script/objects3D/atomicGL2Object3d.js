@@ -121,12 +121,12 @@ class atomicGL2Object3d{
 	draw(AGL,AMS,shaderProgramName){
 		// debug
 		//console.log("atomicGLObject3d("+this.name+")::draw(progId: "+idProg+")");
-
 		AGL.gl.useProgram(AGL.getShaderProgram(shaderProgramName).program);
+		
 		// setUniforms: matrices and lights
 		AGL.getShaderProgram(shaderProgramName).setUniforms(AGL,AMS);
 		
-	// link buffer to attributes
+		// link buffer to attributes
 		//positions
 		if(AGL.getShaderProgram(shaderProgramName).hasVertexPositionAttribute(AGL.getShaderProgram(shaderProgramName).shaderloader.getAttributes())){
 			AGL.gl.bindBuffer(AGL.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
@@ -149,22 +149,23 @@ class atomicGL2Object3d{
 			// console.log("atomicGLObject3d("+this.name+")::vertexAttribPointer: "+AGL.getShaderProgram(shaderProgramName).texCoordAttribute);
 			AGL.gl.bindBuffer(AGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);
 			AGL.gl.vertexAttribPointer(AGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, AGL.gl.FLOAT, false, 0, 0);		
+
+			for (var i=0; i<this.textures.length; i++ )
+			{
+				// activate texture
+				// debug
+				// console.log("atomicGLObject3d("+this.name+")::activateTexture: "+AGL.GLtexture[i]+"/"+AGL.gl.TEXTURE0);
+				AGL.gl.activeTexture(AGL.GLtexture[i]);
+				// debug
+				// console.log("atomicGLObject3d("+this.name+")::bindTexture: "+this.textures[i].texture);
+				AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, this.textures[i].texture);
+				// debug
+				// console.log("atomicGLObject3d("+this.name+")::uniform: "+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+"->"+i);			
+				AGL.gl.uniform1i(AGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
+			}
 		}
 
-		for (var i=0; i<this.textures.length; i++ )
-		{
-			// activate texture
-			// debug
-			// console.log("atomicGLObject3d("+this.name+")::activateTexture: "+AGL.GLtexture[i]+"/"+AGL.gl.TEXTURE0);
-			AGL.gl.activeTexture(AGL.GLtexture[i]);
-			// debug
-			// console.log("atomicGLObject3d("+this.name+")::bindTexture: "+this.textures[i].texture);
-			AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, this.textures[i].texture);
-			// debug
-			// console.log("atomicGLObject3d("+this.name+")::uniform: "+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+"->"+i);			
-			AGL.gl.uniform1i(AGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
 
-		}
 
 		// indexes
         AGL.gl.bindBuffer(AGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
