@@ -397,7 +397,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	hasVertexColorAttribute(src){
 		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i].indexOf('color') > -1) || (src[i].indexOf('Color') > -1) ;
+			var res = (src[i][1].indexOf('color') > -1) || (src[i][1].indexOf('Color') > -1) ;
 			if(res)
 				return true;
 		}
