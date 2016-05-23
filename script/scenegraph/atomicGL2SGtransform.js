@@ -10,7 +10,7 @@ class atomicGL2SGtransform extends atomicGL2SceneGraph {
 		// type= transform - translation & rotation
 		this.translate = [0.0,0.0,0.0];
 		this.rotAxis   = [0.0,1.0,0.0];
-		this.rotation  = 0.0 ;
+		this.angle	   = 0.0 ;
 		// debug
 		//console.log("atomicGL2SGtransform extends atomicGL2SceneGraph::constructor ->"+this.type+" - "+this.name);
 	}
@@ -29,7 +29,7 @@ class atomicGL2SGtransform extends atomicGL2SceneGraph {
 		this.rotAxis[1]   = ax[1];
 		this.rotAxis[2]   = ax[2];
 
-		this.rotation  = ro ;
+		this.angle  = ro ;
 	}
 
 	// draw
@@ -45,7 +45,7 @@ class atomicGL2SGtransform extends atomicGL2SceneGraph {
 
 		// position & orientation
 		AMS.mvTranslate(this.translate[0],this.translate[1],this.translate[2]);
-		AMS.mvRotate(this.rotation,this.rotAxis);
+		AMS.mvRotate(this.angle,this.rotAxis);
 
 		// children
 		for (var i=0; i<this.children.length ; i++)

@@ -37,7 +37,8 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
-	var transformCube = AGL.scenegraph.findNode("transform_cube");
+	// var transformCube = AGL.scenegraph.findNode("transform_cube");
+	// transformCube.angle += 0.1*sceneClock.get();
 }
 
 // KEYBOARD
@@ -113,8 +114,8 @@ function handleKeys() {
 function canvasDraw(AGL, canvas) {
 	if(mouseX != undefined && mouseY != undefined)
 	{
-		AGL.scenegraph.camera.turnright(mouseX);
-		AGL.scenegraph.camera.turnup(mouseY);
+		AGL.scenegraph.camera.rotationY(mouseX);
+		AGL.scenegraph.camera.rotationX(mouseY);
 
 		mouseY = 0;
 		mouseX = 0;

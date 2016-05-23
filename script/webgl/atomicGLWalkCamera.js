@@ -80,15 +80,11 @@ class atomicGLWalkCamera {
     this.move(displaceX, displaceZ);
 	}
 
-	turnright(a) {
+	rotationY(a) {
 		this.theta += this.rot*a ;
 	}
 
-  turnleft(a) {
-		this.theta += this.rot*a ;
-	}
-
-  turnup(a){
+  rotationX(a){
     var displaceY = this.phi + this.rot*a;
     if((displaceY > -90) && (displaceY < 90))
       this.phi = displaceY;
@@ -153,7 +149,7 @@ class atomicGLWalkCamera {
         this.yc += this.jumpStep * (this.levelZero + this.heightJump + 3 - this.yc) / this.heightJump;
       else
       {
-        this.yc = this.levelZero + this.heightJump + 2
+        this.yc = this.levelZero + this.heightJump + 2;
         this.jumpUp = false;
         this.jumpDown = true;
       }
@@ -163,7 +159,7 @@ class atomicGLWalkCamera {
         this.yc -= this.jumpStep * (this.levelZero + this.heightJump + 3 - this.yc) / this.heightJump;
       else
       {
-        this.yc = this.navmesh.yc + 2
+        this.yc = this.navmesh.yc + 2;
         this.jumpUp = false;
         this.jumpDown = false;
         this.jumping = false;
@@ -171,7 +167,7 @@ class atomicGLWalkCamera {
 
     if(this.yc < this.navmesh.yc + 2)
     {
-      this.yc = this.navmesh.yc + 2
+      this.yc = this.navmesh.yc + 2;
       this.jumpUp = false;
       this.jumpDown = false;
       this.jumping = false;
