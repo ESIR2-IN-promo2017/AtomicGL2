@@ -169,7 +169,7 @@ class atomicGL2xml {
 			var id          = SHAD.getAttribute("id");
 
 			// create shader and add it to context
-			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML('shaders/' + file)));
+			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML('shaders/'+file)));
 
 			// debug
 			console.log("atomicGLxml::shaders >> find shader("+i+"): "+id+" -file: "+ file);
@@ -204,7 +204,7 @@ class atomicGL2xml {
 			var type      = TEX.getAttribute("type");
 
 			// create texture and add it to context
-			AGL.textures.push(new atomicGL2Texture(id,'textures/' + file_name,type,AGL));
+			AGL.textures.push(new atomicGL2Texture(id,'textures/'+file_name,type,AGL));
 			// debug
 			//console.log("atomicGLxml::textures >> find texture("+i+"): "+listTEX[i].childNodes[0].data+"-id: "+id+" -type: "+type);
 		}
