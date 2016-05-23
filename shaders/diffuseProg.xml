@@ -5,6 +5,7 @@
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
 		<UNIFORMS>
@@ -16,12 +17,14 @@
 		<VARYING>
 		  varying vec4 vPosition;
 		  varying vec3 vNormal;
+		  varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
 	    void main(void) {
 			vNormal = uNMatrix * aVertexNormal;
     		vPosition = vec4(aVertexPosition, 1.0);
+    		vColor = aVertexColor;
 
 			gl_Position = uPMatrix * uMVMatrix * vPosition;
     	}
@@ -68,13 +71,11 @@
 		<VARYING>
 			varying vec4 vPosition;
 			varying vec3 vNormal;
+			varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
 			void main(void) {
-				// color
-				vec3 color = vec3(1.0,0.0,0.0);
-
 				// Kd: diffuse coeff
 				float Kd = 1.0 ;
 
@@ -101,7 +102,7 @@
 					diffuseLightWeight = max(dot(normalize(vNormal), lightDirection), 0.0)*pointLights[i].intensity.x;
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].vColor*vColor) / distance;
 				}
 
 
@@ -116,7 +117,7 @@
 					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].vColor*vColor);
 				}
 
 
@@ -142,7 +143,7 @@
 						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].vColor*vColor) / distance;
 					}
 				}
 

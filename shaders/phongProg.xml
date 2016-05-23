@@ -5,6 +5,7 @@
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
 		<UNIFORMS>
@@ -16,6 +17,7 @@
 		<VARYING>
 		  varying vec3 vNormal;
 		  varying vec4 vPosition;
+		  varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
@@ -24,7 +26,7 @@
 			vNormal = uNMatrix * aVertexNormal;
 			vPosition = vec4(aVertexPosition, 1.0);
 			// color
-			vec3 color = vec3(1.0,0.0,0.0);
+			vColor = aVertexColor;
 
 			gl_Position = uPMatrix * uMVMatrix * vPosition;
     	}
@@ -71,6 +73,7 @@
 		<VARYING>
 			varying vec4 vPosition;
 			varying vec3 vNormal;
+			varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
@@ -84,9 +87,6 @@
 			vec3 specColor = vec3(1.0,1.0,1.0);
 
 			void main(void) {
-				// color
-				vec3 color = vec3(1.0,0.0,0.0);
-
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition.xyz);
 
@@ -118,7 +118,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*color  + Ks*specularLightWeight*pointLights[i].color*color) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].vColor*vColor  + Ks*specularLightWeight*pointLights[i].vColor*vColor) / distance;
 				}
 
 
@@ -139,7 +139,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*color + Ks*specularLightWeight*directionnalLights[i].color*color);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].vColor*vColor + Ks*specularLightWeight*directionnalLights[i].vColor*vColor);
 				}
 
 
@@ -171,7 +171,7 @@
 						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*color + Ks*specularLightWeight*spotLights[i].color*color) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].vColor*vColor + Ks*specularLightWeight*spotLights[i].vColor*vColor) / distance;
 					}
 				}
 
