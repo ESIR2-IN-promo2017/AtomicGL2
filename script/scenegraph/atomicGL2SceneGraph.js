@@ -88,4 +88,17 @@ class atomicGL2SceneGraph {
 		for (var i=0;i<this.children.length;i++)
 			this.children[i].toDEBUG2(p+"--");
 	}
+
+	findNode(id){
+		if(this.name == id)
+			return this;
+
+		for (var i=0;i<this.children.length;i++)
+		{
+			if(this.children[i].findNode(id) != null)
+				return this.children[i].findNode(id);
+		}
+
+		return null;
+	}
 }
