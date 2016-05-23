@@ -169,10 +169,10 @@ class atomicGL2xml {
 			var id          = SHAD.getAttribute("id");
 
 			// create shader and add it to context
-			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML(file)));
+			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML('shaders/'+file)));
 
 			// debug
-			console.log("atomicGLxml::shaders >> find shader("+i+"): "+id+" -file: "+file);
+			console.log("atomicGLxml::shaders >> find shader("+i+"): "+id+" -file: "+ file);
 		}
 
 		var listIMSHAD = this.dom.getElementsByTagName("IMATSHADER");
@@ -204,7 +204,7 @@ class atomicGL2xml {
 			var type      = TEX.getAttribute("type");
 
 			// create texture and add it to context
-			AGL.textures.push(new atomicGL2Texture(id,file_name,type,AGL));
+			AGL.textures.push(new atomicGL2Texture(id,'textures/'+file_name,type,AGL));
 			// debug
 			//console.log("atomicGLxml::textures >> find texture("+i+"): "+listTEX[i].childNodes[0].data+"-id: "+id+" -type: "+type);
 		}
@@ -223,7 +223,7 @@ class atomicGL2xml {
 			var SHAPE     = listSHAPE[i];
 			var SHAPEId   = SHAPE.getAttribute("id");
 			var SHAPEType = SHAPE.getAttribute("type");
-			
+
 			try{
 	            var SHAPETex  = SHAPE.getAttribute("tex").split(",");
 	            var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
@@ -242,7 +242,7 @@ class atomicGL2xml {
 			if(SHAPEType == 'js')
 				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+SHAPEMesh), u, v) ;
 			else if(SHAPEType == 'obj')
-				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objs/' + SHAPEMesh).obj, u, v) ;
+				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objects/' + SHAPEMesh).obj, u, v) ;
 
             // load textures
 			for (var j=0; j < SHAPETex.length ; j++)
@@ -278,9 +278,9 @@ class atomicGL2xml {
 	            var SPHERETex  = SPHERE.getAttribute("tex").split(",");
 	            var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
 	            var u          = parseFloat(SPHEREuv[0]);
-	            var v          = parseFloat(SPHEREuv[1]);	
+	            var v          = parseFloat(SPHEREuv[1]);
 
-	            var colorParameters = "texture";			
+	            var colorParameters = "texture";
 			}
 
 			catch(e){
@@ -291,7 +291,7 @@ class atomicGL2xml {
 		            var b 			= parseFloat(SPHEREcolor[2]);
 
 		            var rgb 		= [r,g,b];
-		            var colorParameters = "color";					
+		            var colorParameters = "color";
 				}
 
 				catch(e){
@@ -417,9 +417,9 @@ class atomicGL2xml {
 					var r               = parseFloat(CYLINDERcolor[0]);
 					var g               = parseFloat(CYLINDERcolor[1]);
 					var b               = parseFloat(CYLINDERcolor[2]);
-					
+
 					var rgb             = [r,g,b];
-					var colorParameters = "color";					
+					var colorParameters = "color";
 				}
 
 				catch(e){
@@ -471,7 +471,7 @@ class atomicGL2xml {
 				var XYPLANEuv     = XYPLANE.getAttribute("uv");
 				var u             = parseFloat(XYPLANEuv.split(",")[0]);
 				var v             = parseFloat(XYPLANEuv.split(",")[1]);
-			
+
 				colorParameters = "texture";
 			}
 
@@ -481,9 +481,9 @@ class atomicGL2xml {
 					var r               = parseFloat(XYPLANEcolor[0]);
 					var g               = parseFloat(XYPLANEcolor[1]);
 					var b               = parseFloat(XYPLANEcolor[2]);
-					
+
 					var rgb             = [r,g,b];
-					var colorParameters = "color";	
+					var colorParameters = "color";
 				}
 
 				catch(e){

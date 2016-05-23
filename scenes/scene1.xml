@@ -8,38 +8,38 @@
 	</LIGHTS>
 
 	<SHADERS>
-		<XMATSHADER id="texProg">shaders/textProg.xml</XMATSHADER>
-		<XMATSHADER id="texDiffProg">shaders/textDiffProg.xml</XMATSHADER>
-		<XMATSHADER id="texDiffNormalMapProg">shaders/textDiffNormalMapProg.xml</XMATSHADER>
+		<XMATSHADER id="texProg">textProg.xml</XMATSHADER>
+		<XMATSHADER id="texDiffProg">textDiffProg.xml</XMATSHADER>
+		<XMATSHADER id="texDiffNormalMapProg">textDiffNormalMapProg.xml</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
-		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
-		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
-		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
-		<TEXTURE id="mur_pierre1_normal" type="normal">texture/mur_pierre1_normal.png</TEXTURE>
-		<TEXTURE id="mur2" type="color">texture/mur2.png</TEXTURE>
-		<TEXTURE id="mur2_normal" type="normal">texture/mur2_normal.png</TEXTURE>
-		<TEXTURE id="mur3" type="color">texture/mur3.png</TEXTURE>
-		<TEXTURE id="mur3_normal" type="normal">texture/mur3_normal.png</TEXTURE>
-		<TEXTURE id="toit1" type="color">texture/toit1.png</TEXTURE>
-		<TEXTURE id="toit1_normal" type="normal">texture/toit1_normal.png</TEXTURE>
-		<TEXTURE id="pave2" type="color">texture/pave2.png</TEXTURE>
-		<TEXTURE id="pave2_normal" type="normal">texture/pave2_normal.png</TEXTURE>
-		<TEXTURE id="pierre2" type="color">texture/pierre2.png</TEXTURE>
-		<TEXTURE id="pierre2_normal" type="normal">texture/pierre2_normal.png</TEXTURE>
-		<TEXTURE id="pierre3" type="color">texture/pierre3.png</TEXTURE>
-		<TEXTURE id="pierre3_normal" type="normal">texture/pierre3_normal.png</TEXTURE>
-		<TEXTURE id="sol3" type="color">texture/sol3.png</TEXTURE>
-		<TEXTURE id="marbre1" type="color">texture/marbre1.png</TEXTURE>
-		<TEXTURE id="bois2" type="color">texture/bois2.png</TEXTURE>
-		<TEXTURE id="sol5" type="color">texture/sol5.png</TEXTURE>
-		<TEXTURE id="sol4" type="color">texture/sol4.png</TEXTURE>
-		<TEXTURE id="sol4_normal" type="normal">texture/sol4_normal.png</TEXTURE>
-		<TEXTURE id="toit2" type="color">texture/toit2.png</TEXTURE>
-		<TEXTURE id="toit2_normal" type="normal">texture/toit2_normal.png</TEXTURE>
-		<TEXTURE id="bois1" type="color">texture/bois1.png</TEXTURE>
-		<TEXTURE id="skyTex" type="color">texture/skybox3_texture.png</TEXTURE>
+		<TEXTURE id="sable1" type="color">sable1.png</TEXTURE>
+		<TEXTURE id="herbe1" type="color">herbe1.png</TEXTURE>
+		<TEXTURE id="mur_pierre1" type="color">mur_pierre1.png</TEXTURE>
+		<TEXTURE id="mur_pierre1_normal" type="normal">mur_pierre1_normal.png</TEXTURE>
+		<TEXTURE id="mur2" type="color">mur2.png</TEXTURE>
+		<TEXTURE id="mur2_normal" type="normal">mur2_normal.png</TEXTURE>
+		<TEXTURE id="mur3" type="color">mur3.png</TEXTURE>
+		<TEXTURE id="mur3_normal" type="normal">mur3_normal.png</TEXTURE>
+		<TEXTURE id="toit1" type="color">toit1.png</TEXTURE>
+		<TEXTURE id="toit1_normal" type="normal">toit1_normal.png</TEXTURE>
+		<TEXTURE id="pave2" type="color">pave2.png</TEXTURE>
+		<TEXTURE id="pave2_normal" type="normal">pave2_normal.png</TEXTURE>
+		<TEXTURE id="pierre2" type="color">pierre2.png</TEXTURE>
+		<TEXTURE id="pierre2_normal" type="normal">pierre2_normal.png</TEXTURE>
+		<TEXTURE id="pierre3" type="color">pierre3.png</TEXTURE>
+		<TEXTURE id="pierre3_normal" type="normal">pierre3_normal.png</TEXTURE>
+		<TEXTURE id="sol3" type="color">sol3.png</TEXTURE>
+		<TEXTURE id="marbre1" type="color">marbre1.png</TEXTURE>
+		<TEXTURE id="bois2" type="color">bois2.png</TEXTURE>
+		<TEXTURE id="sol5" type="color">sol5.png</TEXTURE>
+		<TEXTURE id="sol4" type="color">sol4.png</TEXTURE>
+		<TEXTURE id="sol4_normal" type="normal">sol4_normal.png</TEXTURE>
+		<TEXTURE id="toit2" type="color">toit2.png</TEXTURE>
+		<TEXTURE id="toit2_normal" type="normal">toit2_normal.png</TEXTURE>
+		<TEXTURE id="bois1" type="color">bois1.png</TEXTURE>
+		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
@@ -81,7 +81,7 @@
 		<SHAPE id="palais6" type="js" uv="1.0,1.0" tex="toit2,toit2_normal">palais_v01_toiture()</SHAPE>
 	</SHAPES>
 
-	<ROOT skybox="skyTex" skysize="800.0" skyshader="texProg" camera="walk" navmesh='sol_route()'>
+	<ROOT skybox="skyTex" skysize="800.0" skyshader="texProg" camera="walk" navmesh="ground_road">
 
 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_ground_road" shader="texDiffProg">ground_road</OBJECT3D>
