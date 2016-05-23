@@ -21,7 +21,7 @@ class atomicGLWalkCamera {
   // -------------------------------------------------
   // camera position
   this.xc = 0.0 ;
-  this.yc = 3.0 ;
+  this.yc = 2.0 ;
   this.zc = 0.0 ;
 
   // camera orientation

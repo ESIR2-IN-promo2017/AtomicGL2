@@ -118,7 +118,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*pointLights[i].vColor*vColor  + Ks*specularLightWeight*pointLights[i].vColor*vColor) / distance;
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor  + Ks*specularLightWeight*pointLights[i].color*specColor) / distance;
 				}
 
 
@@ -139,7 +139,7 @@
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 					// light color
-					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].vColor*vColor + Ks*specularLightWeight*directionnalLights[i].vColor*vColor);
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*vColor + Ks*specularLightWeight*directionnalLights[i].color*specColor);
 				}
 
 
@@ -171,7 +171,7 @@
 						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*spotLights[i].vColor*vColor + Ks*specularLightWeight*spotLights[i].vColor*vColor) / distance;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*vColor + Ks*specularLightWeight*spotLights[i].color*specColor) / distance;
 					}
 				}
 
