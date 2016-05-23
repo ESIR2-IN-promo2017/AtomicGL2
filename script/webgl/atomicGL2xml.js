@@ -586,7 +586,7 @@ class atomicGL2xml {
 
 				// node
 				// JS6
-				node = new atomicGL2SGtransform("transform",id);
+				node = new atomicGL2SGtransform(id);
 				node.setTransform([tx,ty,tz],[ax,ay,az],theta);
 				s.addChild(node);
 			break;

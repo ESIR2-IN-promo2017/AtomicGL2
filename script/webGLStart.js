@@ -36,6 +36,8 @@ function nextFrame() {
 function animate() {
 	// increase time
 	sceneClock.tick();
+
+	var transformCube = AGL.scenegraph.findNode("transform_cube");
 }
 
 // KEYBOARD
