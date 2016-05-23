@@ -286,9 +286,9 @@ class atomicGL2xml {
 			catch(e){
 				try{
 		            var SPHEREcolor	= SPHERE.getAttribute("color").split(",");
-		            var r 			= parseFloat(CUBEcolor[0]);
-		            var g 			= parseFloat(CUBEcolor[1]);
-		            var b 			= parseFloat(CUBEcolor[2]);
+		            var r 			= parseFloat(SPHEREcolor[0]);
+		            var g 			= parseFloat(SPHEREcolor[1]);
+		            var b 			= parseFloat(SPHEREcolor[2]);
 
 		            var rgb 		= [r,g,b];
 		            var colorParameters = "color";					
@@ -329,8 +329,8 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	// CUBE
-    for (var i=0; i < listCUBE.length ; i++){
+		// CUBE
+	    for (var i=0; i < listCUBE.length ; i++){
 			var CUBE 		= listCUBE[i];
 			var CUBEId   	= CUBE.getAttribute("id");
 			var CUBEHeight  = parseFloat(CUBE.getAttribute("height"));
@@ -414,9 +414,9 @@ class atomicGL2xml {
 			catch(e){
 				try{
 					var CYLINDERcolor   = CYLINDER.getAttribute("color").split(",");
-					var r               = parseFloat(CUBEcolor[0]);
-					var g               = parseFloat(CUBEcolor[1]);
-					var b               = parseFloat(CUBEcolor[2]);
+					var r               = parseFloat(CYLINDERcolor[0]);
+					var g               = parseFloat(CYLINDERcolor[1]);
+					var b               = parseFloat(CYLINDERcolor[2]);
 					
 					var rgb             = [r,g,b];
 					var colorParameters = "color";					
@@ -478,9 +478,9 @@ class atomicGL2xml {
 			catch(e){
 				try{
 					var XYPLANEcolor   = XYPLANE.getAttribute("color").split(",");
-					var r               = parseFloat(CUBEcolor[0]);
-					var g               = parseFloat(CUBEcolor[1]);
-					var b               = parseFloat(CUBEcolor[2]);
+					var r               = parseFloat(XYPLANEcolor[0]);
+					var g               = parseFloat(XYPLANEcolor[1]);
+					var b               = parseFloat(XYPLANEcolor[2]);
 					
 					var rgb             = [r,g,b];
 					var colorParameters = "color";	

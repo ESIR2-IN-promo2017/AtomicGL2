@@ -21,15 +21,19 @@
 	<SHAPES>
 		<CUBE id="NavMesh" height="100" width="100" depth="100" tex="herbe1" uv="1.0,1.0"></CUBE>
 		<CUBE id="testCube" height="5" width="5" depth="5" color="1.0,0.0,0.0"></CUBE>
-		<SPHERE id="testSphere" rad="10" lat="100" long="100" tex="herbe1" uv="1.0,1.0"></SPHERE>
+		<SPHERE id="testSphere" rad="10" lat="100" long="100" color="1.0,0.0,0.0"></SPHERE>
+		<CYLINDER id="testCylinder" rad="10" height="100" lat="10" long="10" color="1.0,0.0,0.0"></CYLINDER>
+		<XYPLANE id="testXYPlane" height="10" width="10" xrow="10" yrow="10" color="1.0,0.0,0.0"></XYPLANE>
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
 		<!-- <TRANSFORM id="transform_ground" translate="0.0,-2.0,-10.0" rotaxis="1.0,0.0,0.0" angle="90.0"> -->
 			<!-- <OBJECT3D id="obj_ground" shader="textProg">ground</OBJECT3D> -->
 			<!-- <TRANSFORM id="transform_cube" translate="0.0,-2.0,0.0" rotaxis="1.0,0.0,0.0" angle="0.0"> -->
-				<OBJECT3D id="obj_testCube" shader="colorProg">testCube</OBJECT3D>
-				<!-- <OBJECT3D id="obj_testSphere" shader="textProg">testSphere</OBJECT3D> -->
+				<!-- <OBJECT3D id="obj_testCube" shader="colorProg">testCube</OBJECT3D> -->
+				<!-- <OBJECT3D id="obj_testSphere" shader="colorProg">testSphere</OBJECT3D> -->
+				<!-- <OBJECT3D id="obj_testCylinder" shader="colorProg">testCylinder</OBJECT3D> -->
+				<OBJECT3D id="obj_testXYPlane" shader="colorProg">testXYPlane</OBJECT3D>
 			<!-- </TRANSFORM> -->
 		<!-- </TRANSFORM> -->
 	</ROOT>
