@@ -101,16 +101,6 @@ class atomicGL2Light{
         return this.constructor ;
     }
 
-<<<<<<< HEAD
-    draw(AMS)
-    { 
-        if(this.position != null)
-        {
-            this.position[0] = AMS.mvMatrix[12];
-            this.position[1] = AMS.mvMatrix[13];
-            this.position[2] = AMS.mvMatrix[14];
-        }
-=======
     draw(AMS){
 		// var vPosition = [this.position[0], this.position[1], this.position[2], 1.0];
 		//
@@ -137,6 +127,5 @@ class atomicGL2Light{
 		// this.position[2] = newPosition[2]/newPosition[3];
 		//
         // console.log(this.position);
->>>>>>> 19950d7a1a485a7bedb287c428fc30f32c3791e9
     }
 }

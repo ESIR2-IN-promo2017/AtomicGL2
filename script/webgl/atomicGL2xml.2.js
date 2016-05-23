@@ -378,10 +378,10 @@ class atomicGL2xml {
       //
       var XYPLANE     	= listXYPLANE[i];
       var XYPLANEId   	= XYPLANE.getAttribute("id");
-<<<<<<< HEAD
+
       var XYPLANEType 	= XYPLANE.getAttribute("type");
       // only one GEOMETRY
-      var GEOMETRY  	= XYPLANE.getElementsByTagName("GEOMETRY")[0];
+/*      var GEOMETRY  	= XYPLANE.getElementsByTagName("GEOMETRY")[0];
       var GEOId     	= GEOMETRY.getAttribute("id");
       var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
       var GEOWidth 		= parseFloat(GEOMETRY.getAttribute("width"));
@@ -389,8 +389,8 @@ class atomicGL2xml {
       var GEOYRow   	= parseFloat(GEOMETRY.getAttribute("yrow"));
       var GEOuv     	= GEOMETRY.getAttribute("uv");
       var u         	= parseFloat(GEOuv.split(",")[0]);
-      var v         	= parseFloat(GEOuv.split(",")[1]);
-=======
+      var v 	       	= parseFloat(GEOuv.split(",")[1]);
+*/
       var XYPLANEHeight = parseFloat(XYPLANE.getAttribute("height"));
       var XYPLANEWidth 	= parseFloat(XYPLANE.getAttribute("width"));
       var XYPLANEXRow   = parseFloat(XYPLANE.getAttribute("xrow"));
@@ -399,7 +399,7 @@ class atomicGL2xml {
       var XYPLANEuv     = XYPLANE.getAttribute("uv");
       var u         	= parseFloat(XYPLANEuv.split(",")[0]);
       var v         	= parseFloat(XYPLANEuv.split(",")[1]);
->>>>>>> 19950d7a1a485a7bedb287c428fc30f32c3791e9
+
 
       // create shape
       var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
