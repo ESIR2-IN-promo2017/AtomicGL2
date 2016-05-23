@@ -15,7 +15,7 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 	// rthis.radius:			float
 	// lthis.latitudeBands: init
 	// lthis.longitudeBands: int
-	constructor(name,radius, latitudeBands,longitudeBands,uu,vv){
+	constructor(name,radius,latitudeBands,longitudeBands,uu,vv){
 		super(name);
 
 		// size

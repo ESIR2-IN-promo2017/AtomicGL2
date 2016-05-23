@@ -300,7 +300,7 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	  // CUBE
+	// CUBE
     for (var i=0; i < listCUBE.length ; i++){
 			var CUBE 		= listCUBE[i];
 			var CUBEId   	= CUBE.getAttribute("id");

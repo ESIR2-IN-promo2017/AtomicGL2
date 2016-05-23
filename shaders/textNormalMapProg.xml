@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="textNormalMapProg">
+	<VERTEX>
+		// vertex shader
+		// ------------------------------------------------------
+		// texture shader per fragment
+		// ------------------------------------------------------
+		// lights nb: 1
+		// ------------------------------------------------------
+
+		// attributes inputs  (vertex arrays)
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
+			attribute vec3 aVertexNormal;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			// uniform matrices
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+		// output
+		<OUTPUT>
+	    void main(void) {
+	    	// vNormal
+			Normal = uNMatrix * aVertexNormal;
+			vPosition = vec4(aVertexPosition, 1.0);
+
+			gl_Position = uPMatrix * uMVMatrix * vPosition;
+	        vTextureCoord = aVertexTexCoord;
+	    }
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+ 				precision highp float;
+ 			#endif
+		</PRECISION>
+		// fragment shader
+		// ------------------------------------------------------
+		// texture shader per fragment
+		// ------------------------------------------------------
+		// lights nb: 1
+		// ------------------------------------------------------
+
+    // Uniform
+   	<UNIFORMS>
+	  	uniform sampler2D uSampler0;
+			uniform sampler2D uSampler1;
+
+			//point light ie omni dir:  location, color
+			uniform vec3 PointLightPosition;
+			uniform vec3 PointLightColor;
+			uniform float PointLightIntensity;
+
+			uniform vec3 DirecionnalLightColor;
+			uniform vec3 DirecionnalLightDirection;
+
+			uniform vec3 SpotLightColor;
+			uniform vec3 SpotLightPosition;
+			uniform vec3 SpotLightDirection;
+			uniform float SpotLightRadius;
+
+			uniform vec3 SpotLight2Color;
+			uniform vec3 SpotLight2Position;
+			uniform vec3 SpotLight2Direction;
+			uniform float SpotLight2Radius;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+			varying vec3 vNormal;
+		</VARYING>
+
+		<OUTPUT>
+			// local constant
+			// Kd: diffuse coeff
+			float Kd = 1.0 ;
+			float Ks = 0.8 ;
+			float sh = 3.0 ;
+
+			// specular color
+			vec3 specColor = vec3(1.0,1.0,1.0);
+
+			void main(void) {
+				// texture color
+				vec4 texColor = texture2D(uSampler1, vTextureCoord);
+
+				// eye direction
+				vec3 eyeDirection = normalize(-vPosition.xyz);
+
+				// normalize normal
+				vec3 oldNormal = normalize(vNormal);
+
+				// new normal in tangent space
+				vec3 newNormalTS = normalize(2.0 * texture2D(uSampler0, vTextureCoord).xyz - 1.0) ;
+				// newNormalTS *= 2.0;
+
+				// TS to View
+				vec3 biTangent = cross(oldNormal,vec3(0.0,0.0,1.0));
+
+				// test tangent
+				if (dot(biTangent,biTangent) == 0.0)
+				{
+					biTangent = cross(oldNormal,vec3(0.0,1.0,0.0));
+				}
+
+				vec3 tangent =  cross(biTangent,oldNormal);
+
+				// no transpose
+				vec3 u1 = tangent ;
+				vec3 u2 = biTangent;
+				vec3 u3 = oldNormal;
+
+				// TS to view matrix
+				mat3 TBN = mat3(u1,u2,u3);
+
+				// transform normal
+				vec3 normal = TBN*newNormalTS;
+
+
+				//////////////////
+				// Point Lights //
+				//////////////////
+				vec3 lightDirection = normalize(PointLightPosition - vPosition.xyz);
+
+				// distance
+				float distance = sqrt(pow(PointLightPosition.x-vPosition.x,2.0) + pow(PointLightPosition.y-vPosition.y,2.0) + pow(PointLightPosition.z-vPosition.z,2.0));
+
+				// diffuse term
+				float diffuseLightWeight = max(dot(normalize(vNormal), lightDirection), 0.0) * PointLightIntensity;
+
+				// reflection direction
+				vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+
+				// specular term
+				float specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+				// light color
+				vec3 lightColor = (Kd*diffuseLightWeight*PointLightColor*texColor.rgb);
+
+
+				////////////////////////
+				// Directional Lights //
+				////////////////////////
+				lightDirection = normalize(-DirecionnalLightDirection.xyz);
+
+				// diffuse term
+				diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+
+				// reflection direction
+				reflectDirection = normalize(reflect(-lightDirection,normal));
+
+				// specular term
+				specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+				// light color
+				lightColor += (Kd*diffuseLightWeight*DirecionnalLightColor*texColor.rgb + Ks*specularLightWeight*DirecionnalLightColor*texColor.rgb);
+
+
+				/////////////////
+				// Spot Lights //
+				/////////////////
+				lightDirection = normalize(SpotLightPosition - vPosition.xyz);
+
+				float factor = (SpotLightPosition.y / SpotLightDirection.y) - vPosition.y;
+				vec3 longDir = SpotLightDirection.xyz * factor;
+				vec3 centerShower = SpotLightPosition.xyz + longDir;
+
+				distance = sqrt(pow(SpotLightPosition.x-vPosition.x,2.0) +	pow(SpotLightPosition.y-vPosition.y,2.0) + pow(SpotLightPosition.z-vPosition.z,2.0));
+
+				float planDistance = sqrt(pow(centerShower.x-vPosition.x,2.0) + pow(centerShower.z-vPosition.z,2.0));
+				float planRadius = distance*SpotLightRadius;
+
+				if(planRadius > planDistance)
+				{
+					// diffuse term
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+
+					// reflection direction
+					reflectDirection = normalize(reflect(-lightDirection,normal));
+
+					// specular term
+					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+					// light color
+					lightColor += (Kd*diffuseLightWeight*SpotLightColor*texColor.rgb + Ks*specularLightWeight*SpotLightColor*texColor.rgb) / distance;
+				}
+
+
+				///////////////////
+				// Spot Lights 2 //
+				///////////////////
+				lightDirection = normalize(SpotLight2Position - vPosition.xyz);
+
+				factor = (SpotLight2Position.y / SpotLight2Direction.y) - vPosition.y;
+				longDir = SpotLight2Direction.xyz * factor;
+				centerShower = SpotLight2Position.xyz + longDir;
+
+				distance = sqrt(pow(SpotLight2Position.x-vPosition.x,2.0) +	pow(SpotLight2Position.y-vPosition.y,2.0) + pow(SpotLight2Position.z-vPosition.z,2.0));
+
+				planDistance = sqrt(pow(centerShower.x-vPosition.x,2.0) + pow(centerShower.z-vPosition.z,2.0));
+				planRadius = distance*SpotLight2Radius / 10.0;
+
+				if(planRadius > planDistance)
+				{
+					// diffuse term
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0);
+
+					// reflection direction
+					reflectDirection = normalize(reflect(-lightDirection,normal));
+
+					// specular term
+					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+
+					// light color
+					lightColor += (Kd*diffuseLightWeight*SpotLight2Color*texColor.rgb + Ks*specularLightWeight*SpotLight2Color*texColor.rgb) / distance;
+				}
+
+	      gl_FragColor = vec4(lightColor,1.0);
+	    }
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>

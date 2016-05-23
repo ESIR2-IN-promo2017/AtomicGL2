@@ -7,32 +7,46 @@
 	</LIGHTS>
 
 	<SHADERS>
+		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
+
+		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
+		
+		<XMATSHADER file="shaders/deformationProg.xml">deformationProg</XMATSHADER>
+		
 		<XMATSHADER id="textProg">shaders/textProg.xml</XMATSHADER>
+		
 		<XMATSHADER id="textDiffProg">shaders/textDiffProg.xml</XMATSHADER>
+		
 		<XMATSHADER id="textPhongProg">shaders/textPhongProg.xml</XMATSHADER>
+		
 		<XMATSHADER id="textDiffNormalMapProg">shaders/textDiffNormalMapProg.xml</XMATSHADER>
-	</SHADERS>
 
-	<TEXTURES>
-		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
-		<TEXTURE id="sable1" type="color">texture/sable1.png</TEXTURE>
-		<TEXTURE id="herbe1" type="color">texture/herbe1.png</TEXTURE>
-		<TEXTURE id="herbe1_normal" type="color">texture/herbe1_normal.png</TEXTURE>
-		<TEXTURE id="crate1" type="color">texture/crate1.png</TEXTURE>
-		<TEXTURE id="mur_pierre1" type="color">texture/mur_pierre1.png</TEXTURE>
-	</TEXTURES>
+		<SHAPE id="ground_sand" type="js">
+			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_herbe()</GEOMETRY>
+			<TEXTID>herbe1</TEXTID>
+		</SHAPE>
 
-	<SHAPES>
-		<SHAPE id="ground_sand" type="js" uv="0.1,0.1" tex="herbe1,herbe1_normal">sol_herbe()</SHAPE>
-		<SHAPE id="sexy_lady" type="obj" uv="1.0,1.0" tex="herbe1">sexylady.obj</SHAPE>
-		<SPHERE id="sphere" rad="1" lat="60" long="60" uv="3,3" tex="mur_pierre1"></SPHERE>
+		<SHAPE id="sexy_lady" type="obj">
+			<GEOMETRY id="sexy_lady_obj" uv="1.0,1.0">sexylady.obj</GEOMETRY>
+			<TEXTID>herbe1</TEXTID>
+		</SHAPE>
+
+		<SPHERE id="sphere" type="js">
+			<GEOMETRY id="sphere_toto" rad="1" lat="60" long="60" uv="3,3"></GEOMETRY>
+			<TEXTID>mur_pierre1</TEXTID>
+		</SPHERE>
 	</SHAPES>
 
-	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_herbe()'>
-		<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<OBJECT3D id="obj_sol" shader="textDiffProg">ground_sand</OBJECT3D>
-			<TRANSFORM id="first_light" translate="10.0,0.0,-5.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<LIGHT id="cameraLight">PointLight0</LIGHT>
+	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_herbe()'>
+ 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_sol" shader="textDiffProg">ground_sand</OBJECT3D>
+				<TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+						<OBJECT3D id="obj_sphere" shader="deformationProg">sphere</OBJECT3D>
+						<LIGHT id="SpotLight0"></LIGHT>
+				</TRANSFORM>
+			</TRANSFORM>
+			<TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
+					<OBJECT3D id="obj_sexy_lady" shader="textDiffProg">sexy_lady</OBJECT3D>
 			</TRANSFORM>
 			<!-- <TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_toto" shader="textPhongProg">sphere</OBJECT3D>
