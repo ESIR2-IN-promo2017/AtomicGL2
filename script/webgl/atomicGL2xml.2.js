@@ -212,27 +212,29 @@ class atomicGL2xml {
 
 	// shapes
 	shapes(AGL){
-	// <SHAPE id="shape0" type="obj">
-	//   <GEOMETRY id="mesh1" uv="1.0,1.0">mesh1()</GEOMETRY>
-	//   <TEXID>test</TEXID>
-	//   <TEXTID>test_normal</TEXTID>
-	// </SHAPE>
-	var listSHAPE = this.dom.getElementsByTagName("SHAPE");
-    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
-    var listCUBE = this.dom.getElementsByTagName("CUBE");
-    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
-    var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
+		var listSHAPE = this.dom.getElementsByTagName("SHAPE");
+	    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
+	    var listCUBE = this.dom.getElementsByTagName("CUBE");
+	    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
+	    var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
 
-    // SHAPE : Object3D
-    for (var i=0; i < listSHAPE.length ; i++){
-			//
+	    for (var i=0; i < listSHAPE.length ; i++){
+	    	// SHAPE : Object3D
 			var SHAPE     = listSHAPE[i];
 			var SHAPEId   = SHAPE.getAttribute("id");
 			var SHAPEType = SHAPE.getAttribute("type");
-            var SHAPETex  = SHAPE.getAttribute("tex").split(",");
-            var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
-            var u         = parseFloat(SHAPEuv[0]);
-            var v         = parseFloat(SHAPEuv[1]);
+			
+			try{
+	            var SHAPETex  = SHAPE.getAttribute("tex").split(",");
+	            var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
+	            var u         = parseFloat(SHAPEuv[0]);
+	            var v         = parseFloat(SHAPEuv[1]);
+			}
+
+			catch(e){
+				alert("atomicGLxml::shapes ("+SHAPEId+") texture parameters not found!");
+				continue;
+			}
 
             var SHAPEMesh = SHAPE.childNodes[0].data ;
 
@@ -264,36 +266,63 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-    // SPHERE
-    for (var i=0; i < listSPHERE.length ; i++){
-			//
+	    // SPHERE
+	    for (var i=0; i < listSPHERE.length ; i++){
 			var SPHERE     = listSPHERE[i];
 			var SPHEREId   = SPHERE.getAttribute("id");
 			var SPHERERad  = parseFloat(SPHERE.getAttribute("rad"));
 			var SPHERELat  = parseFloat(SPHERE.getAttribute("lat"));
 			var SPHERELong = parseFloat(SPHERE.getAttribute("long"));
-            var SPHERETex  = SPHERE.getAttribute("tex").split(",");
-            var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
-            var u          = parseFloat(SPHEREuv[0]);
-            var v          = parseFloat(SPHEREuv[1]);
+
+			try{
+	            var SPHERETex  = SPHERE.getAttribute("tex").split(",");
+	            var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
+	            var u          = parseFloat(SPHEREuv[0]);
+	            var v          = parseFloat(SPHEREuv[1]);	
+
+	            var colorParameters = "texture";			
+			}
+
+			catch(e){
+				try{
+		            var SPHEREcolor	= SPHERE.getAttribute("color").split(",");
+		            var r 			= parseFloat(CUBEcolor[0]);
+		            var g 			= parseFloat(CUBEcolor[1]);
+		            var b 			= parseFloat(CUBEcolor[2]);
+
+		            var rgb 		= [r,g,b];
+		            var colorParameters = "color";					
+				}
+
+				catch(e){
+					alert("/!\\ atomicGLxml::sphere ("+SPHEREId+") texture parameters not found! /!\\");
+					continue;
+				}
+			}
 
 			// create shape
 			var ss = new atomicGL2Sphere(SPHEREId, SPHERERad, SPHERELat, SPHERELong, u, v);
 
-			// textures
-			for (var j=0; j < SPHERETex.length ; j++)
+			if(colorParameters == "texture")
 			{
-				var tid = SPHERETex[j];
+				// textures
+				for (var j=0; j < SPHERETex.length ; j++)
+				{
+					var tid = SPHERETex[j];
 
-				// texture index in AGL
-				var AGLtid = AGL.indexOfTexture(tid);
+					// texture index in AGL
+					var AGLtid = AGL.indexOfTexture(tid);
 
-				if (AGLtid != -1)
-					ss.pushTexture(AGL.textures[AGLtid]);
+					if (AGLtid != -1)
+						ss.pushTexture(AGL.textures[AGLtid]);
 
-				else
-					alert("atomicGLxml::shapes ("+SPHEREId+") texture: "+tid+" not found !");
+					else
+						alert("atomicGLxml::shapes ("+SPHEREId+") texture: "+tid+" not found !");
+				}
 			}
+
+			else if(colorParameters == "color")
+				ss.setFaceColor("All",rgb);
 
 			// init shape buffer and add it to context
 			ss.initGLBuffers(AGL);
@@ -329,7 +358,7 @@ class atomicGL2xml {
 				}
 
 				catch(e){
-					console.log("/!\\Forgot color/texture parameters/!\\ on Cube: " + CUBEId);
+					alert("/!\\ atomicGLxml::sphere ("+CUBEId+") texture parameters not found! /!\\");
 					continue;
 				}
 			}
@@ -372,28 +401,56 @@ class atomicGL2xml {
 			var CYLINDERHeight 	= parseFloat(CYLINDER.getAttribute("height"));
 			var CYLINDERLat   	= parseFloat(CYLINDER.getAttribute("lat"));
 			var CYLINDERLong   	= parseFloat(CYLINDER.getAttribute("long"));
-            var CYLINDERTex     = CYLINDER.getAttribute("tex").split(",");
-            var CYLINDERuv     	= CYLINDER.getAttribute("uv").split(",");
-			var u         	    = parseFloat(CYLINDERuv[0]);
-			var v         	    = parseFloat(CYLINDERuv[1]);
+
+			try{
+	            var CYLINDERTex     = CYLINDER.getAttribute("tex").split(",");
+	            var CYLINDERuv     	= CYLINDER.getAttribute("uv").split(",");
+				var u         	    = parseFloat(CYLINDERuv[0]);
+				var v         	    = parseFloat(CYLINDERuv[1]);
+
+				colorParameters = "texture";
+			}
+
+			catch(e){
+				try{
+					var CYLINDERcolor   = CYLINDER.getAttribute("color").split(",");
+					var r               = parseFloat(CUBEcolor[0]);
+					var g               = parseFloat(CUBEcolor[1]);
+					var b               = parseFloat(CUBEcolor[2]);
+					
+					var rgb             = [r,g,b];
+					var colorParameters = "color";					
+				}
+
+				catch(e){
+					alert("/!\\ atomicGLxml::sphere ("+CYLINDERId+") texture parameters not found! /!\\");
+					continue;
+				}
+			}
 
 			// create shape
 			var ss = new atomicGL2Cylinder(CYLINDERId, CYLINDERRad, CYLINDERHeight, CYLINDERLat, CYLINDERLong, u, v);
 
-			// textures
-			for (var j=0; j < CYLINDERTex.length ; j++)
+			if(colorParameters == "texture")
 			{
-				var tid = CYLINDERTex[j];
+				// textures
+				for (var j=0; j < CYLINDERTex.length ; j++)
+				{
+					var tid = CYLINDERTex[j];
 
-				// texture index in AGL
-				var AGLtid = AGL.indexOfTexture(tid);
+					// texture index in AGL
+					var AGLtid = AGL.indexOfTexture(tid);
 
-				if (AGLtid != -1)
-					ss.pushTexture(AGL.textures[AGLtid]);
+					if (AGLtid != -1)
+						ss.pushTexture(AGL.textures[AGLtid]);
 
-				else
-					alert("atomicGLxml::shapes ("+CYLINDERId+") texture: "+tid+" not found !");
+					else
+						alert("atomicGLxml::shapes ("+CYLINDERId+") texture: "+tid+" not found !");
+				}
 			}
+
+			else if(colorParameters == "color")
+				ss.setFaceColor("All",rgb);
 
 			// init shape buffer and add it to context
 			ss.initGLBuffers(AGL);
@@ -408,28 +465,55 @@ class atomicGL2xml {
 			var XYPLANEWidth  = parseFloat(XYPLANE.getAttribute("width"));
 			var XYPLANEXRow   = parseFloat(XYPLANE.getAttribute("xrow"));
 			var XYPLANEYRow   = parseFloat(XYPLANE.getAttribute("yrow"));
-			var XYPLANETex    = XYPLANE.getAttribute("tex").split(",");
-			var XYPLANEuv     = XYPLANE.getAttribute("uv");
-			var u             = parseFloat(XYPLANEuv.split(",")[0]);
-			var v             = parseFloat(XYPLANEuv.split(",")[1]);
 
+			try{
+				var XYPLANETex    = XYPLANE.getAttribute("tex").split(",");
+				var XYPLANEuv     = XYPLANE.getAttribute("uv");
+				var u             = parseFloat(XYPLANEuv.split(",")[0]);
+				var v             = parseFloat(XYPLANEuv.split(",")[1]);
+			
+				colorParameters = "texture";
+			}
+
+			catch(e){
+				try{
+					var XYPLANEcolor   = XYPLANE.getAttribute("color").split(",");
+					var r               = parseFloat(CUBEcolor[0]);
+					var g               = parseFloat(CUBEcolor[1]);
+					var b               = parseFloat(CUBEcolor[2]);
+					
+					var rgb             = [r,g,b];
+					var colorParameters = "color";	
+				}
+
+				catch(e){
+					alert("/!\\ atomicGLxml::sphere ("+XYPLANEId+") texture parameters not found! /!\\");
+					continue;
+				}
+			}
 			// create shape
 			var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
 
-			// textures
-			for (var j=0; j < XYPLANETex.length ; j++)
+			if(colorParameters == "texture")
 			{
-			var tid = XYPLANETex[j];
+				// textures
+				for (var j=0; j < XYPLANETex.length ; j++)
+				{
+					var tid = XYPLANETex[j];
 
-			// texture index in AGL
-			var AGLtid = AGL.indexOfTexture(tid);
+					// texture index in AGL
+					var AGLtid = AGL.indexOfTexture(tid);
 
-			if (AGLtid != -1)
-			  ss.pushTexture(AGL.textures[AGLtid]);
+					if (AGLtid != -1)
+						ss.pushTexture(AGL.textures[AGLtid]);
 
-			else
-			  alert("atomicGLxml::shapes ("+XYPLANEId+") texture: "+tid+" not found !");
+					else
+						alert("atomicGLxml::shapes ("+XYPLANEId+") texture: "+tid+" not found !");
+				}
 			}
+
+			else if(colorParameters == "color")
+				ss.setFaceColor("All",rgb);
 
 			// init shape buffer and add it to context
 			ss.initGLBuffers(AGL);

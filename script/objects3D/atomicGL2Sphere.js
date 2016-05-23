@@ -69,61 +69,61 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 		//-----------------------------
 		// vertices, normals, colors, texCoord
 		for (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {
-				var theta = latNumber * Math.PI / this.latitudeBands;
-				var sinTheta = Math.sin(theta);
-				var cosTheta = Math.cos(theta);
+			var theta = latNumber * Math.PI / this.latitudeBands;
+			var sinTheta = Math.sin(theta);
+			var cosTheta = Math.cos(theta);
 
-				for (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {
-					var phi = longNumber * 2 * Math.PI / this.longitudeBands;
-					var sinPhi = Math.sin(phi);
-					var cosPhi = Math.cos(phi);
+			for (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {
+				var phi = longNumber * 2 * Math.PI / this.longitudeBands;
+				var sinPhi = Math.sin(phi);
+				var cosPhi = Math.cos(phi);
 
-					var x = cosPhi * sinTheta;
-					var y = cosTheta;
-					var z = sinPhi * sinTheta;
-					// normals
-					this.normalsArray.push(x);
-					this.normalsArray.push(y);
-					this.normalsArray.push(z);
-					// position
-					this.verticesArray.push(this.radius * x);
-					this.verticesArray.push(this.radius * y);
-					this.verticesArray.push(this.radius * z);
-					// color
-					this.colorsArray.push(0.8);
-					this.colorsArray.push(0.8);
-					this.colorsArray.push(0.8);
-					// uv
-					this.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);
-					this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);
-				}
+				var x = cosPhi * sinTheta;
+				var y = cosTheta;
+				var z = sinPhi * sinTheta;
+				// normals
+				this.normalsArray.push(x);
+				this.normalsArray.push(y);
+				this.normalsArray.push(z);
+				// position
+				this.verticesArray.push(this.radius * x);
+				this.verticesArray.push(this.radius * y);
+				this.verticesArray.push(this.radius * z);
+				// color
+				this.colorsArray.push(0.8);
+				this.colorsArray.push(0.8);
+				this.colorsArray.push(0.8);
+				// uv
+				this.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);
+				this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);
 			}
+		}
 
 		// index
 		for (var latNumber = 0; latNumber < this.latitudeBands; latNumber++) {
-				for (var longNumber = 0; longNumber < this.longitudeBands; longNumber++) {
-					var first = (latNumber * (this.longitudeBands + 1)) + longNumber;
-					var second = first + this.longitudeBands + 1;
-					this.vertexIndices.push(first);
-					this.vertexIndices.push(second);
-					this.vertexIndices.push(first + 1);
+			for (var longNumber = 0; longNumber < this.longitudeBands; longNumber++) {
+				var first = (latNumber * (this.longitudeBands + 1)) + longNumber;
+				var second = first + this.longitudeBands + 1;
+				this.vertexIndices.push(first);
+				this.vertexIndices.push(second);
+				this.vertexIndices.push(first + 1);
 
-					this.vertexIndices.push(second);
-					this.vertexIndices.push(second + 1);
-					this.vertexIndices.push(first + 1);
-				}
+				this.vertexIndices.push(second);
+				this.vertexIndices.push(second + 1);
+				this.vertexIndices.push(first + 1);
 			}
+		}
 
-		this.vertexPositionBufferItemSize = 3	;
-		this.vertexNormalBufferItemSize		= 3	;
-		this.vertexTexCoordBufferItemSize	= 2 ;
-		this.vertexColorBufferItemSize		= 3 ;
-		this.vertexIndexBufferItemSize 		= 1 ;
+		this.vertexPositionBufferItemSize = 3 ;
+		this.vertexNormalBufferItemSize   = 3 ;
+		this.vertexTexCoordBufferItemSize = 2 ;
+		this.vertexColorBufferItemSize    = 3 ;
+		this.vertexIndexBufferItemSize    = 1 ;
 
-		this.vertexPositionBufferNumItems	= this.verticesArray.length / 3 ;
-	  this.vertexNormalBufferNumItems		= this.normalsArray.length / 3 ;
+		this.vertexPositionBufferNumItems = this.verticesArray.length / 3 ;
+		this.vertexNormalBufferNumItems   = this.normalsArray.length / 3 ;
 		this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;
-		this.vertexColorBufferNumItems 		= this.colorsArray.length / 3 ;
-	  this.vertexIndexBufferNumItems 		= this.vertexIndices.length;
+		this.vertexColorBufferNumItems    = this.colorsArray.length / 3 ;
+		this.vertexIndexBufferNumItems    = this.vertexIndices.length;
 	}
 }
