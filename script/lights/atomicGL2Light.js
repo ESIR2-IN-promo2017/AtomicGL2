@@ -102,11 +102,9 @@ class atomicGL2Light {
     { 
         if(this.position != null)
         {
-            console.log(this.position);
             this.position[0] = AMS.mvMatrix[12];
             this.position[1] = AMS.mvMatrix[13];
             this.position[2] = AMS.mvMatrix[14];
-            console.log(this.position);
         }
     }
 }

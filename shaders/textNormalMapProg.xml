@@ -33,11 +33,11 @@
 		<OUTPUT>
 	    void main(void) {
 	    	// vNormal
-				vNormal = uNMatrix * aVertexNormal;
-				vPosition = vec4(aVertexPosition, 1.0);
+			Normal = uNMatrix * aVertexNormal;
+			vPosition = vec4(aVertexPosition, 1.0);
 
-				gl_Position = uPMatrix * uMVMatrix * vPosition;
-	      vTextureCoord = aVertexTexCoord;
+			gl_Position = uPMatrix * uMVMatrix * vPosition;
+	        vTextureCoord = aVertexTexCoord;
 	    }
 		</OUTPUT>
 	</VERTEX>

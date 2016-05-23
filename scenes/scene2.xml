@@ -6,6 +6,7 @@
 		<XMATSHADER file="shaders/texDiffProg.xml" nblight="1">texDiffProg</XMATSHADER>
 		<XMATSHADER file="shaders/texNormalMapProg.xml" nblight="1">texDiffNormalMapProg</XMATSHADER>
 		<XMATSHADER file="shaders/texCartoonNormalMapProg.xml" nblight="1">texCartoonNormalMapProg</XMATSHADER>
+		<XMATSHADER file="shaders/displacementMapProg.xml" nblight="1">displacementMapProg</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
@@ -13,7 +14,6 @@
 		<TEXTURE id="mur_pierre1_normal" type="normal">texture/mur_pierre1_normal.png</TEXTURE>
 		<TEXTURE id="pave2" type="color">texture/pave2.png</TEXTURE>
 		<TEXTURE id="pave2_normal" type="normal">texture/pave2_normal.png</TEXTURE>
-
 		<TEXTURE id="skyTex" type="color">texture/skybox_texture.png</TEXTURE>
 	</TEXTURES>
 

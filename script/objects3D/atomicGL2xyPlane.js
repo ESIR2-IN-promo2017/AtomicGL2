@@ -26,7 +26,7 @@
 
 
 class atomicGL2xyPlane extends atomicGL2Object3d {
-constructor(nname,hheight, wwidth,xxrow,yyrow,uu,vv){
+constructor(nname,hheight,wwidth,xxrow,yyrow,uu,vv){
 	// attributes
 	// -------------------------------------------------
 	// name

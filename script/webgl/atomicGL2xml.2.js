@@ -322,7 +322,7 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	  // CUBE
+	// CUBE
     for (var i=0; i < listCUBE.length ; i++){
 			//
 			var CUBE 		= listCUBE[i];
@@ -415,7 +415,7 @@ class atomicGL2xml {
       var GEOMETRY  	= XYPLANE.getElementsByTagName("GEOMETRY")[0];
       var GEOId     	= GEOMETRY.getAttribute("id");
       var GEOHeight  	= parseFloat(GEOMETRY.getAttribute("height"));
-      var GEOWidth 	= parseFloat(GEOMETRY.getAttribute("width"));
+      var GEOWidth 		= parseFloat(GEOMETRY.getAttribute("width"));
       var GEOXRow   	= parseFloat(GEOMETRY.getAttribute("xrow"));
       var GEOYRow   	= parseFloat(GEOMETRY.getAttribute("yrow"));
       var GEOuv     	= GEOMETRY.getAttribute("uv");
