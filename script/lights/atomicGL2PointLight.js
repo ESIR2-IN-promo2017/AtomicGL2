@@ -27,5 +27,8 @@ class atomicGL2PointLight extends atomicGL2Light{
      	* @type {Array[3]:float} position of the light
      	*/
 		this.position = position;
+		this.globalPosition[0] = position[0];
+		this.globalPosition[1] = position[1];
+		this.globalPosition[2] = position[2];
 	}
 }
