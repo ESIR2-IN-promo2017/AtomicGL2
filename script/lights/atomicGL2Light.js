@@ -55,7 +55,8 @@ class atomicGL2Light{
 	    /**
 	    * @type {Array[3]:float} direction of the light
 	    */
-	    this.direction = [0.0,0.0,0.0];
+		this.direction = [0.0,0.0,0.0];
+	    this.globalDirection = [0.0,0.0,0.0];
 
 		this.children = null;
 	}
@@ -103,58 +104,61 @@ class atomicGL2Light{
     }
 
     draw(AMS){
-		// var vPosition = [this.position[0], this.position[1], this.position[2], 1.0];
-		
-		/*var mvPosition = [0,0,0,0];
-		for(var i=0; i<4; i++){
-			var value = 0;
-			for(var k=0; k<4; k++){
-				value += AMS.mvMatrix[i*4 + k] * vPosition[k];
-			}
-			mvPosition[i] = value;
-		}*/
-		
-		// var newPosition = [0,0,0,0];
-		// for(var i=0; i<4; i++){
-		// 	var value = 0;
-		// 	for(var k=0; k<4; k++){
-		// 		value += AMS.pMatrix[i*4 + k] * mvPosition[k];
-		// 	}
-		// 	newPosition[i] = value;
-		// }
-		//
-		// this.position[0] = newPosition[0]/newPosition[3];
-        // this.position[1] = newPosition[1]/newPosition[3];
-		// this.position[2] = newPosition[2]/newPosition[3];
-		//
-        // console.log(this.position);
-
         var vPosition = [this.globalPosition[0], this.globalPosition[1], this.globalPosition[2], 1.0];
 
-        var result = [0,0,0,0];
+        var resultPosition = [0,0,0,0];
 
-        result[0] = AMS.mvMatrix[0]*vPosition[0]
+        resultPosition[0] = AMS.mvMatrix[0]*vPosition[0]
         		  + AMS.mvMatrix[4]*vPosition[1]
         		  + AMS.mvMatrix[8]*vPosition[2]
         		  + AMS.mvMatrix[12]*vPosition[3];
 
-        result[1] = AMS.mvMatrix[1]*vPosition[0]
+        resultPosition[1] = AMS.mvMatrix[1]*vPosition[0]
         		  + AMS.mvMatrix[5]*vPosition[1]
         		  + AMS.mvMatrix[9]*vPosition[2]
         		  + AMS.mvMatrix[13]*vPosition[3];
 
-        result[2] = AMS.mvMatrix[2]*vPosition[0]
+        resultPosition[2] = AMS.mvMatrix[2]*vPosition[0]
         		  + AMS.mvMatrix[6]*vPosition[1]
         		  + AMS.mvMatrix[10]*vPosition[2]
         		  + AMS.mvMatrix[14]*vPosition[3];
 
-        result[3] = AMS.mvMatrix[3]*vPosition[0]
-        		  + AMS.mvMatrix[7]*vPosition[1]
-        		  + AMS.mvMatrix[11]*vPosition[2]
-        		  + AMS.mvMatrix[15]*vPosition[3];
+        resultPosition[3] = AMS.mvMatrix[3]*vPosition[0]
+			  		+ AMS.mvMatrix[7]*vPosition[1]
+			  		+ AMS.mvMatrix[11]*vPosition[2]
+			  		+ AMS.mvMatrix[15]*vPosition[3];
 
-		this.position[0] = result[0]/result[3];
-		this.position[1] = result[1]/result[3];
-		this.position[2] = result[2]/result[3];
-    }	
+		this.position[0] = resultPosition[0]/resultPosition[3];
+		this.position[1] = resultPosition[1]/resultPosition[3];
+		this.position[2] = resultPosition[2]/resultPosition[3];
+
+
+		var vDirection = [this.globalDirection[0], this.globalDirection[1], this.globalDirection[2], 1.0];
+
+        var resultDirection = [0,0,0,0];
+
+        resultDirection[0] = AMS.mvMatrix[0]*vDirection[0]
+        		  + AMS.mvMatrix[4]*vDirection[1]
+        		  + AMS.mvMatrix[8]*vDirection[2]
+        		  + AMS.mvMatrix[12]*vDirection[3];
+
+        resultDirection[1] = AMS.mvMatrix[1]*vDirection[0]
+        		  + AMS.mvMatrix[5]*vDirection[1]
+        		  + AMS.mvMatrix[9]*vDirection[2]
+        		  + AMS.mvMatrix[13]*vDirection[3];
+
+        resultDirection[2] = AMS.mvMatrix[2]*vDirection[0]
+        		  + AMS.mvMatrix[6]*vDirection[1]
+        		  + AMS.mvMatrix[10]*vDirection[2]
+        		  + AMS.mvMatrix[14]*vDirection[3];
+
+        resultDirection[3] = AMS.mvMatrix[3]*vDirection[0]
+        		  + AMS.mvMatrix[7]*vDirection[1]
+        		  + AMS.mvMatrix[11]*vDirection[2]
+        		  + AMS.mvMatrix[15]*vDirection[3];
+
+		this.direction[0] = resultDirection[0]/resultDirection[3];
+		this.direction[1] = resultDirection[1]/resultDirection[3];
+		this.direction[2] = resultDirection[2]/resultDirection[3];
+    }
 }

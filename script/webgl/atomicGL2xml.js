@@ -216,7 +216,8 @@ class atomicGL2xml {
 	    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
 	    var listCUBE = this.dom.getElementsByTagName("CUBE");
 	    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
-	    var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
+        var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
+	    var listXZPLANE = this.dom.getElementsByTagName("XZPLANE");
 
 	    for (var i=0; i < listSHAPE.length ; i++){
 	    	// SHAPE : Object3D
@@ -494,7 +495,70 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	    // XYPLANE
+	    // XZPLANE
+	    for (var i=0; i < listXZPLANE.length ; i++){
+			var XZPLANE       = listXZPLANE[i];
+			var XZPLANEId     = XZPLANE.getAttribute("id");
+			var XZPLANEHeight = parseFloat(XZPLANE.getAttribute("height"));
+			var XZPLANEWidth  = parseFloat(XZPLANE.getAttribute("width"));
+			var XZPLANEXRow   = parseFloat(XZPLANE.getAttribute("xrow"));
+			var XZPLANEZRow   = parseFloat(XZPLANE.getAttribute("zrow"));
+
+			try{
+				var XZPLANETex    = XZPLANE.getAttribute("tex").split(",");
+				var XZPLANEuv     = XZPLANE.getAttribute("uv");
+				var u             = parseFloat(XZPLANEuv.split(",")[0]);
+				var v             = parseFloat(XZPLANEuv.split(",")[1]);
+
+				colorParameters = "texture";
+			}
+
+			catch(e){
+				try{
+					var XZPLANEcolor   = XZPLANE.getAttribute("color").split(",");
+					var r               = parseFloat(XZPLANEcolor[0]);
+					var g               = parseFloat(XZPLANEcolor[1]);
+					var b               = parseFloat(XZPLANEcolor[2]);
+
+					var rgb             = [r,g,b];
+					var colorParameters = "color";
+				}
+
+				catch(e){
+					alert("/!\\ atomicGLxml::xzplane ("+XZPLANEId+") texture/colors parameters not found! /!\\");
+					continue;
+				}
+			}
+			// create shape
+			var ss = new atomicGL2xzPlane(XZPLANEId, XZPLANEHeight, XZPLANEWidth, XZPLANEXRow, XZPLANEZRow, u, v);
+
+			if(colorParameters == "texture")
+			{
+				// textures
+				for (var j=0; j < XZPLANETex.length ; j++)
+				{
+					var tid = XZPLANETex[j];
+
+					// texture index in AGL
+					var AGLtid = AGL.indexOfTexture(tid);
+
+					if (AGLtid != -1)
+						ss.pushTexture(AGL.textures[AGLtid]);
+
+					else
+						alert("atomicGLxml::shapes ("+XZPLANEId+") texture: "+tid+" not found !");
+				}
+			}
+
+			else if(colorParameters == "color")
+				ss.setFaceColor("All",rgb);
+
+			// init shape buffer and add it to context
+			ss.initGLBuffers(AGL);
+			AGL.shapes.push(ss);
+	    }
+
+        // XYPLANE
 	    for (var i=0; i < listXYPLANE.length ; i++){
 			var XYPLANE       = listXYPLANE[i];
 			var XYPLANEId     = XYPLANE.getAttribute("id");
