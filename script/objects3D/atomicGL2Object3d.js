@@ -36,6 +36,9 @@ class atomicGL2Object3d{
 		// indexes
 		this.vertexIndices      = [];	
     
+    	// transparency
+    	this.transparency;
+
     	// OGL buffers
  		// buffers
 		this.vertexPositionBuffer	;
@@ -60,6 +63,11 @@ class atomicGL2Object3d{
 
 	// methods
 	// --------------------------------------------------
+
+	setTransparency(transparency){
+		this.transparency = transparency;
+	}
+
 
 	// pushTexture
 	// --------------------------
@@ -165,7 +173,16 @@ class atomicGL2Object3d{
 			}
 		}
 
+		if (this.transparency) {
+            AGL.gl.blendFunc(AGL.gl.SRC_ALPHA, AGL.gl.ONE);
+            AGL.gl.enable(AGL.gl.BLEND);
+            AGL.gl.disable(AGL.gl.DEPTH_TEST);
+        } 
 
+        else {
+            AGL.gl.disable(AGL.gl.BLEND);
+            AGL.gl.enable(AGL.gl.DEPTH_TEST);
+        }
 
 		// indexes
         AGL.gl.bindBuffer(AGL.gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);

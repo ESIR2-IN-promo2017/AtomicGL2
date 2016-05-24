@@ -381,12 +381,16 @@ class atomicGLSkyBox {
 			// console.log("atomicGLskyBox("+this.name+")::uniform: "+AGL.getShaderProgram(idProg).samplerUniform[i]+"->"+i);			
 			AGL.gl.uniform1i(AGL.getShaderProgram(idProg).samplerUniform[i], i);
 		}
+
+
+		AGL.gl.disable(AGL.gl.BLEND);
+        AGL.gl.enable(AGL.gl.DEPTH_TEST);
+
 		// indexes
         AGL.gl.bindBuffer(AGL.gl.ELEMENT_ARRAY_BUFFER, this.skyBoxVertexIndexBuffer);
-		
+
 		// draw skyBox
         AGL.gl.drawElements(AGL.gl.TRIANGLES, this.skyBoxVertexIndexBufferNumItems, AGL.gl.UNSIGNED_SHORT, 0);
-
 	}
 	//-----------------------------------------------------
 }

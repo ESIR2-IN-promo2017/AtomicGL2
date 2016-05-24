@@ -8,9 +8,9 @@
 	<SHADERS>
 		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
 		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
-		<XMATSHADER id="cartoonProg">cartoonProg.xml</XMATSHADER>
+		<!-- <XMATSHADER id="cartoonProg">cartoonProg.xml</XMATSHADER> -->
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
-		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
+		<!-- <XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER> -->
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
 		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
 		<XMATSHADER id="textPhongProg">textPhongProg.xml</XMATSHADER>
@@ -57,25 +57,25 @@
 				<OBJECT3D id="obj_Sphere2" shader="phongProg">phongSphere</OBJECT3D>
 			</TRANSFORM>
 
-			<TRANSFORM id="transform3" translate="9.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+<!-- 			<TRANSFORM id="transform3" translate="9.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_Sphere6" shader="cartoonProg">cartoonSphere</OBJECT3D>
+			</TRANSFORM> -->
+
+			<TRANSFORM id="transform4" translate="12.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere3" shader="textProg">textSphere</OBJECT3D>
 			</TRANSFORM>
 
-			<TRANSFORM id="transform4" translate="12.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_Sphere4" shader="textDiffProg">textDiffSphere</OBJECT3D>
-			</TRANSFORM>
-
 			<TRANSFORM id="transform5" translate="15.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_Sphere5" shader="textPhongProg">textPhongSphere</OBJECT3D>
+				<OBJECT3D id="obj_Sphere4" shader="textDiffProg">textDiffSphere</OBJECT3D>				
 			</TRANSFORM>
 
 			<TRANSFORM id="transform6" translate="18.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_Sphere6" shader="cartoonProg">cartoonSphere</OBJECT3D>
+				<OBJECT3D id="obj_Sphere5" shader="textPhongProg">textPhongSphere</OBJECT3D>
 			</TRANSFORM>
 
-			<TRANSFORM id="transform7" translate="21.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+<!-- 			<TRANSFORM id="transform7" translate="21.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere7" shader="deformationProg">deformationSphere</OBJECT3D>
-			</TRANSFORM>
+			</TRANSFORM> -->
 		</TRANSFORM>
 	</ROOT>
 </SCENE>

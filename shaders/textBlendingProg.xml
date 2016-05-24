@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="textBindingProg">
+	<VERTEX>
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec2 aVertexTexCoord;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+		</UNIFORMS>
+
+		<VARYING>
+		  varying vec2 vTextureCoord;
+		  varying vec4 vPosition;
+		</VARYING>
+
+		<OUTPUT>
+		    void main(void) {
+	    		// vNormal
+				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+
+				gl_Position = uPMatrix * vPosition;
+	      		vTextureCoord = aVertexTexCoord;
+	    	}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+
+		<UNIFORMS>
+			uniform sampler2D uSampler0;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying vec4 vPosition;
+		</VARYING>
+
+		<OUTPUT>
+			void main(void) {
+				// texture color
+				vec4 texColor = texture2D(uSampler0, vTextureCoord);
+				gl_FragColor = vec4(texColor.rgb,0.5);
+		    }
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
