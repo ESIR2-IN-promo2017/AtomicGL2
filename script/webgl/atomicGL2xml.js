@@ -167,7 +167,7 @@ class atomicGL2xml {
 			var SHAD        = listXMSHAD[i] ;
 			var file        = SHAD.childNodes[0].data ;
 			var id          = SHAD.getAttribute("id");
-
+			
 			// create shader and add it to context
 			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML('shaders/'+file)));
 
@@ -236,6 +236,14 @@ class atomicGL2xml {
 				continue;
 			}
 
+			try{
+				var transparency = !(("" + SHAPE.getAttribute("transparency")) == "false");
+			}
+
+			catch(e){
+				var transparency = false;
+			}
+
             var SHAPEMesh = SHAPE.childNodes[0].data ;
 
 			// create shape
@@ -243,6 +251,8 @@ class atomicGL2xml {
 				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+SHAPEMesh), u, v) ;
 			else if(SHAPEType == 'obj')
 				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objects/' + SHAPEMesh).obj, u, v) ;
+
+			ss.setTransparency(transparency);
 
             // load textures
 			for (var j=0; j < SHAPETex.length ; j++)
@@ -300,8 +310,17 @@ class atomicGL2xml {
 				}
 			}
 
+			try{
+				var transparency = !(("" + SPHERE.getAttribute("transparency")) == "false");
+			}
+
+			catch(e){
+				var transparency = false;
+			}
+
 			// create shape
 			var ss = new atomicGL2Sphere(SPHEREId, SPHERERad, SPHERELat, SPHERELong, u, v);
+			ss.setTransparency(transparency);
 
 			if(colorParameters == "texture")
 			{
@@ -363,9 +382,18 @@ class atomicGL2xml {
 				}
 			}
 
+			try{
+				var transparency = !(("" + CUBE.getAttribute("transparency")) == "false");
+			}
+
+			catch(e){
+				var transparency = false;
+			}
+
 
 			// create shape
 			var ss = new atomicGL2Cube(CUBEId, CUBEHeight, CUBEWidth, CUBEDepth, u, v);
+			ss.setTransparency(transparency);
 
 			if(colorParameters == "texture")
 			{
@@ -428,8 +456,17 @@ class atomicGL2xml {
 				}
 			}
 
+			try{
+				var transparency = !(("" + CYLINDER.getAttribute("transparency")) == "false");
+			}
+
+			catch(e){
+				var transparency = false;
+			}
+
 			// create shape
 			var ss = new atomicGL2Cylinder(CYLINDERId, CYLINDERRad, CYLINDERHeight, CYLINDERLat, CYLINDERLong, u, v);
+			ss.setTransparency(transparency);
 
 			if(colorParameters == "texture")
 			{
@@ -491,8 +528,19 @@ class atomicGL2xml {
 					continue;
 				}
 			}
+
+			try{
+				var transparency = !(("" + XYPLANE.getAttribute("transparency")) == "false");
+			}
+
+			catch(e){
+				var transparency = false;
+			}
+
+
 			// create shape
 			var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
+			ss.setTransparency(transparency);
 
 			if(colorParameters == "texture")
 			{

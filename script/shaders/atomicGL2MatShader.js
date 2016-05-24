@@ -169,7 +169,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		this.ambientColorUniform = AGL.gl.getUniformLocation(program, "uAmbientColor");
 
 		// textures
-		for (var i = 0; i < this.nbTex.lenght; i++)
+		for (var i = 0; i < this.nbTex; i++)
 			this.samplerUniform[i] = AGL.gl.getUniformLocation(program, this.getTextureID(i));
 
     	return program;

@@ -8,6 +8,7 @@
 
 	<SHADERS>
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
+		<XMATSHADER id="textProgBinding">textBlendingProg.xml</XMATSHADER>
 <!-- 		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
 		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
@@ -19,14 +20,14 @@
 		<TEXTURE id="herbe1" type="color">herbe1.png</TEXTURE>
 		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
 
-		<TEXTURE id="stone1" type="color">stone1.png</TEXTURE>
 		<TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE>		
+		<TEXTURE id="stone1" type="color">stone1.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
-		<CUBE id="NavMesh" height="1000" width="1000" depth="1000" color="1.0,1.0,0.0"></CUBE>
+		<CUBE id="NavMesh" height="1000" width="1000" depth="1000" color="1.0,1.0,0.0" transparency="false"></CUBE>
 		<!-- <SPHERE id="testSphere0" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE> -->
-		<CUBE id="testCube0" height="200" width="200" depth="20" tex="bumpMap,stone1" uv="1.0,1.0"></CUBE>
+		<CUBE id="testCube0" height="200" width="200" depth="20" tex="stone1" uv="1.0,1.0" transparency="true"></CUBE>
 		<!-- <CUBE id="testCube1" height="5" width="5" depth="5" color="0.0,1.0,0.0"></CUBE> -->
 		<!-- <SPHERE id="testSphere1" rad="2.5" lat="32" long="32" tex="herbe1" uv="1.0,1.0"></SPHERE> -->
 		<!-- <SPHERE id="testSphere" rad="10" lat="100" long="100" color="1.0,0.0,0.0"></SPHERE>
@@ -50,7 +51,7 @@
 		</TRANSFORM>
  -->
 		<TRANSFORM id="transform_cube0" translate="0.0,-10.0,-100.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-			<!-- <OBJECT3D id="obj_testCube0" shader="bumpMappingProg">testCube0</OBJECT3D> -->
+			<OBJECT3D id="obj_testCube0" shader="textProgBinding">testCube0</OBJECT3D>
 		</TRANSFORM>
 
 <!-- 		<TRANSFORM id="transform_cube1" translate="-6.0,0.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
