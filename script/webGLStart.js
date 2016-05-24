@@ -37,6 +37,8 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
+	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
+	transformSphere.angle += 0.1*sceneClock.get();
 	// var transformCube = AGL.scenegraph.findNode("transform_cube");
 	// transformCube.angle += 0.1*sceneClock.get();
 }

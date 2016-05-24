@@ -14,14 +14,16 @@
 
 		<VARYING>
 		  	varying vec3 vColor;
+		  	varying vec3 vPosition;
 		</VARYING>
 
 		<OUTPUT>
 		    void main(void) {
 		    	vColor = aVertexColor;
 
-	    		vec4 position = uMVMatrix * vec4(aVertexPosition, 1.0);
-				gl_Position = uPMatrix * position;
+	    		vec4 position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+				vec3 vPosition = vec3(position)/position.w;
+				gl_Position = position;
 	    	}
 		</OUTPUT>
 	</VERTEX>

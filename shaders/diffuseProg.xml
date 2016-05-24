@@ -15,18 +15,20 @@
 		</UNIFORMS>
 
 		<VARYING>
-		  varying vec4 vPosition;
+		  varying vec3 vPosition;
 		  varying vec3 vNormal;
 		  varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
 	    void main(void) {
+    		vec4 homogeneousPosition = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+			
 			vNormal = uNMatrix * aVertexNormal;
-    		vPosition = vec4(aVertexPosition, 1.0);
     		vColor = aVertexColor;
+    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
 
-			gl_Position = uPMatrix * uMVMatrix * vPosition;
+			gl_Position = homogeneousPosition;
     	}
 		</OUTPUT>
 	</VERTEX>
@@ -69,7 +71,7 @@
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec4 vPosition;
+			varying vec3 vPosition;
 			varying vec3 vNormal;
 			varying vec3 vColor;
 		</VARYING>
@@ -80,7 +82,7 @@
 				float Kd = 1.0 ;
 
 				// eye direction
-				vec3 eyeDirection = normalize(-vPosition.xyz);
+				vec3 eyeDirection = normalize(-vPosition);
 
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
@@ -93,7 +95,7 @@
 				//////////////////
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
 				{
-					lightDirection = normalize(pointLights[i].position - vPosition.xyz);
+					lightDirection = normalize(pointLights[i].position - vPosition);
 
 					// distance
 					distance = sqrt(pow(pointLights[i].position.x-vPosition.x,2.0) + pow(pointLights[i].position.y-vPosition.y,2.0) + pow(pointLights[i].position.z-vPosition.z,2.0));
@@ -126,7 +128,7 @@
 				/////////////////
 				for(int i=NB_SPOTLIGHTS-1; i>=0; i--)
 				{
-					lightDirection = normalize(spotLights[i].position - vPosition.xyz);
+					lightDirection = normalize(spotLights[i].position - vPosition);
 
 					float factor = (spotLights[i].position.y / spotLights[i].direction.y) - vPosition.y;
 					vec3 longDir = spotLights[i].direction.xyz * factor;
