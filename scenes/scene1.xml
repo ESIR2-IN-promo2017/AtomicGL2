@@ -3,12 +3,13 @@
 <SCENE>
 	<LIGHTS>
 		<POINTLIGHT id="PointLight0" color="0.6,0.4,0.0" position="0.0,3.0,-50.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.1,0.2,0.7" direction="-3.0,-1.0,5.0" intensity="2.0,0.0,0.0"></DIRECTIONNALLIGHT>
-		<SPOTLIGHT id="SpotLight0" color="1.0,0.0,0.0" position="00.0,5.0,0.0" direction="0.0,-1.0,0.0" radius="1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+		<!-- <DIRECTIONNALLIGHT id="DirecionnalLight0" color="0.1,0.2,0.7" direction="-3.0,-1.0,5.0" intensity="2.0,0.0,0.0"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight0" color="1.0,0.0,0.0" position="00.0,5.0,0.0" direction="0.0,-1.0,0.0" radius="1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT> -->
 	</LIGHTS>
 
 	<SHADERS>
 		<XMATSHADER id="texProg">textProg.xml</XMATSHADER>
+		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
 		<XMATSHADER id="texDiffProg">textDiffProg.xml</XMATSHADER>
 		<XMATSHADER id="texDiffNormalMapProg">textDiffNormalMapProg.xml</XMATSHADER>
 	</SHADERS>
@@ -43,6 +44,8 @@
 	</TEXTURES>
 
 	<SHAPES>
+		<SPHERE id="testSphere" rad="0.5" lat="10" long="10" color="0.5,0.5,0.5"></SPHERE>
+
 		<SHAPE id="ground_grass" type="js" uv="1.0,1.0" tex="herbe1">sol_herbe()</SHAPE>
 		<SHAPE id="ground_road" type="js" uv="0.2,0.2" tex="sol4,sol4_normal">sol_route()</SHAPE>
 		<SHAPE id="ground_wall" type="js" uv="1.0,1.0" tex="mur_pierre1,mur_pierre1_normal">sol_muret()</SHAPE>
@@ -82,6 +85,10 @@
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="texProg" camera="walk" navmesh="ground_road">
+
+			<TRANSFORM id="transform_sphere" translate="0.0,1.0,-50.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+					<OBJECT3D id="obj_test_sphere" shader="phongProg">testSphere</OBJECT3D>
+			</TRANSFORM>
 
 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 					<OBJECT3D id="obj_ground_road" shader="texDiffProg">ground_road</OBJECT3D>
