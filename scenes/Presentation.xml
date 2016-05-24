@@ -11,6 +11,7 @@
 		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
 		<XMATSHADER id="testProg">testProg.xml</XMATSHADER>
+		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
@@ -35,7 +36,7 @@
 		</TRANSFORM>
  -->
 		<TRANSFORM id="transform_Sphere0" translate="0.0,2.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-			<OBJECT3D id="obj_testSphere0" shader="testProg">testSphere0</OBJECT3D>
+			<OBJECT3D id="obj_testSphere0" shader="deformationProg">testSphere0</OBJECT3D>
 				<TRANSFORM id="rotate_PointLight0" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 						<TRANSFORM id="translate_PointLight0" translate="0.0,0.0,5.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 							<LIGHT id="obj_PointLight0">PointLight0</LIGHT>
