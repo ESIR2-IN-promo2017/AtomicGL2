@@ -80,7 +80,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 
 				//if it is a texture we save the sampler2D in sampler Array
 				if (res[1] == "sampler2D")
-					this.sampler.push(res[2]);
+					// if(this.sampler.indexOf(res[2]) == -1)
+						this.sampler.push(res[2]);
 
 				else
 				{
