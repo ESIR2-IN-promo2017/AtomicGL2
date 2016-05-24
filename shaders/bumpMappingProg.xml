@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="bumpMappingProg">
+	<VERTEX>
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec2 aVertexTexCoord;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+
+			//BumpTexture
+			uniform sampler2D uSampler0;
+			uniform sampler2D uSampler1;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying float vDepth;
+		</VARYING>
+
+		<OUTPUT>
+		    void main(void) {
+				vTextureCoord = aVertexTexCoord;
+
+				float depth = texture2D(uSampler0, aVertexTexCoord).a;
+				vDepth = depth;
+
+				vec3 displacedPosition = aVertexPosition - 10.0 * depth * normalize(uNMatrix * aVertexNormal);
+				gl_Position = uPMatrix * uMVMatrix * vec4(displacedPosition, 1.0);
+	    	}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#extension GL_OES_standard_derivatives : enable
+			
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+		</PRECISION>
+
+		<UNIFORMS>
+			uniform sampler2D uSampler0;
+			uniform sampler2D uSampler1;
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec2 vTextureCoord;
+			varying float vDepth;
+		</VARYING>
+
+		<OUTPUT>
+			void main() {
+				vec4 color = texture2D(uSampler1, vTextureCoord);
+				vec4 dark = vec4(0, 0, 0, 1.0);
+				color = mix(color,dark, 0.5*vDepth);
+				gl_FragColor = vec4(color);
+			}
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>

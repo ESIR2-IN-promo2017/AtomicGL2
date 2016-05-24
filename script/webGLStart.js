@@ -36,6 +36,9 @@ function nextFrame() {
 function animate() {
 	// increase time
 	sceneClock.tick();
+/*
+	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
+	transformSphere.angle += 0.2*sceneClock.get();*/
 
 	// var transformCube = AGL.scenegraph.findNode("transform_cube");
 	// transformCube.angle += 0.1*sceneClock.get();
@@ -134,6 +137,8 @@ function webGLStart()
 	// canvas, background color
 	AGL.initGL(canvas,[0.15,0.1,0.5]);
 
+	AGL.gl.getExtension('OES_standard_derivatives');
+
 	// scenegraph creation from xml file
 	var scene = document.getElementById('scene').innerHTML;
 	var sgxml = new atomicGL2xml(AGL,'scenes/'+scene+'.xml');
@@ -165,6 +170,8 @@ function webGLStart()
 
 		canvasDraw(AGL, canvas);
 	}
+
+	console.log(this.AGL.shaderPrograms.get("bumpMappingProg"));
 
 	// init Matrix Stack
 	AMS.initMatrix(AGL, 80); // fov = 80 degrees

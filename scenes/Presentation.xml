@@ -3,43 +3,67 @@
 <SCENE>
 	<LIGHTS>
 		<POINTLIGHT id="PointLight0" position="0.0,2.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
-
+		<!-- <DIRECTIONNALLIGHT id="DirecionnalLight0" color="1.0,1.0,1.0" direction="0.0,-1.0,0.0" intensity="0.1,0.0,0.0"></DIRECTIONNALLIGHT> -->
 	</LIGHTS>
 
 	<SHADERS>
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
 		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
-		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
-		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
+		<!-- <XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER> -->
+		<!-- <XMATSHADER id="phongProg">phongProg.xml</XMATSHADER> -->
+		<!-- <XMATSHADER id="testProg">testProg.xml</XMATSHADER> -->
+		<!-- <XMATSHADER id="bumpMappingProg">bumpMappingProg.xml</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
 		<TEXTURE id="herbe1" type="color">herbe1.png</TEXTURE>
-		<TEXTURE id="skyTex" type="color">skybox_texture.png</TEXTURE>
+		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
+
+		<!-- <TEXTURE id="stone1" type="color">stone1.png</TEXTURE> -->
+		<!-- <TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE> -->
 	</TEXTURES>
 
 	<SHAPES>
-		<XZPLANE id="NavMesh" height="100" width="100" xrow="50" zrow="50" tex="herbe1" uv="1.0,1.0"></XZPLANE>
-
-		<SPHERE id="colorSphere" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
-		<SPHERE id="diffuseSphere" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
-		<SPHERE id="phongSphere" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
+		<CUBE id="NavMesh" height="1000" width="1000" depth="1000" color="1.0,1.0,0.0"></CUBE>
+		<SPHERE id="testSphere0" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
+		<!-- <CUBE id="testCube0" height="200" width="200" depth="20" tex="bumpMap,stone1" uv="1.0,1.0"></CUBE> -->
+		<!-- <CUBE id="testCube1" height="5" width="5" depth="5" color="0.0,1.0,0.0"></CUBE> -->
+		<!-- <SPHERE id="testSphere1" rad="2.5" lat="32" long="32" tex="herbe1" uv="1.0,1.0"></SPHERE> -->
+		<!-- <SPHERE id="testSphere" rad="10" lat="100" long="100" color="1.0,0.0,0.0"></SPHERE>
+		<CYLINDER id="testCylinder" rad="10" height="100" lat="10" long="10" color="1.0,0.0,0.0"></CYLINDER>
+		<XYPLANE id="testXYPlane" height="10" width="10" xrow="10" yrow="10" color="1.0,0.0,0.0"></XYPLANE> -->
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
-		<LIGHT id="obj_PointLight0">PointLight0</LIGHT>
-		<OBJECT3D id="ground" shader="textProg">NavMesh</OBJECT3D>
+		<TRANSFORM id="transform_Sphere0" translate="0.0,2.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_testSphere0" shader="colorProg">testSphere0</OBJECT3D>
 
-		<TRANSFORM id="transform0" translate="-3.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<OBJECT3D id="obj0" shader="colorProg">colorSphere</OBJECT3D>
+			<TRANSFORM id="rotate_PointLight0" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+					<TRANSFORM id="translate_PointLight0" translate="0.0,0.0,5.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+						<LIGHT id="obj_PointLight0">PointLight0</LIGHT>
+					</TRANSFORM>
+			</TRANSFORM>
 		</TRANSFORM>
 
-		<TRANSFORM id="transform1" translate="-1.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<OBJECT3D id="obj1" shader="diffuseProg">diffuseSphere</OBJECT3D>
+		<!-- <TRANSFORM id="transform_Cube0" translate="0.0,2.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_testCube0" shader="testProg">testCube0</OBJECT3D>
 		</TRANSFORM>
+ -->
+		<!-- <TRANSFORM id="transform_cube0" translate="0.0,-10.0,-100.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_testCube0" shader="diffuseProg">testCube1</OBJECT3D>
+		</TRANSFORM> -->
 
-		<TRANSFORM id="transform2" translate="1.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<OBJECT3D id="obj2" shader="phongProg">phongSphere</OBJECT3D>
+<!-- 		<TRANSFORM id="transform_cube1" translate="-6.0,0.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_testCube1" shader="diffuseProg">testCube1</OBJECT3D>
 		</TRANSFORM>
+ -->
+		<!-- <TRANSFORM id="transform_sphere1" translate="12.0,3.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_testSphere1" shader="textPhongProg">testSphere1</OBJECT3D>
+		</TRANSFORM> -->
+
+		<!-- <OBJECT3D id="obj_testCube0" shader="bumpMappingProg">testCube0</OBJECT3D> -->
+<!-- 		<OBJECT3D id="obj_testSphere" shader="colorProg">testSphere</OBJECT3D>
+		<OBJECT3D id="obj_testCylinder" shader="colorProg">testCylinder</OBJECT3D>
+		<OBJECT3D id="obj_testXYPlane" shader="colorProg">testXYPlane</OBJECT3D> -->
 	</ROOT>
 </SCENE>
