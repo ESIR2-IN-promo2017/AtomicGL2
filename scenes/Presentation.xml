@@ -8,7 +8,7 @@
 	<SHADERS>
 		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
 		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
-		<XMATSHADER id="cartoonProg">cartoonProg.xml</XMATSHADER>
+		<!-- <XMATSHADER id="cartoonProg">cartoonProg.xml</XMATSHADER> -->
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
 		
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
