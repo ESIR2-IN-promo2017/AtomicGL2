@@ -19,11 +19,6 @@ class atomicGLWalkCamera {
  constructor(navMesh){
   // attributes
   // -------------------------------------------------
-  // camera position
-  this.xc = 0.0 ;
-  this.yc = 2.0 ;
-  this.zc = 0.0 ;
-
   // camera orientation
   this.theta = 0.0 ;
   this.phi = 0.0 ;
@@ -48,8 +43,10 @@ class atomicGLWalkCamera {
   // navmesh
   this.navmesh = new atomicGL2NavMesh(navMesh, this.xc, this.yc, this.zc);
 
-  // fix initial position
-  this.up();
+  // camera position
+  this.xc = this.navmesh.initPosition()[0];
+  this.yc = this.navmesh.initPosition()[1] + 2;
+  this.zc = this.navmesh.initPosition()[2];
 }
 
   // methods
