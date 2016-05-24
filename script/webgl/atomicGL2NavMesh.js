@@ -31,16 +31,17 @@ class atomicGL2NavMesh {
   }
 
   initPosition() {
+      var middle = this.navmesh.vertexIndices.length/2;
       // Find vertex points coordinates
-      var v1x = this.navmesh.verticesArray[this.navmesh.vertexIndices[0]];
-      var v1y = this.navmesh.verticesArray[(this.navmesh.vertexIndices[0])+1];
-      var v1z = this.navmesh.verticesArray[(this.navmesh.vertexIndices[0])+2];
-      var v2x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[1])];
-      var v2y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[1]))+1];
-      var v2z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[1]))+2];
-      var v3x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[2])];
-      var v3y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[2]))+1];
-      var v3z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[2]))+2];
+      var v1x = this.navmesh.verticesArray[this.navmesh.vertexIndices[middle]];
+      var v1y = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle])+1];
+      var v1z = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle])+2];
+      var v2x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle+1])];
+      var v2y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+1]))+1];
+      var v2z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+1]))+2];
+      var v3x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle+2])];
+      var v3y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+2]))+1];
+      var v3z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+2]))+2];
 
       var resultX = (v1x+v2x+v3x)/3;
       var resultY = (v1y+v2y+v3y)/3;

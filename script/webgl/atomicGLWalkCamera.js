@@ -47,6 +47,8 @@ class atomicGLWalkCamera {
   this.xc = this.navmesh.initPosition()[0];
   this.yc = this.navmesh.initPosition()[1] + 2;
   this.zc = this.navmesh.initPosition()[2];
+
+  this.up();
 }
 
   // methods

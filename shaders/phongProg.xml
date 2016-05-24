@@ -23,7 +23,7 @@
 		<OUTPUT>
 		    void main(void) {
 	    		vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				
+
 				vNormal = uNMatrix * aVertexNormal;
 	    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
 	    		vColor = aVertexColor;
@@ -92,7 +92,7 @@
 				vec3 eyeDirection = normalize(-vPosition);
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				vec3 reflectDirection = vec3(0.0,0.0,0.0);
-				
+
 				float diffuseLightWeight = 0.0;
 				float specularLightWeight = 0.0;
 
@@ -112,20 +112,16 @@
 					distance = sqrt(pow(pointLights[i].position.x,2.0) + pow(pointLights[i].position.y,2.0) + pow(pointLights[i].position.z,2.0));
 
 					// diffuse term
-					diffuseLightWeight = max(dot(lightDirection,normal), 0.0);
+					diffuseLightWeight = max(dot(lightDirection,normal), 0.0)*pointLights[i].intensity.x;
 
-					if(diffuseLightWeight > 0.0)
-					{
-						// reflection direction
-						reflectDirection = reflect(-lightDirection,normal);
+					// reflection direction
+					reflectDirection = reflect(-lightDirection,normal);
 
-						// specular term
-					    float specAngle = max(dot(reflectDirection, eyeDirection), 0.0);
-					    float specular = pow(specAngle, 4.0);
+					// specular term
+				    specularLightWeight = pow(max(dot(reflectDirection, eyeDirection), 0.0), sh);
 
-						// light color
-						lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor + Ks*specular*pointLights[i].color*specColor);
-					}
+					// light color
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor + Ks*specularLightWeight*pointLights[i].color*specColor) / distance;
 				}
 
 
@@ -137,10 +133,10 @@
 					lightDirection = normalize(-directionnalLights[i].direction);
 
 					// diffuse term
-					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
+					diffuseLightWeight = max(dot(normal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
 
 					// reflection direction
-					reflectDirection = normalize(reflect(-lightDirection,vNormal));
+					reflectDirection = reflect(-lightDirection,normal);
 
 					// specular term
 					specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
@@ -169,10 +165,10 @@
 					if(planRadius > planDistance)
 					{
 						// diffuse term
-						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
+						diffuseLightWeight = max(dot(normal, lightDirection), 0.0)*spotLights[i].intensity.x;
 
 						// reflection direction
-						reflectDirection = normalize(reflect(-lightDirection,vNormal));
+						reflectDirection = reflect(-lightDirection,normal);
 
 						// specular term
 						specularLightWeight = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
