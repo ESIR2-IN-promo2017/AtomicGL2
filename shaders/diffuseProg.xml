@@ -15,21 +15,21 @@
 		</UNIFORMS>
 
 		<VARYING>
-		  varying vec3 vPosition;
-		  varying vec3 vNormal;
-		  varying vec3 vColor;
+			varying vec3 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
-	    void main(void) {
-    		vec4 homogeneousPosition = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-			
-			vNormal = uNMatrix * aVertexNormal;
-    		vColor = aVertexColor;
-    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
+		    void main(void) {
+	    		vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				
+				vNormal = uNMatrix * aVertexNormal;
+	    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
+	    		vColor = aVertexColor;
 
-			gl_Position = homogeneousPosition;
-    	}
+				gl_Position = uPMatrix * homogeneousPosition;
+	    	}
 		</OUTPUT>
 	</VERTEX>
 

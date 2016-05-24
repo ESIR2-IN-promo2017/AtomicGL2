@@ -30,9 +30,29 @@ class atomicGL2NavMesh {
     this.navmesh = navMesh;
   }
 
+  initPosition() {
+      var middle = this.navmesh.vertexIndices.length/2;
+      // Find vertex points coordinates
+      var v1x = this.navmesh.verticesArray[this.navmesh.vertexIndices[middle]];
+      var v1y = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle])+1];
+      var v1z = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle])+2];
+      var v2x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle+1])];
+      var v2y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+1]))+1];
+      var v2z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+1]))+2];
+      var v3x = this.navmesh.verticesArray[(this.navmesh.vertexIndices[middle+2])];
+      var v3y = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+2]))+1];
+      var v3z = this.navmesh.verticesArray[((this.navmesh.vertexIndices[middle+2]))+2];
+
+      var resultX = (v1x+v2x+v3x)/3;
+      var resultY = (v1y+v2y+v3y)/3;
+      var resultZ = (v1z+v2z+v3z)/3;
+
+      return [resultX, resultY, resultZ];
+  }
+
 	// methods
 	// --------------------------------------------------
-	// up/right/left/down
+	// move
 	//---------------------------
   move(displaceX, displaceZ) {
     // For each triangle in navmesh
@@ -159,16 +179,6 @@ class atomicGL2NavMesh {
       var b1 = (((ptx - v2x) * (v1z - v2z)) - ((v1x - v2x) * (ptz - v2z))) < 0.0;
       var b2 = (((ptx - v3x) * (v2z - v3z)) - ((v2x - v3x) * (ptz - v3z))) < 0.0;
       var b3 = (((ptx - v1x) * (v3z - v1z)) - ((v3x - v1x) * (ptz - v1z))) < 0.0;
-
-      // Compute just for X
-      var b1X = (((ptx - v2x) * (v1z - v2z)) - ((v1x - v2x) * (this.zc - v2z))) < 0.0;
-      var b2X = (((ptx - v3x) * (v2z - v3z)) - ((v2x - v3x) * (this.zc - v3z))) < 0.0;
-      var b3X = (((ptx - v1x) * (v3z - v1z)) - ((v3x - v1x) * (this.zc - v1z))) < 0.0;
-
-      // Compute just for Z
-      var b1Z = (((this.xc - v2x) * (v1z - v2z)) - ((v1x - v2x) * (ptz - v2z))) < 0.0;
-      var b2Z = (((this.xc - v3x) * (v2z - v3z)) - ((v2x - v3x) * (ptz - v3z))) < 0.0;
-      var b3Z = (((this.xc - v1x) * (v3z - v1z)) - ((v3x - v1x) * (ptz - v1z))) < 0.0;
 
       // If it pops into a triangle
       if((b1 == b2) && (b2 == b3))

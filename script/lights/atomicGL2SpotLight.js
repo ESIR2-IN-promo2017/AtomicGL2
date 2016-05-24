@@ -40,14 +40,17 @@ class atomicGL2SpotLight extends atomicGL2Light {
      	* @type {Array[3]:float}  of the SpotLight
      	*/
 		this.position = position;
-    this.globalPosition[0] = position[0];
-    this.globalPosition[1] = position[1];
-    this.globalPosition[2] = position[2];
+	    this.globalPosition[0] = position[0];
+	    this.globalPosition[1] = position[1];
+	    this.globalPosition[2] = position[2];
 
 		/**
      	* @type {Array[3]:float} direction of the SpotLight
      	*/
 		this.direction = direction;
+		this.globalDirection[0] = direction[0];
+		this.globalDirection[1] = direction[1];
+		this.globalDirection[2] = direction[2];
 
 		/**
      	* @type {float} angle of the area of the SpotLight
