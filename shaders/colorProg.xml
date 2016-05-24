@@ -19,12 +19,11 @@
 
 		<OUTPUT>
 		    void main(void) {
-				vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+		    	vColor = aVertexColor;
 
-				vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
-				vColor = aVertexColor;
-
-				gl_Position = uPMatrix * homogeneousPosition;
+	    		vec4 position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+				vec3 vPosition = vec3(position)/position.w;
+				gl_Position = position;
 	    	}
 		</OUTPUT>
 	</VERTEX>

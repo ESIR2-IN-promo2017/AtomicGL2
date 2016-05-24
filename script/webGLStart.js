@@ -1,4 +1,5 @@
 // atomicGL2
+var scaleDisplacement = 0.5;
 
 // MOUSE
 var mouseY;
@@ -39,6 +40,14 @@ function animate() {
 
 	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
 	transformSphere.angle += 0.2*sceneClock.get();
+
+
+	// if(scaleDisplacement == 0.5)
+	// 	scaleDisplacement = 2.0;
+	// else
+	// 	scaleDisplacement = 0.5
+	//
+	// this.AGL.shaderPrograms.get("deformationProg").setUniformById(AGL,"random",0.5);
 
 	// var transformCube = AGL.scenegraph.findNode("transform_cube");
 	// transformCube.angle += 0.1*sceneClock.get();

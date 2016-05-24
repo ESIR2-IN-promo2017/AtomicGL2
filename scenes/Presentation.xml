@@ -2,8 +2,7 @@
 
 <SCENE>
 	<LIGHTS>
-		<!-- <POINTLIGHT id="PointLight0" position="0.0,10.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT> -->
-		<SPOTLIGHT id="SpotLight0" position="0.0,10.0,-10.0" direction="0.0,-1.0,0.0" radius="1.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+		<POINTLIGHT id="PointLight0" position="0.0,10.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
@@ -11,13 +10,18 @@
 		<XMATSHADER id="diffuseProg">diffuseProg.xml</XMATSHADER>
 		<XMATSHADER id="cartoonProg">cartoonProg.xml</XMATSHADER>
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
+
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
 		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
 		<XMATSHADER id="textPhongProg">textPhongProg.xml</XMATSHADER>
+
+		<!-- <XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
 		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
+		<TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE>
+		<TEXTURE id="stone1" type="color">stone1.png</TEXTURE>
 		<TEXTURE id="herbe" type="color">herbe1.png</TEXTURE>
 		<TEXTURE id="marbre" type="color">marbre1.png</TEXTURE>
 	</TEXTURES>
@@ -31,14 +35,30 @@
 		<SPHERE id="textSphere" rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE id="textDiffSphere" rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE id="textPhongSphere" rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
+		<!-- <SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE> -->
+		<!-- <CUBE id="testCube0" height="200" width="200" depth="20" tex="stone1" uv="1.0,1.0" transparency="true"></CUBE> -->
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
 		<OBJECT3D id="obj_ground" shader="textDiffProg">NavMesh</OBJECT3D>
-		<LIGHT id="obj_Light0">SpotLight0</LIGHT>
+
+		<TRANSFORM id="rotate_PointLight0" translate="0.0,.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<TRANSFORM id="transform" translate="11.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<LIGHT id="obj_Light0">PointLight0</LIGHT>
+			</TRANSFORM>
+		</TRANSFORM>
 
 		<TRANSFORM id="transform" translate="-9.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<TRANSFORM id="transform0" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+
+			<!-- <TRANSFORM id="transform_Cube0" translate="0.0,2.0,-10.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_testCube0" shader="testProg">testCube0</OBJECT3D>
+			</TRANSFORM> -->
+
+			<!-- <TRANSFORM id="transform_cube0" translate="0.0,-10.0,-100.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_testCube0" shader="textProgBinding">testCube0</OBJECT3D>
+			</TRANSFORM> -->
+
+			<TRANSFORM id="transform" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere0" shader="colorProg">colorSphere</OBJECT3D>
 			</TRANSFORM>
 
@@ -63,8 +83,12 @@
 			</TRANSFORM>
 
 			<TRANSFORM id="transform6" translate="18.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_Sphere5" shader="cartoonProg">cartoonSphere</OBJECT3D>
+				<OBJECT3D id="obj_Sphere6" shader="cartoonProg">cartoonSphere</OBJECT3D>
 			</TRANSFORM>
+
+			<!-- <TRANSFORM id="transform7" translate="21.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_Sphere7" shader="deformationProg">deformationSphere</OBJECT3D>
+			</TRANSFORM> -->
 		</TRANSFORM>
 	</ROOT>
 </SCENE>

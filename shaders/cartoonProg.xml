@@ -78,15 +78,14 @@
 
 		<OUTPUT>
 			void main(void) {
-				// color coeff
+				// color coefficient
 				float edgeColor = 0.0;
-				float shadowColor = 0.3;
-				float midtoneColor = 0.7;
-				float highLightColor = 1.0;
+				float shadowColor = 0.5;
+				float midtoneColor = 1.0;
 
 				// thresholds
-				float midtoneTreshold = 0.2;
-				float shadowTreshold = 0.75 ;
+				float midtoneThreshold = 0.05 ;
+				float shadowThreshold = 0.70 ;
 				float edgeThreshold = 0.95 ;
 
 				// Kd: diffuse coeff
@@ -94,6 +93,8 @@
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition);
+
+				float edge = 0.0;
 
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
@@ -107,6 +108,9 @@
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
 				{
 					lightDirection = normalize(pointLights[i].position - vPosition);
+
+					// edge
+					edge += sqrt(1.0 - pow(max(dot(vNormal,lightDirection),0.0),2.0));
 
 					// distance
 					distance = sqrt(pow(pointLights[i].position.x-vPosition.x,2.0) + pow(pointLights[i].position.y-vPosition.y,2.0) + pow(pointLights[i].position.z-vPosition.z,2.0));
@@ -126,6 +130,9 @@
 				{
 					lightDirection = normalize(-directionnalLights[i].direction);
 
+					// edge
+					edge += sqrt(1.0 - pow(max(dot(vNormal,lightDirection),0.0),2.0));
+
 					// diffuse term
 					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
 
@@ -140,6 +147,9 @@
 				for(int i=NB_SPOTLIGHTS-1; i>=0; i--)
 				{
 					lightDirection = normalize(spotLights[i].position - vPosition);
+
+					// edge
+					edge += sqrt(1.0 - pow(max(dot(vNormal,lightDirection),0.0),2.0));
 
 					float factor = (spotLights[i].position.y / spotLights[i].direction.y) - vPosition.y;
 					vec3 longDir = spotLights[i].direction.xyz * factor;
@@ -160,17 +170,13 @@
 					}
 				}
 
-				// edge term
-				float edge = sqrt(1.0 - pow(max(dot(vNormal,eyeDirection),0.0),2.0));
-
 				if(edge > edgeThreshold)
 				{lightColor *= edgeColor;}
-				else if(edge > shadowTreshold)
+				else if(edge > shadowThreshold)
 				{lightColor *= shadowColor;}
-				else if(edge > midtoneTreshold)
+				else if(edge > midtoneThreshold)
 				{lightColor *= midtoneColor;}
-				else
-				{lightColor = highLightColor;}
+				else {lightColor = vec3(1.0,1.0,1.0);}
 
 				gl_FragColor = vec4(lightColor, 1.0);
 		    }

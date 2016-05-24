@@ -59,8 +59,7 @@ constructor(nname,hheight,wwidth,xxrow,zzrow,uu,vv){
 				// vertices
 				var x = - 0.5*this.width + i*this.width/this.xrow;
 				var y = 0.0;
-				// var z = - 0.5*this.height + j*this.height/this.zrow;
-				var z = 0.5*this.width - j*this.height/this.zrow;
+				var z = 0.5*this.height - j*this.height/this.zrow;
 				// normals
 				var nx = 0.0 ;
 				var ny = 1.0 ;

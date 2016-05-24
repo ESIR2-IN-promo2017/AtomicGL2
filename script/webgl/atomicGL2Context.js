@@ -75,6 +75,7 @@ class atomicGL2Context {
 			// GL context initialised -> first init (background color, DEPTH_TEST)
 			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
 			this.gl.enable(this.gl.DEPTH_TEST);
+			this.gl.depthFunc(this.gl.LESS);
 		}
 
 		// GLtexture
