@@ -222,17 +222,17 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 			switch(AGL.getLight(lightId).getType())
 			{
 				case atomicGL2PointLight:
-					this.setUniformById(AGL, "pointLights" + '[' + id_pointLight + ']', AGL.getLight(lightId));
+					this.setUniformLightById(AGL, "pointLights" + '[' + id_pointLight + ']', AGL.getLight(lightId));
 					id_pointLight++;
 					break;
 
 				case atomicGL2SpotLight:
-					this.setUniformById(AGL, "spotLights" + '[' + id_spotLight + ']', AGL.getLight(lightId));
+					this.setUniformLightById(AGL, "spotLights" + '[' + id_spotLight + ']', AGL.getLight(lightId));
 					id_spotLight++;
 					break;
 
 				case atomicGL2DirectionnalLight:
-					this.setUniformById(AGL, "directionnalLights" + '[' + id_direcionnalLight + ']', AGL.getLight(lightId));
+					this.setUniformLightById(AGL, "directionnalLights" + '[' + id_direcionnalLight + ']', AGL.getLight(lightId));
 					id_direcionnalLight++;
 					break;
 
@@ -243,7 +243,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		}
 	}
 
-	setUniformById(AGL,id,value){
+	setUniformLightById(AGL,id,value){
 		//For a light
 		//id = pointLights[0].direction;
 		//value = (0.1,0.1,0.1);
@@ -263,29 +263,6 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 		switch(type)
 		{
-			case 'float':
-				AGL.gl.uniform1f(uniform,value);
-			break;
-
-			case 'int' :
-			break;
-
-			case 'vec4' :
-			break;
-
-			case 'vec3' :
-				AGL.gl.uniform3f(uniform,value[0],value[1],value[2]);
-			break;
-
-			case 'vec2' :
-			break;
-
-			case 'mat3' :
-			break;
-
-			case 'mat4' :
-			break;
-
 			case 'pointLight':
 				uniform = this.getUniformById(id + ".position");
 				AGL.gl.uniform3f(uniform,value.getPosition()[0],value.getPosition()[1],value.getPosition()[2]);
@@ -323,6 +300,40 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 				uniform = this.getUniformById(id + ".intensity");
 				AGL.gl.uniform3f(uniform,value.getIntensity()[0],value.getIntensity()[1],value.getIntensity()[2]);
+			break;
+
+			default:
+			break;
+		}
+	}
+
+	setUniformById(AGL,id,value){
+		var type = this.getUniformType(id);
+		var uniform = this.getUniformById(id);
+
+		switch(type)
+		{
+			case 'float':
+				AGL.gl.uniform1f(uniform,value);
+			break;
+
+			case 'int' :
+			break;
+
+			case 'vec4' :
+			break;
+
+			case 'vec3' :
+				AGL.gl.uniform3f(uniform,value[0],value[1],value[2]);
+			break;
+
+			case 'vec2' :
+			break;
+
+			case 'mat3' :
+			break;
+
+			case 'mat4' :
 			break;
 
 			default:
