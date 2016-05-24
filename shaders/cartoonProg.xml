@@ -2,42 +2,34 @@
 
 <SHADER name="cartoonProg">
 	<VERTEX>
-		// attributes inputs
 		<ATTRIBUTES>
 			attribute vec3 aVertexPosition;
 			attribute vec3 aVertexNormal;
 			attribute vec3 aVertexColor;
 		</ATTRIBUTES>
 
-		// uniform matrices
 		<UNIFORMS>
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 			uniform mat3 uNMatrix;
-
-			// uniform ambiant color
-			uniform vec3 uAmbientColor;
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec4 vPosition;
+			varying vec3 vPosition;
 			varying vec3 vNormal;
-			varying vec3 vcolor;
+			varying vec3 vColor;
 		</VARYING>
 
-		// output (to fragment shader)
 		<OUTPUT>
-			void main(void) {
-				// model -> view
-				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				gl_Position = uPMatrix * vPosition;
-
-				// vNormal
+		    void main(void) {
+	    		vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				
 				vNormal = uNMatrix * aVertexNormal;
+	    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
+	    		vColor = aVertexColor;
 
-				// vcolor
-				vcolor = aVertexColor;
-			}
+				gl_Position = uPMatrix * homogeneousPosition;
+	    	}
 		</OUTPUT>
 	</VERTEX>
 
@@ -46,26 +38,45 @@
 			#ifdef GL_ES
  				precision highp float;
  			#endif
+
+			#define NB_POINTLIGHTS
+			#define NB_SPOTLIGHTS
+			#define NB_DIRECTIONNALLIGHTS
+
+			struct pointLight{
+				vec3 position;
+				vec3 color;
+				vec3 intensity;
+			};
+
+			struct spotLight{
+				vec3 position;
+				vec3 direction;
+				vec3 color;
+				float radius;
+				vec3 intensity;
+			};
+
+			struct directionnalLight{
+				vec3 direction;
+				vec3 color;
+				vec3 intensity;
+			};
 		</PRECISION>
 
 		<UNIFORMS>
-			// ambient lights
-			uniform vec3 uAmbientColor;
-
-			//point light ie omni dir:  location, color
-			uniform vec3 uPointLightPosition0;
-			uniform vec3 uPointLightColor0;
+		    uniform pointLight pointLights[NB_POINTLIGHTS];
+		    uniform spotLight spotLights[NB_SPOTLIGHTS];
+		    uniform directionnalLight directionnalLights[NB_DIRECTIONNALLIGHTS];
 		</UNIFORMS>
 
 		<VARYING>
-			varying vec4 vPosition;
+			varying vec3 vPosition;
 			varying vec3 vNormal;
-			varying vec3 vcolor;
+			varying vec3 vColor;
 		</VARYING>
 
 		<OUTPUT>
-			// local constant
-
 			// edge color
 			vec3 edgeColor = vec3(0.0,0.0,0.0);
 			// shadow color
@@ -88,44 +99,61 @@
 			// specular color
 			vec3 specColor = vec3(1.0,1.0,1.0);
 
-			// main
 			void main(void) {
-				// light direction
-				vec3 lightDirection = normalize(uPointLightPosition0 - vPosition.xyz);
-
-				// eye direction
-				vec3 eyeDirection = normalize(-vPosition.xyz);
-
-				// normalize normal
 				vec3 normal = normalize(vNormal);
 
-				// reflection direction
-				vec3 reflectDirection = normalize(reflect(-lightDirection,normal));
+				vec3 eyeDirection = normalize(-vPosition);
+				vec3 lightDirection = vec3(0.0,0.0,0.0);
+				vec3 reflectDirection = vec3(0.0,0.0,0.0);
+				
+				float diffuseLightWeight = 0.0;
+				float specularLightWeight = 0.0;	
 
-				//  diffuse term
-				float diffuse = max(dot(normal, lightDirection), 0.0);
+				float distance = 0.0;
 
-				// specular term
-				float specular = pow(max(dot(reflectDirection,eyeDirection),0.0),sh);
+				vec3 lightColor = vec3(0.0,0.0,0.0);
+				float temp;
 
-				// light
-				float light = Kd*diffuse + Ks*specular;
+				//////////////////
+				// Point Lights //
+				//////////////////
+				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
+		    	{
+		    		lightDirection = normalize(pointLights[i].position - vPosition);
 
-				// edge term
-				float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
+					// distance
+					distance = sqrt(pow(pointLights[i].position.x,2.0) + pow(pointLights[i].position.y,2.0) + pow(pointLights[i].position.z,2.0));
 
-				// color
-				vec3 final = vec3(1.0,0.0,0.0);
-				if (edge > edgeThreshold)
-					{ final = edgeColor;}
-				else if (light <= shadowMidtone)
-					{ final = shadowColor;}
-				else if (light <= midToneHighLight)
-					{ final = midtoneColor;}
-				else
-					{ final = highLightColor;}
+					// diffuse term
+					diffuseLightWeight = max(dot(lightDirection,normal), 0.0);
 
-				gl_FragColor = vec4(final,1.0);
+					if(diffuseLightWeight > 0.0)
+					{
+						// reflection direction
+						reflectDirection = reflect(-lightDirection,normal);
+
+						// specular term
+					    float specAngle = max(dot(reflectDirection, eyeDirection), 0.0);
+					    float specular = pow(specAngle, 4.0);
+
+						// light color
+						temp = Kd*diffuseLightWeight + Ks*specular;
+					}
+
+					// edge term
+					float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
+
+					if (edge > edgeThreshold)
+						lightColor += edgeColor;
+					else if (shadowMidtone >= temp)
+						lightColor += shadowColor;
+					else if (midToneHighLight >= temp)
+						lightColor += midtoneColor;
+					else
+						lightColor += highLightColor;
+				}
+
+				gl_FragColor = vec4(lightColor,1.0);
 			}
 		</OUTPUT>
 	</FRAGMENT>

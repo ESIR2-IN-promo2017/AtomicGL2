@@ -1,63 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <SCENE>
-
 	<LIGHTS>
-		<POINTLIGHT id="PointLight0" position="0.0,0.0,0.0" color="1.0,1.0,1.0" intensity="20.0,0.0,0.0"></POINTLIGHT>
+		<POINTLIGHT id="PointLight0" position="0.0,10.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
-		<XMATSHADER file="shaders/textProg.xml">textProg</XMATSHADER>
-
-		<XMATSHADER file="shaders/textDiffProg.xml">textDiffProg</XMATSHADER>
-
-		<XMATSHADER file="shaders/deformationProg.xml">deformationProg</XMATSHADER>
-
-		<XMATSHADER id="textProg">shaders/textProg.xml</XMATSHADER>
-
-		<XMATSHADER id="textDiffProg">shaders/textDiffProg.xml</XMATSHADER>
-
-		<XMATSHADER id="textPhongProg">shaders/textPhongProg.xml</XMATSHADER>
-
-		<XMATSHADER id="textDiffNormalMapProg">shaders/textDiffNormalMapProg.xml</XMATSHADER>
+		<XMATSHADER id="textBlendingProg">textBlendingProg.xml</XMATSHADER>
+		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
 	</SHADERS>
 
-		<SHAPE id="ground_sand" type="js">
-			<GEOMETRY id="sol_sable" uv="0.1,0.1">sol_herbe()</GEOMETRY>
-			<TEXTID>herbe1</TEXTID>
-		</SHAPE>
+	<TEXTURES>
+		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
+		<TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE>		
+		<TEXTURE id="stone1" type="color">stone1.png</TEXTURE>
+		<TEXTURE id="herbe" type="color">herbe1.png</TEXTURE>
+	</TEXTURES>
 
-		<SHAPE id="sexy_lady" type="obj">
-			<GEOMETRY id="sexy_lady_obj" uv="1.0,1.0">sexylady.obj</GEOMETRY>
-			<TEXTID>herbe1</TEXTID>
-		</SHAPE>
+	<SHAPES>
+		<XZPLANE id="NavMesh" height="100" width="100" xrow="10" zrow="10" tex="herbe" uv="10.0,10.0"></XZPLANE>
+		<SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
+		<CUBE id="testCube0" height="200" width="200" depth="20" tex="stone1" uv="1.0,1.0" transparency="true"></CUBE>
+	</SHAPES>
 
-		<SPHERE id="sphere" type="js">
-			<GEOMETRY id="sphere_toto" rad="1" lat="60" long="60" uv="3,3"></GEOMETRY>
-			<TEXTID>mur_pierre1</TEXTID>
-		</SPHERE>
-
-	<ROOT id="root" skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh='sol_herbe()'>
- 			<TRANSFORM id="transform_ground" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_sol" shader="textDiffProg">ground_sand</OBJECT3D>
-				<TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-						<OBJECT3D id="obj_sphere" shader="deformationProg">sphere</OBJECT3D>
-						<LIGHT id="SpotLight0"></LIGHT>
-				</TRANSFORM>
+	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
+		<OBJECT3D id="obj_ground" shader="textDiffProg">NavMesh</OBJECT3D>
+		<LIGHT id="obj_Light0">PointLight0</LIGHT>
+		
+		<TRANSFORM id="transform" translate="-9.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<TRANSFORM id="transform" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="transform" shader="deformationProg">deformationSphere</OBJECT3D>
 			</TRANSFORM>
-			<TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
-					<OBJECT3D id="obj_sexy_lady" shader="textDiffProg">sexy_lady</OBJECT3D>
+
+			<TRANSFORM id="transform1" translate="200.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+				<OBJECT3D id="obj_testCube0" shader="textBlendingProg">testCube0</OBJECT3D>
 			</TRANSFORM>
-			<!-- <TRANSFORM id="transform_sphere" translate="2.0,1.0,-3.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_toto" shader="textPhongProg">sphere</OBJECT3D>
-				<TRANSFORM id="transform_light" translate="0.0,2.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-					<LIGHT id="spotToSphere">PointLight1</LIGHT>
-				</TRANSFORM>
-			</TRANSFORM> -->
-		<!-- </TRANSFORM> -->
-		<!-- <TRANSFORM id="transform_sexylady" translate="-1.0,0.0,-3.0" rotaxis="0.0,1.0,0.0" angle="-30.0">
-			<OBJECT3D id="obj_sexy_lady" shader="textPhongProg">sexy_lady</OBJECT3D>
-		</TRANSFORM> -->
+		</TRANSFORM>
 	</ROOT>
-
 </SCENE>
