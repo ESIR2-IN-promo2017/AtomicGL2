@@ -39,11 +39,11 @@ class atomicGL2Texture{
 		// texture image
 		this.textureImage = new Image();
 		// ogl texture
-    this.texture = aAGL.gl.createTexture();
-    this.texture.image =   this.textureImage ;
+	    this.texture = aAGL.gl.createTexture();
+	    this.texture.image =   this.textureImage ;
 
-    // build
-    this.build();
+	    // build
+	    this.build();
 	}
 
 	// --------------------------------------------------
@@ -58,20 +58,20 @@ class atomicGL2Texture{
 	handleIMG(){
 		var o = this ;
 		// debug
-		//console.log("atomicGLTexture::onload("+o.file+")");
+		//console.log("atomicGLTexture::onload("+this.file+")");
 
-    o.AGL.gl.pixelStorei(o.AGL.gl.UNPACK_FLIP_Y_WEBGL, true);
+		this.AGL.gl.pixelStorei(this.AGL.gl.UNPACK_FLIP_Y_WEBGL, true);
 		// bindTexture
-    o.AGL.gl.bindTexture(o.AGL.gl.TEXTURE_2D, o.texture);
-    o.AGL.gl.texImage2D(o.AGL.gl.TEXTURE_2D, 0, o.AGL.gl.RGBA, o.AGL.gl.RGBA, o.AGL.gl.UNSIGNED_BYTE, o.texture.image);
-    // parameters
-		o.AGL.gl.texParameteri(o.AGL.gl.TEXTURE_2D, o.AGL.gl.TEXTURE_MAG_FILTER, o.AGL.gl.LINEAR);
-    o.AGL.gl.texParameteri(o.AGL.gl.TEXTURE_2D, o.AGL.gl.TEXTURE_MIN_FILTER, o.AGL.gl.LINEAR_MIPMAP_NEAREST);
-    o.AGL.gl.generateMipmap(o.AGL.gl.TEXTURE_2D);
+		this.AGL.gl.bindTexture(this.AGL.gl.TEXTURE_2D, this.texture);
+		this.AGL.gl.texImage2D(this.AGL.gl.TEXTURE_2D, 0, this.AGL.gl.RGBA, this.AGL.gl.RGBA, this.AGL.gl.UNSIGNED_BYTE, this.texture.image);
+		// parameters
+		this.AGL.gl.texParameteri(this.AGL.gl.TEXTURE_2D, this.AGL.gl.TEXTURE_MAG_FILTER, this.AGL.gl.LINEAR);
+		this.AGL.gl.texParameteri(this.AGL.gl.TEXTURE_2D, this.AGL.gl.TEXTURE_MIN_FILTER, this.AGL.gl.LINEAR_MIPMAP_NEAREST);
+		this.AGL.gl.generateMipmap(this.AGL.gl.TEXTURE_2D);
 		// unbind
-    o.AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, null);
+		this.AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, null);
 		// loaded !
-		o.loaded = true ;
+		this.loaded = true ;
 	}
 
 	// --------------------------------------------------
@@ -82,7 +82,7 @@ class atomicGL2Texture{
 		this.textureImage.onload = this.handleIMG.bind(this);
 
 		// init: set the file src
-	  this.textureImage.src = this.file;
+		this.textureImage.src = this.file;
 	}
 
 }

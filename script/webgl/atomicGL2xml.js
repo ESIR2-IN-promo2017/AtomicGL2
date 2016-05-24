@@ -599,7 +599,6 @@ class atomicGL2xml {
 			else
 				var transparency = false;
 
-
 			// create shape
 			var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
 			ss.setTransparency(transparency);
