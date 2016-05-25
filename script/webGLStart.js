@@ -39,8 +39,8 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
-	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
-	transformSphere.angle += 0.2*sceneClock.get();
+	// var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
+	// transformSphere.angle += 0.2*sceneClock.get();
 
 	temp += 1*sceneClock.get();
 	if(temp%2.0 == 0)
@@ -48,10 +48,7 @@ function animate() {
 	if(scaleDisplacement>3.0)
 		scaleDisplacement = 0.5;
 
-	this.AGL.shaderPrograms.get("deformationProg").setUniformById(AGL,"scaleDisplacement",scaleDisplacement);
-
-	// var transformCube = AGL.scenegraph.findNode("transform_cube");
-	// transformCube.angle += 0.1*sceneClock.get();
+	this.AGL.shaderPrograms.get("scaleProg").setUniformById(AGL,"scaleDisplacement",scaleDisplacement);
 }
 
 // KEYBOARD

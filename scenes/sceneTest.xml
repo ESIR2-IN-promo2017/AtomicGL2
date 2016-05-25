@@ -6,7 +6,9 @@
 	</LIGHTS>
 
 	<SHADERS>
-		<XMATSHADER id="textBlendingProg">textBlendingProg.xml</XMATSHADER>
+		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
+		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
+
 		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
 	</SHADERS>
 
@@ -19,22 +21,16 @@
 
 	<SHAPES>
 		<XZPLANE id="NavMesh" height="100" width="100" xrow="10" zrow="10" tex="herbe" uv="10.0,10.0"></XZPLANE>
-		<SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
-		<CUBE id="testCube0" height="200" width="200" depth="20" tex="stone1" uv="1.0,1.0" transparency="true"></CUBE>
+		<XYPLANE id="Wall"  height="10" width="50" xrow="10" yrow="10" color="0.0,0.0,0.0"></XYPLANE>
+
+		<SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" tex="stone1" uv="1.0,1.0"></SPHERE>
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
-		<OBJECT3D id="obj_ground" shader="textDiffProg">NavMesh</OBJECT3D>
 		<LIGHT id="obj_Light0">PointLight0</LIGHT>
-		
-		<TRANSFORM id="transform" translate="-9.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<TRANSFORM id="transform" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="transform" shader="deformationProg">deformationSphere</OBJECT3D>
-			</TRANSFORM>
 
-			<TRANSFORM id="transform1" translate="200.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_testCube0" shader="textBlendingProg">testCube0</OBJECT3D>
-			</TRANSFORM>
+		<TRANSFORM id="transform" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<OBJECT3D id="transform" shader="deformationProg">deformationSphere</OBJECT3D>
 		</TRANSFORM>
 	</ROOT>
 </SCENE>

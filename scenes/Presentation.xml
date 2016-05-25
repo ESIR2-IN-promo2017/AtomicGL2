@@ -15,7 +15,7 @@
 <!-- 		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
 		<XMATSHADER id="textPhongProg">textPhongProg.xml</XMATSHADER> -->
 
-		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
+		<XMATSHADER id="scaleProg">scaleProg.xml</XMATSHADER>
 	</SHADERS>
 
 	<TEXTURES>
@@ -38,7 +38,7 @@
 		<SPHERE 	id="textSphere" 		rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE 	id="textDiffSphere" 	rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE 	id="textPhongSphere" 	rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
-		<SPHERE 	id="deformationSphere" 	rad="1.0" lat="32" long="32" color="1.0,1.0,1.0"></SPHERE>
+		<SPHERE 	id="scaleSphere" 	rad="1.0" lat="32" long="32" color="1.0,1.0,1.0"></SPHERE>
 		<CUBE 		id="textBlendingCube" 	height="2.0" width="2.0" depth="2.0" tex="glass" uv="1.0,1.0" transparency="true"></CUBE>
 	</SHAPES>
 
@@ -90,7 +90,7 @@
 			</TRANSFORM> -->
 
 			<TRANSFORM id="transform8" translate="27.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-				<OBJECT3D id="obj_Sphere7" shader="deformationProg">deformationSphere</OBJECT3D>
+				<OBJECT3D id="obj_Sphere7" shader="scaleProg">scaleSphere</OBJECT3D>
 			</TRANSFORM>
 		</TRANSFORM>
 	</ROOT>
