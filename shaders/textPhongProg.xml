@@ -17,18 +17,19 @@
 		<VARYING>
 		  varying vec2 vTextureCoord;
 		  varying vec3 vNormal;
-		  varying vec4 vPosition;
+		  varying vec3 vPosition;
 		</VARYING>
 
 		<OUTPUT>
-	    void main(void) {
-    		// vNormal
-			vNormal = uNMatrix * aVertexNormal;
-			vPosition = vec4(aVertexPosition, 1.0);
+		    void main(void) {
+				vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 
-			gl_Position = uPMatrix * uMVMatrix * vPosition;
-      		vTextureCoord = aVertexTexCoord;
-    	}
+				vNormal = uNMatrix * aVertexNormal;
+				vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
+				vTextureCoord = aVertexTexCoord;
+
+				gl_Position = uPMatrix * homogeneousPosition;
+	    	}
 		</OUTPUT>
 	</VERTEX>
 
@@ -73,7 +74,7 @@
 
 		<VARYING>
 			varying vec2 vTextureCoord;
-			varying vec4 vPosition;
+			varying vec3 vPosition;
 			varying vec3 vNormal;
 		</VARYING>
 
@@ -82,7 +83,7 @@
 			// Kd: diffuse coeff
 			float Kd = 1.0 ;
 			float Ks = 0.8 ;
-			float sh = 3.0 ;
+			float sh = 8.0 ;
 
 			// specular color
 			vec3 specColor = vec3(1.0,1.0,1.0);
@@ -92,7 +93,7 @@
 				vec4 texColor = texture2D(uSampler0, vTextureCoord);
 
 				// eye direction
-				vec3 eyeDirection = normalize(-vPosition.xyz);
+				vec3 eyeDirection = normalize(-vPosition);
 
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
@@ -107,7 +108,7 @@
 				//////////////////
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
 		    	{
-					lightDirection = normalize(pointLights[i].position - vPosition.xyz);
+					lightDirection = normalize(pointLights[i].position - vPosition);
 
 					// distance
 					distance = sqrt(pow(pointLights[i].position.x-vPosition.x,2.0) + pow(pointLights[i].position.y-vPosition.y,2.0) + pow(pointLights[i].position.z-vPosition.z,2.0));
@@ -152,19 +153,16 @@
 				/////////////////
 				for(int i=NB_SPOTLIGHTS-1; i>=0; i--)
 		    	{
-					lightDirection = normalize(spotLights[i].position - vPosition.xyz);
+					lightDirection = normalize(spotLights[i].position - vPosition);
 
-					float factor = (spotLights[i].position.y / spotLights[i].direction.y) - vPosition.y;
-					vec3 longDir = spotLights[i].direction.xyz * factor;
-					vec3 centerShower = spotLights[i].position.xyz + longDir;
+					float alpha = acos(dot(-lightDirection, normalize(spotLights[i].direction)));
 
-					distance = sqrt(pow(spotLights[i].position.x-vPosition.x,2.0) + pow(spotLights[i].position.y-vPosition.y,2.0) + pow(spotLights[i].position.z-vPosition.z,2.0));
+					float beta = atan(spotLights[i].radius);
 
-					float planDistance = sqrt(pow(centerShower.x-vPosition.x,2.0) + pow(centerShower.z-vPosition.z,2.0));
-					float planRadius = distance*spotLights[i].radius;
-
-					if(planRadius > planDistance)
+					if(beta >= alpha)
 					{
+						distance = sqrt(pow(spotLights[i].position.x-vPosition.x,2.0) + pow(spotLights[i].position.y-vPosition.y,2.0) + pow(spotLights[i].position.z-vPosition.z,2.0));
+
 						// diffuse term
 						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
 

@@ -23,7 +23,6 @@
 		<OUTPUT>
 		    void main(void) {
 	    		vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				
 				vNormal = uNMatrix * aVertexNormal;
 	    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
 	    		vColor = aVertexColor;
@@ -77,81 +76,105 @@
 		</VARYING>
 
 		<OUTPUT>
-			// edge color
-			vec3 edgeColor = vec3(0.0,0.0,0.0);
-			// shadow color
-			vec3 shadowColor = vec3(0.0, 0.0, 0.5);
-			// midtoneColor
-			vec3 midtoneColor = vec3(0.0,0.0,1.0);
-			// highlight color
-			vec3 highLightColor = vec3(1.0,1.0, 1.0);
-
-			// Kd: diffuse coeff, Ks: specular coeff, sh: specular exponent
-			float Kd = 0.5 ;
-			float Ks = 0.5 ;
-			float sh = 8.0 ;
-
-			// thresholds
-			float shadowMidtone = 0.0;
-			float midToneHighLight = 0.75 ;
-			float edgeThreshold = 0.95 ;
-
-			// specular color
-			vec3 specColor = vec3(1.0,1.0,1.0);
-
 			void main(void) {
-				vec3 normal = normalize(vNormal);
+				// edge color
+				vec3 edgeColor = vec3(0.0,0.0,0.0);
+				// shadow color
+				float shadowColor = 0.0;
+				// midtoneColor
+				float midtoneColor = 0.8;
+				// highlight color
+				vec3 highLightColor = vec3(1.0,1.0, 1.0);
 
+				// thresholds
+				float shadowMidtone = 0.2;
+				float midToneHighLight = 0.99 ;
+				float edgeThreshold = 0.95 ;
+
+				// specular color
+				vec3 specColor = vec3(1.0,1.0,1.0);
+
+				// Kd: diffuse coeff
+				float Kd = 1.0 ;
+
+				// eye direction
 				vec3 eyeDirection = normalize(-vPosition);
-				vec3 lightDirection = vec3(0.0,0.0,0.0);
-				vec3 reflectDirection = vec3(0.0,0.0,0.0);
-				
-				float diffuseLightWeight = 0.0;
-				float specularLightWeight = 0.0;	
 
+				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				float distance = 0.0;
+				float diffuseLightWeight = 0.0;
 
 				vec3 lightColor = vec3(0.0,0.0,0.0);
-				float temp;
 
 				//////////////////
 				// Point Lights //
 				//////////////////
 				for(int i=NB_POINTLIGHTS-1; i>=0; i--)
-		    	{
-		    		lightDirection = normalize(pointLights[i].position - vPosition);
+				{
+					lightDirection = normalize(pointLights[i].position - vPosition);
 
 					// distance
-					distance = sqrt(pow(pointLights[i].position.x,2.0) + pow(pointLights[i].position.y,2.0) + pow(pointLights[i].position.z,2.0));
+					distance = sqrt(pow(pointLights[i].position.x-vPosition.x,2.0) + pow(pointLights[i].position.y-vPosition.y,2.0) + pow(pointLights[i].position.z-vPosition.z,2.0));
 
 					// diffuse term
-					diffuseLightWeight = max(dot(lightDirection,normal), 0.0);
+					diffuseLightWeight = max(dot(normalize(vNormal), lightDirection), 0.0)*pointLights[i].intensity.x;
 
-					if(diffuseLightWeight > 0.0)
+					// light color
+					lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor) / distance;
+				}
+
+
+				////////////////////////
+				// Directional Lights //
+				////////////////////////
+				for(int i=NB_DIRECTIONNALLIGHTS-1; i>=0; i--)
+				{
+					lightDirection = normalize(-directionnalLights[i].direction);
+
+					// diffuse term
+					diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*directionnalLights[i].intensity.x;
+
+					// light color
+					lightColor += (Kd*diffuseLightWeight*directionnalLights[i].color*vColor);
+				}
+
+
+				/////////////////
+				// Spot Lights //
+				/////////////////
+				for(int i=NB_SPOTLIGHTS-1; i>=0; i--)
+				{
+					lightDirection = normalize(spotLights[i].position - vPosition);
+
+					float alpha = acos(dot(-lightDirection, normalize(spotLights[i].direction)));
+
+					float beta = atan(spotLights[i].radius);
+
+					if(beta >= alpha)
 					{
-						// reflection direction
-						reflectDirection = reflect(-lightDirection,normal);
+						distance = sqrt(pow(spotLights[i].position.x-vPosition.x,2.0) + pow(spotLights[i].position.y-vPosition.y,2.0) + pow(spotLights[i].position.z-vPosition.z,2.0));
 
-						// specular term
-					    float specAngle = max(dot(reflectDirection, eyeDirection), 0.0);
-					    float specular = pow(specAngle, 4.0);
+						// diffuse term
+						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
 
 						// light color
-						temp = Kd*diffuseLightWeight + Ks*specular;
+						lightColor += (Kd*diffuseLightWeight*spotLights[i].color*vColor) / distance;
 					}
-
-					// edge term
-					float edge = sqrt(1.0 - pow(max(dot(normal,eyeDirection),0.0),2.0));
-
-					if (edge > edgeThreshold)
-						lightColor += edgeColor;
-					else if (shadowMidtone >= temp)
-						lightColor += shadowColor;
-					else if (midToneHighLight >= temp)
-						lightColor += midtoneColor;
-					else
-						lightColor += highLightColor;
 				}
+
+				// edge term
+				float edge = sqrt(1.0 - pow(max(dot(vNormal,eyeDirection),0.0),2.0));
+				float tempColor = sqrt(pow(lightColor.r, 2.0)+pow(lightColor.g, 2.0)+pow(lightColor.b, 2.0));
+
+				if (edge > edgeThreshold)
+					lightColor = edgeColor;
+				else if (shadowMidtone >= tempColor)
+					lightColor = vColor*shadowColor;
+				else if (midToneHighLight >= tempColor/2.0)
+					lightColor = vColor*midtoneColor;
+				else
+					lightColor = highLightColor;
+
 
 				gl_FragColor = vec4(lightColor,1.0);
 			}

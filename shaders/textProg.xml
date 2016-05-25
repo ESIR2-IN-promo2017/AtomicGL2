@@ -14,16 +14,15 @@
 
 		<VARYING>
 		  varying vec2 vTextureCoord;
-		  varying vec4 vPosition;
 		</VARYING>
 
 		<OUTPUT>
 		    void main(void) {
-	    		// vNormal
-				vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+				vTextureCoord = aVertexTexCoord;
 
-				gl_Position = uPMatrix * vPosition;
-	      		vTextureCoord = aVertexTexCoord;
+				vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+
+				gl_Position = uPMatrix * homogeneousPosition;
 	    	}
 		</OUTPUT>
 	</VERTEX>
@@ -41,7 +40,6 @@
 
 		<VARYING>
 			varying vec2 vTextureCoord;
-			varying vec4 vPosition;
 		</VARYING>
 
 		<OUTPUT>

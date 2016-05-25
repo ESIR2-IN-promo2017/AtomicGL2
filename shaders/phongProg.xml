@@ -23,7 +23,7 @@
 		<OUTPUT>
 		    void main(void) {
 	    		vec4 homogeneousPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
-				
+
 				vNormal = uNMatrix * aVertexNormal;
 	    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
 	    		vColor = aVertexColor;
@@ -92,7 +92,7 @@
 				vec3 eyeDirection = normalize(-vPosition);
 				vec3 lightDirection = vec3(0.0,0.0,0.0);
 				vec3 reflectDirection = vec3(0.0,0.0,0.0);
-				
+
 				float diffuseLightWeight = 0.0;
 				float specularLightWeight = 0.0;
 
@@ -112,7 +112,7 @@
 					distance = sqrt(pow(pointLights[i].position.x,2.0) + pow(pointLights[i].position.y,2.0) + pow(pointLights[i].position.z,2.0));
 
 					// diffuse term
-					diffuseLightWeight = max(dot(lightDirection,normal), 0.0);
+					diffuseLightWeight = max(dot(lightDirection,normal), 0.0)*pointLights[i].intensity.x;
 
 					if(diffuseLightWeight > 0.0)
 					{
@@ -124,7 +124,7 @@
 					    float specular = pow(specAngle, 4.0);
 
 						// light color
-						lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor + Ks*specular*pointLights[i].color*specColor);
+						lightColor += (Kd*diffuseLightWeight*pointLights[i].color*vColor + Ks*specular*pointLights[i].color*specColor) / distance;
 					}
 				}
 
@@ -157,17 +157,14 @@
 		    	{
 					lightDirection = normalize(spotLights[i].position - vPosition);
 
-					float factor = (spotLights[i].position.y / spotLights[i].direction.y) - vPosition.y;
-					vec3 longDir = spotLights[i].direction.xyz * factor;
-					vec3 centerShower = spotLights[i].position.xyz + longDir;
+					float alpha = acos(dot(-lightDirection, normalize(spotLights[i].direction)));
 
-					distance = sqrt(pow(spotLights[i].position.x-vPosition.x,2.0) + pow(spotLights[i].position.y-vPosition.y,2.0) + pow(spotLights[i].position.z-vPosition.z,2.0));
+					float beta = atan(spotLights[i].radius);
 
-					float planDistance = sqrt(pow(centerShower.x-vPosition.x,2.0) + pow(centerShower.z-vPosition.z,2.0));
-					float planRadius = distance*spotLights[i].radius;
-
-					if(planRadius > planDistance)
+					if(beta >= alpha)
 					{
+						distance = sqrt(pow(spotLights[i].position.x-vPosition.x,2.0) + pow(spotLights[i].position.y-vPosition.y,2.0) + pow(spotLights[i].position.z-vPosition.z,2.0));
+
 						// diffuse term
 						diffuseLightWeight = max(dot(vNormal, lightDirection), 0.0)*spotLights[i].intensity.x;
 
