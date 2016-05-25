@@ -45,7 +45,7 @@
 		<CUBE 		id="textBlendingCube" 	height="2.0" width="2.0" depth="2.0" tex="glass" uv="1.0,1.0" transparency="true"></CUBE>
 	</SHAPES>
 
-	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
+	<ROOT skyboxtexture="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
 		<LIGHT id="obj_Light1">SpotLight0</LIGHT>
 		<OBJECT3D id="ground" shader="textDiffProg">NavMesh</OBJECT3D>
 

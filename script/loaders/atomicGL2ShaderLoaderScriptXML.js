@@ -3,8 +3,8 @@
 class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 	constructor(xmlfile){
 		super();
-		this.vertexShaderSRC     = this.getShaderSRC(xmlfile,"vertex") ;
-		this.fragmentShaderSRC   = this.getShaderSRC(xmlfile,"fragment") ;
+		this.vertexShaderSRC     = this.getShaderSRC(xmlfile,"vertex");
+		this.fragmentShaderSRC   = this.getShaderSRC(xmlfile,"fragment");
 		this.attributesShaderSRC = this.Xplode(this.getShaderSRC(xmlfile,"attributes"),"attribute");
 		this.uniformsShaderSRC   = this.Xplode(this.getShaderSRC(xmlfile,"uniforms"),"uniform");
 
@@ -121,7 +121,7 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 		xmlhttp.open("GET",xmlfile,false);
 		xmlhttp.send();
 		var xmlDoc=xmlhttp.responseXML;
-		var str = "" ;
+		var str = "";
 
 		switch (type){
 			case "vertex" :
@@ -133,8 +133,8 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 
 				str = xvertex[0].childNodes[0].data   + xattributes[0].childNodes[0].data
 					+ xuniforms[0].childNodes[0].data + xvarying[0].childNodes[0].data
-					+ xoutput[0].childNodes[0].data ;
-			break ;
+					+ xoutput[0].childNodes[0].data;
+			break;
 
 			case "fragment" :
 				var xfragment   = xmlDoc.getElementsByTagName("FRAGMENT");
@@ -145,21 +145,21 @@ class atomicGL2ShaderLoaderScriptXML extends atomicGL2ShaderLoader {
 
 				str = xfragment[0].childNodes[0].data + xprecision[0].childNodes[0].data
 					+ xuniforms[1].childNodes[0].data + xvarying[1].childNodes[0].data
-					+ xoutput[1].childNodes[0].data ;
-			break ;
+					+ xoutput[1].childNodes[0].data;
+			break;
 
 			case "attributes" :
 				var xattributes = xmlDoc.getElementsByTagName("ATTRIBUTES");
-				str = xattributes[0].childNodes[0].data ;
-			break ;
+				str = xattributes[0].childNodes[0].data;
+			break;
 
 			case "uniforms" :
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
-				str = xuniforms[0].childNodes[0].data ;
+				str = xuniforms[0].childNodes[0].data;
 
 				var xuniforms = xmlDoc.getElementsByTagName("UNIFORMS");
-				str += xuniforms[1].childNodes[0].data ;
-			break ;
+				str += xuniforms[1].childNodes[0].data;
+			break;
 		}
 		// debug
 		// ----------------------

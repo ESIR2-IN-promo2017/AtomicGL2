@@ -19,12 +19,12 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 		super(name);
 
 		// size
-		this.radius	= radius ;
-		this.latitudeBands 	= latitudeBands ;
-		this.longitudeBands	= longitudeBands ;
+		this.radius	= radius;
+		this.latitudeBands 	= latitudeBands;
+		this.longitudeBands	= longitudeBands;
 
 		// textures
-		this.scaleUV = [uu,vv] ;
+		this.scaleUV = [uu,vv];
 
 	  // build the vertices
 		this.build();
@@ -50,7 +50,7 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 		// switch face
 		switch(face){
 			case "All":
-				this.colorsArray = [] ;
+				this.colorsArray = [];
 				for (var latNumber=0; latNumber <= this.latitudeBands; latNumber++) {
             		for (var longNumber = 0; longNumber <= this.longitudeBands; longNumber++) {
                 		// color
@@ -114,16 +114,16 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 			}
 		}
 
-		this.vertexPositionBufferItemSize = 3 ;
-		this.vertexNormalBufferItemSize   = 3 ;
-		this.vertexTexCoordBufferItemSize = 2 ;
-		this.vertexColorBufferItemSize    = 3 ;
-		this.vertexIndexBufferItemSize    = 1 ;
+		this.vertexPositionBufferItemSize = 3;
+		this.vertexNormalBufferItemSize   = 3;
+		this.vertexTexCoordBufferItemSize = 2;
+		this.vertexColorBufferItemSize    = 3;
+		this.vertexIndexBufferItemSize    = 1;
 
-		this.vertexPositionBufferNumItems = this.verticesArray.length / 3 ;
-		this.vertexNormalBufferNumItems   = this.normalsArray.length / 3 ;
-		this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2 ;
-		this.vertexColorBufferNumItems    = this.colorsArray.length / 3 ;
+		this.vertexPositionBufferNumItems = this.verticesArray.length / 3;
+		this.vertexNormalBufferNumItems   = this.normalsArray.length / 3;
+		this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length / 2;
+		this.vertexColorBufferNumItems    = this.colorsArray.length / 3;
 		this.vertexIndexBufferNumItems    = this.vertexIndices.length;
 	}
 }

@@ -48,7 +48,7 @@ class atomicGL2Importer  {
         // vertices array
         obj.vertices      = [];
         // normals array
-        obj.normals       = [] ;
+        obj.normals       = [];
         // indexes array
         obj.vertexIndices = [];
         //texture coordinates
@@ -153,7 +153,7 @@ class atomicGL2Importer  {
                       // add the newly created vertex to the list of indices
                       obj.vertexIndices.push(parseInt(vertex[0])-1);
 
-                      objTmp.hashindices[elements[j]] =obj.index ;
+                      objTmp.hashindices[elements[j]] =obj.index;
 
                       // increment the counter
                       obj.index += 1;

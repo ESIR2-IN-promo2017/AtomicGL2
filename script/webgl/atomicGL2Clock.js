@@ -17,10 +17,10 @@ class atomicGL2Clock{
 		// -------------------------------------------------
 		
 		// time of last tick
-    	this.lastTime = 0.0 ;
+    	this.lastTime = 0.0;
 		
 		// elapsed time
-		this.elapsed = 0.0 ;	
+		this.elapsed = 0.0;	
 	}
 	// methods
 	// --------------------------------------------------

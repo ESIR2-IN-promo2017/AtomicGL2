@@ -31,39 +31,39 @@ class atomicGLwaveShader {
 	// attributes
 	// -------------------------------------------------
 	// name
-	this.name = nname ;
+	this.name = nname;
 	// useTex
-	this.nbTex = nnbTex ;
+	this.nbTex = nnbTex;
 	// nbLights
-	this.nbLight = nnbLights ;
+	this.nbLight = nnbLights;
 }
 	// program shader
-	this.program ;
+	this.program;
 	// attributes
-    this.vertexPositionAttribute ;
-	this.vertexNormalAttribute ;
-	this.vertexColorAttribute ;
-	this.texCoordAttribute ;
+    this.vertexPositionAttribute;
+	this.vertexNormalAttribute;
+	this.vertexColorAttribute;
+	this.texCoordAttribute;
 	// uniform Matrices
-	this.pMatrixUniform ;
-	this.mvMatrixUniform ;
-	this.nMatrixUniform ;
+	this.pMatrixUniform;
+	this.mvMatrixUniform;
+	this.nMatrixUniform;
 	// light
-	this.ambientColorUniform ;
-	this.pointLightLocationUniform = [] ;
-	this.pointLightColorUniform = [] ;
+	this.ambientColorUniform;
+	this.pointLightLocationUniform = [];
+	this.pointLightColorUniform = [];
 	
 	// texture -sampler
-	this.samplerUniform = [] ;
+	this.samplerUniform = [];
 		
 	// uniform defining the waves (see shader code for details)
- 	this.A0Uniform ;
-	this.A1Uniform ;
-	this.A2Uniform ;
-	this.A3Uniform ;
-	this.xRangeUniform ;
+ 	this.A0Uniform;
+	this.A1Uniform;
+	this.A2Uniform;
+	this.A3Uniform;
+	this.xRangeUniform;
 	// wave animation 
-	this.timeUniform ;
+	this.timeUniform;
 	 
 	// values of  above uniforms
 	// A cos(omega u + phi t) A0[0] = A - A0[1] = omega - A0[2] = phi
@@ -73,7 +73,7 @@ class atomicGLwaveShader {
 	this.A3 = []; // vec3
 	this.xRange = []; // xmin,xmax - vec2
 	// wave animation 
-	this.wTime = 0.0 ;	
+	this.wTime = 0.0;	
 	
 	
 	// methods
@@ -253,7 +253,7 @@ class atomicGLwaveShader {
         //		ambient
         AGL.gl.uniform3f(this.ambientColorUniform,AGL.ambientLightColor[0],AGL.ambientLightColor[1],AGL.ambientLightColor[2]);
 		//		Omni
-		for (var i=0; i < this.nbLight ; i++){
+		for (var i=0; i < this.nbLight; i++){
 			// debug
 			//console.log("-- atomicGLwaveShader::setUniforms - Light number ("+i+")");
 			//console.log("-- LightLocation @"+this.pointLightLocationUniform[i]+"::" +AGL.omniLightLocation[i*3+0] +","+ AGL.omniLightLocation[i*3+1]+","+ AGL.omniLightLocation[i*3+2] );
@@ -264,16 +264,16 @@ class atomicGLwaveShader {
 		}
 		
 		// uniform defining the waves (see shader code for details)
-		AGL.gl.uniform3f(this.A0Uniform,this.A0[0],this.A0[1],this.A0[2]) ;
-		AGL.gl.uniform3f(this.A1Uniform,this.A1[0],this.A1[1],this.A1[2]) ;
-		AGL.gl.uniform3f(this.A2Uniform,this.A2[0],this.A2[1],this.A2[2]) ;
-		AGL.gl.uniform3f(this.A3Uniform,this.A3[0],this.A3[1],this.A3[2]) ;
+		AGL.gl.uniform3f(this.A0Uniform,this.A0[0],this.A0[1],this.A0[2]);
+		AGL.gl.uniform3f(this.A1Uniform,this.A1[0],this.A1[1],this.A1[2]);
+		AGL.gl.uniform3f(this.A2Uniform,this.A2[0],this.A2[1],this.A2[2]);
+		AGL.gl.uniform3f(this.A3Uniform,this.A3[0],this.A3[1],this.A3[2]);
 		// xRange and time
-		AGL.gl.uniform2f(this.xRangeUniform,this.xRange[0],this.xRange[1]) ;
-		AGL.gl.uniform1f(this.timeUniform,this.wTime) ;
+		AGL.gl.uniform2f(this.xRangeUniform,this.xRange[0],this.xRange[1]);
+		AGL.gl.uniform1f(this.timeUniform,this.wTime);
 		
     }
 	
 	// init
-	this.program  = this.createProgram(AGL,fragmentShaderID, vertexShaderID) ;    
+	this.program  = this.createProgram(AGL,fragmentShaderID, vertexShaderID);    
 }

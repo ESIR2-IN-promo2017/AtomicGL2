@@ -26,10 +26,8 @@
 		<SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" tex="stone1" uv="1.0,1.0"></SPHERE>
 	</SHAPES>
 
-	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
-		<LIGHT id="obj_Light0">PointLight0</LIGHT>
-
-		<TRANSFORM id="transform" translate="0.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+	<ROOT camera="statiCamera">
+		<TRANSFORM id="transform" translate="0.0,0.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 			<OBJECT3D id="transform" shader="deformationProg">deformationSphere</OBJECT3D>
 		</TRANSFORM>
 	</ROOT>

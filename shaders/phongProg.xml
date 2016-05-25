@@ -79,9 +79,9 @@
 		<OUTPUT>
 			// local constant
 			// Kd: diffuse coeff
-			float Kd = 1.0 ;
-			float Ks = 0.8 ;
-			float sh = 8.0 ;
+			float Kd = 1.0;
+			float Ks = 0.8;
+			float sh = 8.0;
 
 			// specular color
 			vec3 specColor = vec3(1.0,1.0,1.0);

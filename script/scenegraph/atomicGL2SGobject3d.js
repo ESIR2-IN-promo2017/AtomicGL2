@@ -10,7 +10,7 @@ class atomicGL2SGobject3d extends atomicGL2SceneGraph {
 		// type = object3D - object3D & shaderId
 		this.object3D = null;
 		//this.shaderId = -1;
-		this.shaderId = "" ; // also used for skybox
+		this.shaderId = ""; // also used for skybox
 		// debug
 		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::constructor ->"+this.type+" - "+this.name);
 
@@ -24,7 +24,7 @@ class atomicGL2SGobject3d extends atomicGL2SceneGraph {
 		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::setObject3D ->"+this.type+" - "+this.name);
 
 		this.object3D = o;
-		this.shaderId = sid ;
+		this.shaderId = sid;
 	}
 
 	// draw

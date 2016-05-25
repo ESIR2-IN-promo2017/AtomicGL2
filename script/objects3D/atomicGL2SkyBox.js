@@ -26,13 +26,13 @@ class atomicGLSkyBox {
 	// attributes
 	// -------------------------------------------------
 	// name
-	this.name = nname ;
+	this.name = nname;
 	// size
-	this.size = ssize ;
+	this.size = ssize;
 
 	
 	// textures
-	this.textures = [] ;
+	this.textures = [];
 	
 	// vertices array
 	this.verticesArray 	= [
@@ -292,7 +292,7 @@ class atomicGLSkyBox {
 	initGLBuffers(AGL){
 		// debug
 		//console.log("atomicGLskyBox("+this.name+")::initGLBuffers");
-		var gl = AGL.gl ;
+		var gl = AGL.gl;
 		// skyBoxVertexPositionBuffer
 		this.skyBoxVertexPositionBuffer	= gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.skyBoxVertexPositionBuffer);

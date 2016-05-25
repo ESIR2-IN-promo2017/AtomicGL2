@@ -79,7 +79,7 @@
 		<OUTPUT>
 			void main(void) {
 				// Kd: diffuse coeff
-				float Kd = 1.0 ;
+				float Kd = 1.0;
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition);

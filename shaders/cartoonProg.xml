@@ -88,14 +88,14 @@
 
 				// thresholds
 				float shadowMidtone = 0.2;
-				float midToneHighLight = 0.99 ;
-				float edgeThreshold = 0.95 ;
+				float midToneHighLight = 0.99;
+				float edgeThreshold = 0.95;
 
 				// specular color
 				vec3 specColor = vec3(1.0,1.0,1.0);
 
 				// Kd: diffuse coeff
-				float Kd = 1.0 ;
+				float Kd = 1.0;
 
 				// eye direction
 				vec3 eyeDirection = normalize(-vPosition);
