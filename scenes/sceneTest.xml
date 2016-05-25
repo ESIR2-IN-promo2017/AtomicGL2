@@ -14,7 +14,7 @@
 
 	<TEXTURES>
 		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
-		<TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE>		
+		<TEXTURE id="bumpMap" type="color">testBumpMapping.png</TEXTURE>
 		<TEXTURE id="stone1" type="color">stone1.png</TEXTURE>
 		<TEXTURE id="herbe" type="color">herbe1.png</TEXTURE>
 	</TEXTURES>
@@ -26,7 +26,7 @@
 		<SPHERE id="deformationSphere" rad="1.0" lat="32" long="32" tex="stone1" uv="1.0,1.0"></SPHERE>
 	</SHAPES>
 
-	<ROOT camera="statiCamera">
+	<ROOT camera="staticCamera">
 		<TRANSFORM id="transform" translate="0.0,0.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 			<OBJECT3D id="transform" shader="deformationProg">deformationSphere</OBJECT3D>
 		</TRANSFORM>

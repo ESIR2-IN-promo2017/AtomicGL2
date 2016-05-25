@@ -14,16 +14,22 @@
 	</SHADERS>
 
 	<TEXTURES>
-		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
+		<TEXTURE id="skyTex" type="color">skybox_texture.png</TEXTURE>
+		<TEXTURE id="mur" type="color">mur_pierre1.png</TEXTURE>
 		<TEXTURE id="bitume" type="color">bitume2.png</TEXTURE>
 	</TEXTURES>
 
 	<SHAPES>
 		<XZPLANE id="NavMesh" height="100" width="100" xrow="10" zrow="10" tex="bitume" uv="10.0,10.0"></XZPLANE>
+		<XYPLANE id="Wall0" height="100" width="100" xrow="10" yrow="10" tex="mur" uv="5.0,5.0"></XYPLANE>
 	</SHAPES>
 
-	<ROOT skyboxtexture="skyTex" skysize="100.0" skyshader="textDiffProg" camera="dynamiCamera" navmesh="NavMesh">
+	<ROOT skyboxtexture="skyTex" skysize="800.0" skyshader="textProg" camera="dynamicCamera" navmesh="NavMesh">
 		<LIGHT id="obj_Light1">DirectionnalLight0</LIGHT>
 		<OBJECT3D id="ground" shader="textDiffProg">NavMesh</OBJECT3D>
+
+		<TRANSFORM id="transform_wall0" translate="0.0,0.0,-50.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_wall0" shader="textDiffProg">Wall0</OBJECT3D>
+		</TRANSFORM>
 	</ROOT>
 </SCENE>

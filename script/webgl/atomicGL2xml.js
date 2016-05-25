@@ -663,11 +663,11 @@ class atomicGL2xml {
 				var camera = null;
 				switch (camId)
 				{
-					case "dynamiCamera":
+					case "dynamicCamera":
 						camera = new atomicGL2DynamicCamera(AGL.shapes[AGL.indexOfShape(e.getAttribute("navmesh"))]);
 						break;
 
-					case "statiCamera" :
+					case "staticCamera" :
 						camera = new atomicGL2StaticCamera();
 						break;
 				}

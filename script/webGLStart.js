@@ -18,6 +18,8 @@ var AMS = new atomicGL2MatrixStack();
 // clock
 var sceneClock = new atomicGL2Clock();
 
+var fps = 0;
+var second = 0.0;
 
 // DRAW
 function sceneDraw() {
@@ -32,6 +34,7 @@ function nextFrame() {
 	requestAnimFrame(nextFrame);
 	sceneDraw();
 	animate();
+	computeFps();
 }
 
 // ANIMATE
@@ -39,8 +42,8 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
-	// var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
-	// transformSphere.angle += 0.2*sceneClock.get();
+	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
+	transformSphere.angle += 0.2*sceneClock.get();
 
 	// temp += 1*sceneClock.get();
 	// if(temp%2.0 == 0)
@@ -49,6 +52,16 @@ function animate() {
 	// 	scaleDisplacement = 0.5;
 
 	// this.AGL.shaderPrograms.get("scaleProg").setUniformById(AGL,"scaleDisplacement",scaleDisplacement);
+}
+
+function computeFps() {
+	fps += 1;
+	second += sceneClock.get();
+	if(second > 1000.0){
+		second = 0.0;
+		console.log(fps);
+		fps = 0;
+	}
 }
 
 // KEYBOARD
