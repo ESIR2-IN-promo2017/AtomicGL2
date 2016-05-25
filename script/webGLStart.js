@@ -39,19 +39,16 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
-	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
-	transformSphere.angle += 0.1*sceneClock.get();
+	// var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
+	// transformSphere.angle += 0.2*sceneClock.get();
 
-	temp += 1*sceneClock.get();
-	if(temp%2.0 == 0)
-		scaleDisplacement +=0.1;
-	if(scaleDisplacement>3.0)
-		scaleDisplacement = 0.5;
+	// temp += 1*sceneClock.get();
+	// if(temp%2.0 == 0)
+	// 	scaleDisplacement +=0.1;
+	// if(scaleDisplacement>3.0)
+	// 	scaleDisplacement = 0.5;
 
-	this.AGL.shaderPrograms.get("deformationProg").setUniformById(AGL,"scaleDisplacement",scaleDisplacement);
-
-	// var transformCube = AGL.scenegraph.findNode("transform_cube");
-	// transformCube.angle += 0.1*sceneClock.get();
+	// this.AGL.shaderPrograms.get("scaleProg").setUniformById(AGL,"scaleDisplacement",scaleDisplacement);
 }
 
 // KEYBOARD
@@ -78,47 +75,53 @@ function handleKeyUp(event) {
 
 function handleKeys() {
 
-	// CAMERA MODE
-	if(AGL.scenegraph.camera.isFreeCam)
+	// CAMERA MODE :
+	// -DYNAMIC
+	// -STATIC
+	if(AGL.scenegraph.camera.getType() == atomicGL2DynamicCamera)
 	{
-		// (Z) Up
-		if (currentlyPressedKeys[90]) {
-			if(AGL.scenegraph.camera.walkStep < 2)
-				AGL.scenegraph.camera.walkStep += 0.05;
-		}
-		// (S) Down
-		if (currentlyPressedKeys[83]) {
-			if(AGL.scenegraph.camera.walkStep > -2)
-				AGL.scenegraph.camera.walkStep -= 0.05;
-		}
+		// FREE MODE
+		if(AGL.scenegraph.camera.isFreeCam)
+		{
+			// (Z) Up
+			if (currentlyPressedKeys[90]) {
+				if(AGL.scenegraph.camera.walkStep < 2)
+					AGL.scenegraph.camera.walkStep += 0.05;
+			}
+			// (S) Down
+			if (currentlyPressedKeys[83]) {
+				if(AGL.scenegraph.camera.walkStep > -2)
+					AGL.scenegraph.camera.walkStep -= 0.05;
+			}
 
-		AGL.scenegraph.camera.up();
-	}
-
-	// WALK MODE
-	else
-	{
-		AGL.scenegraph.camera.walkStep = 0.5;
-
-		// (D) Right
-		if (currentlyPressedKeys[68]) {
-			AGL.scenegraph.camera.right();
-		}
-		// (Q) Left
-		if (currentlyPressedKeys[81]) {
-			AGL.scenegraph.camera.left();
-		}
-		// (Z) Up
-		if (currentlyPressedKeys[90]) {
 			AGL.scenegraph.camera.up();
 		}
-		// (S) Down
-		if (currentlyPressedKeys[83]) {
-			AGL.scenegraph.camera.down();
-		}
-		// (Space) Jump
-		if (currentlyPressedKeys[32]) {
-			AGL.scenegraph.camera.jump();
+
+		// WALK MODE
+		else
+		{
+			AGL.scenegraph.camera.walkStep = 0.5;
+
+			// (D) Right
+			if (currentlyPressedKeys[68]) {
+				AGL.scenegraph.camera.right();
+			}
+			// (Q) Left
+			if (currentlyPressedKeys[81]) {
+				AGL.scenegraph.camera.left();
+			}
+			// (Z) Up
+			if (currentlyPressedKeys[90]) {
+				AGL.scenegraph.camera.up();
+			}
+			// (S) Down
+			if (currentlyPressedKeys[83]) {
+				AGL.scenegraph.camera.down();
+			}
+			// (Space) Jump
+			if (currentlyPressedKeys[32]) {
+				AGL.scenegraph.camera.jump();
+			}
 		}
 	}
 }

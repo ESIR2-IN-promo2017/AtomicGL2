@@ -88,9 +88,9 @@
 		<OUTPUT>
 			// local constant
 			// Kd: diffuse coeff
-			float Kd = 1.0 ;
-			float Ks = 0.8 ;
-			float sh = 3.0 ;
+			float Kd = 1.0;
+			float Ks = 0.8;
+			float sh = 3.0;
 
 			// specular color
 			vec3 specColor = vec3(1.0,1.0,1.0);
@@ -106,7 +106,7 @@
 				vec3 oldNormal = normalize(vNormal);
 
 				// new normal in tangent space
-				vec3 newNormalTS = normalize(2.0 * texture2D(uSampler0, vTextureCoord).xyz - 1.0) ;
+				vec3 newNormalTS = normalize(2.0 * texture2D(uSampler0, vTextureCoord).xyz - 1.0);
 				// newNormalTS *= 2.0;
 
 				// TS to View
@@ -121,7 +121,7 @@
 				vec3 tangent =  cross(biTangent,oldNormal);
 
 				// no transpose
-				vec3 u1 = tangent ;
+				vec3 u1 = tangent;
 				vec3 u2 = biTangent;
 				vec3 u3 = oldNormal;
 

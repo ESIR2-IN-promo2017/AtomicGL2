@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCENE>
+	<LIGHTS>
+		<DIRECTIONNALLIGHT id="DirectionnalLight0" direction="-1.0,-1.0,-1.0" color="1.0,1.0,1.0" intensity="0.2,0.0,0.0"></DIRECTIONNALLIGHT>
+
+		<SPOTLIGHT id="SpotLight0" position="0.0,0.0,0.0" direction="0.0,-1.0,-5.0" radius="0.5" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></SPOTLIGHT>
+		<!-- <SPOTLIGHT id="SpotLight1" position="0.0,0.0,0.0" direction="0.0,-1.0,-5.0" radius="0.5" color="1.0,1.0,1.0" intensity="30.0,0.0,0.0"></SPOTLIGHT> -->
+	</LIGHTS>
+
+	<SHADERS>
+		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
+		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
+	</SHADERS>
+
+	<TEXTURES>
+		<TEXTURE id="skyTex" type="color">skybox3_texture.png</TEXTURE>
+		<TEXTURE id="bitume" type="color">bitume2.png</TEXTURE>
+	</TEXTURES>
+
+	<SHAPES>
+		<XZPLANE id="NavMesh" height="100" width="100" xrow="10" zrow="10" tex="bitume" uv="10.0,10.0"></XZPLANE>
+	</SHAPES>
+
+	<ROOT skyboxtexture="skyTex" skysize="100.0" skyshader="textDiffProg" camera="dynamiCamera" navmesh="NavMesh">
+		<LIGHT id="obj_Light1">DirectionnalLight0</LIGHT>
+		<OBJECT3D id="ground" shader="textDiffProg">NavMesh</OBJECT3D>
+	</ROOT>
+</SCENE>

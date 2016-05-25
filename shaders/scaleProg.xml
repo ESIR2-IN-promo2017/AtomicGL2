@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SHADER name="scaleProg">
+	<VERTEX>
+		<ATTRIBUTES>
+			attribute vec3 aVertexPosition;
+			attribute vec3 aVertexNormal;
+			attribute vec3 aVertexColor;
+		</ATTRIBUTES>
+
+		<UNIFORMS>
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform mat3 uNMatrix;
+			uniform float scaleDisplacement;
+		</UNIFORMS>
+
+		<VARYING>
+		  varying vec3 vNormal;
+		  varying vec3 vPosition;
+		  varying vec3 vColor;
+		</VARYING>
+
+		<OUTPUT>
+	    void main(void) {
+			vec3 newPosition = aVertexPosition + aVertexNormal * scaleDisplacement;
+    		vec4 homogeneousPosition = uMVMatrix * vec4(newPosition, 1.0);
+
+    		gl_Position = uPMatrix * homogeneousPosition;
+			
+			vNormal = uNMatrix * aVertexNormal;
+    		vColor = aVertexColor;
+
+    		vPosition = vec3(homogeneousPosition)/homogeneousPosition.w;
+    	}
+		</OUTPUT>
+	</VERTEX>
+
+	<FRAGMENT>
+		<PRECISION>
+			#ifdef GL_ES
+				precision highp float;
+			#endif
+
+			#define NB_POINTLIGHTS
+			#define NB_SPOTLIGHTS
+			#define NB_DIRECTIONNALLIGHTS
+
+			struct pointLight{
+				vec3 position;
+				vec3 color;
+				vec3 intensity;
+			};
+		</PRECISION>
+
+		<UNIFORMS>
+		    uniform pointLight pointLights[NB_POINTLIGHTS];
+		</UNIFORMS>
+
+		<VARYING>
+			varying vec3 vPosition;
+			varying vec3 vNormal;
+			varying vec3 vColor;
+		</VARYING>
+
+		<OUTPUT>
+			void main() {
+				vec3 lightPos = pointLights[0].position;
+				vec3 diffuseColor = vColor;
+				vec3 specColor = vec3(1.0, 1.0, 1.0);
+
+				vec3 normal = normalize(vNormal); 
+				vec3 lightDir = normalize(lightPos - vPosition);
+
+				float lambertian = max(dot(lightDir,normal), 0.0);
+				float specular = 0.0;
+
+				if(lambertian > 0.0) {
+					vec3 reflectDir = reflect(-lightDir, normal);
+					vec3 viewDir = normalize(-vPosition);
+
+					float specAngle = max(dot(reflectDir, viewDir), 0.0);
+					specular = pow(specAngle, 4.0);
+				}
+
+				gl_FragColor = vec4(lambertian*diffuseColor + specular*specColor, 1.0);
+			}	
+		</OUTPUT>
+	</FRAGMENT>
+</SHADER>
+

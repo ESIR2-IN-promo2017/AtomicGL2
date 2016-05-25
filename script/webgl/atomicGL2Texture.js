@@ -29,18 +29,18 @@ class atomicGL2Texture{
 		// attributes
 		// -------------------------------------------------
 		// local context
-		this.AGL = aAGL ;
+		this.AGL = aAGL;
 		// texture id
-		this.id = iid ;
+		this.id = iid;
 		// file name
-		this.file = ffile ;
+		this.file = ffile;
 		// texture type
-		this.type = ttype ;
+		this.type = ttype;
 		// texture image
 		this.textureImage = new Image();
 		// ogl texture
 	    this.texture = aAGL.gl.createTexture();
-	    this.texture.image =   this.textureImage ;
+	    this.texture.image =   this.textureImage;
 
 	    // build
 	    this.build();
@@ -56,7 +56,7 @@ class atomicGL2Texture{
 	// o: 	this - atomicGLtexture
 	//---------------------------
 	handleIMG(){
-		var o = this ;
+		var o = this;
 		// debug
 		//console.log("atomicGLTexture::onload("+this.file+")");
 
@@ -71,7 +71,7 @@ class atomicGL2Texture{
 		// unbind
 		this.AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, null);
 		// loaded !
-		this.loaded = true ;
+		this.loaded = true;
 	}
 
 	// --------------------------------------------------

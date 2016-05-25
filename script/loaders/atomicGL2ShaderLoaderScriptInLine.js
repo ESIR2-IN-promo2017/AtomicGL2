@@ -3,8 +3,8 @@
 class atomicGL2ShaderLoaderScriptInLine extends atomicGL2ShaderLoader {
 	constructor(vertexShaderID,fragmentShaderID){
 		super();
-		this.vertexShaderSRC = this.getShaderSRC(vertexShaderID) ;
-		this.fragmentShaderSRC = this.getShaderSRC(fragmentShaderID) ;
+		this.vertexShaderSRC = this.getShaderSRC(vertexShaderID);
+		this.fragmentShaderSRC = this.getShaderSRC(fragmentShaderID);
 	} 
 	// getShaderSRC
 	// -------------------------

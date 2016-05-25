@@ -9,9 +9,9 @@ class atomicGL2SGroot extends atomicGL2SceneGraph {
 		super("root", name);
 		// attributes
 		// type = root - camera and skybox
-		this.camera   = null ;
-		this.skyBox   = null ;
-		this.shaderId = "" ;
+		this.camera   = null;
+		this.skyBox   = null;
+		this.shaderId = "";
 		// debug
 		//console.log("atomicGL2SGroot extends atomicGL2SceneGraph::constructor ->"+name);
 		}
@@ -26,7 +26,7 @@ class atomicGL2SGroot extends atomicGL2SceneGraph {
 		this.skyBox   = sb;
 		this.shaderId = sid;
 	}
-
+	
 	// draw
 	// -------------------------
 	// inputs: 	AGL - atomicGLContext
@@ -67,7 +67,7 @@ class atomicGL2SGroot extends atomicGL2SceneGraph {
 		}
 
 		// children
-		for (var i=0; i<this.children.length ; i++)
+		for (var i=0; i<this.children.length; i++)
 			this.children[i].draw(AGL,AMS);
 
 		// pop

@@ -20,7 +20,7 @@ class atomicGL2SceneGraph {
 		// -------------------------------------------------
 		// type: string - "root" | "transform" | "object3D"
 		this.type = stype;
-		this.name = nname ;
+		this.name = nname;
 
 		// children
 		this.children = [];

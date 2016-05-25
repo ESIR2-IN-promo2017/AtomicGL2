@@ -17,10 +17,10 @@ class atomicGL2Context {
 		// attributes
 		// -------------------------------------------------
 		// GL context
-		this.gl ;
+		this.gl;
 		// GL context size
-		this.viewportWidth ;
-		this.viewportHeight ;
+		this.viewportWidth;
+		this.viewportHeight;
 
 		// Ambient lights
 		this.ambientLightColor;
@@ -57,18 +57,18 @@ class atomicGL2Context {
 		// debug
 		//console.log("atomicGLContext::initGL");
 		// recover canvas openGL
-    	try {
-      		this.gl = canvas.getContext("webgl");
-     	 	this.viewportWidth = canvas.width;
-      		this.viewportHeight = canvas.height;
-    	}
+		try {
+			this.gl = canvas.getContext("webgl");
+			this.viewportWidth = canvas.width;
+			this.viewportHeight = canvas.height;
+		}
 
-    	catch (e)
-    	{}
+		catch (e)
+		{}
 
 		// error in the initialisation of GL context
-    	if (!this.gl)
-      		alert("atomicGLContext::Could not initialise WebGL");
+		if (!this.gl)
+				alert("atomicGLContext::Could not initialise WebGL");
 
 		else
 		{
@@ -95,7 +95,7 @@ class atomicGL2Context {
 		// debug
 		// console.log("atomicGLContext::initDraw");
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
-   	 	this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
 
 	// pushLight(light)
@@ -130,7 +130,7 @@ class atomicGL2Context {
 		var id =  this.shaderPrograms.length -1
 		// debug
 		//console.log("-- atomicGLContext::pushProgram("+prog.name+")-> index:"+id);
-		return  id ;
+		return  id;
 	}
 
 	// indexOfTexture
@@ -138,11 +138,11 @@ class atomicGL2Context {
 	// input: 	id - string: id name of texture
 	// output:	int - index of texture in this.textures
 	indexOfTexture(id){
-		var res = -1 ;
+		var res = -1;
 
 		for (var i=0; i<this.textures.length;i++)
 		{
-			var idTex = this.textures[i].id ;
+			var idTex = this.textures[i].id;
 			if (id==idTex)
 			{
 				res = i;
@@ -158,11 +158,11 @@ class atomicGL2Context {
 	// input: 	id - string: id name of shader
 	// output:	int - index of shader in this.shaders
 	indexOfShader(id){
-		var res = -1 ;
+		var res = -1;
 
 		for (var i=0; i<this.shaderPrograms.length;i++)
 		{
-			var shadername = this.shaderPrograms[i].name ;
+			var shadername = this.shaderPrograms[i].name;
 			if (id==shadername)
 			{
 				res = i;
@@ -178,7 +178,7 @@ class atomicGL2Context {
 	// input: 	id - string: id name of shape
 	// output:	int - index of shape in this.shapes
 	indexOfShape(id){
-		var res = -1 ;
+		var res = -1;
 
 		for (var i=0; i<this.shapes.length;i++)
 		{

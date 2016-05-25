@@ -17,13 +17,13 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 		super(nname);
 	
 		// size
-        this.radius         = radius ;
-        this.height         = height ;
-        this.heightBands    = heightBands ;
-        this.longitudeBands = longitudeBands ;
+        this.radius         = radius;
+        this.height         = height;
+        this.heightBands    = heightBands;
+        this.longitudeBands = longitudeBands;
         
         // textures
-        this.scaleUV        = [uu,vv] ;
+        this.scaleUV        = [uu,vv];
 	
 		// build
 		this.build();
@@ -47,8 +47,8 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 		// switch face
 		switch(face){
 			case "All":
-				var nbc = this.colorsArray.length / 3 ;
-				this.colorsArray = [] ;
+				var nbc = this.colorsArray.length / 3;
+				this.colorsArray = [];
 				for (var i=0; i <nbc; i++) {
                 	this.colorsArray.push(r);
                 	this.colorsArray.push(g);
@@ -63,7 +63,7 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 	build(){
 		// vertices, normals, colors, texCoord
 		for (var i=0; i <= this.heightBands; i++) {
-			var y = i*this.height/this.heightBands ;
+			var y = i*this.height/this.heightBands;
 	
         	for (var j = 0; j <= this.longitudeBands; j++) {
             
@@ -103,7 +103,7 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 		this.normalsArray.push(0.0);this.normalsArray.push(-1.0);this.normalsArray.push(0.0);
 		// position
     	this.verticesArray.push(0.0);this.verticesArray.push(0.0);this.verticesArray.push(0.0);
-		var bottomcenterIndex = this.verticesArray.length/3 ;
+		var bottomcenterIndex = this.verticesArray.length/3;
 
     	// cap edge
     	for (var j = 0; j <= this.longitudeBands; j++) { 
@@ -133,7 +133,7 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 		this.normalsArray.push(0.0);this.normalsArray.push(1.0);this.normalsArray.push(0.0);
 		// position
     	this.verticesArray.push(0.0);this.verticesArray.push(this.height);this.verticesArray.push(0.0);
-    	var topcenterIndex = this.verticesArray.length/3 ;
+    	var topcenterIndex = this.verticesArray.length/3;
     	// color
     	this.colorsArray.push(0.8);
     	this.colorsArray.push(0.8);
@@ -142,7 +142,7 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
     	for (var j = 0; j <= this.longitudeBands; j++) { 
             var theta = j * 2.0* Math.PI / this.longitudeBands;
             var x = Math.cos(theta);
-            var y = this.height ;
+            var y = this.height;
 			var z = Math.sin(theta);
             
 			// normals
@@ -163,10 +163,10 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
 		// body index 
 		for (var i=0; i < this.heightBands; i++) {
         	for (var j = 0; j < this.longitudeBands; j++) {
-                	var t0 = i*(this.longitudeBands+1) 	+ j ;
-                	var t1 = i*(this.longitudeBands+1) 	+ j+1 ;
-                	var t2 = (i+1)*(this.longitudeBands+1) + j ;
-                	var t3 = (i+1)*(this.longitudeBands+1) + j+1 ;
+                	var t0 = i*(this.longitudeBands+1) 	+ j;
+                	var t1 = i*(this.longitudeBands+1) 	+ j+1;
+                	var t2 = (i+1)*(this.longitudeBands+1) + j;
+                	var t3 = (i+1)*(this.longitudeBands+1) + j+1;
                 	// first triangle
                 	this.vertexIndices.push(t0);
                 	this.vertexIndices.push(t1);
@@ -192,16 +192,16 @@ class atomicGL2Cylinder extends atomicGL2Object3d {
     	}	
 	
 		// buffer item size and num items
-        this.vertexPositionBufferItemSize = 3 ;
-        this.vertexNormalBufferItemSize   = 3 ;
-        this.vertexTexCoordBufferItemSize = 2 ;
-        this.vertexColorBufferItemSize    = 3 ;
-        this.vertexIndexBufferItemSize    = 1 ;
+        this.vertexPositionBufferItemSize = 3;
+        this.vertexNormalBufferItemSize   = 3;
+        this.vertexTexCoordBufferItemSize = 2;
+        this.vertexColorBufferItemSize    = 3;
+        this.vertexIndexBufferItemSize    = 1;
 	
-        this.vertexPositionBufferNumItems = this.verticesArray.length / 3 ;
-        this.vertexNormalBufferNumItems   = this.normalsArray.length / 3 ;
-        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2 ;
-        this.vertexColorBufferNumItems    = this.colorsArray.length /3 ;
-        this.vertexIndexBufferNumItems    = this.vertexIndices.length; ;
+        this.vertexPositionBufferNumItems = this.verticesArray.length / 3;
+        this.vertexNormalBufferNumItems   = this.normalsArray.length / 3;
+        this.vertexTexCoordBufferNumItems = this.textureCoordsArray.length/2;
+        this.vertexColorBufferNumItems    = this.colorsArray.length /3;
+        this.vertexIndexBufferNumItems    = this.vertexIndices.length;;
 	}
 }

@@ -20,9 +20,9 @@ class atomicGL2Cube extends atomicGL2Object3d {
 		// attributes
 		// -------------------------------------------------
 		// size
-		this.height	= height ;
-		this.width 	= width ;
-		this.depth 	= depth ;
+		this.height	= height;
+		this.width 	= width;
+		this.depth 	= depth;
 
 
 

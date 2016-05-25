@@ -1,12 +1,3 @@
-// atomicGL
-//----------------------------------------------------------------------------------------
-// author: RC
-// contact: cozot@irisa.fr
-// version: 2.3
-// current version date: 2016/01/26
-//----------------------------------------------------------------------------------------
-// atomicGL2Light
-//----------------------------------------------------------------------------------------
 "use strict";
 
   /**
@@ -100,33 +91,32 @@ class atomicGL2Light{
     * @type {Array[3]:float} return the Type of the light
     */
     getType(){
-        return this.constructor ;
+        return this.constructor;
     }
 
     draw(AMS){
         var vPosition = [this.globalPosition[0], this.globalPosition[1], this.globalPosition[2], 1.0];
-
         var resultPosition = [0.0,0.0,0.0,0.0];
 
-        resultPosition[0] = AMS.mvMatrix[0]*vPosition[0]
-		        		  + AMS.mvMatrix[4]*vPosition[1]
-		        		  + AMS.mvMatrix[8]*vPosition[2]
-		        		  + AMS.mvMatrix[12]*vPosition[3];
+        resultPosition[0] = AMS.mvMatrix[0]  * vPosition[0]
+		        		  + AMS.mvMatrix[4]  * vPosition[1]
+		        		  + AMS.mvMatrix[8]  * vPosition[2]
+		        		  + AMS.mvMatrix[12] * vPosition[3];
 
-        resultPosition[1] = AMS.mvMatrix[1]*vPosition[0]
-		        		  + AMS.mvMatrix[5]*vPosition[1]
-		        		  + AMS.mvMatrix[9]*vPosition[2]
-		        		  + AMS.mvMatrix[13]*vPosition[3];
+        resultPosition[1] = AMS.mvMatrix[1]  * vPosition[0]
+		        		  + AMS.mvMatrix[5]  * vPosition[1]
+		        		  + AMS.mvMatrix[9]  * vPosition[2]
+		        		  + AMS.mvMatrix[13] * vPosition[3];
 
-        resultPosition[2] = AMS.mvMatrix[2]*vPosition[0]
-		        		  + AMS.mvMatrix[6]*vPosition[1]
-		        		  + AMS.mvMatrix[10]*vPosition[2]
-		        		  + AMS.mvMatrix[14]*vPosition[3];
+        resultPosition[2] = AMS.mvMatrix[2]  * vPosition[0]
+		        		  + AMS.mvMatrix[6]  * vPosition[1]
+		        		  + AMS.mvMatrix[10] * vPosition[2]
+		        		  + AMS.mvMatrix[14] * vPosition[3];
 
-        resultPosition[3] = AMS.mvMatrix[3]*vPosition[0]
-						  + AMS.mvMatrix[7]*vPosition[1]
-						  + AMS.mvMatrix[11]*vPosition[2]
-						  + AMS.mvMatrix[15]*vPosition[3];
+        resultPosition[3] = AMS.mvMatrix[3]  * vPosition[0]
+						  + AMS.mvMatrix[7]  * vPosition[1]
+						  + AMS.mvMatrix[11] * vPosition[2]
+						  + AMS.mvMatrix[15] * vPosition[3];
 
 		this.position[0] = resultPosition[0]/resultPosition[3];
 		this.position[1] = resultPosition[1]/resultPosition[3];
@@ -134,28 +124,27 @@ class atomicGL2Light{
 
 
 		var vDirection = [this.globalDirection[0], this.globalDirection[1], this.globalDirection[2], 0.0];
-
         var resultDirection = [0.0,0.0,0.0,0.0];
 
-        resultDirection[0] = AMS.mvMatrix[0]*vDirection[0]
-		        		  + AMS.mvMatrix[4]*vDirection[1]
-		        		  + AMS.mvMatrix[8]*vDirection[2]
-		        		  + AMS.mvMatrix[12]*vDirection[3];
+        resultDirection[0] = AMS.mvMatrix[0]  * vDirection[0]
+		        		   + AMS.mvMatrix[4]  * vDirection[1]
+		        		   + AMS.mvMatrix[8]  * vDirection[2]
+		        		   + AMS.mvMatrix[12] * vDirection[3];
 
-        resultDirection[1] = AMS.mvMatrix[1]*vDirection[0]
-		        		  + AMS.mvMatrix[5]*vDirection[1]
-		        		  + AMS.mvMatrix[9]*vDirection[2]
-		        		  + AMS.mvMatrix[13]*vDirection[3];
+        resultDirection[1] = AMS.mvMatrix[1]  * vDirection[0]
+		        		   + AMS.mvMatrix[5]  * vDirection[1]
+		        		   + AMS.mvMatrix[9]  * vDirection[2]
+		        		   + AMS.mvMatrix[13] * vDirection[3];
 
-        resultDirection[2] = AMS.mvMatrix[2]*vDirection[0]
-		        		  + AMS.mvMatrix[6]*vDirection[1]
-		        		  + AMS.mvMatrix[10]*vDirection[2]
-		        		  + AMS.mvMatrix[14]*vDirection[3];
+        resultDirection[2] = AMS.mvMatrix[2]  * vDirection[0]
+		        		   + AMS.mvMatrix[6]  * vDirection[1]
+		        		   + AMS.mvMatrix[10] * vDirection[2]
+		        		   + AMS.mvMatrix[14] * vDirection[3];
 
-        resultDirection[3] = AMS.mvMatrix[3]*vDirection[0]
-		        		  + AMS.mvMatrix[7]*vDirection[1]
-		        		  + AMS.mvMatrix[11]*vDirection[2]
-		        		  + AMS.mvMatrix[15]*vDirection[3];
+        resultDirection[3] = AMS.mvMatrix[3]  * vDirection[0]
+		        		   + AMS.mvMatrix[7]  * vDirection[1]
+		        		   + AMS.mvMatrix[11] * vDirection[2]
+		        		   + AMS.mvMatrix[15] * vDirection[3];
 
 		this.direction[0] = resultDirection[0];
 		this.direction[1] = resultDirection[1];

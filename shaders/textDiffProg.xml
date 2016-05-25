@@ -81,7 +81,7 @@
 		<OUTPUT>
 			// local constant
 			// Kd: diffuse coeff
-			float Kd = 1.0 ;
+			float Kd = 1.0;
 
 			void main(void) {
 				// texture color

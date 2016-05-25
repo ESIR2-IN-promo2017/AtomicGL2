@@ -26,7 +26,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		this.nbTex = this.shaderloader.getNbTexture();
 
 		// program shader
-		this.program ;
+		this.program;
 
 		// map of attributes
 		// --------------------------
@@ -37,12 +37,12 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 		this.mapUniforms = new Map();
 
 		// light
-		this.ambientColorUniform ;
-		this.pointLightLocationUniform = [] ;
-		this.pointLightColorUniform    = [] ;
+		this.ambientColorUniform;
+		this.pointLightLocationUniform = [];
+		this.pointLightColorUniform    = [];
 
 		// texture -sampler
-		this.samplerUniform = [] ;
+		this.samplerUniform = [];
 
 		//Initialisation of the key of the mapUniforms and mapAttributes
 		this.initMap();
@@ -177,7 +177,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 
 	getUniformType(id){
 		var arr = this.shaderloader.getUniforms();
-		for (var i = 0; i <arr.length ; i++)
+		for (var i = 0; i <arr.length; i++)
 			if(arr[i][1] == id)
 				return arr[i][0];
 	}
@@ -379,8 +379,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a position attribute in the vertex shader
 	*/
 	hasVertexPositionAttribute(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('position') > -1) || (src[i][1].indexOf('Position') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('position') > -1) || (src[i][1].indexOf('Position') > -1);
 			if(res)
 				return true;
 		}
@@ -393,8 +393,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a Normal attribute in the vertex shader
 	*/
 	hasVertexNormalAttribute(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('normal') > -1) || (src[i][1].indexOf('Normal') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('normal') > -1) || (src[i][1].indexOf('Normal') > -1);
 			if(res)
 				return true;
 		}
@@ -407,8 +407,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a color attribute in the vertex shader
 	*/
 	hasVertexColorAttribute(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('color') > -1) || (src[i][1].indexOf('Color') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('color') > -1) || (src[i][1].indexOf('Color') > -1);
 			if(res)
 				return true;
 		}
@@ -421,8 +421,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a projection matrix in the vertex shader
 	*/
 	hasProjectionMatrix(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('uPMatrix') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('uPMatrix') > -1);
 			if(res)
 				return true;
 		}
@@ -435,8 +435,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a model viex matrix in the vertex shader
 	*/
 	hasModelViewMatrix(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('uMVMatrix') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('uMVMatrix') > -1);
 			if(res)
 				return true;
 		}
@@ -449,8 +449,8 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	//return if there is a normal Matrix in the vertex shader
 	*/
 	hasNormalMatrix(src){
-		for(var i = 0 ;  i < src.length; ++i){
-			var res = (src[i][1].indexOf('uNMatrix') > -1) ;
+		for(var i = 0;  i < src.length; ++i){
+			var res = (src[i][1].indexOf('uNMatrix') > -1);
 			if(res)
 				return true;
 		}
@@ -471,7 +471,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	getVertexPosition(){
 		for (var key of this.mapAttributes.keys()) {
-			var res = (key.indexOf('position') > -1) || (key.indexOf('Position') > -1) ;
+			var res = (key.indexOf('position') > -1) || (key.indexOf('Position') > -1);
 			if(res){
 				return this.mapAttributes.get(key);
 			}
@@ -483,7 +483,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	getVertexNormal(){
 		for (var key of this.mapAttributes.keys()) {
-			var res = (key.indexOf('normal') > -1) || (key.indexOf('Normal') > -1) ;
+			var res = (key.indexOf('normal') > -1) || (key.indexOf('Normal') > -1);
 			if(res)
 				return this.mapAttributes.get(key);
 		}
@@ -494,7 +494,7 @@ class  atomicGL2MatShader extends atomicGL2Shader{
 	*/
 	getVertexColor(){
 		for (var key of this.mapAttributes.keys()) {
-			var res = (key.indexOf('color') > -1) || (key.indexOf('Color') > -1) ;
+			var res = (key.indexOf('color') > -1) || (key.indexOf('Color') > -1);
 			if(res)
 				return this.mapAttributes.get(key);
 		}

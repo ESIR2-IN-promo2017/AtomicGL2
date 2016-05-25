@@ -16,25 +16,25 @@
 		//console.log("atomicGL2ObjMesh extends atomicGLObject3d::constructor ->"+name );
 		super(name);
 		// textures
-		this.scaleUV  = [uu,vv] ;
-		this.textures = [] ;
+		this.scaleUV  = [uu,vv];
+		this.textures = [];
 	
 		// vertices array
 		this.verticesArray = obj.vertices;
 		
 
 		// normals array
-		this.normalsArray  = obj.normals ;
+		this.normalsArray  = obj.normals;
 		
 		// colors Array - set default color
 		for (var i=0; i<this.normalsArray.length;i++)
-			this.colorsArray.push(0.8) ;
+			this.colorsArray.push(0.8);
 
 		// texture coordinates array
-    	this.textureCoordsArray = obj.uv ;
+    	this.textureCoordsArray = obj.uv;
 		
 		// apply scaling
-		var uvs = this.textureCoordsArray.length / 2 ;
+		var uvs = this.textureCoordsArray.length / 2;
 		for (var i=0; i<uvs; i++)
 		{
 			this.textureCoordsArray[2*i] 	= uu*this.textureCoordsArray[2*i];

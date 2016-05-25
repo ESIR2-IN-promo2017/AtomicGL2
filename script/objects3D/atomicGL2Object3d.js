@@ -15,7 +15,7 @@ class atomicGL2Object3d{
 	// inputs:	nname: 	name of the 3D Obj - string
 	constructor(name){
 		// name
-		this.name = name ;
+		this.name = name;
 		
 		// textures
 		this.scaleUV            = [];
@@ -81,7 +81,7 @@ class atomicGL2Object3d{
 	initGLBuffers(AGL){
 		// debug
 		//console.log("atomicGLObject3d("+this.name+")::initGLBuffers");
-		var gl = AGL.gl ;
+		var gl = AGL.gl;
 		// vertexPositionBuffer
 		this.vertexPositionBuffer	= gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
@@ -116,7 +116,7 @@ class atomicGL2Object3d{
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.vertexIndexBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.vertexIndices), gl.STATIC_DRAW);
         this.vertexIndexBufferItemSize = 1;
-        this.vertexIndexBufferNumItems = this.vertexIndices.length ;
+        this.vertexIndexBufferNumItems = this.vertexIndices.length;
 	}
 	
 	

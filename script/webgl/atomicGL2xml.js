@@ -16,10 +16,10 @@ class atomicGL2xml {
 
 	// constructor
 	//------------------------
- 	constructor(AGL,name){
+	constructor(AGL,name){
 		// attributes
 		// -------------------------------------------------
-		this.dom  = null ;
+		this.dom  = null;
 		// build
 		// ----------------------
 		// init
@@ -46,30 +46,30 @@ class atomicGL2xml {
 		// <POINTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0"> </POINTLIGHT>
 		var listPOINT = this.dom.getElementsByTagName("POINTLIGHT");
 
-		for (var i=0; i<listPOINT.length; i++){
-
+		for (var i=0; i<listPOINT.length; i++)
+		{
 			var POINT     	= listPOINT[i];
 			var id 			= POINT.getAttribute("id");
-			// color
+
 			var color 		= POINT.getAttribute("color");
 			var r 			= parseFloat(color.split(",")[0]);
 			var g			= parseFloat(color.split(",")[1]);
 			var b			= parseFloat(color.split(",")[2]);
 
-            var position 	= POINT.getAttribute("position");
+			var position 	= POINT.getAttribute("position");
 			var x 			= parseFloat(position.split(",")[0]);
 			var y			= parseFloat(position.split(",")[1]);
 			var z			= parseFloat(position.split(",")[2]);
 
 			var intensity   = POINT.getAttribute("intensity");
-            var ix          = parseFloat(intensity.split(",")[0]);
-            var iy          = parseFloat(intensity.split(",")[1]);
-            var iz          = parseFloat(intensity.split(",")[2]);
+			var ix          = parseFloat(intensity.split(",")[0]);
+			var iy          = parseFloat(intensity.split(",")[1]);
+			var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color and position to Array
 			color = [r,g,b];
-            position = [x,y,z];
-            intensity = [ix, iy, iz];
+			position = [x,y,z];
+			intensity = [ix, iy, iz];
 
 			// create pointlight and add it to context
 			AGL.pushLight(id, new atomicGL2PointLight(color,position,intensity));
@@ -78,8 +78,8 @@ class atomicGL2xml {
 		// <DIRECTIONNALLIGHT id="test" color="1.0,1.0,1.0" direction="1.0,0.0,0.0"> </DIRECTIONNALLIGHT>
 		var listDIR = this.dom.getElementsByTagName("DIRECTIONNALLIGHT");
 
-		for (var i=0; i<listDIR.length; i++){
-
+		for (var i=0; i<listDIR.length; i++)
+		{
 			var DIR 		= listDIR[i];
 			var id 			= DIR.getAttribute("id");
 			// color
@@ -93,15 +93,15 @@ class atomicGL2xml {
 			var dy 			= parseFloat(direction.split(",")[1]);
 			var dz 			= parseFloat(direction.split(",")[2]);
 
-            var intensity   = DIR.getAttribute("intensity");
-            var ix          = parseFloat(intensity.split(",")[0]);
-            var iy          = parseFloat(intensity.split(",")[1]);
-            var iz          = parseFloat(intensity.split(",")[2]);
+			var intensity   = DIR.getAttribute("intensity");
+			var ix          = parseFloat(intensity.split(",")[0]);
+			var iy          = parseFloat(intensity.split(",")[1]);
+			var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color and direction to Array
 			color = [r,g,b];
 			direction = [dx,dy,dz];
-            intensity = [ix, iy, iz];
+			intensity = [ix, iy, iz];
 
 			// create directionnallight and add it to context
 			AGL.pushLight(id, new atomicGL2DirectionnalLight(color,direction,intensity));
@@ -112,8 +112,8 @@ class atomicGL2xml {
 		// <SPOTLIGHT id="test" color="1.0,1.0,1.0" position="0.0,0.0,0.0" direction="1.0,0.0,0.0" radius="1.0"> </SPOTLIGHT>
 		var listSPOT = this.dom.getElementsByTagName("SPOTLIGHT");
 
-		for (var i=0; i<listSPOT.length; i++){
-
+		for (var i=0; i<listSPOT.length; i++)
+		{
 			var SPOT 		= listSPOT[i];
 			var id 			= SPOT.getAttribute("id");
 			// color
@@ -127,8 +127,8 @@ class atomicGL2xml {
 			var dy 			= parseFloat(direction.split(",")[1]);
 			var dz 			= parseFloat(direction.split(",")[2]);
 
-            //position
-            var position 	= SPOT.getAttribute("position");
+			//position
+			var position 	= SPOT.getAttribute("position");
 			var x 			= parseFloat(position.split(",")[0]);
 			var y			= parseFloat(position.split(",")[1]);
 			var z			= parseFloat(position.split(",")[2]);
@@ -136,17 +136,17 @@ class atomicGL2xml {
 			// radius
 			var radius	 	= SPOT.getAttribute("radius");
 
-            // intensity
-            var intensity   = SPOT.getAttribute("intensity");
-            var ix          = parseFloat(intensity.split(",")[0]);
-            var iy          = parseFloat(intensity.split(",")[1]);
-            var iz          = parseFloat(intensity.split(",")[2]);
+			// intensity
+			var intensity   = SPOT.getAttribute("intensity");
+			var ix          = parseFloat(intensity.split(",")[0]);
+			var iy          = parseFloat(intensity.split(",")[1]);
+			var iz          = parseFloat(intensity.split(",")[2]);
 
 			// cast color, position and direction to Array
 			color = [r,g,b];
-            position = [x,y,z];
+			position = [x,y,z];
 			direction = [dx,dy,dz];
-            intensity = [ix, iy, iz];
+			intensity = [ix, iy, iz];
 
 			// create spotlight and add it to context
 			AGL.pushLight(id, new atomicGL2SpotLight(color,position,direction,radius,intensity));
@@ -164,10 +164,10 @@ class atomicGL2xml {
 		var listXMSHAD = this.dom.getElementsByTagName("XMATSHADER");
 		for (var i=0; i<listXMSHAD.length;i++)
 		{
-			var SHAD        = listXMSHAD[i] ;
-			var file        = SHAD.childNodes[0].data ;
+			var SHAD        = listXMSHAD[i];
+			var file        = SHAD.childNodes[0].data;
 			var id          = SHAD.getAttribute("id");
-			
+
 			// create shader and add it to context
 			AGL.pushProgram(id, new atomicGL2MatShader(AGL,new atomicGL2ShaderLoaderScriptXML('shaders/'+file)));
 
@@ -178,8 +178,8 @@ class atomicGL2xml {
 		var listIMSHAD = this.dom.getElementsByTagName("IMATSHADER");
 		for (var i=0; i<listIMSHAD.length;i++)
 		{
-			var SHAD        = listIMSHAD[i] ;
-			var shader_name = SHAD.childNodes[0].data ;
+			var SHAD        = listIMSHAD[i];
+			var shader_name = SHAD.childNodes[0].data;
 			var vertex      = SHAD.getAttribute("vertex");
 			var fragment    = SHAD.getAttribute("fragment");
 
@@ -196,10 +196,10 @@ class atomicGL2xml {
 		// <TEXTURE id="test" type="color"> texture/test.png </TEXTURE>
 		var listTEX = this.dom.getElementsByTagName("TEXTURE");
 
-		for (var i=0; i<listTEX.length;i++){
-			//
-			var TEX       = listTEX[i] ;
-			var file_name = TEX.childNodes[0].data ;
+		for (var i=0; i<listTEX.length;i++)
+		{
+			var TEX       = listTEX[i];
+			var file_name = TEX.childNodes[0].data;
 			var id        = TEX.getAttribute("id");
 			var type      = TEX.getAttribute("type");
 
@@ -219,17 +219,17 @@ class atomicGL2xml {
 		var listXYPLANE  = this.dom.getElementsByTagName("XYPLANE");
 		var listXZPLANE  = this.dom.getElementsByTagName("XZPLANE");
 
-	    for (var i=0; i < listSHAPE.length ; i++){
-	    	// SHAPE : Object3D
+	    for (var i=0; i < listSHAPE.length; i++){
+			// SHAPE : Object3D
 			var SHAPE     = listSHAPE[i];
 			var SHAPEId   = SHAPE.getAttribute("id");
 			var SHAPEType = SHAPE.getAttribute("type");
 
 			try{
-	            var SHAPETex  = SHAPE.getAttribute("tex").split(",");
-	            var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
-	            var u         = parseFloat(SHAPEuv[0]);
-	            var v         = parseFloat(SHAPEuv[1]);
+				var SHAPETex  = SHAPE.getAttribute("tex").split(",");
+				var SHAPEuv   = SHAPE.getAttribute("uv").split(",");
+				var u         = parseFloat(SHAPEuv[0]);
+				var v         = parseFloat(SHAPEuv[1]);
 			}
 
 			catch(e){
@@ -243,18 +243,18 @@ class atomicGL2xml {
 			else
 				var transparency = false;
 
-            var SHAPEMesh = SHAPE.childNodes[0].data ;
+			var SHAPEMesh = SHAPE.childNodes[0].data;
 
 			// create shape
 			if(SHAPEType == 'js')
-				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+SHAPEMesh), u, v) ;
+				var ss = new atomicGL2ObjMesh(SHAPEId, eval("new "+SHAPEMesh), u, v);
 			else if(SHAPEType == 'obj')
-				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objects/' + SHAPEMesh).obj, u, v) ;
+				var ss = new atomicGL2ObjMesh(SHAPEId, new atomicGL2Importer('objects/' + SHAPEMesh).obj, u, v);
 
 			ss.setTransparency(transparency);
 
-            // load textures
-			for (var j=0; j < SHAPETex.length ; j++)
+			// load textures
+			for (var j=0; j < SHAPETex.length; j++)
 			{
 				var texId = SHAPETex[j];
 
@@ -275,8 +275,8 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	    // SPHERE
-	    for (var i=0; i < listSPHERE.length ; i++){
+		// SPHERE
+		for (var i=0; i < listSPHERE.length; i++){
 			var SPHERE     = listSPHERE[i];
 			var SPHEREId   = SPHERE.getAttribute("id");
 			var SPHERERad  = parseFloat(SPHERE.getAttribute("rad"));
@@ -284,23 +284,23 @@ class atomicGL2xml {
 			var SPHERELong = parseFloat(SPHERE.getAttribute("long"));
 
 			try{
-	            var SPHERETex  = SPHERE.getAttribute("tex").split(",");
-	            var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
-	            var u          = parseFloat(SPHEREuv[0]);
-	            var v          = parseFloat(SPHEREuv[1]);
+				var SPHERETex  = SPHERE.getAttribute("tex").split(",");
+				var SPHEREuv   = SPHERE.getAttribute("uv").split(",");
+				var u          = parseFloat(SPHEREuv[0]);
+				var v          = parseFloat(SPHEREuv[1]);
 
-	            var colorParameters = "texture";
+				var colorParameters = "texture";
 			}
 
 			catch(e){
 				try{
-		            var SPHEREcolor	= SPHERE.getAttribute("color").split(",");
-		            var r 			= parseFloat(SPHEREcolor[0]);
-		            var g 			= parseFloat(SPHEREcolor[1]);
-		            var b 			= parseFloat(SPHEREcolor[2]);
+					var SPHEREcolor	= SPHERE.getAttribute("color").split(",");
+					var r 			= parseFloat(SPHEREcolor[0]);
+					var g 			= parseFloat(SPHEREcolor[1]);
+					var b 			= parseFloat(SPHEREcolor[2]);
 
-		            var rgb 		= [r,g,b];
-		            var colorParameters = "color";
+					var rgb 		= [r,g,b];
+					var colorParameters = "color";
 				}
 
 				catch(e){
@@ -322,7 +322,7 @@ class atomicGL2xml {
 			if(colorParameters == "texture")
 			{
 				// textures
-				for (var j=0; j < SPHERETex.length ; j++)
+				for (var j=0; j < SPHERETex.length; j++)
 				{
 					var tid = SPHERETex[j];
 
@@ -346,7 +346,7 @@ class atomicGL2xml {
 		}
 
 		// CUBE
-	    for (var i=0; i < listCUBE.length ; i++){
+	    for (var i=0; i < listCUBE.length; i++){
 			var CUBE 		= listCUBE[i];
 			var CUBEId   	= CUBE.getAttribute("id");
 			var CUBEHeight  = parseFloat(CUBE.getAttribute("height"));
@@ -354,8 +354,8 @@ class atomicGL2xml {
 			var CUBEDepth   = parseFloat(CUBE.getAttribute("depth"));
 
 			try{
-	            var CUBETex     = CUBE.getAttribute("tex").split(",");
-	            var CUBEuv     	= CUBE.getAttribute("uv").split(",");
+				var CUBETex     = CUBE.getAttribute("tex").split(",");
+				var CUBEuv     	= CUBE.getAttribute("uv").split(",");
 				var u         	= parseFloat(CUBEuv[0]);
 				var v         	= parseFloat(CUBEuv[1]);
 
@@ -364,13 +364,13 @@ class atomicGL2xml {
 
 			catch(e){
 				try{
-		            var CUBEcolor 	= CUBE.getAttribute("color").split(",");
-		            var r 			= parseFloat(CUBEcolor[0]);
-		            var g 			= parseFloat(CUBEcolor[1]);
-		            var b 			= parseFloat(CUBEcolor[2]);
+					var CUBEcolor 	= CUBE.getAttribute("color").split(",");
+					var r 			= parseFloat(CUBEcolor[0]);
+					var g 			= parseFloat(CUBEcolor[1]);
+					var b 			= parseFloat(CUBEcolor[2]);
 
-		            var rgb 		= [r,g,b];
-		            var colorParameters = "color";
+					var rgb 		= [r,g,b];
+					var colorParameters = "color";
 				}
 
 				catch(e){
@@ -393,7 +393,7 @@ class atomicGL2xml {
 			if(colorParameters == "texture")
 			{
 				// textures
-				for (var j=0; j < CUBETex.length ; j++)
+				for (var j=0; j < CUBETex.length; j++)
 				{
 					var tid = CUBETex[j];
 
@@ -416,8 +416,8 @@ class atomicGL2xml {
 			AGL.shapes.push(ss);
 		}
 
-	    // CYLINDER
-	    for (var i=0; i < listCYLINDER.length ; i++){
+		// CYLINDER
+		for (var i=0; i < listCYLINDER.length; i++){
 			var CYLINDER     	= listCYLINDER[i];
 			var CYLINDERId   	= CYLINDER.getAttribute("id");
 			var CYLINDERRad  	= parseFloat(CYLINDER.getAttribute("rad"));
@@ -426,8 +426,8 @@ class atomicGL2xml {
 			var CYLINDERLong   	= parseFloat(CYLINDER.getAttribute("long"));
 
 			try{
-	            var CYLINDERTex     = CYLINDER.getAttribute("tex").split(",");
-	            var CYLINDERuv     	= CYLINDER.getAttribute("uv").split(",");
+				var CYLINDERTex     = CYLINDER.getAttribute("tex").split(",");
+				var CYLINDERuv     	= CYLINDER.getAttribute("uv").split(",");
 				var u         	    = parseFloat(CYLINDERuv[0]);
 				var v         	    = parseFloat(CYLINDERuv[1]);
 
@@ -464,7 +464,7 @@ class atomicGL2xml {
 			if(colorParameters == "texture")
 			{
 				// textures
-				for (var j=0; j < CYLINDERTex.length ; j++)
+				for (var j=0; j < CYLINDERTex.length; j++)
 				{
 					var tid = CYLINDERTex[j];
 
@@ -488,7 +488,7 @@ class atomicGL2xml {
 		}
 
 	    // XZPLANE
-	    for (var i=0; i < listXZPLANE.length ; i++){
+	    for (var i=0; i < listXZPLANE.length; i++){
 			var XZPLANE       = listXZPLANE[i];
 			var XZPLANEId     = XZPLANE.getAttribute("id");
 			var XZPLANEHeight = parseFloat(XZPLANE.getAttribute("height"));
@@ -535,7 +535,7 @@ class atomicGL2xml {
 			if(colorParameters == "texture")
 			{
 				// textures
-				for (var j=0; j < XZPLANETex.length ; j++)
+				for (var j=0; j < XZPLANETex.length; j++)
 				{
 					var tid = XZPLANETex[j];
 
@@ -556,10 +556,10 @@ class atomicGL2xml {
 			// init shape buffer and add it to context
 			ss.initGLBuffers(AGL);
 			AGL.shapes.push(ss);
-	    }
+		}
 
-        // XYPLANE
-	    for (var i=0; i < listXYPLANE.length ; i++){
+		// XYPLANE
+		for (var i=0; i < listXYPLANE.length; i++){
 			var XYPLANE       = listXYPLANE[i];
 			var XYPLANEId     = XYPLANE.getAttribute("id");
 			var XYPLANEHeight = parseFloat(XYPLANE.getAttribute("height"));
@@ -606,7 +606,7 @@ class atomicGL2xml {
 			if(colorParameters == "texture")
 			{
 				// textures
-				for (var j=0; j < XYPLANETex.length ; j++)
+				for (var j=0; j < XYPLANETex.length; j++)
 				{
 					var tid = XYPLANETex[j];
 
@@ -639,37 +639,48 @@ class atomicGL2xml {
 	// ---------------------------
 	traverse(AGL,e,s){
 		// current node
-		var nodeName = e.nodeName ;
+		var nodeName = e.nodeName;
 		var node = null;
 
 		// switch nodeName
 		switch (nodeName){
 			case "ROOT":
 				// skybox
-				var skyTexId = e.getAttribute("skybox");
-				var skyBox = null ;
+				var skyBox        = null;
+				var skyBoxTexture = e.getAttribute("skyboxtexture");
+				var skyBoxShader  = e.getAttribute("skyshader");
+				var skyBoxSize    = e.getAttribute("skysize")
 
-				if ((skyTexId!="")||(skyTexId!="no"))
+				if((skyBoxTexture!=null) && (skyBoxShader!=null) && (skyBoxSize!=null))
 				{
 					skyBox = new atomicGLSkyBox('skybox',parseFloat(e.getAttribute("skysize")));
-					skyBox.pushTexture(AGL.textures[AGL.indexOfTexture(skyTexId)]);
+					skyBox.pushTexture(AGL.textures[AGL.indexOfTexture(skyBoxTexture)]);
 					skyBox.initGLBuffers(AGL);
 				}
 
 				// camera
 				var camId = e.getAttribute("camera");
-				var camera = null ;
+				var camera = null;
 				switch (camId)
 				{
-					case "walk": camera = new atomicGLWalkCamera(AGL.shapes[AGL.indexOfShape(e.getAttribute("navmesh"))]) ;
+					case "dynamiCamera":
+						camera = new atomicGL2DynamicCamera(AGL.shapes[AGL.indexOfShape(e.getAttribute("navmesh"))]);
+						break;
+
+					case "statiCamera" :
+						camera = new atomicGL2StaticCamera();
+						break;
 				}
 
 				// JS6
 				node = new atomicGL2SGroot("root",e.getAttribute("id"));
-				node.setRootElt(camera,skyBox,e.getAttribute("skyshader"));
-				AGL.scenegraph = node ;
 
-				//  debug
+				if(skyBox != null)
+					node.setRootElt(camera,skyBox,e.getAttribute("skyshader"));
+				else
+					node.setRootElt(camera);
+
+				AGL.scenegraph = node;
 			break;
 
 			case "TRANSFORM":
@@ -704,13 +715,13 @@ class atomicGL2xml {
 				// object3D
 
 				// id
-				var id = e.getAttribute("id") ;
+				var id = e.getAttribute("id");
 
 				// shader - ie progId
 				var shaderId = e.getAttribute("shader");
 
 				// shape
-				var shapeId = e.childNodes[0].data ;
+				var shapeId = e.childNodes[0].data;
 
 				// node
 				// JS6
@@ -721,9 +732,9 @@ class atomicGL2xml {
 
 			case "LIGHT":
 				var id = e.getAttribute("id");
-                var lightId = e.childNodes[0].data ;
+				var lightId = e.childNodes[0].data;
 
-                node = new atomicGL2SGLight(id);
+				node = new atomicGL2SGLight(id);
 				node.setLight(AGL.getLight(lightId));
 				s.addChild(node);
 			break;
@@ -746,7 +757,7 @@ class atomicGL2xml {
 	build(AGL, name){
 		// --------------------------------------------------
 		// load XML file
-		this.dom = this.loadXML(AGL,name)  ;
+		this.dom = this.loadXML(AGL,name) ;
 		// find lights
 		this.lights(AGL);
 		// find shaders
