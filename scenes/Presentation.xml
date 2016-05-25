@@ -2,9 +2,9 @@
 
 <SCENE>
 	<LIGHTS>
-		<!-- <POINTLIGHT id="PointLight0" position="0.0,10.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT>
-		<DIRECTIONNALLIGHT id="DirectionnalLight0" direction="-1.0,-1.0,-1.0" color="1.0,1.0,1.0" intensity="1.0,0.0,0.0"></DIRECTIONNALLIGHT> -->
-		<SPOTLIGHT id="SpotLight0" position="-15.0,2.0,-6.0" direction="2.0,0.0,-1.0" radius="0.5" color="1.0,1.0,1.0" intensity="30.0,0.0,0.0"></SPOTLIGHT>
+		<!-- <POINTLIGHT id="PointLight0" position="0.0,10.0,0.0" color="1.0,1.0,1.0" intensity="10.0,0.0,0.0"></POINTLIGHT> -->
+		<DIRECTIONNALLIGHT id="DirectionnalLight0" direction="-1.0,-1.0,-1.0" color="0.1,0.3,0.6" intensity="1.0,0.0,0.0"></DIRECTIONNALLIGHT>
+		<SPOTLIGHT id="SpotLight0" position="0.0,2.0,0.0" direction="0.0,-1.0,-5.0" radius="0.5" color="1.0,1.0,1.0" intensity="30.0,0.0,0.0"></SPOTLIGHT>
 	</LIGHTS>
 
 	<SHADERS>
@@ -46,20 +46,16 @@
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
-		<LIGHT id="obj_Light1">SpotLight0</LIGHT>
+		<LIGHT id="obj_Light1">DirectionnalLight0</LIGHT>
 		<OBJECT3D id="ground" shader="textDiffProg">NavMesh</OBJECT3D>
 
 		<TRANSFORM id="transform" translate="0.0,-3.0,-15.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 			<OBJECT3D id="obj_Wall" shader="textDiffProg">Wall</OBJECT3D>
 		</TRANSFORM>
 
-		<!-- <TRANSFORM id="transform_PointLight0" translate="-25.0,0.0,5.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-			<TRANSFORM id="rotate_PointLight0" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
-				<TRANSFORM id="transform" translate="-5.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-						<LIGHT id="obj_Light0">PointLight0</LIGHT>
-				</TRANSFORM>
-			</TRANSFORM>
-		</TRANSFORM> -->
+		<TRANSFORM id="rotate_PointLight0" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
+			<LIGHT id="obj_Light0">SpotLight0</LIGHT>
+		</TRANSFORM>
 
 		<TRANSFORM id="transform" translate="-15.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 

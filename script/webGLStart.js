@@ -40,7 +40,7 @@ function animate() {
 	sceneClock.tick();
 
 	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
-	transformSphere.angle += 0.2*sceneClock.get();
+	transformSphere.angle += 0.1*sceneClock.get();
 
 	temp += 1*sceneClock.get();
 	if(temp%2.0 == 0)
