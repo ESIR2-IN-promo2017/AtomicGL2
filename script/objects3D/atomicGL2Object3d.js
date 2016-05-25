@@ -176,12 +176,13 @@ class atomicGL2Object3d{
 		if (this.transparency) {
             AGL.gl.blendFunc(AGL.gl.SRC_ALPHA, AGL.gl.ONE);
             AGL.gl.enable(AGL.gl.BLEND);
-            AGL.gl.disable(AGL.gl.DEPTH_TEST);
+            AGL.gl.depthMask(false);
+
         } 
 
         else {
             AGL.gl.disable(AGL.gl.BLEND);
-            AGL.gl.enable(AGL.gl.DEPTH_TEST);
+            AGL.gl.depthMask(true); 
         }
 
 		// indexes

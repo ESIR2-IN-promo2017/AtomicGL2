@@ -202,20 +202,16 @@
 			float turbulence(vec3 p) {
 			    float w = 100.0;
 			    float t = -.5;
-			    for (float f = 10.0; f >=1.0; f-- ){
-			        float power = pow( 2.0, f );
+			    for (float f = 0.0; f &#60=10.0; f++ ){
+			        float power = pow( 2.0, 11.0-f);
 			        t += abs(pnoise(vec3(power*p), vec3(10.0,10.0,10.0))/power);
 			    }
 			    return t;
 			}
 
-
 		    void main(void) {
-			    // get a turbulent 3d noise using the normal, normal to high freq
 			    vNoise = 10.0 * -.10 * turbulence( .5 * aVertexNormal );
-			    // get a 3d noise using the position, low frequency
 			    float b = 5.0 * pnoise( 0.05 * aVertexPosition, vec3( 100.0 ) );
-			    // compose both noises
 			    float displacement = - 10. * vNoise + b;
 
 

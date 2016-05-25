@@ -18,7 +18,11 @@ var AMS = new atomicGL2MatrixStack();
 // clock
 var sceneClock = new atomicGL2Clock();
 
+//nbFrame
+var f = 0;
+//nb Frame per Second
 var fps = 0;
+
 var second = 0.0;
 
 // DRAW
@@ -35,6 +39,7 @@ function nextFrame() {
 	sceneDraw();
 	animate();
 	computeFps();
+	canvasWriteText();
 }
 
 // ANIMATE
@@ -55,12 +60,12 @@ function animate() {
 }
 
 function computeFps() {
-	fps += 1;
+	f += 1;
 	second += sceneClock.get();
 	if(second > 1000.0){
 		second = 0.0;
-		console.log(fps);
-		fps = 0;
+		fps = f;
+		f = 0;
 	}
 }
 
@@ -151,6 +156,15 @@ function canvasDraw(AGL, canvas) {
 	}
 }
 
+function canvasWriteText(){
+	var debugCanvas = document.getElementById("debugCanvas");
+	var ctx = debugCanvas.getContext("2d");
+	ctx.clearRect(0, 0, 200,100);
+	ctx.font = "35px 'Segoe UI'";
+	ctx.fillStyle = 'red';
+	ctx.fillText(fps + " fps",30,50);
+}
+
 //webGLStart
 function webGLStart()
 {
@@ -161,10 +175,8 @@ function webGLStart()
 	var canvas = document.getElementById("oglcanvas");
 	// init OpenGL context
 	// canvas, background color
-	AGL.initGL(canvas,[0.15,0.1,0.5]);
-
+	AGL.initGL(canvas,[0.0,0.0,0.0]);
 	AGL.gl.getExtension('OES_standard_derivatives');
-
 	// scenegraph creation from xml file
 	var scene = document.getElementById('scene').innerHTML;
 	var sgxml = new atomicGL2xml(AGL,'scenes/'+scene+'.xml');
@@ -173,7 +185,7 @@ function webGLStart()
 	canvas.requestPointerLock = canvas.mozRequestPointerLock;
 	canvas.exitPointerLock = canvas.mozExitPointerLock;
 
-	canvas.onclick = function() {
+	document.getElementById("debugCanvas").onclick = function() {
 		canvas.requestPointerLock();
 	}
 
