@@ -12,8 +12,8 @@
 		<XMATSHADER id="phongProg">phongProg.xml</XMATSHADER>
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
 		<XMATSHADER id="textBlendingProg">textBlendingProg.xml</XMATSHADER>
-		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
-		<XMATSHADER id="textPhongProg">textPhongProg.xml</XMATSHADER>
+<!-- 		<XMATSHADER id="textDiffProg">textDiffProg.xml</XMATSHADER>
+		<XMATSHADER id="textPhongProg">textPhongProg.xml</XMATSHADER> -->
 
 		<XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER>
 	</SHADERS>
@@ -29,7 +29,8 @@
 
 	<SHAPES>
 		<XZPLANE 	id="NavMesh" height="100" width="100" xrow="10" zrow="10" tex="herbe" uv="10.0,10.0"></XZPLANE>
-		
+		<XYPLANE 	id="Wall"  height="10" width="50" xrow="10" yrow="10" color="0.0,0.0,0.0"></XYPLANE>
+
 		<SPHERE 	id="colorSphere" 	rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
 		<SPHERE 	id="diffuseSphere" 	rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
 		<SPHERE 	id="cartoonSphere" 	rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE>
@@ -37,12 +38,16 @@
 		<SPHERE 	id="textSphere" 		rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE 	id="textDiffSphere" 	rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
 		<SPHERE 	id="textPhongSphere" 	rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
-		<SPHERE 	id="deformationSphere" 	rad="1.0" lat="32" long="32" tex="marbre" uv="1.0,1.0"></SPHERE>
-		<CUBE 		id="textBlendingCube" 	height="1.0" width="1.0" depth="1.0" tex="glass" uv="1.0,1.0" transparency="true"></CUBE>
+		<SPHERE 	id="deformationSphere" 	rad="1.0" lat="32" long="32" color="1.0,1.0,1.0"></SPHERE>
+		<CUBE 		id="textBlendingCube" 	height="2.0" width="2.0" depth="2.0" tex="glass" uv="1.0,1.0" transparency="true"></CUBE>
 	</SHAPES>
 
 	<ROOT skybox="skyTex" skysize="800.0" skyshader="textProg" camera="walk" navmesh="NavMesh">
-		<OBJECT3D id="obj_ground" shader="textProg">NavMesh</OBJECT3D>
+		<TRANSFORM id="transform" translate="0.0,-3.0,-15.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<OBJECT3D id="obj_Wall" shader="colorProg">Wall</OBJECT3D>
+		</TRANSFORM>
+			
+
 
 		<TRANSFORM id="transform" translate="8.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<LIGHT id="obj_Light0">PointLight0</LIGHT>
@@ -72,17 +77,17 @@
 				<OBJECT3D id="obj_Sphere4" shader="textProg">textSphere</OBJECT3D>
 			</TRANSFORM>
 
-			<TRANSFORM id="transform5" translate="15.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<TRANSFORM id="transform5" translate="15.0,1.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Cube1" shader="textBlendingProg">textBlendingCube</OBJECT3D>
 			</TRANSFORM>			
 
-			<TRANSFORM id="transform6" translate="18.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+<!-- 			<TRANSFORM id="transform6" translate="18.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere5" shader="textDiffProg">textDiffSphere</OBJECT3D>				
 			</TRANSFORM>
 
 			<TRANSFORM id="transform7" translate="21.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere6" shader="textPhongProg">textPhongSphere</OBJECT3D>
-			</TRANSFORM>
+			</TRANSFORM> -->
 
 			<TRANSFORM id="transform8" translate="27.0,2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 				<OBJECT3D id="obj_Sphere7" shader="deformationProg">deformationSphere</OBJECT3D>
