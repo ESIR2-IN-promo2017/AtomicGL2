@@ -177,7 +177,9 @@ class atomicGL2Object3d{
             AGL.gl.blendFunc(AGL.gl.SRC_ALPHA, AGL.gl.ONE);
             AGL.gl.enable(AGL.gl.BLEND);
             AGL.gl.disable(AGL.gl.DEPTH_TEST);
-        } else {
+        } 
+
+        else {
             AGL.gl.disable(AGL.gl.BLEND);
             AGL.gl.enable(AGL.gl.DEPTH_TEST);
         }

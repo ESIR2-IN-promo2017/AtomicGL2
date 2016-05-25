@@ -134,16 +134,20 @@ constructor(nname,hheight,wwidth,xxrow,yyrow,uu,vv){
 		var b = RGB[2];
 
 		// switch face
-		switch(face){
+		switch(face)
+		{
 			case "All":
 				this.colorsArray = [] ;
-				for(var j=0;j<= this.yrow;j++){
-					for(var i=0;i<=this.xrow;i++){
+				for(var i=0;i<=this.yrow;i++)
+				{
+					for(var j=0;j<= this.xrow;j++)
+					{
 						this.colorsArray.push(r);
 						this.colorsArray.push(g);
 						this.colorsArray.push(b);
 					}
 				}
+
 			break;
 		}
 	};

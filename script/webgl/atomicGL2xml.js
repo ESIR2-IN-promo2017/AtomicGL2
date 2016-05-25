@@ -212,12 +212,12 @@ class atomicGL2xml {
 
 	// shapes
 	shapes(AGL){
-		var listSHAPE = this.dom.getElementsByTagName("SHAPE");
-	    var listSPHERE = this.dom.getElementsByTagName("SPHERE");
-	    var listCUBE = this.dom.getElementsByTagName("CUBE");
-	    var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
-        var listXYPLANE = this.dom.getElementsByTagName("XYPLANE");
-	    var listXZPLANE = this.dom.getElementsByTagName("XZPLANE");
+		var listSHAPE    = this.dom.getElementsByTagName("SHAPE");
+		var listSPHERE   = this.dom.getElementsByTagName("SPHERE");
+		var listCUBE     = this.dom.getElementsByTagName("CUBE");
+		var listCYLINDER = this.dom.getElementsByTagName("CYLINDER");
+		var listXYPLANE  = this.dom.getElementsByTagName("XYPLANE");
+		var listXZPLANE  = this.dom.getElementsByTagName("XZPLANE");
 
 	    for (var i=0; i < listSHAPE.length ; i++){
 	    	// SHAPE : Object3D
@@ -237,13 +237,11 @@ class atomicGL2xml {
 				continue;
 			}
 
-			try{
+			if(SHAPE.getAttribute("transparency") != null)
 				var transparency = !(("" + SHAPE.getAttribute("transparency")) == "false");
-			}
 
-			catch(e){
+			else
 				var transparency = false;
-			}
 
             var SHAPEMesh = SHAPE.childNodes[0].data ;
 
@@ -311,13 +309,11 @@ class atomicGL2xml {
 				}
 			}
 
-			try{
+			if(SPHERE.getAttribute("transparency") != null)
 				var transparency = !(("" + SPHERE.getAttribute("transparency")) == "false");
-			}
 
-			catch(e){
+			else
 				var transparency = false;
-			}
 
 			// create shape
 			var ss = new atomicGL2Sphere(SPHEREId, SPHERERad, SPHERELat, SPHERELong, u, v);
@@ -383,13 +379,11 @@ class atomicGL2xml {
 				}
 			}
 
-			try{
+			if(CUBE.getAttribute("transparency") != null)
 				var transparency = !(("" + CUBE.getAttribute("transparency")) == "false");
-			}
 
-			catch(e){
+			else
 				var transparency = false;
-			}
 
 
 			// create shape
@@ -457,13 +451,11 @@ class atomicGL2xml {
 				}
 			}
 
-			try{
+			if(CYLINDER.getAttribute("transparency") != null)
 				var transparency = !(("" + CYLINDER.getAttribute("transparency")) == "false");
-			}
 
-			catch(e){
+			else
 				var transparency = false;
-			}
 
 			// create shape
 			var ss = new atomicGL2Cylinder(CYLINDERId, CYLINDERRad, CYLINDERHeight, CYLINDERLat, CYLINDERLong, u, v);
@@ -529,8 +521,16 @@ class atomicGL2xml {
 					continue;
 				}
 			}
+
+			if(XZPLANE.getAttribute("transparency") != null)
+				var transparency = !(("" + XZPLANE.getAttribute("transparency")) == "false");
+
+			else
+				var transparency = false;
+
 			// create shape
 			var ss = new atomicGL2xzPlane(XZPLANEId, XZPLANEHeight, XZPLANEWidth, XZPLANEXRow, XZPLANEZRow, u, v);
+			ss.setTransparency(transparency);
 
 			if(colorParameters == "texture")
 			{
@@ -593,14 +593,11 @@ class atomicGL2xml {
 				}
 			}
 
-			try{
+			if(XYPLANE.getAttribute("transparency") != null)
 				var transparency = !(("" + XYPLANE.getAttribute("transparency")) == "false");
-			}
 
-			catch(e){
+			else
 				var transparency = false;
-			}
-
 
 			// create shape
 			var ss = new atomicGL2xyPlane(XYPLANEId, XYPLANEHeight, XYPLANEWidth, XYPLANEXRow, XYPLANEYRow, u, v);
