@@ -79,8 +79,6 @@ class atomicGL2Object3d{
 	//---------------------------
 	// inputs:	AGL: openGL context
 	initGLBuffers(AGL){
-		// debug
-		//console.log("atomicGLObject3d("+this.name+")::initGLBuffers");
 		var gl = AGL.gl;
 		// vertexPositionBuffer
 		this.vertexPositionBuffer	= gl.createBuffer();
@@ -127,8 +125,6 @@ class atomicGL2Object3d{
 	// 			idProg: Shader index - integer
 	//			shaderProgramName : Shader Name - string
 	draw(AGL,AMS,shaderProgramName){
-		// debug
-		//console.log("atomicGLObject3d("+this.name+")::draw(progId: "+idProg+")");
 		AGL.gl.useProgram(AGL.getShaderProgram(shaderProgramName).program);
 		
 		// setUniforms: matrices and lights
@@ -153,22 +149,14 @@ class atomicGL2Object3d{
 
 		// textures
 		if(this.textures.length>0){
-			// debug
-			// console.log("atomicGLObject3d("+this.name+")::vertexAttribPointer: "+AGL.getShaderProgram(shaderProgramName).texCoordAttribute);
 			AGL.gl.bindBuffer(AGL.gl.ARRAY_BUFFER, this.vertexTexCoordBuffer);
 			AGL.gl.vertexAttribPointer(AGL.getShaderProgram(shaderProgramName).getTextureCoord(), this.vertexTexCoordBufferItemSize, AGL.gl.FLOAT, false, 0, 0);		
 
 			for (var i=0; i<this.textures.length; i++ )
 			{
 				// activate texture
-				// debug
-				// console.log("atomicGLObject3d("+this.name+")::activateTexture: "+AGL.GLtexture[i]+"/"+AGL.gl.TEXTURE0);
 				AGL.gl.activeTexture(AGL.GLtexture[i]);
-				// debug
-				// console.log("atomicGLObject3d("+this.name+")::bindTexture: "+this.textures[i].texture);
 				AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, this.textures[i].texture);
-				// debug
-				// console.log("atomicGLObject3d("+this.name+")::uniform: "+AGL.getShaderProgram(shaderProgramName).samplerUniform[i]+"->"+i);			
 				AGL.gl.uniform1i(AGL.getShaderProgram(shaderProgramName).samplerUniform[i], i);
 			}
 		}

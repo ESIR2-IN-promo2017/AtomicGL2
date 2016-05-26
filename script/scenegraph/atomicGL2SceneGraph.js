@@ -43,6 +43,10 @@ class atomicGL2SceneGraph {
 				this.children.push(o);
 			break;
 
+			case "rttNode" :
+				this.children.push(o);
+			break;
+
 			default: console.log("atomicGL:atomicGLSceneGraph("+this.name+"/"+this.type+"):can not add child to "+this.type);
 		}
 	}
@@ -52,42 +56,6 @@ class atomicGL2SceneGraph {
 	// inputs: 	AGL - atomicGLContext
 	//			AMS - atomicGLMatrixStack
 	draw (AGL,AMS){}
-
-	// toDEBUG
-	// -------------------------
-	toDEBUG (){
-		console.log("atomicGLSceneGraph::");
-		this.toDEBUG2("--");
-	}
-
-	// toDEBUG(param)
-	// -------------------------
-	// inputs: p - string
-	toDEBUG2(p){
-		var s = p+this.name+"("+this.type+")";
-		console.log(s);
-		console.log(p+"----------------------------");
-
-		switch(this.type)
-		{
-			case "root":
-			break;
-
-			case "transform":
-				// type= transform - translation & rotation
-				console.log(p+ ">translate:["+this.translate[0]+","+this.translate[1]+","+this.translate[2]+"]");
-				console.log(p+ ">rotAxis:["+this.rotAxis[0]+","+this.rotAxis[1]+","+this.rotAxis[2]+"]");
-				console.log(p+ ">angle:"+this.rotation);
-				console.log(p+"----------------------------");
-			break;
-
-			case "object":
-			break;
-		}
-
-		for (var i=0;i<this.children.length;i++)
-			this.children[i].toDEBUG2(p+"--");
-	}
 
 	findNode(id){
 		if(this.name == id)

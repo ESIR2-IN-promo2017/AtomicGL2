@@ -37,6 +37,16 @@ class atomicGL2DynamicCamera extends atomicGL2Camera{
 	// --------------------------------------------------
 	// up/right/left/down
 	//---------------------------
+	rotationY(a) {
+		this.theta += this.rot*a;
+	}
+
+	rotationX(a){
+		var displaceY = this.phi + this.rot*a;
+		if((displaceY > -90) && (displaceY < 90))
+		this.phi = displaceY;
+	}
+
 	up(){
 		var displaceX = +this.walkStep*Math.sin(this.theta*3.14/180.0);
 		var displaceZ = -this.walkStep*Math.cos(this.theta*3.14/180.0);

@@ -94,8 +94,8 @@ class atomicGL2Sphere extends atomicGL2Object3d{
 				this.colorsArray.push(0.8);
 				this.colorsArray.push(0.8);
 				// uv
-				this.textureCoordsArray.push(this.scaleUV[0]*longNumber/this.longitudeBands);
-				this.textureCoordsArray.push(this.scaleUV[1]*latNumber/this.latitudeBands);
+				this.textureCoordsArray.push(this.scaleUV[0]-longNumber/this.longitudeBands);
+				this.textureCoordsArray.push(this.scaleUV[1]-latNumber/this.latitudeBands);
 			}
 		}
 

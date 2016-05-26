@@ -19,21 +19,6 @@ class atomicGL2Camera {
 		this.zc = position[2];
 	}
 
-	// methods
-	// --------------------------------------------------
-	// up/right/left/down
-	//---------------------------
-
-	rotationY(a) {
-		this.theta += this.rot*a;
-	}
-
-	rotationX(a){
-		var displaceY = this.phi + this.rot*a;
-		if((displaceY > -90) && (displaceY < 90))
-		this.phi = displaceY;
-	}
-
 	getType(){
 		return this.constructor;
 	}

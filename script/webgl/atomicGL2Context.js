@@ -23,7 +23,7 @@ class atomicGL2Context {
 		this.viewportHeight;
 
 		// Ambient lights
-		this.ambientLightColor;
+		this.backgroundColor;
 
 		// GLtexture
 		this.GLtexture      = [];
@@ -45,6 +45,10 @@ class atomicGL2Context {
 
 		// scene graph
 		this.scenegraph     = null;
+
+
+		this.rttFramebuffer = null;
+		this.rttTexture		= null;
 	}
 
 	// methods
@@ -74,6 +78,8 @@ class atomicGL2Context {
 		{
 			// GL context initialised -> first init (background color, DEPTH_TEST)
 			this.gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
+			this.backgroundColor = backgroundColor;
+
 			this.gl.enable(this.gl.DEPTH_TEST);
 			this.gl.depthFunc(this.gl.LESS);
 			this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
@@ -98,6 +104,33 @@ class atomicGL2Context {
 		this.gl.viewport(0, 0, this.viewportWidth, this.viewportHeight);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
+
+
+    initTextureFramebuffer() {
+        this.rttFramebuffer = this.gl.createFramebuffer();
+        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.rttFramebuffer);
+        this.rttFramebuffer.width = 512;
+        this.rttFramebuffer.height = 512;
+
+        this.rttTexture = this.gl.createTexture();
+        this.gl.bindTexture(this.gl.TEXTURE_2D, this.rttTexture);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR_MIPMAP_NEAREST);
+        this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, 512, 512, 0, this.gl.RGBA, this.gl.UNSIGNED_BYTE, null);
+        this.gl.generateMipmap(this.gl.TEXTURE_2D);
+
+
+        var renderbuffer = this.gl.createRenderbuffer();
+        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, renderbuffer);
+        this.gl.renderbufferStorage(this.gl.RENDERBUFFER, this.gl.DEPTH_COMPONENT16, 512, 512);
+
+        this.gl.framebufferTexture2D(this.gl.FRAMEBUFFER, this.gl.COLOR_ATTACHMENT0, this.gl.TEXTURE_2D, this.rttTexture, 0);
+        this.gl.framebufferRenderbuffer(this.gl.FRAMEBUFFER, this.gl.DEPTH_ATTACHMENT, this.gl.RENDERBUFFER, renderbuffer);
+
+        this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+        this.gl.bindRenderbuffer(this.gl.RENDERBUFFER, null);
+        this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
+    }
 
 	// pushLight(light)
 	// ---------------------------

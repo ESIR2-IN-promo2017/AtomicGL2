@@ -56,7 +56,6 @@ class atomicGL2Texture{
 	// o: 	this - atomicGLtexture
 	//---------------------------
 	handleIMG(){
-		var o = this;
 		// debug
 		//console.log("atomicGLTexture::onload("+this.file+")");
 

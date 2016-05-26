@@ -27,7 +27,6 @@ var second = 0.0;
 
 // DRAW
 function sceneDraw() {
-	AGL.initDraw();
 	AGL.scenegraph.draw(AGL,AMS);
 }
 
@@ -47,8 +46,8 @@ function animate() {
 	// increase time
 	sceneClock.tick();
 
-	var transformSphere = AGL.scenegraph.findNode("rotate_PointLight0");
-	transformSphere.angle += 0.2*sceneClock.get();
+	var rttRotation = AGL.scenegraph.findNode("rttRotation");
+	rttRotation.angle += 0.1*sceneClock.get();
 
 	// temp += 1*sceneClock.get();
 	// if(temp%2.0 == 0)
@@ -96,7 +95,7 @@ function handleKeys() {
 	// CAMERA MODE :
 	// -DYNAMIC
 	// -STATIC
-	if(AGL.scenegraph.camera.getType() == atomicGL2DynamicCamera)
+	if(AGL.scenegraph.camera.getType() != atomicGL2StaticCamera)
 	{
 		// FREE MODE
 		if(AGL.scenegraph.camera.isFreeCam)
@@ -148,8 +147,11 @@ function handleKeys() {
 function canvasDraw(AGL, canvas) {
 	if(mouseX != undefined && mouseY != undefined)
 	{
-		AGL.scenegraph.camera.rotationY(mouseX);
-		AGL.scenegraph.camera.rotationX(mouseY);
+		if(AGL.scenegraph.camera.getType() != atomicGL2StaticCamera)
+		{
+			AGL.scenegraph.camera.rotationY(mouseX);
+			AGL.scenegraph.camera.rotationX(mouseY);		
+		}
 
 		mouseY = 0;
 		mouseX = 0;
@@ -176,8 +178,9 @@ function webGLStart()
 	// init OpenGL context
 	// canvas, background color
 	AGL.initGL(canvas,[0.0,0.0,0.0]);
+	AGL.initTextureFramebuffer();
 	AGL.gl.getExtension('OES_standard_derivatives');
-	// scenegraph creation from xml file
+	// scenegraph creation from xml file 	
 	var scene = document.getElementById('scene').innerHTML;
 	var sgxml = new atomicGL2xml(AGL,'scenes/'+scene+'.xml');
 
