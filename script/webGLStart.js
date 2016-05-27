@@ -49,6 +49,9 @@ function animate() {
 	var rttRotation = AGL.scenegraph.findNode("rttRotation");
 	rttRotation.angle += 0.1*sceneClock.get();
 
+	var rttPlan = AGL.scenegraph.findNode("transformPlan");
+	rttPlan.angle -= 0.1*sceneClock.get();
+
 	// temp += 1*sceneClock.get();
 	// if(temp%2.0 == 0)
 	// 	scaleDisplacement +=0.1;

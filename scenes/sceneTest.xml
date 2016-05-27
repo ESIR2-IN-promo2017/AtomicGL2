@@ -8,6 +8,7 @@
 	<SHADERS>
 		<XMATSHADER id="colorProg">colorProg.xml</XMATSHADER>
 		<XMATSHADER id="textProg">textProg.xml</XMATSHADER>
+		<!-- <XMATSHADER id="deformationProg">deformationProg.xml</XMATSHADER> -->
 	</SHADERS>
 
 	<TEXTURES>
@@ -18,7 +19,7 @@
 		<XZPLANE id="NavMesh" height="100" width="100" xrow="10" zrow="10" color="1.0,0.0,0.0"></XZPLANE>
 		<XYPLANE id="Wall"  height="5" width="5" xrow="10" yrow="10" tex="rttTexture" uv="1.0,1.0"></XYPLANE>
 		<CUBE 	 id="rttCube" 	height="2.0" width="2.0" depth="2.0" tex="crate" uv="1.0,1.0"></CUBE>
-		<!-- <SPHERE id="cubeSphere" rad="1.0" lat="32" long="32" color="0.0,0.0,1.0"></SPHERE> -->
+		<SPHERE id="cubeSphere" rad="1.0" lat="64" long="64" tex="rttTexture" uv="1.0,1.0"></SPHERE>
 	</SHAPES>
 
 	<!-- <ROOT camera="staticCamera"> -->
@@ -27,18 +28,20 @@
 
 		<!-- <OBJECT3D id="obj_NavMesh" shader="colorProg">NavMesh</OBJECT3D> -->
 
-		<TRANSFORM id="transform" translate="0.0,0.0,0.0" rotaxis="0.0,0.0,0.0" angle="0.0">
-			<!-- <TRANSFORM id="transform" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="-85.0"> -->
+		<TRANSFORM id="transform" translate="-3.0,0.0,10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+			<TRANSFORM id="transformPlan" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="-85.0">
 				<RTT id="rttTest" shader="textProg" shape="Wall">
 					<RTTROOT camera="staticCamera">
-						<TRANSFORM id="rttTranslation" translate="-2.0,-2.0,-10.0" rotaxis="0.0,0.0,0.0" angle="0.0">
+						<TRANSFORM id="rttTranslation" translate="-6.0,-5.0,-20.0" rotaxis="0.0,0.0,0.0" angle="0.0">
 							<TRANSFORM id="rttRotation" translate="0.0,0.0,0.0" rotaxis="0.0,1.0,0.0" angle="0.0">
 								<OBJECT3D id="testRttSphere" shader="textProg">rttCube</OBJECT3D>
 							</TRANSFORM>
 						</TRANSFORM>
 					</RTTROOT>
 				</RTT>
-			<!-- </TRANSFORM> -->
+			</TRANSFORM>
+
+			<!-- <OBJECT3D id="obj_sphere" shader="deformationProg">cubeSphere</OBJECT3D> -->
 		</TRANSFORM>
 	</ROOT>
 </SCENE>
