@@ -4,27 +4,11 @@
 // atomicGL2SGobject3d extends atomicGL2SceneGraph
 //----------------------------------------------------------------------------------------
 class atomicGL2SGrttNode extends atomicGL2SceneGraph {
-	constructor(name){
+	constructor(name,camera,shape,shaderId){
 		super("rttNode", name);
-		// attributes
-		// type = object3D - object3D & shaderId
-		this.object3D = null;
-		//this.shaderId = -1;
-		this.shaderId = ""; // also used for skybox
-		// debug
-		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::constructor ->"+this.type+" - "+this.name);
-
-	}
-	// setObject3D
-	// -------------------------
-	// inputs: 	o - atomicGLObj
-	//			sid - shader id
-	setObject3D (o,sid){
-		// debug
-		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::setObject3D ->"+this.type+" - "+this.name);
-
-		this.object3D = o;
-		this.shaderId = sid;
+		this.camera = camera;
+		this.object3D = shape;
+		this.shaderId = shaderId;
 	}
 
 	// draw
@@ -32,10 +16,7 @@ class atomicGL2SGrttNode extends atomicGL2SceneGraph {
 	// inputs: 	AGL - atomicGLContext
 	//			AMS - atomicGLMatrixStack
 	draw (AGL,AMS){
-		// debug
-		//console.log("atomicGL2SGobject3d extends atomicGL2SceneGraph::draw ->"+this.type+" - "+this.name);
-	
-        //Change buffer
+		//Change buffer
 		AGL.gl.bindFramebuffer(AGL.gl.FRAMEBUFFER, AGL.rttFramebuffer);
 		AGL.gl.framebufferTexture2D(AGL.gl.FRAMEBUFFER, AGL.gl.COLOR_ATTACHMENT0, AGL.gl.TEXTURE_2D, AGL.rttTexture, 0);
 		
@@ -43,12 +24,22 @@ class atomicGL2SGrttNode extends atomicGL2SceneGraph {
 		AGL.gl.clearColor(1.0, 1.0, 1.0, 1.0);	
 
 		var rttAMS = new atomicGL2MatrixStack();
-  		mat4.perspective(45, 1.0, 0.1, 1000.0, rttAMS.pMatrix);
-  		mat4.identity(rttAMS.mvMatrix);
+		mat4.perspective(45, 1.0, 0.1, 1000.0, rttAMS.pMatrix);
+		mat4.identity(rttAMS.mvMatrix);
+		rttAMS.mvRotate(this.camera.phi,[1,0,0]);
+		rttAMS.mvRotate(this.camera.theta,[0,1,0]);
+		rttAMS.mvTranslate(-this.camera.xc,-this.camera.yc,-this.camera.zc);
 
-		// children
-		for (var i=0; i<this.children.length; i++)
-			this.children[i].draw(AGL,rttAMS);
+		// initDraw
+		AGL.initDraw();
+
+		// push matrix
+		rttAMS.mvPushMatrix();
+			// children
+			for (var i=0; i<this.children.length; i++)
+				this.children[i].draw(AGL,rttAMS);
+		rttAMS.mvPopMatrix();
+
 
 		// //Texture creation
 		AGL.gl.bindTexture(AGL.gl.TEXTURE_2D, AGL.rttTexture);

@@ -703,50 +703,6 @@ class atomicGL2xml {
 				AGL.scenegraph = node;
 			break;
 
-			case "RTTROOT":
-				// skybox
-				var skyBox        = null;
-				var skyBoxTexture = e.getAttribute("skyboxtexture");
-				var skyBoxShader  = e.getAttribute("skyshader");
-				var skyBoxSize    = e.getAttribute("skysize")
-
-				if((skyBoxTexture!=null) && (skyBoxShader!=null) && (skyBoxSize!=null))
-				{
-					skyBox = new atomicGLSkyBox('skybox',parseFloat(e.getAttribute("skysize")));
-					skyBox.pushTexture(AGL.textures[AGL.indexOfTexture(skyBoxTexture)]);
-					skyBox.initGLBuffers(AGL);
-				}
-
-				// camera
-				var camId = e.getAttribute("camera");
-				var camera = null;
-				switch (camId)
-				{
-					case "staticCamera" :
-						camera = new atomicGL2StaticCamera();
-						break;
-
-					case "eyeCamera" :
-						camera = new atomicGL2EyeCamera();
-						break;
-
-					case "dynamicCamera":
-						camera = new atomicGL2DynamicCamera(AGL.shapes[AGL.indexOfShape(e.getAttribute("navmesh"))]);
-						break;
-
-				}
-
-				// JS6
-				node = new atomicGL2SGroot("root",e.getAttribute("id"));
-
-				if(skyBox != null)
-					node.setRootElt(camera,skyBox,e.getAttribute("skyshader"));
-				else
-					node.setRootElt(camera);
-
-				s.addChild(node);
-			break;
-
 			case "TRANSFORM":
 				// transform
 
@@ -804,13 +760,13 @@ class atomicGL2xml {
 			break;
 
 			case "RTT":
-				var id       = e.getAttribute("id");
+				var id  = e.getAttribute("id");
+				var camera = new atomicGL2StaticCamera();
+				var shape    = AGL.shapes[AGL.indexOfShape(e.getAttribute("shape"))];
 				var shaderId = e.getAttribute("shader");
-				var shapeId  = e.getAttribute("shape");
 
-				node = new atomicGL2SGrttNode(id);
-				node.setObject3D(AGL.shapes[AGL.indexOfShape(shapeId)],shaderId);
-				s.addChild(node);		
+				node = new atomicGL2SGrttNode(id,camera,shape,shaderId);
+				s.addChild(node);	
 			break;
 		}
 		// children
